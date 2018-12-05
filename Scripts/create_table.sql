@@ -1,227 +1,280 @@
--- ������
+-- 도서관
 DROP SCHEMA IF EXISTS proj_library;
 
--- ������
+-- 도서관
 CREATE SCHEMA proj_library;
 
--- å
+-- 책
 CREATE TABLE proj_library.Book (
-	book_code    CHAR    NOT NULL COMMENT '�з���ȣ+�ѹ���+�ߺ��Ǽ�', -- ������ȣ
-	book_no      int     NOT NULL COMMENT '�Ϸù�ȣ', -- �Ϸù�ȣ
-	title        CHAR    NULL     COMMENT '������', -- ǥ��
-	writter      CHAR    NULL     COMMENT '�۰�', -- ����
-	translator   CHAR    NULL     COMMENT '����', -- ����
-	priece       INT     NULL     COMMENT '��������', -- ����
-	publisher    CHAR    NULL     COMMENT '���ǻ�', -- ���ǻ�
-	rentable     BOOLEAN NOT NULL COMMENT '�뿩 ���� ����', -- �뿩���ɿ���
-	image        CHAR    NULL     COMMENT '���� ����', -- �̹���
-	categoryno_s CHAR    NULL     COMMENT '�Һз�', -- �Һз�
-	categoryno_m CHAR    NULL     COMMENT '�ߺз�', -- �ߺз�
-	categoryno_b CHAR    NULL     COMMENT '��з�' -- ��з�
+	book_code    CHAR               NOT NULL COMMENT '분류번호+넘버링+중복권수', -- 도서번호
+	book_no      int                NOT NULL COMMENT '일련번호', -- 일련번호
+	publisher_no <데이터 타입 없음> NULL     COMMENT '출판사번호', -- 출판사번호
+	writter      CHAR               NULL     COMMENT '저자', -- 저자
+	translator   CHAR               NULL     COMMENT '역자', -- 역자
+	title        CHAR               NULL     COMMENT '도서명', -- 표제
+	priece       INT                NULL     COMMENT '도서가격', -- 가격
+	rentable     BOOLEAN            NOT NULL COMMENT '대여 가능 여부', -- 대여가능여부
+	image        CHAR               NULL     COMMENT '도서 사진', -- 이미지
+	categoryno_s CHAR               NULL     COMMENT '소분류', -- 소분류
+	categoryno_m CHAR               NULL     COMMENT '중분류', -- 중분류
+	categoryno_b CHAR               NULL     COMMENT '대분류' -- 대분류
 )
-COMMENT 'å';
+COMMENT '책';
 
--- å
+-- 책
 ALTER TABLE proj_library.Book
-	ADD CONSTRAINT PK_Book -- å �⺻Ű
+	ADD CONSTRAINT PK_Book -- 책 기본키
 		PRIMARY KEY (
-			book_code -- ������ȣ
+			book_code -- 도서번호
 		);
 
--- ȸ��
+-- 회원
 CREATE TABLE proj_library.member (
-	member_no CHAR        NOT NULL COMMENT 'ȸ����ȣ', -- ȸ����ȣ
-	password  VARCHAR(14) NOT NULL COMMENT '��й�ȣ', -- ��й�ȣ
-	kor_name  char        NOT NULL COMMENT '�ѱ��̸�', -- �ѱ��̸�
-	eng_name  char        NOT NULL COMMENT '�����̸�', -- �����̸�
-	phone     CHAR        NOT NULL COMMENT '��ȭ��ȣ', -- ��ȭ��ȣ
-	jumin     CHAR        NOT NULL COMMENT '�ֹε�Ϲ�ȣ', -- �ֹε�Ϲ�ȣ
-	email     CHAR        NOT NULL COMMENT '�̸���', -- �̸���
-	address   CHAR        NOT NULL COMMENT '�ּ�', -- �ּ�
-	photo     CHAR        NULL     COMMENT '����', -- ����
-	admin     BOOLEAN     NOT NULL COMMENT '������', -- ������
-	memo      CHAR        NULL     COMMENT '�޸�' -- �޸�
+	member_no CHAR        NOT NULL COMMENT '회원번호', -- 회원번호
+	password  VARCHAR(14) NOT NULL COMMENT '비밀번호', -- 비밀번호
+	kor_name  char        NOT NULL COMMENT '한글이름', -- 한글이름
+	eng_name  char        NOT NULL COMMENT '영어이름', -- 영어이름
+	phone     CHAR        NOT NULL COMMENT '전화번호', -- 전화번호
+	jumin     CHAR        NOT NULL COMMENT '주민등록번호', -- 주민등록번호
+	email     CHAR        NOT NULL COMMENT '이메일', -- 이메일
+	address   CHAR        NOT NULL COMMENT '주소', -- 주소
+	photo     CHAR        NULL     COMMENT '사진', -- 사진
+	admin     BOOLEAN     NOT NULL COMMENT '관리자', -- 관리자
+	memo      CHAR        NULL     COMMENT '메모' -- 메모
 )
-COMMENT 'ȸ��';
+COMMENT '회원';
 
--- ȸ��
+-- 회원
 ALTER TABLE proj_library.member
-	ADD CONSTRAINT PK_member -- ȸ�� �⺻Ű
+	ADD CONSTRAINT PK_member -- 회원 기본키
 		PRIMARY KEY (
-			member_no -- ȸ����ȣ
+			member_no -- 회원번호
 		);
 
--- �����뿩����
+-- 도서대여정보
 CREATE TABLE proj_library.book_rent_info (
-	rentno     int  NOT NULL COMMENT '�뿩��ȣ', -- �뿩��ȣ
-	member_no  CHAR NOT NULL COMMENT 'ȸ����ȣ', -- ȸ����ȣ
-	rentdate   DATE NULL     COMMENT '�뿩����', -- �뿩����
-	returndate DATE NULL     COMMENT '�ݳ�����', -- �ݳ�����
-	book_code  CHAR NULL     COMMENT '������ȣ' -- ������ȣ
+	rentno         int  NOT NULL COMMENT '대여번호', -- 대여번호
+	member_no      CHAR NOT NULL COMMENT '회원번호', -- 회원번호
+	rentdate       DATE NULL     COMMENT '대여일자', -- 대여일자
+	returndate     DATE NULL     COMMENT '반납일자', -- 반납일자
+	returnschedule DATE NULL     COMMENT '반납예정일', -- 반납예정일
+	book_code      CHAR NULL     COMMENT '도서번호' -- 도서번호
 )
-COMMENT '�����뿩����';
+COMMENT '도서대여정보';
 
--- �����뿩����
+-- 도서대여정보
 ALTER TABLE proj_library.book_rent_info
-	ADD CONSTRAINT PK_book_rent_info -- �����뿩���� �⺻Ű
+	ADD CONSTRAINT PK_book_rent_info -- 도서대여정보 기본키
 		PRIMARY KEY (
-			rentno -- �뿩��ȣ
+			rentno -- 대여번호
 		);
 
--- ��ü����
+-- 연체정보
 CREATE TABLE proj_library.overdue (
-	member_no    CHAR    NOT NULL COMMENT 'ȸ����ȣ', -- ȸ����ȣ
-	blacklist    BOOLEAN NULL     COMMENT '��������Ʈ', -- ��������Ʈ
-	stopdate     int     NULL     COMMENT '���������', -- ���������
-	overduecount int     NULL     COMMENT '��üȽ��' -- ��üȽ��
+	member_no    CHAR    NOT NULL COMMENT '회원번호', -- 회원번호
+	blacklist    BOOLEAN NULL     COMMENT '블랙리스트', -- 블랙리스트
+	stopdate     int     NULL     COMMENT '사용정지일', -- 사용정지일
+	overduecount int     NULL     COMMENT '연체횟수' -- 연체횟수
 )
-COMMENT '��ü����';
+COMMENT '연체정보';
 
--- ��ü����
+-- 연체정보
 ALTER TABLE proj_library.overdue
-	ADD CONSTRAINT PK_overdue -- ��ü���� �⺻Ű
+	ADD CONSTRAINT PK_overdue -- 연체정보 기본키
 		PRIMARY KEY (
-			member_no -- ȸ����ȣ
+			member_no -- 회원번호
 		);
 
--- �Һз�
+-- 소분류
 CREATE TABLE proj_library.category_s (
-	categoryno_s CHAR NOT NULL COMMENT '�Һз�', -- �Һз�
-	categoryno_m CHAR NOT NULL COMMENT '�ߺз�', -- �ߺз�
-	categoryno_b CHAR NOT NULL COMMENT '��з�', -- ��з�
-	thema_s      CHAR NOT NULL COMMENT '�帣' -- �帣
+	categoryno_s CHAR NOT NULL COMMENT '소분류', -- 소분류
+	categoryno_m CHAR NOT NULL COMMENT '중분류', -- 중분류
+	categoryno_b CHAR NOT NULL COMMENT '대분류', -- 대분류
+	thema_s      CHAR NOT NULL COMMENT '장르' -- 장르
 )
-COMMENT '�Һз�';
+COMMENT '소분류';
 
--- �Һз�
+-- 소분류
 ALTER TABLE proj_library.category_s
-	ADD CONSTRAINT PK_category_s -- �Һз� �⺻Ű
+	ADD CONSTRAINT PK_category_s -- 소분류 기본키
 		PRIMARY KEY (
-			categoryno_s, -- �Һз�
-			categoryno_m, -- �ߺз�
-			categoryno_b  -- ��з�
+			categoryno_s, -- 소분류
+			categoryno_m, -- 중분류
+			categoryno_b  -- 대분류
 		);
 
--- ȸ���뿩����
+-- 회원대여정보
 CREATE TABLE proj_library.member_rent_info (
-	member_no CHAR   NOT NULL COMMENT 'ȸ����ȣ', -- ȸ����ȣ
-	now_total INT(1) NULL     COMMENT '�뿩�߰���', -- �뿩�߰���
-	total     INT    NULL     COMMENT '�Ѵ뿩����', -- �Ѵ뿩����
-	grade     INT(1) NULL     COMMENT '���' -- ���
+	member_no CHAR   NOT NULL COMMENT '회원번호', -- 회원번호
+	now_total INT(1) NULL     COMMENT '대여중갯수', -- 대여중갯수
+	total     INT    NULL     COMMENT '총대여갯수', -- 총대여갯수
+	grade     INT(1) NULL     COMMENT '등급' -- 등급
 )
-COMMENT 'ȸ���뿩����';
+COMMENT '회원대여정보';
 
--- ȸ���뿩����
+-- 회원대여정보
 ALTER TABLE proj_library.member_rent_info
-	ADD CONSTRAINT PK_member_rent_info -- ȸ���뿩���� �⺻Ű
+	ADD CONSTRAINT PK_member_rent_info -- 회원대여정보 기본키
 		PRIMARY KEY (
-			member_no -- ȸ����ȣ
+			member_no -- 회원번호
 		);
 
--- �ߺз�
+-- 중분류
 CREATE TABLE proj_library.category_m (
-	categoryno_m CHAR NOT NULL COMMENT '�ߺз�', -- �ߺз�
-	categoryno_b CHAR NOT NULL COMMENT '��з�', -- ��з�
-	thema_m      CHAR NOT NULL COMMENT '�帣' -- �帣
+	categoryno_m CHAR NOT NULL COMMENT '중분류', -- 중분류
+	categoryno_b CHAR NOT NULL COMMENT '대분류', -- 대분류
+	thema_m      CHAR NOT NULL COMMENT '장르' -- 장르
 )
-COMMENT '�ߺз�';
+COMMENT '중분류';
 
--- �ߺз�
+-- 중분류
 ALTER TABLE proj_library.category_m
-	ADD CONSTRAINT PK_category_m -- �ߺз� �⺻Ű
+	ADD CONSTRAINT PK_category_m -- 중분류 기본키
 		PRIMARY KEY (
-			categoryno_m, -- �ߺз�
-			categoryno_b  -- ��з�
+			categoryno_m, -- 중분류
+			categoryno_b  -- 대분류
 		);
 
--- ��з�
+-- 대분류
 CREATE TABLE proj_library.category_b (
-	categoryno_b CHAR NOT NULL COMMENT '��з�', -- ��з�
-	thema_b      CHAR NOT NULL COMMENT '�帣' -- �帣
+	categoryno_b CHAR NOT NULL COMMENT '대분류', -- 대분류
+	thema_b      CHAR NOT NULL COMMENT '장르' -- 장르
 )
-COMMENT '��з�';
+COMMENT '대분류';
 
--- ��з�
+-- 대분류
 ALTER TABLE proj_library.category_b
-	ADD CONSTRAINT PK_category_b -- ��з� �⺻Ű
+	ADD CONSTRAINT PK_category_b -- 대분류 기본키
 		PRIMARY KEY (
-			categoryno_b -- ��з�
+			categoryno_b -- 대분류
 		);
 
--- å
+-- 출판사
+CREATE TABLE proj_library.TABLE (
+	publisher_no <데이터 타입 없음> NOT NULL COMMENT '출판사번호', -- 출판사번호
+	name         <데이터 타입 없음> NULL     COMMENT '출판사명' -- 출판사명
+)
+COMMENT '출판사';
+
+-- 출판사
+ALTER TABLE proj_library.TABLE
+	ADD CONSTRAINT PK_TABLE -- 출판사 기본키
+		PRIMARY KEY (
+			publisher_no -- 출판사번호
+		);
+
+-- 저자
+CREATE TABLE proj_library.TABLE2 (
+	writter_no <데이터 타입 없음> NOT NULL COMMENT '저자번호', -- 저자번호
+	name       <데이터 타입 없음> NULL     COMMENT '저자명' -- 저자명
+)
+COMMENT '저자';
+
+-- 저자
+ALTER TABLE proj_library.TABLE2
+	ADD CONSTRAINT PK_TABLE2 -- 저자 기본키
+		PRIMARY KEY (
+			writter_no -- 저자번호
+		);
+
+-- 역자
+CREATE TABLE proj_library.TABLE3 (
+	translator_no <데이터 타입 없음> NOT NULL COMMENT '역자번호', -- 역자번호
+	name          <데이터 타입 없음> NULL     COMMENT '역자명' -- 역자명
+)
+COMMENT '역자';
+
+-- 역자
+ALTER TABLE proj_library.TABLE3
+	ADD CONSTRAINT PK_TABLE3 -- 역자 기본키
+		PRIMARY KEY (
+			translator_no -- 역자번호
+		);
+
+-- 책
 ALTER TABLE proj_library.Book
-	ADD CONSTRAINT FK_category_s_TO_Book -- �Һз� -> å
+	ADD CONSTRAINT FK_category_s_TO_Book -- 소분류 -> 책
 		FOREIGN KEY (
-			categoryno_s, -- �Һз�
-			categoryno_m, -- �ߺз�
-			categoryno_b  -- ��з�
+			categoryno_s, -- 소분류
+			categoryno_m, -- 중분류
+			categoryno_b  -- 대분류
 		)
-		REFERENCES proj_library.category_s ( -- �Һз�
-			categoryno_s, -- �Һз�
-			categoryno_m, -- �ߺз�
-			categoryno_b  -- ��з�
+		REFERENCES proj_library.category_s ( -- 소분류
+			categoryno_s, -- 소분류
+			categoryno_m, -- 중분류
+			categoryno_b  -- 대분류
 		);
 
--- �����뿩����
+-- 책
+ALTER TABLE proj_library.Book
+	ADD CONSTRAINT FK_TABLE_TO_Book -- 출판사 -> 책
+		FOREIGN KEY (
+			publisher_no -- 출판사번호
+		)
+		REFERENCES proj_library.TABLE ( -- 출판사
+			publisher_no -- 출판사번호
+		);
+
+-- 도서대여정보
 ALTER TABLE proj_library.book_rent_info
-	ADD CONSTRAINT FK_member_TO_book_rent_info -- ȸ�� -> �����뿩����
+	ADD CONSTRAINT FK_member_TO_book_rent_info -- 회원 -> 도서대여정보
 		FOREIGN KEY (
-			member_no -- ȸ����ȣ
+			member_no -- 회원번호
 		)
-		REFERENCES proj_library.member ( -- ȸ��
-			member_no -- ȸ����ȣ
+		REFERENCES proj_library.member ( -- 회원
+			member_no -- 회원번호
 		);
 
--- �����뿩����
+-- 도서대여정보
 ALTER TABLE proj_library.book_rent_info
-	ADD CONSTRAINT FK_Book_TO_book_rent_info -- å -> �����뿩����
+	ADD CONSTRAINT FK_Book_TO_book_rent_info -- 책 -> 도서대여정보
 		FOREIGN KEY (
-			book_code -- ������ȣ
+			book_code -- 도서번호
 		)
-		REFERENCES proj_library.Book ( -- å
-			book_code -- ������ȣ
+		REFERENCES proj_library.Book ( -- 책
+			book_code -- 도서번호
 		);
 
--- ��ü����
+-- 연체정보
 ALTER TABLE proj_library.overdue
-	ADD CONSTRAINT FK_member_TO_overdue -- ȸ�� -> ��ü����
+	ADD CONSTRAINT FK_member_TO_overdue -- 회원 -> 연체정보
 		FOREIGN KEY (
-			member_no -- ȸ����ȣ
+			member_no -- 회원번호
 		)
-		REFERENCES proj_library.member ( -- ȸ��
-			member_no -- ȸ����ȣ
+		REFERENCES proj_library.member ( -- 회원
+			member_no -- 회원번호
 		);
 
--- �Һз�
+-- 소분류
 ALTER TABLE proj_library.category_s
-	ADD CONSTRAINT FK_category_m_TO_category_s -- �ߺз� -> �Һз�
+	ADD CONSTRAINT FK_category_m_TO_category_s -- 중분류 -> 소분류
 		FOREIGN KEY (
-			categoryno_m, -- �ߺз�
-			categoryno_b  -- ��з�
+			categoryno_m, -- 중분류
+			categoryno_b  -- 대분류
 		)
-		REFERENCES proj_library.category_m ( -- �ߺз�
-			categoryno_m, -- �ߺз�
-			categoryno_b  -- ��з�
+		REFERENCES proj_library.category_m ( -- 중분류
+			categoryno_m, -- 중분류
+			categoryno_b  -- 대분류
 		);
 
--- ȸ���뿩����
+-- 회원대여정보
 ALTER TABLE proj_library.member_rent_info
-	ADD CONSTRAINT FK_member_TO_member_rent_info -- ȸ�� -> ȸ���뿩����
+	ADD CONSTRAINT FK_member_TO_member_rent_info -- 회원 -> 회원대여정보
 		FOREIGN KEY (
-			member_no -- ȸ����ȣ
+			member_no -- 회원번호
 		)
-		REFERENCES proj_library.member ( -- ȸ��
-			member_no -- ȸ����ȣ
+		REFERENCES proj_library.member ( -- 회원
+			member_no -- 회원번호
 		);
 
--- �ߺз�
+-- 중분류
 ALTER TABLE proj_library.category_m
-	ADD CONSTRAINT FK_category_b_TO_category_m -- ��з� -> �ߺз�
+	ADD CONSTRAINT FK_category_b_TO_category_m -- 대분류 -> 중분류
 		FOREIGN KEY (
-			categoryno_b -- ��з�
+			categoryno_b -- 대분류
 		)
-		REFERENCES proj_library.category_b ( -- ��з�
-			categoryno_b -- ��з�
+		REFERENCES proj_library.category_b ( -- 대분류
+			categoryno_b -- 대분류
 		);
 		
 CREATE USER 'user_library'@'%';
