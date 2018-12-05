@@ -16,5 +16,4 @@ public class MyBatisSqlSessionFactoryTest extends AbstractTest{
 		log.debug("session " + session);
 		Assert.assertNotNull(session);
 	}
-
 }
