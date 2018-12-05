@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="application.properties" />
+
+	<typeAliases>
+		<package name="kr.or.yi.mybatis_dev_teacher.dto"/>
+	</typeAliases>
+	
+	<typeHandlers>
+		<typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="Gender"/>
+		<package name="kr.or.yi.mybatis_dev_teacher.typehandlers"/>
+	</typeHandlers>
+
+	<environments default="development2">
+
+		<environment id="development1">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+
+		<environment id="development2">
+			<transactionManager type="JDBC" />
+			<dataSource
+				type="kr.or.yi.mybatis_dev_teacher.jdbc.C3P0DataSourceFactory">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<package name="kr.or.yi.mybatis_dev_teacher.dao"/>
+	</mappers>
+</configuration>
