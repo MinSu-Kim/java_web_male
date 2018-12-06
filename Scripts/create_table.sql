@@ -8,7 +8,7 @@ CREATE SCHEMA proj_library;
 CREATE TABLE proj_library.Book (
 	book_code    CHAR               NOT NULL COMMENT '분류번호+넘버링+중복권수', -- 도서번호
 	book_no      int                NOT NULL COMMENT '일련번호', -- 일련번호
-	publisher_no <데이터 타입 없음> NULL     COMMENT '출판사번호', -- 출판사번호
+	publisher_no INT NULL     COMMENT '출판사번호', -- 출판사번호
 	writter      CHAR               NULL     COMMENT '저자', -- 저자
 	translator   CHAR               NULL     COMMENT '역자', -- 역자
 	title        CHAR               NULL     COMMENT '도서명', -- 표제
@@ -151,8 +151,8 @@ ALTER TABLE proj_library.category_b
 
 -- 출판사
 CREATE TABLE proj_library.TABLE (
-	publisher_no <데이터 타입 없음> NOT NULL COMMENT '출판사번호', -- 출판사번호
-	name         <데이터 타입 없음> NULL     COMMENT '출판사명' -- 출판사명
+	publisher_no INT NOT NULL COMMENT '출판사번호', -- 출판사번호
+	name         INT NULL     COMMENT '출판사명' -- 출판사명
 )
 COMMENT '출판사';
 
@@ -161,34 +161,6 @@ ALTER TABLE proj_library.TABLE
 	ADD CONSTRAINT PK_TABLE -- 출판사 기본키
 		PRIMARY KEY (
 			publisher_no -- 출판사번호
-		);
-
--- 저자
-CREATE TABLE proj_library.TABLE2 (
-	writter_no <데이터 타입 없음> NOT NULL COMMENT '저자번호', -- 저자번호
-	name       <데이터 타입 없음> NULL     COMMENT '저자명' -- 저자명
-)
-COMMENT '저자';
-
--- 저자
-ALTER TABLE proj_library.TABLE2
-	ADD CONSTRAINT PK_TABLE2 -- 저자 기본키
-		PRIMARY KEY (
-			writter_no -- 저자번호
-		);
-
--- 역자
-CREATE TABLE proj_library.TABLE3 (
-	translator_no <데이터 타입 없음> NOT NULL COMMENT '역자번호', -- 역자번호
-	name          <데이터 타입 없음> NULL     COMMENT '역자명' -- 역자명
-)
-COMMENT '역자';
-
--- 역자
-ALTER TABLE proj_library.TABLE3
-	ADD CONSTRAINT PK_TABLE3 -- 역자 기본키
-		PRIMARY KEY (
-			translator_no -- 역자번호
 		);
 
 -- 책
