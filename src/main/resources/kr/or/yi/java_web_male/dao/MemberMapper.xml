@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.yi.java_web_male.dao.MemberMapper">
+	<sql id = "selectSql">
+		select member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, memo
+		from member
+	</sql>
+	<sql id="whereSql">
+		<where>
+			<if test="member_no != null">
+				member_no = #{member_no};
+			</if>
+		</where>
+	</sql>
+	
+	<select id="selectMemberbyNo" parameterType="Member" resultType="Member">
+			<include refid="selectSql"></include>
+			<include refid="whereSql"></include>
+	</select>
+	<select id="insertMember" parameterType="Member">
+		insert into Member
+		(member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, memo)
+		values(#{member_no},#{password},#{kor_name},#{eng_name},#{phone},#{jumin},#{email},#{address},#{photo},#{admin},#{memo});
+	</select>
+</mapper>
