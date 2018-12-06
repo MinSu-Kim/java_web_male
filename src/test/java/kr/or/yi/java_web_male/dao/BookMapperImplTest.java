@@ -19,7 +19,7 @@ import kr.or.yi.java_web_male.dto.Publisher;
 public class BookMapperImplTest extends AbstractTest {
 
 	private BookMapper dao = new BookMapperImpl();
-
+	private CategoryBMapper dao1 = new CategoryBMapperImpl();
 
 	@Test
 	public void test01selectBookByAll () {
@@ -36,8 +36,8 @@ public class BookMapperImplTest extends AbstractTest {
 		Assert.assertNotNull(book);
 	}
 	@Test
-	public void test03insertStudent() {
-		log.debug("test03insertStudent");
+	public void test03insertBook() {
+		log.debug("test03insertBook");
 		Book bookex = new Book();
 		CategoryB b = new CategoryB(0,"총류");
 		CategoryM m = new CategoryM(0,"총류",b);
@@ -46,5 +46,11 @@ public class BookMapperImplTest extends AbstractTest {
 		Book book = new Book("00004",2,p,"김재영",null,null,50000,true,null,s,m,b);
 		int res = dao.insertBook(book);
 		Assert.assertEquals(1, res);
+	}
+	@Test
+	public void test04selectCategoryBByAll () {
+		log.debug("test04selectCategoryBByAll");
+		List<CategoryB> stdList = dao1.selectCategoryBByAll();
+		Assert.assertNotNull(stdList);
 	}
 }
