@@ -27,11 +27,11 @@ public class Member {
 				+ ", photo=" + photo + ", admin=" + admin + ", uniqueness=" + Uniqueness + "]";
 	}
 
-	public String getMemberNo() {
+	public String getmemberNo() {
 		return memberNo;
 	}
 
-	public void setMemberNo(String memberNo) {
+	public void setmemberNo(String memberNo) {
 		this.memberNo = memberNo;
 	}
 
