@@ -1,0 +1,529 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>인덱스 정의서(HTML)</title>
+<style type="text/css">
+<!--
+.root {
+	border-spacing: 0px;
+	width: 1024px;
+}
+.under-line {
+	border-bottom: solid 1px gray;
+}
+.right-line {
+	border-right: solid 1px gray;
+}
+.left-line {
+	border-left: solid 1px gray;
+}
+th {
+	background-color: #eee;
+}
+.header {
+	margin-bottom: 0px;
+}
+.footter {
+	margin-top: 0px;
+	margin-bottom: 40px;
+	border-bottom:solid 2px black;
+}
+tr.first-row td,tr.first-row th {
+	border-top: solid 2px black;
+}
+tr.last-row td,tr.last-row th {
+	border-bottom: solid 2px black;
+}
+-->
+</style>
+</head>
+<body>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">엔티티</th>
+			<td class="right-line under-line"">책</td>
+			<th class="right-line under-line"" >인덱스명</th>
+			<td colspan="4" class="under-line">PRIMARY</td>
+		</tr>
+		<tr class="last-row">
+			<th class="right-line">테이블명</th>
+			<td class="right-line">book</td>
+			<th class="right-line">유형</th>
+			<td class="right-line">UNIQUE</td>
+			<th class="right-line">구분</th>
+			<td>PK</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr>
+			<th class="right-line under-line">속성명</th>
+			<th class="right-line under-line">컬럼명</th>
+			<th class="right-line under-line">데이터 타입</th>
+			<th class="under-line">정렬</th>
+		</tr>
+		<tr>
+			<td class="right-line">도서번호</td>
+			<td class="right-line">book_code</td>
+			<td class="right-line">VARCHAR(50)</td>
+			<td></td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">엔티티</th>
+			<td class="right-line under-line"">책</td>
+			<th class="right-line under-line"" >인덱스명</th>
+			<td colspan="4" class="under-line">FK_category_s_TO_Book</td>
+		</tr>
+		<tr class="last-row">
+			<th class="right-line">테이블명</th>
+			<td class="right-line">book</td>
+			<th class="right-line">유형</th>
+			<td class="right-line">NON UNIQUE</td>
+			<th class="right-line">구분</th>
+			<td>FK</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr>
+			<th class="right-line under-line">속성명</th>
+			<th class="right-line under-line">컬럼명</th>
+			<th class="right-line under-line">데이터 타입</th>
+			<th class="under-line">정렬</th>
+		</tr>
+		<tr>
+			<td class="right-line">소분류</td>
+			<td class="right-line">cate_s_no</td>
+			<td class="right-line">INT(1)</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="right-line">중분류</td>
+			<td class="right-line">cate_m_no</td>
+			<td class="right-line">INT(1)</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="right-line">대분류</td>
+			<td class="right-line">cate_b_no</td>
+			<td class="right-line">INT(1)</td>
+			<td></td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">엔티티</th>
+			<td class="right-line under-line"">책</td>
+			<th class="right-line under-line"" >인덱스명</th>
+			<td colspan="4" class="under-line">FK_publisher_TO_Book</td>
+		</tr>
+		<tr class="last-row">
+			<th class="right-line">테이블명</th>
+			<td class="right-line">book</td>
+			<th class="right-line">유형</th>
+			<td class="right-line">NON UNIQUE</td>
+			<th class="right-line">구분</th>
+			<td>FK</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr>
+			<th class="right-line under-line">속성명</th>
+			<th class="right-line under-line">컬럼명</th>
+			<th class="right-line under-line">데이터 타입</th>
+			<th class="under-line">정렬</th>
+		</tr>
+		<tr>
+			<td class="right-line">출판사번호</td>
+			<td class="right-line">pub_no</td>
+			<td class="right-line">VARCHAR(50)</td>
+			<td></td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">엔티티</th>
+			<td class="right-line under-line"">도서대여정보</td>
+			<th class="right-line under-line"" >인덱스명</th>
+			<td colspan="4" class="under-line">PRIMARY</td>
+		</tr>
+		<tr class="last-row">
+			<th class="right-line">테이블명</th>
+			<td class="right-line">book_rental_info</td>
+			<th class="right-line">유형</th>
+			<td class="right-line">UNIQUE</td>
+			<th class="right-line">구분</th>
+			<td>PK</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr>
+			<th class="right-line under-line">속성명</th>
+			<th class="right-line under-line">컬럼명</th>
+			<th class="right-line under-line">데이터 타입</th>
+			<th class="under-line">정렬</th>
+		</tr>
+		<tr>
+			<td class="right-line">대여번호</td>
+			<td class="right-line">rental_no</td>
+			<td class="right-line">INT(11)</td>
+			<td></td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">엔티티</th>
+			<td class="right-line under-line"">도서대여정보</td>
+			<th class="right-line under-line"" >인덱스명</th>
+			<td colspan="4" class="under-line">FK_Book_TO_book_rent_info</td>
+		</tr>
+		<tr class="last-row">
+			<th class="right-line">테이블명</th>
+			<td class="right-line">book_rental_info</td>
+			<th class="right-line">유형</th>
+			<td class="right-line">NON UNIQUE</td>
+			<th class="right-line">구분</th>
+			<td>FK</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr>
+			<th class="right-line under-line">속성명</th>
+			<th class="right-line under-line">컬럼명</th>
+			<th class="right-line under-line">데이터 타입</th>
+			<th class="under-line">정렬</th>
+		</tr>
+		<tr>
+			<td class="right-line">도서번호</td>
+			<td class="right-line">book_code</td>
+			<td class="right-line">VARCHAR(50)</td>
+			<td></td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">엔티티</th>
+			<td class="right-line under-line"">도서대여정보</td>
+			<th class="right-line under-line"" >인덱스명</th>
+			<td colspan="4" class="under-line">FK_member_TO_book_rent_info</td>
+		</tr>
+		<tr class="last-row">
+			<th class="right-line">테이블명</th>
+			<td class="right-line">book_rental_info</td>
+			<th class="right-line">유형</th>
+			<td class="right-line">NON UNIQUE</td>
+			<th class="right-line">구분</th>
+			<td>FK</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr>
+			<th class="right-line under-line">속성명</th>
+			<th class="right-line under-line">컬럼명</th>
+			<th class="right-line under-line">데이터 타입</th>
+			<th class="under-line">정렬</th>
+		</tr>
+		<tr>
+			<td class="right-line">회원번호</td>
+			<td class="right-line">member_no</td>
+			<td class="right-line">VARCHAR(50)</td>
+			<td></td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">엔티티</th>
+			<td class="right-line under-line"">대분류</td>
+			<th class="right-line under-line"" >인덱스명</th>
+			<td colspan="4" class="under-line">PRIMARY</td>
+		</tr>
+		<tr class="last-row">
+			<th class="right-line">테이블명</th>
+			<td class="right-line">category_b</td>
+			<th class="right-line">유형</th>
+			<td class="right-line">UNIQUE</td>
+			<th class="right-line">구분</th>
+			<td>PK</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr>
+			<th class="right-line under-line">속성명</th>
+			<th class="right-line under-line">컬럼명</th>
+			<th class="right-line under-line">데이터 타입</th>
+			<th class="under-line">정렬</th>
+		</tr>
+		<tr>
+			<td class="right-line">대분류</td>
+			<td class="right-line">cate_b_no</td>
+			<td class="right-line">INT(1)</td>
+			<td></td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">엔티티</th>
+			<td class="right-line under-line"">중분류</td>
+			<th class="right-line under-line"" >인덱스명</th>
+			<td colspan="4" class="under-line">PRIMARY</td>
+		</tr>
+		<tr class="last-row">
+			<th class="right-line">테이블명</th>
+			<td class="right-line">category_m</td>
+			<th class="right-line">유형</th>
+			<td class="right-line">UNIQUE</td>
+			<th class="right-line">구분</th>
+			<td>PK</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr>
+			<th class="right-line under-line">속성명</th>
+			<th class="right-line under-line">컬럼명</th>
+			<th class="right-line under-line">데이터 타입</th>
+			<th class="under-line">정렬</th>
+		</tr>
+		<tr>
+			<td class="right-line">중분류</td>
+			<td class="right-line">cate_m_no</td>
+			<td class="right-line">INT(1)</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="right-line">대분류</td>
+			<td class="right-line">cate_b_no</td>
+			<td class="right-line">INT(1)</td>
+			<td></td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">엔티티</th>
+			<td class="right-line under-line"">중분류</td>
+			<th class="right-line under-line"" >인덱스명</th>
+			<td colspan="4" class="under-line">FK_category_b_TO_category_m</td>
+		</tr>
+		<tr class="last-row">
+			<th class="right-line">테이블명</th>
+			<td class="right-line">category_m</td>
+			<th class="right-line">유형</th>
+			<td class="right-line">NON UNIQUE</td>
+			<th class="right-line">구분</th>
+			<td>FK</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr>
+			<th class="right-line under-line">속성명</th>
+			<th class="right-line under-line">컬럼명</th>
+			<th class="right-line under-line">데이터 타입</th>
+			<th class="under-line">정렬</th>
+		</tr>
+		<tr>
+			<td class="right-line">대분류</td>
+			<td class="right-line">cate_b_no</td>
+			<td class="right-line">INT(1)</td>
+			<td></td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">엔티티</th>
+			<td class="right-line under-line"">소분류</td>
+			<th class="right-line under-line"" >인덱스명</th>
+			<td colspan="4" class="under-line">PRIMARY</td>
+		</tr>
+		<tr class="last-row">
+			<th class="right-line">테이블명</th>
+			<td class="right-line">category_s</td>
+			<th class="right-line">유형</th>
+			<td class="right-line">UNIQUE</td>
+			<th class="right-line">구분</th>
+			<td>PK</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr>
+			<th class="right-line under-line">속성명</th>
+			<th class="right-line under-line">컬럼명</th>
+			<th class="right-line under-line">데이터 타입</th>
+			<th class="under-line">정렬</th>
+		</tr>
+		<tr>
+			<td class="right-line">소분류</td>
+			<td class="right-line">cate_s_no</td>
+			<td class="right-line">INT(1)</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="right-line">중분류</td>
+			<td class="right-line">cate_m_no</td>
+			<td class="right-line">INT(1)</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="right-line">대분류</td>
+			<td class="right-line">cate_b_no</td>
+			<td class="right-line">INT(1)</td>
+			<td></td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">엔티티</th>
+			<td class="right-line under-line"">소분류</td>
+			<th class="right-line under-line"" >인덱스명</th>
+			<td colspan="4" class="under-line">FK_category_m_TO_category_s</td>
+		</tr>
+		<tr class="last-row">
+			<th class="right-line">테이블명</th>
+			<td class="right-line">category_s</td>
+			<th class="right-line">유형</th>
+			<td class="right-line">NON UNIQUE</td>
+			<th class="right-line">구분</th>
+			<td>FK</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr>
+			<th class="right-line under-line">속성명</th>
+			<th class="right-line under-line">컬럼명</th>
+			<th class="right-line under-line">데이터 타입</th>
+			<th class="under-line">정렬</th>
+		</tr>
+		<tr>
+			<td class="right-line">중분류</td>
+			<td class="right-line">cate_m_no</td>
+			<td class="right-line">INT(1)</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td class="right-line">대분류</td>
+			<td class="right-line">cate_b_no</td>
+			<td class="right-line">INT(1)</td>
+			<td></td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">엔티티</th>
+			<td class="right-line under-line"">회원</td>
+			<th class="right-line under-line"" >인덱스명</th>
+			<td colspan="4" class="under-line">PRIMARY</td>
+		</tr>
+		<tr class="last-row">
+			<th class="right-line">테이블명</th>
+			<td class="right-line">member</td>
+			<th class="right-line">유형</th>
+			<td class="right-line">UNIQUE</td>
+			<th class="right-line">구분</th>
+			<td>PK</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr>
+			<th class="right-line under-line">속성명</th>
+			<th class="right-line under-line">컬럼명</th>
+			<th class="right-line under-line">데이터 타입</th>
+			<th class="under-line">정렬</th>
+		</tr>
+		<tr>
+			<td class="right-line">회원번호</td>
+			<td class="right-line">member_no</td>
+			<td class="right-line">VARCHAR(50)</td>
+			<td></td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">엔티티</th>
+			<td class="right-line under-line"">회원대여정보</td>
+			<th class="right-line under-line"" >인덱스명</th>
+			<td colspan="4" class="under-line">PRIMARY</td>
+		</tr>
+		<tr class="last-row">
+			<th class="right-line">테이블명</th>
+			<td class="right-line">member_rental_info</td>
+			<th class="right-line">유형</th>
+			<td class="right-line">UNIQUE</td>
+			<th class="right-line">구분</th>
+			<td>PK</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr>
+			<th class="right-line under-line">속성명</th>
+			<th class="right-line under-line">컬럼명</th>
+			<th class="right-line under-line">데이터 타입</th>
+			<th class="under-line">정렬</th>
+		</tr>
+		<tr>
+			<td class="right-line">회원번호</td>
+			<td class="right-line">member_no</td>
+			<td class="right-line">VARCHAR(50)</td>
+			<td></td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">엔티티</th>
+			<td class="right-line under-line"">연체정보</td>
+			<th class="right-line under-line"" >인덱스명</th>
+			<td colspan="4" class="under-line">PRIMARY</td>
+		</tr>
+		<tr class="last-row">
+			<th class="right-line">테이블명</th>
+			<td class="right-line">overdue</td>
+			<th class="right-line">유형</th>
+			<td class="right-line">UNIQUE</td>
+			<th class="right-line">구분</th>
+			<td>PK</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr>
+			<th class="right-line under-line">속성명</th>
+			<th class="right-line under-line">컬럼명</th>
+			<th class="right-line under-line">데이터 타입</th>
+			<th class="under-line">정렬</th>
+		</tr>
+		<tr>
+			<td class="right-line">회원번호</td>
+			<td class="right-line">member_no</td>
+			<td class="right-line">VARCHAR(50)</td>
+			<td></td>
+		</tr>
+	</table>
+	<table class="root header">
+		<tr class="first-row">
+			<th class="right-line under-line">엔티티</th>
+			<td class="right-line under-line"">출판사</td>
+			<th class="right-line under-line"" >인덱스명</th>
+			<td colspan="4" class="under-line">PRIMARY</td>
+		</tr>
+		<tr class="last-row">
+			<th class="right-line">테이블명</th>
+			<td class="right-line">publisher</td>
+			<th class="right-line">유형</th>
+			<td class="right-line">UNIQUE</td>
+			<th class="right-line">구분</th>
+			<td>PK</td>
+		</tr>
+	</table>
+	<table class="root footter">
+		<tr>
+			<th class="right-line under-line">속성명</th>
+			<th class="right-line under-line">컬럼명</th>
+			<th class="right-line under-line">데이터 타입</th>
+			<th class="under-line">정렬</th>
+		</tr>
+		<tr>
+			<td class="right-line">출판사번호</td>
+			<td class="right-line">pub_no</td>
+			<td class="right-line">VARCHAR(50)</td>
+			<td></td>
+		</tr>
+	</table>
+</body>
+</html>
