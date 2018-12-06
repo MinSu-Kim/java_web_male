@@ -1,9 +1,10 @@
 package kr.or.yi.java_web_male.dto;
 
 public class Book {
+	
 	private String bookCode;
 	private int bookNo;
-	private String publisherNo;
+	private Publisher publisherNo;
 	private String writter;
 	private String translator;
 	private String title;
@@ -16,6 +17,28 @@ public class Book {
 	public String getBookCode() {
 		return bookCode;
 	}
+	public Book() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public Book(String bookCode, int bookNo, Publisher publisherNo, String writter, String translator, String title,
+			int priece, boolean rentable, String image, CategoryS categorynoS, CategoryM categorynoM,
+			CategoryB categorynoB) {
+		super();
+		this.bookCode = bookCode;
+		this.bookNo = bookNo;
+		this.publisherNo = publisherNo;
+		this.writter = writter;
+		this.translator = translator;
+		this.title = title;
+		this.priece = priece;
+		this.rentable = rentable;
+		this.image = image;
+		this.categorynoS = categorynoS;
+		this.categorynoM = categorynoM;
+		this.categorynoB = categorynoB;
+	}
+	
 	public void setBookCode(String bookCode) {
 		this.bookCode = bookCode;
 	}
@@ -25,10 +48,10 @@ public class Book {
 	public void setBookNo(int bookNo) {
 		this.bookNo = bookNo;
 	}
-	public String getPublisherNo() {
+	public Publisher getPublisherNo() {
 		return publisherNo;
 	}
-	public void setPublisherNo(String publisherNo) {
+	public void setPublisherNo(Publisher publisherNo) {
 		this.publisherNo = publisherNo;
 	}
 	public String getWritter() {

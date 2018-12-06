@@ -20,5 +20,14 @@ public class CategoryB {
 	public String toString() {
 		return "CategoryB [categorynoB=" + categorynoB + ", themaB=" + themaB + "]";
 	}
+	public CategoryB() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public CategoryB(int categorynoB, String themaB) {
+		super();
+		this.categorynoB = categorynoB;
+		this.themaB = themaB;
+	}
 	
 }
