@@ -15,16 +15,17 @@ public class MemberMapperTest {
 	@Test
 	public void test() {
 		Member member = new Member();
-		member.setMemberno("1");
+		member.setMemberNo("1");
+		member.setPassword("tgkdsfld");
 		member.setKor_name("서동준");
 		member.setEng_name("seo-dong-june");
 		member.setPhone("010-2230-6796");
 		member.setJumin("921012-*******");
-		member.setEmail("superdongte@naver.com");
+		member.setEmail("super@naver.com");
 		member.setAddress("깊은산속 옹달샘");
 		member.setPhoto("박예븜");
 		member.setAdmin(1);
-		member.setMemo("아 한번에 안되겠지");
+		member.setUniqueness("아 한번에 안되겠지");
 		int res = dao.insertMember(member);
 		Assert.assertEquals(1, res);
 	}
