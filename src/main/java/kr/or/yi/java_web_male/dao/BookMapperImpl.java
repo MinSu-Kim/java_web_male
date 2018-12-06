@@ -39,4 +39,13 @@ public class BookMapperImpl implements BookMapper {
 		return null;
 	}
 
+	@Override
+	public int updateBook(Book book) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			int res = sqlSession.insert(namespace + ".updateBook", book);
+			sqlSession.commit();
+			return res;
+		}
+	}
+
 }

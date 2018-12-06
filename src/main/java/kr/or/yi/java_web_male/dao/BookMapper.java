@@ -12,5 +12,7 @@ public interface BookMapper {
 	Book selectbookbybookCode(Book book);
 
 	int insertBook(Book book);
+	
+	int updateBook(Book book);
 
 }
