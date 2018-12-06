@@ -34,5 +34,13 @@ public class CategoryS {
 		return "CategoryS [categorynoS=" + categorynoS + ", themaS=" + themaS + ", categorynoM=" + categorynoM
 				+ ", categorynoB=" + categorynoB + "]";
 	}
+	public CategoryS(int categorynoS, String themaS, CategoryM categorynoM, CategoryB categorynoB) {
+		super();
+		this.categorynoS = categorynoS;
+		this.themaS = themaS;
+		this.categorynoM = categorynoM;
+		this.categorynoB = categorynoB;
+	}
+	
 	
 }

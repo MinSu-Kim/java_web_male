@@ -27,5 +27,11 @@ public class CategoryM {
 	public String toString() {
 		return "CategoryM [categorynoM=" + categorynoM + ", themaM=" + themaM + ", categorynoB=" + categorynoB + "]";
 	}
+	public CategoryM(int categorynoM, String themaM, CategoryB categorynoB) {
+		super();
+		this.categorynoM = categorynoM;
+		this.themaM = themaM;
+		this.categorynoB = categorynoB;
+	}
 	
 }
