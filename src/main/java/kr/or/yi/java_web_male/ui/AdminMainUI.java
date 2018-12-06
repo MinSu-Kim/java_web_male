@@ -41,17 +41,17 @@ public class AdminMainUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 3, 10, 10));
-		
+
 		JButton btnNewButton_1 = new JButton("도서 관리");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		contentPane.add(btnNewButton_1);
-		
+
 		JButton btnNewButton_2 = new JButton("회원 관리");
 		contentPane.add(btnNewButton_2);
-		
+
 		JButton btnNewButton = new JButton("출납 관리");
 		contentPane.add(btnNewButton);
 	}

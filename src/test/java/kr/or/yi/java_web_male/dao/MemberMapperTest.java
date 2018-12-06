@@ -9,10 +9,10 @@ import org.junit.runners.MethodSorters;
 
 import kr.or.yi.java_web_male.dto.Member;
 
-
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MemberMapperTest {
 	private MemberMapper dao = new MemberMapperImpl();
+
 	@Test
 	public void test01inSertMember() {
 		Member member = new Member();
@@ -30,19 +30,22 @@ public class MemberMapperTest {
 		int res = dao.insertMember(member);
 		Assert.assertEquals(1, res);
 	}
+
 	@Test
 	public void test02selectMemberByAll() {
 		List<Member> list = dao.selectMemberByAll();
 		Assert.assertNotNull(list);
 	}
+
 	@Test
 	public void test03selectMemberByNo() {
 		Member searchMem = new Member();
 		searchMem.setmemberNo("1");
-		
+
 		Member searchedMem = dao.selectMemberbyNo(searchMem);
 		Assert.assertNotNull(searchedMem);
 	}
+
 	@Test
 	public void test04UpdateMember() {
 		Member member = new Member();
@@ -60,10 +63,11 @@ public class MemberMapperTest {
 		int res = dao.updateMember(member);
 		Assert.assertSame(1, res);
 	}
+
 	@Test
 	public void test05DeleteMember() {
 		int deleteMember = dao.deleteMember("1");
 		Assert.assertSame(1, deleteMember);
-		
+
 	}
-}//end of testClass
+}// end of testClass

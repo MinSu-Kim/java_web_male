@@ -5,6 +5,7 @@
 	<sql id="selectSql">
 		select * from book_rental_info
 	</sql>
+
 	<sql id="whereSql">
 		<where>
 			<if test="rentalNo != null">

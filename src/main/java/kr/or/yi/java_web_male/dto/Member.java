@@ -15,16 +15,22 @@ public class Member {
 	private String photo;
 	private int admin;
 	private String Uniqueness;
-	
-	public Member() {
-		// TODO Auto-generated constructor stub
-	}
 
-	@Override
-	public String toString() {
-		return "Member [memberNo=" + memberNo + ", password=" + password + ", kor_name=" + kor_name + ", eng_name="
-				+ eng_name + ", phone=" + phone + ", jumin=" + jumin + ", email=" + email + ", address=" + address
-				+ ", photo=" + photo + ", admin=" + admin + ", uniqueness=" + Uniqueness + "]";
+	public Member() {}
+
+	public Member(String memberNo, String password, String kor_name, String eng_name, String phone, String jumin,
+			String email, String address, String photo, int admin, String uniqueness) {
+		this.memberNo = memberNo;
+		this.password = password;
+		this.kor_name = kor_name;
+		this.eng_name = eng_name;
+		this.phone = phone;
+		this.jumin = jumin;
+		this.email = email;
+		this.address = address;
+		this.photo = photo;
+		this.admin = admin;
+		this.Uniqueness = uniqueness;
 	}
 
 	public String getmemberNo() {
@@ -115,21 +121,11 @@ public class Member {
 		this.Uniqueness = uniqueness;
 	}
 
-	public Member(String memberNo, String password, String kor_name, String eng_name, String phone, String jumin,
-			String email, String address, String photo, int admin, String uniqueness) {
-		super();
-		this.memberNo = memberNo;
-		this.password = password;
-		this.kor_name = kor_name;
-		this.eng_name = eng_name;
-		this.phone = phone;
-		this.jumin = jumin;
-		this.email = email;
-		this.address = address;
-		this.photo = photo;
-		this.admin = admin;
-		this.Uniqueness = uniqueness;
+	@Override
+	public String toString() {
+		return String.format(
+				"Member [memberNo=%s, password=%s, kor_name=%s, eng_name=%s, phone=%s, jumin=%s, email=%s, address=%s, photo=%s, admin=%s, Uniqueness=%s]",
+				memberNo, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, Uniqueness);
 	}
-	
-	
+
 }

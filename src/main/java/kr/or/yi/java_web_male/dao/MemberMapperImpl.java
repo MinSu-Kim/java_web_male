@@ -35,7 +35,7 @@ public class MemberMapperImpl implements MemberMapper {
 	}
 
 	@Override
-	public  int deleteMember(int id) {
+	public int deleteMember(int id) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
 			int res = sqlSession.delete(namespace + ".deleteMember", id);
 			sqlSession.commit();
@@ -43,15 +43,14 @@ public class MemberMapperImpl implements MemberMapper {
 		}
 	}
 
-
 	@Override
 	public int updateMember(Member member) {
-		try(SqlSession sqlSesion = MyBatisSqlSessionFactory.openSession();){
-			int res = sqlSesion.update(namespace + ".updateMember",member);
+		try (SqlSession sqlSesion = MyBatisSqlSessionFactory.openSession();) {
+			int res = sqlSesion.update(namespace + ".updateMember", member);
 			sqlSesion.commit();
 			return res;
 		}
-		
+
 	}
 
 	@Override
@@ -62,7 +61,5 @@ public class MemberMapperImpl implements MemberMapper {
 			return res;
 		}
 	}
-
-
 
 }

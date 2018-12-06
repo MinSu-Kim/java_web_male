@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.yi.java_web_male.dao.MemberMapper">
-	
+
 	<!-- 셀렉트구문 sql -->
 	<sql id="selectSql">
 		select member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness
-		FROM member
+		from member
 	</sql>
-		<!-- 찾기 sql -->
-	
+
+	<!-- 찾기 sql -->
 	<sql id="whereSql">
 		<where>
 			<if test="memberNo != null">
@@ -16,30 +16,30 @@
 			</if>
 		</where>
 	</sql>
-	
-	<!-- 검색sql -->
+
+	<!-- 검색 sql -->
 	<select id="selectMemberbyNo" parameterType="Member" resultType="Member">
 		<include refid="selectSql"></include>
 		<include refid="whereSql"></include>
 	</select>
-	
+
 	<!-- 모든 리스트 검색 -->
 	<select id="selectMemberByAll" resultType="Member">
 		<include refid="selectSql"></include>
 	</select>
-	
+
 	<!-- 추가 sql 구문 -->
 	<select id="insertMember" parameterType="Member">
-		insert into Member
-		(member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, Uniqueness)
+		insert into Member(member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, Uniqueness)
 		values(#{memberNo},#{password},#{kor_name},#{eng_name},#{phone},#{jumin},#{email},#{address},#{photo},#{admin},#{Uniqueness});
 	</select>
+
 	<!-- 수정 구문 -->
 	<select id="updateMember" parameterType="Member">
-		update Member set
-		password=#{password}, kor_name=#{kor_name}, eng_name=#{eng_name}, phone=#{phone}, jumin=#{jumin}, email=#{email}, address=#{address}, photo=#{photo}, admin=#{admin}, Uniqueness=#{Uniqueness}
+		update Member set password=#{password}, kor_name=#{kor_name}, eng_name=#{eng_name}, phone=#{phone}, jumin=#{jumin}, email=#{email}, address=#{address}, photo=#{photo}, admin=#{admin}, Uniqueness=#{Uniqueness}
 		where member_no=#{memberNo}
 	</select>
+
 	<!-- 삭제 구문 -->
 	<select id="deleteMember" parameterType="String">
 		delete from Member

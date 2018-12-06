@@ -5,6 +5,14 @@ public class CategoryM {
 	private String themaM;
 	private CategoryB categorynoB;
 
+	public CategoryM() {}
+
+	public CategoryM(int categorynoM, String themaM, CategoryB categorynoB) {
+		this.categorynoM = categorynoM;
+		this.themaM = themaM;
+		this.categorynoB = categorynoB;
+	}
+
 	public int getCategorynoM() {
 		return categorynoM;
 	}
@@ -32,13 +40,6 @@ public class CategoryM {
 	@Override
 	public String toString() {
 		return "CategoryM [categorynoM=" + categorynoM + ", themaM=" + themaM + ", categorynoB=" + categorynoB + "]";
-	}
-
-	public CategoryM(int categorynoM, String themaM, CategoryB categorynoB) {
-		super();
-		this.categorynoM = categorynoM;
-		this.themaM = themaM;
-		this.categorynoB = categorynoB;
 	}
 
 }
