@@ -12,3 +12,4 @@ INSERT INTO proj_library.book
 VALUES('00001', 0, 'P001', '김재영', '김재영', '자바의 정석', 40000, 1, NULL, 0, 0, 0);
 
 >>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
+
