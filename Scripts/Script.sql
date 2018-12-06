@@ -1,0 +1,1 @@
+insert into category_b values('0','총류');

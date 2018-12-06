@@ -6,18 +6,18 @@ CREATE SCHEMA proj_library;
 
 -- 책
 CREATE TABLE proj_library.Book (
-	book_code    CHAR               NOT NULL COMMENT '분류번호+넘버링+중복권수', -- 도서번호
-	book_no      int                NOT NULL COMMENT '일련번호', -- 일련번호
-	publisher_no <데이터 타입 없음> NULL     COMMENT '출판사번호', -- 출판사번호
-	writter      CHAR               NULL     COMMENT '저자', -- 저자
-	translator   CHAR               NULL     COMMENT '역자', -- 역자
-	title        CHAR               NULL     COMMENT '도서명', -- 표제
-	priece       INT                NULL     COMMENT '도서가격', -- 가격
-	rentable     BOOLEAN            NOT NULL COMMENT '대여 가능 여부', -- 대여가능여부
-	image        CHAR               NULL     COMMENT '도서 사진', -- 이미지
-	categoryno_s CHAR               NULL     COMMENT '소분류', -- 소분류
-	categoryno_m CHAR               NULL     COMMENT '중분류', -- 중분류
-	categoryno_b CHAR               NULL     COMMENT '대분류' -- 대분류
+	book_code    varchar(50) NOT NULL COMMENT '분류번호+넘버링+중복권수', -- 도서번호
+	book_no      INTEGER     NOT NULL COMMENT '일련번호', -- 일련번호
+	publisher_no varchar(50) NULL     COMMENT '출판사번호', -- 출판사번호
+	writter      varchar(50) NULL     COMMENT '저자', -- 저자
+	translator   varchar(50) NULL     COMMENT '역자', -- 역자
+	title        varchar(50) NULL     COMMENT '도서명', -- 표제
+	priece       INTEGER     NULL     COMMENT '도서가격', -- 가격
+	rentable     BOOLEAN     NOT NULL COMMENT '대여 가능 여부', -- 대여가능여부
+	image        varchar(50) NULL     COMMENT '도서 사진', -- 이미지
+	categoryno_s INT(1)      NULL     COMMENT '소분류', -- 소분류
+	categoryno_m INT(1)      NULL     COMMENT '중분류', -- 중분류
+	categoryno_b INT(1)      NULL     COMMENT '대분류' -- 대분류
 )
 COMMENT '책';
 
@@ -30,17 +30,17 @@ ALTER TABLE proj_library.Book
 
 -- 회원
 CREATE TABLE proj_library.member (
-	member_no CHAR        NOT NULL COMMENT '회원번호', -- 회원번호
-	password  VARCHAR(14) NOT NULL COMMENT '비밀번호', -- 비밀번호
-	kor_name  char        NOT NULL COMMENT '한글이름', -- 한글이름
-	eng_name  char        NOT NULL COMMENT '영어이름', -- 영어이름
-	phone     CHAR        NOT NULL COMMENT '전화번호', -- 전화번호
-	jumin     CHAR        NOT NULL COMMENT '주민등록번호', -- 주민등록번호
-	email     CHAR        NOT NULL COMMENT '이메일', -- 이메일
-	address   CHAR        NOT NULL COMMENT '주소', -- 주소
-	photo     CHAR        NULL     COMMENT '사진', -- 사진
-	admin     BOOLEAN     NOT NULL COMMENT '관리자', -- 관리자
-	memo      CHAR        NULL     COMMENT '메모' -- 메모
+	member_no varchar(50)  NOT NULL COMMENT '회원번호', -- 회원번호
+	password  varchar(50)  NOT NULL COMMENT '비밀번호', -- 비밀번호
+	kor_name  varchar(50)  NOT NULL COMMENT '한글이름', -- 한글이름
+	eng_name  varchar(50)  NOT NULL COMMENT '영어이름', -- 영어이름
+	phone     varchar(15)  NOT NULL COMMENT '전화번호', -- 전화번호
+	jumin     varchar(15)  NOT NULL COMMENT '주민등록번호', -- 주민등록번호
+	email     varchar(15)  NOT NULL COMMENT '이메일', -- 이메일
+	address   varchar(200) NOT NULL COMMENT '주소', -- 주소
+	photo     varchar(100) NULL     COMMENT '사진', -- 사진
+	admin     BOOLEAN      NOT NULL COMMENT '관리자', -- 관리자
+	memo      varchar(500) NULL     COMMENT '메모' -- 메모
 )
 COMMENT '회원';
 
@@ -53,12 +53,12 @@ ALTER TABLE proj_library.member
 
 -- 도서대여정보
 CREATE TABLE proj_library.book_rent_info (
-	rentno         int  NOT NULL COMMENT '대여번호', -- 대여번호
-	member_no      CHAR NOT NULL COMMENT '회원번호', -- 회원번호
-	rentdate       DATE NULL     COMMENT '대여일자', -- 대여일자
-	returndate     DATE NULL     COMMENT '반납일자', -- 반납일자
-	returnschedule DATE NULL     COMMENT '반납예정일', -- 반납예정일
-	book_code      CHAR NULL     COMMENT '도서번호' -- 도서번호
+	rentno         INTEGER     NOT NULL COMMENT '대여번호', -- 대여번호
+	member_no      varchar(50) NOT NULL COMMENT '회원번호', -- 회원번호
+	rentdate       DATE        NULL     COMMENT '대여일자', -- 대여일자
+	returndate     DATE        NULL     COMMENT '반납일자', -- 반납일자
+	returnschedule DATE        NULL     COMMENT '반납예정일', -- 반납예정일
+	book_code      varchar(50) NULL     COMMENT '도서번호' -- 도서번호
 )
 COMMENT '도서대여정보';
 
@@ -71,10 +71,10 @@ ALTER TABLE proj_library.book_rent_info
 
 -- 연체정보
 CREATE TABLE proj_library.overdue (
-	member_no    CHAR    NOT NULL COMMENT '회원번호', -- 회원번호
-	blacklist    BOOLEAN NULL     COMMENT '블랙리스트', -- 블랙리스트
-	stopdate     int     NULL     COMMENT '사용정지일', -- 사용정지일
-	overduecount int     NULL     COMMENT '연체횟수' -- 연체횟수
+	member_no    varchar(50) NOT NULL COMMENT '회원번호', -- 회원번호
+	blacklist    BOOLEAN     NULL     COMMENT '블랙리스트', -- 블랙리스트
+	stopdate     INTEGER     NULL     COMMENT '사용정지일', -- 사용정지일
+	overduecount INTEGER     NULL     COMMENT '연체횟수' -- 연체횟수
 )
 COMMENT '연체정보';
 
@@ -87,10 +87,10 @@ ALTER TABLE proj_library.overdue
 
 -- 소분류
 CREATE TABLE proj_library.category_s (
-	categoryno_s CHAR NOT NULL COMMENT '소분류', -- 소분류
-	categoryno_m CHAR NOT NULL COMMENT '중분류', -- 중분류
-	categoryno_b CHAR NOT NULL COMMENT '대분류', -- 대분류
-	thema_s      CHAR NOT NULL COMMENT '장르' -- 장르
+	categoryno_s INT(1)      NOT NULL COMMENT '소분류', -- 소분류
+	categoryno_m INT(1)      NOT NULL COMMENT '중분류', -- 중분류
+	categoryno_b INT(1)      NOT NULL COMMENT '대분류', -- 대분류
+	thema_s      varchar(50) NOT NULL COMMENT '장르' -- 장르
 )
 COMMENT '소분류';
 
@@ -105,10 +105,10 @@ ALTER TABLE proj_library.category_s
 
 -- 회원대여정보
 CREATE TABLE proj_library.member_rent_info (
-	member_no CHAR   NOT NULL COMMENT '회원번호', -- 회원번호
-	now_total INT(1) NULL     COMMENT '대여중갯수', -- 대여중갯수
-	total     INT    NULL     COMMENT '총대여갯수', -- 총대여갯수
-	grade     INT(1) NULL     COMMENT '등급' -- 등급
+	member_no varchar(50) NOT NULL COMMENT '회원번호', -- 회원번호
+	now_total INT(1)      NULL     COMMENT '대여중갯수', -- 대여중갯수
+	total     INT(1)      NULL     COMMENT '총대여갯수', -- 총대여갯수
+	grade     INT(1)      NULL     COMMENT '등급' -- 등급
 )
 COMMENT '회원대여정보';
 
@@ -121,9 +121,9 @@ ALTER TABLE proj_library.member_rent_info
 
 -- 중분류
 CREATE TABLE proj_library.category_m (
-	categoryno_m CHAR NOT NULL COMMENT '중분류', -- 중분류
-	categoryno_b CHAR NOT NULL COMMENT '대분류', -- 대분류
-	thema_m      CHAR NOT NULL COMMENT '장르' -- 장르
+	categoryno_m INT(1)      NOT NULL COMMENT '중분류', -- 중분류
+	categoryno_b INT(1)      NOT NULL COMMENT '대분류', -- 대분류
+	thema_m      varchar(50) NOT NULL COMMENT '장르' -- 장르
 )
 COMMENT '중분류';
 
@@ -137,8 +137,8 @@ ALTER TABLE proj_library.category_m
 
 -- 대분류
 CREATE TABLE proj_library.category_b (
-	categoryno_b CHAR NOT NULL COMMENT '대분류', -- 대분류
-	thema_b      CHAR NOT NULL COMMENT '장르' -- 장르
+	categoryno_b INT(1)      NOT NULL COMMENT '대분류', -- 대분류
+	thema_b      varchar(50) NOT NULL COMMENT '장르' -- 장르
 )
 COMMENT '대분류';
 
@@ -150,45 +150,17 @@ ALTER TABLE proj_library.category_b
 		);
 
 -- 출판사
-CREATE TABLE proj_library.TABLE (
-	publisher_no <데이터 타입 없음> NOT NULL COMMENT '출판사번호', -- 출판사번호
-	name         <데이터 타입 없음> NULL     COMMENT '출판사명' -- 출판사명
+CREATE TABLE proj_library.publisher (
+	publisher_no varchar(50) NOT NULL COMMENT '출판사번호', -- 출판사번호
+	name         varchar(50) NULL     COMMENT '출판사명' -- 출판사명
 )
 COMMENT '출판사';
 
 -- 출판사
-ALTER TABLE proj_library.TABLE
-	ADD CONSTRAINT PK_TABLE -- 출판사 기본키
+ALTER TABLE proj_library.publisher
+	ADD CONSTRAINT PK_publisher -- 출판사 기본키
 		PRIMARY KEY (
 			publisher_no -- 출판사번호
-		);
-
--- 저자
-CREATE TABLE proj_library.TABLE2 (
-	writter_no <데이터 타입 없음> NOT NULL COMMENT '저자번호', -- 저자번호
-	name       <데이터 타입 없음> NULL     COMMENT '저자명' -- 저자명
-)
-COMMENT '저자';
-
--- 저자
-ALTER TABLE proj_library.TABLE2
-	ADD CONSTRAINT PK_TABLE2 -- 저자 기본키
-		PRIMARY KEY (
-			writter_no -- 저자번호
-		);
-
--- 역자
-CREATE TABLE proj_library.TABLE3 (
-	translator_no <데이터 타입 없음> NOT NULL COMMENT '역자번호', -- 역자번호
-	name          <데이터 타입 없음> NULL     COMMENT '역자명' -- 역자명
-)
-COMMENT '역자';
-
--- 역자
-ALTER TABLE proj_library.TABLE3
-	ADD CONSTRAINT PK_TABLE3 -- 역자 기본키
-		PRIMARY KEY (
-			translator_no -- 역자번호
 		);
 
 -- 책
@@ -207,11 +179,11 @@ ALTER TABLE proj_library.Book
 
 -- 책
 ALTER TABLE proj_library.Book
-	ADD CONSTRAINT FK_TABLE_TO_Book -- 출판사 -> 책
+	ADD CONSTRAINT FK_publisher_TO_Book -- 출판사 -> 책
 		FOREIGN KEY (
 			publisher_no -- 출판사번호
 		)
-		REFERENCES proj_library.TABLE ( -- 출판사
+		REFERENCES proj_library.publisher ( -- 출판사
 			publisher_no -- 출판사번호
 		);
 
