@@ -9,6 +9,25 @@ public class BookRentalInfo {
 	private Date returnSchedule;
 	private Member member_no;
 	private Book bookNo;
+	
+	
+	
+	public BookRentalInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public BookRentalInfo(int rentalNo, Date rentalDate, Date returnDate, Date returnSchedule, Member member_no,
+			Book bookNo) {
+		super();
+		this.rentalNo = rentalNo;
+		this.rentalDate = rentalDate;
+		this.returnDate = returnDate;
+		this.returnSchedule = returnSchedule;
+		this.member_no = member_no;
+		this.bookNo = bookNo;
+	}
+	
 	public int getRentalNo() {
 		return rentalNo;
 	}
@@ -45,6 +64,7 @@ public class BookRentalInfo {
 	public void setBookNo(Book bookNo) {
 		this.bookNo = bookNo;
 	}
+	
 	@Override
 	public String toString() {
 		return "BookRentalInfo [rentalNo=" + rentalNo + ", rentalDate=" + rentalDate + ", returnDate=" + returnDate

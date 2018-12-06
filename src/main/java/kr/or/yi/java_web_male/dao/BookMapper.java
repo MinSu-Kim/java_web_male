@@ -12,5 +12,5 @@ public interface BookMapper {
 	Book selectbookbybookCode(Book book);
 	int insertBook(Book book);
 	
-
+	
 }
