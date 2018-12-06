@@ -4,16 +4,16 @@ public class Book {
 	
 	private String bookCode;
 	private int bookNo;
-	private Publisher publisherNo;
-	private String writter;
+	private Publisher pubNo;
+	private String author;
 	private String translator;
 	private String title;
-	private int priece;
-	private boolean rentable;
+	private int price;
+	private boolean rentalPossible;
 	private String image;
-	private CategoryS categorynoS;
-	private CategoryM categorynoM;
-	private CategoryB categorynoB;
+	private CategoryS cateSNo;
+	private CategoryM cateMNo;
+	private CategoryB cateBNo;
 	public String getBookCode() {
 		return bookCode;
 	}
@@ -27,16 +27,16 @@ public class Book {
 		super();
 		this.bookCode = bookCode;
 		this.bookNo = bookNo;
-		this.publisherNo = publisherNo;
-		this.writter = writter;
+		this.pubNo = publisherNo;
+		this.author = writter;
 		this.translator = translator;
 		this.title = title;
-		this.priece = priece;
-		this.rentable = rentable;
+		this.price = priece;
+		this.rentalPossible = rentable;
 		this.image = image;
-		this.categorynoS = categorynoS;
-		this.categorynoM = categorynoM;
-		this.categorynoB = categorynoB;
+		this.cateSNo = categorynoS;
+		this.cateMNo = categorynoM;
+		this.cateBNo = categorynoB;
 	}
 	
 	public void setBookCode(String bookCode) {
@@ -49,16 +49,16 @@ public class Book {
 		this.bookNo = bookNo;
 	}
 	public Publisher getPublisherNo() {
-		return publisherNo;
+		return pubNo;
 	}
 	public void setPublisherNo(Publisher publisherNo) {
-		this.publisherNo = publisherNo;
+		this.pubNo = publisherNo;
 	}
 	public String getWritter() {
-		return writter;
+		return author;
 	}
 	public void setWritter(String writter) {
-		this.writter = writter;
+		this.author = writter;
 	}
 	public String getTranslator() {
 		return translator;
@@ -73,16 +73,16 @@ public class Book {
 		this.title = title;
 	}
 	public int getPriece() {
-		return priece;
+		return price;
 	}
 	public void setPriece(int priece) {
-		this.priece = priece;
+		this.price = priece;
 	}
 	public boolean isRentable() {
-		return rentable;
+		return rentalPossible;
 	}
 	public void setRentable(boolean rentable) {
-		this.rentable = rentable;
+		this.rentalPossible = rentable;
 	}
 	public String getImage() {
 		return image;
@@ -91,29 +91,29 @@ public class Book {
 		this.image = image;
 	}
 	public CategoryS getCategorynoS() {
-		return categorynoS;
+		return cateSNo;
 	}
 	public void setCategorynoS(CategoryS categorynoS) {
-		this.categorynoS = categorynoS;
+		this.cateSNo = categorynoS;
 	}
 	public CategoryM getCategorynoM() {
-		return categorynoM;
+		return cateMNo;
 	}
 	public void setCategorynoM(CategoryM categorynoM) {
-		this.categorynoM = categorynoM;
+		this.cateMNo = categorynoM;
 	}
 	public CategoryB getCategorynoB() {
-		return categorynoB;
+		return cateBNo;
 	}
 	public void setCategorynoB(CategoryB categorynoB) {
-		this.categorynoB = categorynoB;
+		this.cateBNo = categorynoB;
 	}
 	@Override
 	public String toString() {
-		return "Book [bookCode=" + bookCode + ", bookNo=" + bookNo + ", publisherNo=" + publisherNo + ", writter="
-				+ writter + ", translator=" + translator + ", title=" + title + ", priece=" + priece + ", rentable="
-				+ rentable + ", image=" + image + ", categorynoS=" + categorynoS + ", categorynoM=" + categorynoM
-				+ ", categorynoB=" + categorynoB + "]";
+		return "Book [bookCode=" + bookCode + ", bookNo=" + bookNo + ", publisherNo=" + pubNo + ", writter="
+				+ author + ", translator=" + translator + ", title=" + title + ", priece=" + price + ", rentable="
+				+ rentalPossible + ", image=" + image + ", categorynoS=" + cateSNo + ", categorynoM=" + cateMNo
+				+ ", categorynoB=" + cateBNo + "]";
 	}
 	
 	
