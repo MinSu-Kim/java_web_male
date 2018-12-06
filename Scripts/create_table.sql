@@ -103,9 +103,9 @@ CREATE TABLE proj_library.member (
 	password   VARCHAR(50)  NOT NULL COMMENT '비밀번호', -- 비밀번호
 	kor_name   VARCHAR(50)  NOT NULL COMMENT '한글이름', -- 한글이름
 	eng_name   VARCHAR(50)  NULL     COMMENT '영어이름', -- 영어이름
-	phone      VARCHAR(15)  NOT NULL COMMENT '전화번호', -- 전화번호
-	jumin      VARCHAR(15)  NOT NULL COMMENT '주민등록번호', -- 주민등록번호
-	email      VARCHAR(15)  NOT NULL COMMENT '이메일', -- 이메일
+	phone      VARCHAR(50)  NOT NULL COMMENT '전화번호', -- 전화번호
+	jumin      VARCHAR(50)  NOT NULL COMMENT '주민등록번호', -- 주민등록번호
+	email      VARCHAR(100)  NOT NULL COMMENT '이메일', -- 이메일
 	address    VARCHAR(255) NOT NULL COMMENT '주소', -- 주소
 	photo      VARCHAR(100) NULL     COMMENT '사진', -- 사진
 	admin      BOOLEAN      NOT NULL COMMENT '관리자', -- 관리자
