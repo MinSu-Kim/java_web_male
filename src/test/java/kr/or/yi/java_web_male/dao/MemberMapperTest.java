@@ -18,8 +18,8 @@ public class MemberMapperTest {
 		Member member = new Member();
 		member.setmemberNo("1");
 		member.setPassword("tgkdsfld");
-		member.setKor_name("서동준");
-		member.setEng_name("seo-dong-june");
+		member.setKorName("서동준");
+		member.setEngName("seo-dong-june");
 		member.setPhone("010-2230-6796");
 		member.setJumin("921012-*******");
 		member.setEmail("super@naver.com");
@@ -59,8 +59,8 @@ public class MemberMapperTest {
 		Member member = new Member();
 		member.setmemberNo("1");
 		member.setPassword("donggay");
-		member.setKor_name("김동준");
-		member.setEng_name("gayking");
+		member.setKorName("김동준");
+		member.setEngName("gayking");
 		member.setPhone("010-4354-2435");
 		member.setJumin("647412-******");
 		member.setEmail("supterdongte@naver.com");

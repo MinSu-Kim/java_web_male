@@ -37,12 +37,12 @@
 	<!-- 추가 sql 구문 -->
 	<select id="insertMember" parameterType="Member">
 		insert into Member(member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, Uniqueness)
-		values(#{memberNo},#{password},#{kor_name},#{eng_name},#{phone},#{jumin},#{email},#{address},#{photo},#{admin},#{Uniqueness});
+		values(#{memberNo},#{password},#{korName},#{engName},#{phone},#{jumin},#{email},#{address},#{photo},#{admin},#{Uniqueness});
 	</select>
 
 	<!-- 수정 구문 -->
 	<select id="updateMember" parameterType="Member">
-		update Member set password=#{password}, kor_name=#{kor_name}, eng_name=#{eng_name}, phone=#{phone}, jumin=#{jumin}, email=#{email}, address=#{address}, photo=#{photo}, admin=#{admin}, Uniqueness=#{Uniqueness}
+		update Member set password=#{password}, kor_name=#{korName}, eng_name=#{engName}, phone=#{phone}, jumin=#{jumin}, email=#{email}, address=#{address}, photo=#{photo}, admin=#{admin}, Uniqueness=#{Uniqueness}
 		where member_no=#{memberNo}
 	</select>
 

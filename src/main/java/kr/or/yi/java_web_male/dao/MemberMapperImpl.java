@@ -62,11 +62,15 @@ public class MemberMapperImpl implements MemberMapper {
 		}
 	}
 
+	public List<Member> selectMemberByMemberNO() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@Override
 	public Member selectMemberbyNo(String member) {
-		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
-			return sqlSession.selectOne(namespace + ".selectMemberByNoToString", member);
-		}
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

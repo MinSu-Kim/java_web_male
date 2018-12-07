@@ -21,9 +21,7 @@ public class Book {
 		// TODO Auto-generated constructor stub
 	}
 
-	private CategoryS categorynoS;
-	private CategoryM categorynoM;
-	private CategoryB categorynoB;
+
 
 	
 
@@ -146,8 +144,8 @@ public class Book {
 
 		return String.format(
 				"Book [bookCode=%s, bookNo=%s, publisherNo=%s, writter=%s, translator=%s, title=%s, priece=%s, rentable=%s, image=%s, categorynoS=%s, categorynoM=%s, categorynoB=%s]",
-				bookCode, bookNo, pubNo, author, translator, title, price, rentalPossible, image, categorynoS,
-				categorynoM, categorynoB);
+				bookCode, bookNo, pubNo, author, translator, title, price, rentalPossible, image, cateSNo,
+				cateMNo, cateBNo);
 
 	}
 

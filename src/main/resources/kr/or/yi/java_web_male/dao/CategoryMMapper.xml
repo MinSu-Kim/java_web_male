@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.yi.java_web_male.dao.CategoryMMapper">
+	<sql id="selectSql">
+		SELECT cate_m_no, cate_b_no, cate_m_name
+		FROM proj_library.category_m
+	</sql>
+	<sql id="whereCateBSql">
+		<where>
+			<if test="bCode != null">
+				cate_b_no=#{bCode}
+			</if>
+		</where>
+	</sql>
+	<resultMap type="CategoryM" id="selectcateMAll">
+		<result property="bCode.bCode" column="cate_b_no" />
+		<result property="mCode" column="cate_m_no" />
+		<result property="mName" column="cate_m_name" />
+	</resultMap>
+	<select id="selectCategoryMByAll" resultMap="selectcateMAll">
+		<include refid="selectSql" />
+	</select>
+	
+	<select id="selectCategoryMByBNo" resultMap="selectcateMAll" parameterType="CategoryB">
+		<include refid="selectSql"/>
+		<include refid="whereCateBSql"/>		
+	</select>
+
+</mapper>
