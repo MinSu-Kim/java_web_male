@@ -47,7 +47,7 @@
 	</resultMap> -->
 	
 	<insert id="insertBook" parameterType="Book">
-		INSERT INTO proj_library.book (book_code, book_no, publisher_no, writter, translator, title, priece, rentable,image, categoryno_s, categoryno_m, categoryno_b)
+		INSERT INTO proj_library.book (book_code, book_no, pub_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no)
 		VALUES (#{bookCode},#{bookNo},#{publisherNo.publisherNo}, #{writter}, #{translator}, #{title}, #{priece}, #{rentable}, #{image}, #{categorynoS.categorynoS}, #{categorynoM.categorynoM}, #{categorynoB.categorynoB})
 	</insert>
 	

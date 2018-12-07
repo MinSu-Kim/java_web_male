@@ -3,8 +3,10 @@
 	<data-source id="mysql5-1677d30bb2f-25340fcfd6b416ec" provider="mysql" driver="mysql5" name="MySQL - mysql(root)" save-password="true" show-system-objects="true" show-util-objects="true" read-only="false">
 		<connection host="localhost" port="3306" server="" database="mysql" url="jdbc:mysql://localhost:3306/mysql" user="root" password="AQsJNFNMSwJl8w==" home="C:\Program Files\MySQL\MySQL Server 5.7" type="dev"/>
 	</data-source>
-	<data-source id="mysql5-167839dfcc1-8a5b77270985441" provider="mysql" driver="mysql5" name="MySQL - proj_library(user_library)" save-password="true" show-system-objects="true" show-util-objects="true" read-only="false">
-		<connection host="localhost" port="3306" server="" database="proj_library" url="jdbc:mysql://localhost:3306/proj_library" user="user_library" password="AQsJNFNMSwJl8w==" home="C:\Program Files\MySQL\MySQL Server 5.7" type="dev"/>
+	<data-source id="mysql5-16785ff8d63-48dff6bd23dd8767" provider="mysql" driver="mysql5" name="MySQL - proj_library" save-password="true" show-system-objects="true" show-util-objects="true" read-only="false">
+		<connection host="localhost" port="3306" server="" database="proj_library" url="jdbc:mysql://localhost:3306/proj_library" user="user_library" password="AQsJNFNMSwJl8w==" home="C:\Program Files\MySQL\MySQL Server 5.7" type="dev">
+			<property name="connectTimeout" value="20000"/>
+		</connection>
 	</data-source>
 	<filters/>
 </data-sources>
