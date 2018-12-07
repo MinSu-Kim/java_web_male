@@ -6,8 +6,8 @@ import org.apache.ibatis.type.Alias;
 public class Member {
 	private String memberNo;
 	private String password;
-	private String kor_name;
-	private String eng_name;
+	private String korName;
+	private String engName;
 	private String phone;
 	private String jumin;
 	private String email;
@@ -18,12 +18,12 @@ public class Member {
 
 	public Member() {}
 
-	public Member(String memberNo, String password, String kor_name, String eng_name, String phone, String jumin,
+	public Member(String memberNo, String password, String korName, String engName, String phone, String jumin,
 			String email, String address, String photo, int admin, String uniqueness) {
 		this.memberNo = memberNo;
 		this.password = password;
-		this.kor_name = kor_name;
-		this.eng_name = eng_name;
+		this.korName = korName;
+		this.engName = engName;
 		this.phone = phone;
 		this.jumin = jumin;
 		this.email = email;
@@ -49,20 +49,20 @@ public class Member {
 		this.password = password;
 	}
 
-	public String getKor_name() {
-		return kor_name;
+	public String getKorName() {
+		return korName;
 	}
 
-	public void setKor_name(String kor_name) {
-		this.kor_name = kor_name;
+	public void setKorName(String korName) {
+		this.korName = korName;
 	}
 
-	public String getEng_name() {
-		return eng_name;
+	public String getEngName() {
+		return engName;
 	}
 
-	public void setEng_name(String eng_name) {
-		this.eng_name = eng_name;
+	public void setEngName(String engName) {
+		this.engName = engName;
 	}
 
 	public String getPhone() {
@@ -125,7 +125,7 @@ public class Member {
 	public String toString() {
 		return String.format(
 				"Member [memberNo=%s, password=%s, kor_name=%s, eng_name=%s, phone=%s, jumin=%s, email=%s, address=%s, photo=%s, admin=%s, Uniqueness=%s]",
-				memberNo, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, Uniqueness);
+				memberNo, password, korName, engName, phone, jumin, email, address, photo, admin, Uniqueness);
 	}
 
 }

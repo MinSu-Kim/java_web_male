@@ -7,6 +7,8 @@ insert into publisher values('P001','영남인제교육원');
 SELECT *
 from member;
 
+
+
 select member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, memo
 from member;
 
@@ -17,4 +19,3 @@ VALUES('00001', 0, 'P001', '김재영', '김재영', '자바의 정석', 40000, 
 >>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
 
 SELECT * FROM book;
-
