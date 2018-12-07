@@ -1,39 +1,33 @@
 package kr.or.yi.java_web_male.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JRadioButton;
-import java.awt.GridBagLayout;
-import javax.swing.JCheckBox;
-import java.awt.GridBagConstraints;
-import javax.swing.JComboBox;
-import java.awt.Insets;
-import javax.swing.BoxLayout;
-import java.awt.GridLayout;
-import javax.swing.SwingConstants;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Vector;
+
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.service.LibraryUIService;
-
-import javax.swing.UIManager;
-import java.awt.Color;
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;
-
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.util.Vector;
-import java.awt.event.ActionEvent;
 
 public class BookSearchUI extends JFrame {
 
@@ -107,9 +101,10 @@ public class BookSearchUI extends JFrame {
 			strb = str.getThemaB();
 			CateB = {strb};
 		}*/
+		
 		DefaultComboBoxModel<CategoryB> model = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryBByAll()));
 		List<CategoryB> list = service.selectCategoryBByAll();
-		System.out.println("test :"+list.get(0));
+		System.out.println("test :"+list.get(0) + " 서비스 " + service);
 		
 		JComboBox comboBoxCateBNo = new JComboBox(model);
 		panel_3.add(comboBoxCateBNo);

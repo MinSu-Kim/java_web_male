@@ -51,6 +51,6 @@ public class BookMapperImplTest extends AbstractTest {
 	public void test04selectCategoryBByAll () {
 		log.debug("test04selectCategoryBByAll");
 		List<CategoryB> stdList = dao1.selectCategoryBByAll();
-		Assert.assertNotNull(stdList+"test");
+		Assert.assertNotNull(stdList);
 	}
 }

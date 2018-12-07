@@ -5,7 +5,8 @@
 		SELECT cate_b_no, cate_b_name
 		FROM proj_library.category_b;
 	</sql>
-	<select id="selectCategoryBByAll" parameterType="CategoryB" resultType="CategoryB">
+	
+	<select id="selectCategoryBByAll" resultType="CategoryB">
 		<include refid="selectSql"/>
 	</select>
 </mapper>
