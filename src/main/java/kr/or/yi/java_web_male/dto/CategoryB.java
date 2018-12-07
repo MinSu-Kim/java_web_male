@@ -1,35 +1,38 @@
 package kr.or.yi.java_web_male.dto;
 
 public class CategoryB {
-	private int categorynoB;
-	private String themaB;
+	private int bCode;
+	private String bName;
 
-	public CategoryB() {}
-
-	public CategoryB(int categorynoB, String themaB) {
-		this.categorynoB = categorynoB;
-		this.themaB = themaB;
+	public CategoryB() {
+	}
+	public CategoryB(int bCode, String bName) {
+		super();
+		this.bCode = bCode;
+		this.bName = bName;
 	}
 
-	public int getCategorynoB() {
-		return categorynoB;
+	public int getbCode() {
+		return bCode;
 	}
 
-	public void setCategorynoB(int categorynoB) {
-		this.categorynoB = categorynoB;
+	public void setbCode(int bCode) {
+		this.bCode = bCode;
 	}
 
-	public String getThemaB() {
-		return themaB;
+	public String getbName() {
+		return bName;
 	}
 
-	public void setThemaB(String themaB) {
-		this.themaB = themaB;
+	public void setbName(String bName) {
+		this.bName = bName;
 	}
+ 
+	
 
 	@Override
 	public String toString() {
-		return themaB;
+		return bName;
 	}
 
 }

@@ -19,3 +19,8 @@ VALUES('00001', 0, 'P001', '김재영', '김재영', '자바의 정석', 40000, 
 >>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
 
 SELECT * FROM book;
+
+
+SELECT cate_m_no, cate_b_no, cate_m_name
+		FROM proj_library.category_m
+		WHERE cate_b_no=1;

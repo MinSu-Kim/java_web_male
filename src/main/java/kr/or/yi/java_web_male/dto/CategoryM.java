@@ -1,45 +1,49 @@
 package kr.or.yi.java_web_male.dto;
 
 public class CategoryM {
-	private int categorynoM;
-	private String themaM;
-	private CategoryB categorynoB;
+	private int mCode;
+	private String mName;
+	private CategoryB bCode;
 
-	public CategoryM() {}
-
-	public CategoryM(int categorynoM, String themaM, CategoryB categorynoB) {
-		this.categorynoM = categorynoM;
-		this.themaM = themaM;
-		this.categorynoB = categorynoB;
+	public CategoryM() {
+	}
+	public CategoryM(int mCode, String mName, CategoryB bCode) {
+		super();
+		this.mCode = mCode;
+		this.mName = mName;
+		this.bCode = bCode;
 	}
 
-	public int getCategorynoM() {
-		return categorynoM;
+	public int getmCode() {
+		return mCode;
 	}
 
-	public void setCategorynoM(int categorynoM) {
-		this.categorynoM = categorynoM;
+	public void setmCode(int mCode) {
+		this.mCode = mCode;
 	}
 
-	public String getThemaM() {
-		return themaM;
+	public String getmName() {
+		return mName;
 	}
 
-	public void setThemaM(String themaM) {
-		this.themaM = themaM;
+	public void setmName(String mName) {
+		this.mName = mName;
 	}
 
-	public CategoryB getCategorynoB() {
-		return categorynoB;
+	public CategoryB getbCode() {
+		return bCode;
 	}
 
-	public void setCategorynoB(CategoryB categorynoB) {
-		this.categorynoB = categorynoB;
+	public void setbCode(CategoryB bCode) {
+		this.bCode = bCode;
 	}
+	
+
+	
 
 	@Override
 	public String toString() {
-		return "CategoryM [categorynoM=" + categorynoM + ", themaM=" + themaM + ", categorynoB=" + categorynoB + "]";
+		return mName;
 	}
 
 }

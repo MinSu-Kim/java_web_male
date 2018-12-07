@@ -6,8 +6,8 @@
 		FROM proj_library.category_b;
 	</sql>
 	<resultMap type="CategoryB" id="selectcateBAll">
-		<result property="categorynoB" column="cate_b_no"/>
-		<result property="themaB" column="cate_b_name"/>
+		<result property="bCode" column="cate_b_no"/>
+		<result property="bName" column="cate_b_name"/>
 	</resultMap>
 	<select id="selectCategoryBByAll" resultMap="selectcateBAll">
 		<include refid="selectSql"/>
