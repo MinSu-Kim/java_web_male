@@ -31,6 +31,7 @@ import javax.swing.DefaultComboBoxModel;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 
@@ -107,6 +108,8 @@ public class BookSearchUI extends JFrame {
 			CateB = {strb};
 		}*/
 		DefaultComboBoxModel<CategoryB> model = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryBByAll()));
+		List<CategoryB> list = service.selectCategoryBByAll();
+		System.out.println("test :"+list.get(0));
 		
 		JComboBox comboBoxCateBNo = new JComboBox(model);
 		panel_3.add(comboBoxCateBNo);

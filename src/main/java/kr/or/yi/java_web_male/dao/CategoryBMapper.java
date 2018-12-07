@@ -7,5 +7,5 @@ import kr.or.yi.java_web_male.dto.CategoryB;
 
 public interface CategoryBMapper {
 	List<CategoryB> selectCategoryBByAll();
-	
+	/*String[] */
 }

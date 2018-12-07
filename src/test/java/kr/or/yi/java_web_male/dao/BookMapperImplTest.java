@@ -35,7 +35,7 @@ public class BookMapperImplTest extends AbstractTest {
 		book = dao.selectbookbybookCode(book);
 		Assert.assertNotNull(book);
 	}
-	@Test
+	/*@Test
 	public void test03insertBook() {
 		log.debug("test03insertBook");
 		Book bookex = new Book();
@@ -46,11 +46,11 @@ public class BookMapperImplTest extends AbstractTest {
 		Book book = new Book("00004",2,p,"김재영",null,null,50000,true,null,s,m,b);
 		int res = dao.insertBook(book);
 		Assert.assertEquals(1, res);
-	}
+	}*/
 	@Test
 	public void test04selectCategoryBByAll () {
 		log.debug("test04selectCategoryBByAll");
 		List<CategoryB> stdList = dao1.selectCategoryBByAll();
-		Assert.assertNotNull(stdList);
+		Assert.assertNotNull(stdList+"test");
 	}
 }
