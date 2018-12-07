@@ -5,8 +5,11 @@
 		SELECT cate_b_no, cate_b_name
 		FROM proj_library.category_b;
 	</sql>
-	
-	<select id="selectCategoryBByAll" resultType="CategoryB">
+	<resultMap type="CategoryB" id="selectcateBAll">
+		<result property="categorynoB" column="cate_b_no"/>
+		<result property="themaB" column="cate_b_name"/>
+	</resultMap>
+	<select id="selectCategoryBByAll" resultMap="selectcateBAll">
 		<include refid="selectSql"/>
 	</select>
 </mapper>

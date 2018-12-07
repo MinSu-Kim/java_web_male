@@ -95,12 +95,6 @@ public class BookSearchUI extends JFrame {
 		lblNewLabel_6.setFont(new Font("굴림", Font.BOLD, 20));
 		panel_3.add(lblNewLabel_6);
 		
-		/*String[] CateB;
-		for(CategoryB str : service.selectCategoryBByAll()) {
-			String strb;
-			strb = str.getThemaB();
-			CateB = {strb};
-		}*/
 		
 		DefaultComboBoxModel<CategoryB> model = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryBByAll()));
 		List<CategoryB> list = service.selectCategoryBByAll();

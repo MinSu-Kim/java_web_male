@@ -29,7 +29,7 @@ public class CategoryB {
 
 	@Override
 	public String toString() {
-		return String.format("CategoryB [categorynoB=%s, themaB=%s]", categorynoB, themaB);
+		return themaB;
 	}
 
 }
