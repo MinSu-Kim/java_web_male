@@ -11,25 +11,23 @@ public class Book {
 	private int price;
 	private boolean rentalPossible;
 	private String image;
-<<<<<<< HEAD
+
 	private CategoryS cateSNo;
 	private CategoryM cateMNo;
 	private CategoryB cateBNo;
-	public String getBookCode() {
-		return bookCode;
-	}
+	
 	public Book() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-=======
+
 	private CategoryS categorynoS;
 	private CategoryM categorynoM;
 	private CategoryB categorynoB;
 
-	public Book() {}
+	
 
->>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
+
 	public Book(String bookCode, int bookNo, Publisher publisherNo, String writter, String translator, String title,
 			int priece, boolean rentable, String image, CategoryS categorynoS, CategoryM categorynoM,
 			CategoryB categorynoB) {
@@ -145,17 +143,12 @@ public class Book {
 
 	@Override
 	public String toString() {
-<<<<<<< HEAD
-		return "Book [bookCode=" + bookCode + ", bookNo=" + bookNo + ", publisherNo=" + pubNo + ", writter="
-				+ author + ", translator=" + translator + ", title=" + title + ", priece=" + price + ", rentable="
-				+ rentalPossible + ", image=" + image + ", categorynoS=" + cateSNo + ", categorynoM=" + cateMNo
-				+ ", categorynoB=" + cateBNo + "]";
-=======
+
 		return String.format(
 				"Book [bookCode=%s, bookNo=%s, publisherNo=%s, writter=%s, translator=%s, title=%s, priece=%s, rentable=%s, image=%s, categorynoS=%s, categorynoM=%s, categorynoB=%s]",
-				bookCode, bookNo, publisherNo, writter, translator, title, priece, rentable, image, categorynoS,
+				bookCode, bookNo, pubNo, author, translator, title, price, rentalPossible, image, categorynoS,
 				categorynoM, categorynoB);
->>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
+
 	}
 
 }
