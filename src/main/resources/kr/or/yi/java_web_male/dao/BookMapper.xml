@@ -5,6 +5,7 @@
 	<sql id="selectSql">
 		select * from book
 	</sql>
+	
 	<sql id="whereSql">
 		<where>
 			<if test="bookCode != null">
@@ -12,10 +13,18 @@
 			</if>
 		</where>
 	</sql>
+	
 	<select id="selectBookByAll" parameterType="Book"
 		resultType="Book">
 		<include refid="selectSql" />
 	</select>
+	
+	<!-- updateSql -->
+	<sql id="updateSql">
+		update book set book_no=#{bookNo}, author=#{writter}, translator=#{translator}, title=#{title}, price=#{priece}, rental_possible=#{rentable}, image=#{image}, cate_s_no=#{categorynoS.categorynoS}, cate_m_no=#{categorynoM.categorynoM}, cate_b_no=#{categorynoB.categorynoB}, pub_no=#{publisherNo.publisherNo}
+		WHERE book_code=#{bookCode};
+	</sql>
+	
 	<select id="selectbookbybookCode" parameterType="Book"
 		resultType="Book">
 		<include refid="selectSql" />
@@ -41,5 +50,9 @@
 		INSERT INTO proj_library.book (book_code, book_no, pub_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no)
 		VALUES (#{bookCode},#{bookNo},#{publisherNo.publisherNo}, #{writter}, #{translator}, #{title}, #{priece}, #{rentable}, #{image}, #{categorynoS.categorynoS}, #{categorynoM.categorynoM}, #{categorynoB.categorynoB})
 	</insert>
+	
+	<update id="updateBook" parameterType="Book">
+		<include refid="updateSql" />
+	</update>
 
 </mapper>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tm:TermDictionary xmlns:tm="http://exerd.com/term-model" version="1.1">
+  <term name="도서번호" description="분류번호+일련번호+중복권수" physicalName="book_code" physicalDescription="" tag="//@tag.0"/>
+  <term name="일련번호" description="일련번호" physicalName="book_no" physicalDescription="" tag="//@tag.0"/>
+  <term name="출판사번호" description="출판사 번호" physicalName="pub_no" physicalDescription="" tag="//@tag.0">
+    <physicalSynonyms>publisher_no</physicalSynonyms>
+  </term>
+  <term name="저자" description="도서 저자" physicalName="writter" physicalDescription="" tag="//@tag.0">
+    <physicalSynonyms>author</physicalSynonyms>
+  </term>
+  <term name="역자" description="도서 역자" physicalName="translator" physicalDescription="" tag="//@tag.0"/>
+  <term name="도서명" description="도서 이름" physicalName="title" physicalDescription="" tag="//@tag.0">
+    <physicalSynonyms>book_name</physicalSynonyms>
+  </term>
+  <term name="도서가격" description="도서 가격" physicalName="price" physicalDescription="" tag="//@tag.0"/>
+  <term name="회원번호" description="회원번호, ID" physicalName="member_no" physicalDescription="" tag="//@tag.0"/>
+  <term name="블랙리스트" description="블랙리스트(대여불가) 여부확인" physicalName="blacklist" physicalDescription="" tag="//@tag.0">
+    <synonyms>대여권한</synonyms>
+    <physicalSynonyms>rental_authority</physicalSynonyms>
+  </term>
+  <term name="정지일수" description="연체 시 정지기간(도서대여 불가)" physicalName="stop_date" physicalDescription="" tag="//@tag.0">
+    <synonyms>사용정지일</synonyms>
+    <synonyms>정지기간</synonyms>
+  </term>
+  <term name="사진" description="회원 사진" physicalName="photo" physicalDescription="" tag="//@tag.0">
+    <synonyms>회원사진</synonyms>
+    <physicalSynonyms>member_image</physicalSynonyms>
+  </term>
+  <term name="연체횟수" description="총 연체 횟수" physicalName="overdue_count" physicalDescription="" tag="//@tag.0"/>
+  <term name="관리자" description="관리자 권한" physicalName="admin" physicalDescription="" tag="//@tag.0">
+    <synonyms>관리자권한</synonyms>
+    <physicalSynonyms>admin_reference</physicalSynonyms>
+  </term>
+  <term name="메모" description="특이사항 메모" physicalName="memo" physicalDescription="" tag="//@tag.0">
+    <synonyms>특이사항</synonyms>
+    <physicalSynonyms>uniqueness</physicalSynonyms>
+  </term>
+  <term name="출판사명" description="출판사 이름" physicalName="pub_name" physicalDescription="" tag="//@tag.0">
+    <physicalSynonyms>publisher_name</physicalSynonyms>
+  </term>
+  <term name="대여중갯수" description="대여할 수 있는 권수" physicalName="now_total" physicalDescription="" tag="//@tag.0">
+    <synonyms>대여권수</synonyms>
+    <synonyms>가능권수</synonyms>
+    <synonyms>대여가능권수</synonyms>
+  </term>
+  <term name="총대여갯수" description="현재까지 대여한 총 권수" physicalName="total" physicalDescription="" tag="//@tag.0">
+    <synonyms>총대여수</synonyms>
+    <synonyms>총대여권수</synonyms>
+  </term>
+  <term name="등급" description="대여 횟수를 바탕으로 한 회원 등급" physicalName="grade" physicalDescription="" tag="//@tag.0"/>
+  <term name="비밀번호" description="회원 비밀번호" physicalName="password" physicalDescription="" tag="//@tag.0"/>
+  <term name="한글이름" description="회원 한글이름" physicalName="kor_name" physicalDescription="" tag="//@tag.0">
+    <synonyms>한글명</synonyms>
+  </term>
+  <term name="영어이름" description="회원 영어이름" physicalName="eng_name" physicalDescription="" tag="//@tag.0">
+    <synonyms>영어명</synonyms>
+  </term>
+  <term name="전화번호" description="회원 전화번호" physicalName="phone" physicalDescription="" tag="//@tag.0"/>
+  <term name="주민등록번호" description="회원 주민등록번호" physicalName="res_no" physicalDescription="" tag="//@tag.0">
+    <physicalSynonyms>jumin</physicalSynonyms>
+    <physicalSynonyms>resident_no</physicalSynonyms>
+  </term>
+  <term name="이메일" description="회원 이메일" physicalName="email" physicalDescription="" tag="//@tag.0"/>
+  <term name="주소" description="회원 주소" physicalName="address" physicalDescription="" tag="//@tag.0"/>
+  <term name="대분류" description="대분류번호" physicalName="cate_b_no" physicalDescription="" tag="//@tag.0">
+    <physicalSynonyms>category_b</physicalSynonyms>
+  </term>
+  <term name="분류명" description="분류번호에 따른 분류명(한국십진분류법 기준)" physicalName="cate_b_name" physicalDescription="" tag="//@tag.0">
+    <physicalSynonyms>cate_m_name</physicalSynonyms>
+    <physicalSynonyms>cate_s_name</physicalSynonyms>
+    <physicalSynonyms>category_big_name</physicalSynonyms>
+    <physicalSynonyms>category_medium_name</physicalSynonyms>
+    <physicalSynonyms>category_small_name</physicalSynonyms>
+  </term>
+  <term name="소분류" description="소분류번호" physicalName="cate_s_no" physicalDescription="" tag="//@tag.0">
+    <physicalSynonyms>category_no_small</physicalSynonyms>
+  </term>
+  <term name="중분류" description="중분류번호" physicalName="cate_m_no" physicalDescription="" tag="//@tag.0">
+    <physicalSynonyms>category_no_medium</physicalSynonyms>
+    <physicalSynonyms>category_no_middle</physicalSynonyms>
+  </term>
+  <term name="대여일자" description="대여한 일자" physicalName="rental_date" physicalDescription="" tag="//@tag.0">
+    <physicalSynonyms>rentdate</physicalSynonyms>
+  </term>
+  <term name="반납일자" description="반납한 일자" physicalName="return_date" physicalDescription="" tag="//@tag.0"/>
+  <term name="반납예정일" description="반납해야하는 일자(대여일 + 5)" physicalName="return_schedule" physicalDescription="" tag="//@tag.0">
+    <synonyms>반납기한</synonyms>
+  </term>
+  <term name="대여가능여부" description="도서의 대여가능 여부" physicalName="rentable" physicalDescription="" tag="//@tag.0">
+    <physicalSynonyms>rental_possible</physicalSynonyms>
+  </term>
+  <term name="도서사진" description="도서의 사진" physicalName="image" physicalDescription="" tag="//@tag.0">
+    <physicalSynonyms>book_image</physicalSynonyms>
+  </term>
+  <term name="대여번호" description="대여번호" physicalName="rental_no" physicalDescription="" tag="//@tag.0"/>
+  <tag name="다이어그램_용어수집" description="이 용어는 다이어그램에서 용어 수집도구를 사용하여 등록한 것입니다."/>
+</tm:TermDictionary>
