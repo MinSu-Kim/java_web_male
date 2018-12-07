@@ -4,34 +4,45 @@ public class Book {
 
 	private String bookCode;
 	private int bookNo;
-	private Publisher publisherNo;
-	private String writter;
+	private Publisher pubNo;
+	private String author;
 	private String translator;
 	private String title;
-	private int priece;
-	private boolean rentable;
+	private int price;
+	private boolean rentalPossible;
 	private String image;
+
+	private CategoryS cateSNo;
+	private CategoryM cateMNo;
+	private CategoryB cateBNo;
+	
+	public Book() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	private CategoryS categorynoS;
 	private CategoryM categorynoM;
 	private CategoryB categorynoB;
 
-	public Book() {}
+	
+
 
 	public Book(String bookCode, int bookNo, Publisher publisherNo, String writter, String translator, String title,
 			int priece, boolean rentable, String image, CategoryS categorynoS, CategoryM categorynoM,
 			CategoryB categorynoB) {
 		this.bookCode = bookCode;
 		this.bookNo = bookNo;
-		this.publisherNo = publisherNo;
-		this.writter = writter;
+		this.pubNo = publisherNo;
+		this.author = writter;
 		this.translator = translator;
 		this.title = title;
-		this.priece = priece;
-		this.rentable = rentable;
+		this.price = priece;
+		this.rentalPossible = rentable;
 		this.image = image;
-		this.categorynoS = categorynoS;
-		this.categorynoM = categorynoM;
-		this.categorynoB = categorynoB;
+		this.cateSNo = categorynoS;
+		this.cateMNo = categorynoM;
+		this.cateBNo = categorynoB;
 	}
 
 	public String getBookCode() {
@@ -51,19 +62,19 @@ public class Book {
 	}
 
 	public Publisher getPublisherNo() {
-		return publisherNo;
+		return pubNo;
 	}
 
 	public void setPublisherNo(Publisher publisherNo) {
-		this.publisherNo = publisherNo;
+		this.pubNo = publisherNo;
 	}
 
 	public String getWritter() {
-		return writter;
+		return author;
 	}
 
 	public void setWritter(String writter) {
-		this.writter = writter;
+		this.author = writter;
 	}
 
 	public String getTranslator() {
@@ -83,19 +94,19 @@ public class Book {
 	}
 
 	public int getPriece() {
-		return priece;
+		return price;
 	}
 
 	public void setPriece(int priece) {
-		this.priece = priece;
+		this.price = priece;
 	}
 
 	public boolean isRentable() {
-		return rentable;
+		return rentalPossible;
 	}
 
 	public void setRentable(boolean rentable) {
-		this.rentable = rentable;
+		this.rentalPossible = rentable;
 	}
 
 	public String getImage() {
@@ -107,35 +118,37 @@ public class Book {
 	}
 
 	public CategoryS getCategorynoS() {
-		return categorynoS;
+		return cateSNo;
 	}
 
 	public void setCategorynoS(CategoryS categorynoS) {
-		this.categorynoS = categorynoS;
+		this.cateSNo = categorynoS;
 	}
 
 	public CategoryM getCategorynoM() {
-		return categorynoM;
+		return cateMNo;
 	}
 
 	public void setCategorynoM(CategoryM categorynoM) {
-		this.categorynoM = categorynoM;
+		this.cateMNo = categorynoM;
 	}
 
 	public CategoryB getCategorynoB() {
-		return categorynoB;
+		return cateBNo;
 	}
 
 	public void setCategorynoB(CategoryB categorynoB) {
-		this.categorynoB = categorynoB;
+		this.cateBNo = categorynoB;
 	}
 
 	@Override
 	public String toString() {
+
 		return String.format(
 				"Book [bookCode=%s, bookNo=%s, publisherNo=%s, writter=%s, translator=%s, title=%s, priece=%s, rentable=%s, image=%s, categorynoS=%s, categorynoM=%s, categorynoB=%s]",
-				bookCode, bookNo, publisherNo, writter, translator, title, priece, rentable, image, categorynoS,
+				bookCode, bookNo, pubNo, author, translator, title, price, rentalPossible, image, categorynoS,
 				categorynoM, categorynoB);
+
 	}
 
 }
