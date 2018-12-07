@@ -16,4 +16,6 @@ public interface MemberMapper {
 	int deleteMember(int id);
 
 	int deleteMember(String id);
+	
+	List<Member> selectMemberByMemberNO();
 }

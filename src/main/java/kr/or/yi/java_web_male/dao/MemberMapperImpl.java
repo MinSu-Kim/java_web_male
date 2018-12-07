@@ -62,4 +62,10 @@ public class MemberMapperImpl implements MemberMapper {
 		}
 	}
 
+	@Override
+	public List<Member> selectMemberByMemberNO() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
