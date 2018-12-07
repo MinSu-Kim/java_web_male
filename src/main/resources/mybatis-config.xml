@@ -32,6 +32,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			</dataSource>
 		</environment>
 	</environments>
+
 	<mappers>
 		<package name="kr.or.yi.java_web_male.dao"/>
 	</mappers>
