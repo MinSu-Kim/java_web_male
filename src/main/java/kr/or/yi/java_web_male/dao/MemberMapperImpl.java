@@ -62,4 +62,11 @@ public class MemberMapperImpl implements MemberMapper {
 		}
 	}
 
+	@Override
+	public Member selectMemberbyNo(String member) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectOne(namespace + ".selectMemberByNoToString", member);
+		}
+	}
+
 }

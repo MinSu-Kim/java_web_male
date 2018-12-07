@@ -45,9 +45,17 @@ public class MemberMapperTest {
 		Member searchedMem = dao.selectMemberbyNo(searchMem);
 		Assert.assertNotNull(searchedMem);
 	}
+	
+	@Test
+	public void test04selectMemberByNo() {
+		String searchStr = "1";
+
+		Member searchedMem = dao.selectMemberbyNo(searchStr);
+		Assert.assertNotNull(searchedMem);
+	}
 
 	@Test
-	public void test04UpdateMember() {
+	public void test05UpdateMember() {
 		Member member = new Member();
 		member.setmemberNo("1");
 		member.setPassword("donggay");
@@ -64,10 +72,10 @@ public class MemberMapperTest {
 		Assert.assertSame(1, res);
 	}
 
-	@Test
-	public void test05DeleteMember() {
+	/*@Test
+	public void test06DeleteMember() {
 		int deleteMember = dao.deleteMember("1");
 		Assert.assertSame(1, deleteMember);
 
-	}
+	}*/
 }// end of testClass

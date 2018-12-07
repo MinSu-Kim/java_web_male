@@ -16,4 +16,7 @@ public interface MemberMapper {
 	int deleteMember(int id);
 
 	int deleteMember(String id);
+
+	// 로그인용 오버로딩
+	Member selectMemberbyNo(String member);
 }

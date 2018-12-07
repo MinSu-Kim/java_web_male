@@ -22,8 +22,6 @@ public class BookMapperImplTest extends AbstractTest {
 
 	private CategoryBMapper dao1 = new CategoryBMapperImpl();
 
-
-
 	@Test
 	public void test01selectBookByAll() {
 		log.debug("test01selectBookByAll");
@@ -41,7 +39,7 @@ public class BookMapperImplTest extends AbstractTest {
 	}
 
 	@Test
-	public void test04selectCategoryBByAll () {
+	public void test04selectCategoryBByAll() {
 		log.debug("test04selectCategoryBByAll");
 		List<CategoryB> stdList = dao1.selectCategoryBByAll();
 		Assert.assertNotNull(stdList);

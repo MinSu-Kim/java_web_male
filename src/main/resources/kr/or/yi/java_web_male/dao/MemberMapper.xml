@@ -22,6 +22,12 @@
 		<include refid="selectSql"></include>
 		<include refid="whereSql"></include>
 	</select>
+	
+	<select id="selectMemberByNoToString" parameterType="String" resultType="Member">
+		select member_no, password, admin
+		from member
+		where member_no=#{memberNo}
+	</select>
 
 	<!-- 모든 리스트 검색 -->
 	<select id="selectMemberByAll" resultType="Member">
