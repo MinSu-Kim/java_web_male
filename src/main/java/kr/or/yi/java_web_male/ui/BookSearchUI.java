@@ -18,6 +18,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -27,17 +28,25 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import kr.or.yi.java_web_male.dto.CategoryB;
+import kr.or.yi.java_web_male.dto.CategoryM;
+import kr.or.yi.java_web_male.dto.CategoryS;
 import kr.or.yi.java_web_male.service.LibraryUIService;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class BookSearchUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField tfCode;
-	private JTextField tfAuthor;
+	private JTextField tfAuthor; 
+	
 	private JTextField tfTranslator;
 	private JTextField tfTitle;
 	private LibraryUIService service;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JComboBox comboBoxCateBNo;
+	private DefaultComboBoxModel<CategoryM> modelM;
+	private JComboBox comboBoxCatMNo;
 
 	/**
 	 * Launch the application.
@@ -96,11 +105,21 @@ public class BookSearchUI extends JFrame {
 		panel_3.add(lblNewLabel_6);
 		
 		
-		DefaultComboBoxModel<CategoryB> model = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryBByAll()));
-		List<CategoryB> list = service.selectCategoryBByAll();
-		System.out.println("test :"+list.get(0) + " 서비스 " + service);
+		DefaultComboBoxModel<CategoryB> modelB = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryBByAll()));
 		
-		JComboBox comboBoxCateBNo = new JComboBox(model);
+		comboBoxCateBNo = new JComboBox(modelB);
+		comboBoxCateBNo.addItemListener(new ItemListener() {
+			//대분류가 선택되었을때
+			public void itemStateChanged(ItemEvent e) {
+				CategoryB cateB = (CategoryB) comboBoxCateBNo.getSelectedItem();
+				//분류번호확인
+				/*JOptionPane.showInputDialog(cateB.getbCode()+"/"+cateB.getbName());*/
+				
+				int i =cateB.getbCode();
+				modelM = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryMByBNo(cateB)));
+				comboBoxCatMNo.setModel(modelM);
+			}
+		});
 		panel_3.add(comboBoxCateBNo);
 		
 		JLabel lblNewLabel_1 = new JLabel("중분류");
@@ -108,7 +127,11 @@ public class BookSearchUI extends JFrame {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_3.add(lblNewLabel_1);
 		
-		JComboBox comboBoxCatMNo = new JComboBox();
+		
+		
+		modelM = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryMByAll()));
+		
+		comboBoxCatMNo = new JComboBox(modelM);
 		panel_3.add(comboBoxCatMNo);
 		
 		JLabel lblNewLabel_2 = new JLabel("소분류");
@@ -116,7 +139,9 @@ public class BookSearchUI extends JFrame {
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_3.add(lblNewLabel_2);
 		
-		JComboBox comboBoxCateSNo = new JComboBox();
+		DefaultComboBoxModel<CategoryS> modelS = new DefaultComboBoxModel<>(new Vector<>(service.selectCategorySByAll()));
+		
+		JComboBox comboBoxCateSNo = new JComboBox(modelS);
 		panel_3.add(comboBoxCateSNo);
 		
 		JPanel panel_4 = new JPanel();
