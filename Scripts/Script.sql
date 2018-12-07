@@ -6,7 +6,14 @@ insert into publisher values('P001','영남인제교육원');
 
 SELECT *
 from member;
+insert into `member` values("1","gfkrtkf", "서동준", "kiggay","01022306796","921012","tjehdxo2002@","비밀","하핫",1,"하말없음");
+select kor_name, phone, jumin
+from `member` where kor_name="김동준";
 
+call search_memberno("2");
+call search_name("김동준");
+call search_phone("01022306796");
+call search_jumin("921012");
 
 
 select member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, memo
