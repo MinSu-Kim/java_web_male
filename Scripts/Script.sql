@@ -1,6 +1,14 @@
 insert into category_b values('0','총류');
 insert into category_m values('0','0','총류');
 insert into category_s values('0','0','0','총류');
+insert into category_s values('0','1','1',' 저작');
+insert into category_s values('0','2','1', '도서관 행정 및 재정');
+insert into category_s values('0','3','1','한국어');
+insert into category_s values('0','4','1','한국어');
+insert into category_s values('0','5','1','한국어');
+insert into category_s values('0','6','1','아시아 일반 학회,단체 등');
+insert into category_s values('0','7','1','아시아 신문,저널리즘 등');
+insert into category_s values('1','1','4','공간');
 insert into publisher values('P001','영남인제교육원');
 
 
@@ -31,3 +39,6 @@ SELECT * FROM book;
 SELECT cate_m_no, cate_b_no, cate_m_name
 		FROM proj_library.category_m
 		WHERE cate_b_no=1;
+		
+	
+SELECT cate_s_no, cate_m_no, cate_b_no, cate_s_name FROM proj_library.category_s WHERE cate_m_no=1 AND cate_b_no=1;

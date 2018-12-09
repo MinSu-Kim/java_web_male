@@ -19,7 +19,7 @@ import kr.or.yi.java_web_male.dto.Publisher;
 public class BookMapperImplTest extends AbstractTest {
 
 	private BookMapper dao = new BookMapperImpl();
-
+	private PublisherMapper dao2 = new PublisherMapperImpl();
 	private CategoryBMapper dao1 = new CategoryBMapperImpl();
 
 	@Test
@@ -42,6 +42,12 @@ public class BookMapperImplTest extends AbstractTest {
 	public void test04selectCategoryBByAll() {
 		log.debug("test04selectCategoryBByAll");
 		List<CategoryB> stdList = dao1.selectCategoryBByAll();
+		Assert.assertNotNull(stdList);
+	}
+	@Test
+	public void test05selectPublisherByAll() {
+		log.debug("test05selectPublisherByAll");
+		List<Publisher> stdList = dao2.selectPublisherByAll();
 		Assert.assertNotNull(stdList);
 	}
 }

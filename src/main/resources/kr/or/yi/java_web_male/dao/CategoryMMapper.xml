@@ -11,6 +11,7 @@
 				cate_b_no=#{bCode}
 			</if>
 		</where>
+		
 	</sql>
 	<resultMap type="CategoryM" id="selectcateMAll">
 		<result property="bCode.bCode" column="cate_b_no" />

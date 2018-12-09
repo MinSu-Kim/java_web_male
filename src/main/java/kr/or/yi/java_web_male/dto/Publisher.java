@@ -29,7 +29,7 @@ public class Publisher {
 
 	@Override
 	public String toString() {
-		return String.format("Publisher [publisherNo=%s, name=%s]", publisherNo, name);
+		return name;
 	}
 
 }

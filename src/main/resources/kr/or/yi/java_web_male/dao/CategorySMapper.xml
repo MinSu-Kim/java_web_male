@@ -3,7 +3,7 @@
 <mapper namespace="kr.or.yi.java_web_male.dao.CategorySMapper">
 	<sql id="selectSql">
 		SELECT cate_s_no, cate_m_no, cate_b_no, cate_s_name
-		FROM proj_library.category_s;
+		FROM proj_library.category_s
 	</sql>
 	<resultMap type="CategoryS" id="selectcateSAll">
 		<result property="mCode.mCode" column="cate_m_no" />
@@ -13,6 +13,22 @@
 	</resultMap>
 	<select id="selectCategorySByAll" resultMap="selectcateSAll">
 		<include refid="selectSql" />
+	</select>
+	<sql id="whereCateMNoCateBNoSql">
+		<where>
+			<if test="mCode != null">
+				cate_m_no=#{mCode}
+			</if>
+			<if test="bCode.bCode != null">
+				AND cate_b_no=#{bCode.bCode}
+			</if>
+		</where>
+	</sql>
+	
+	
+	<select id="selectCategorySByBNoMno" resultMap="selectcateSAll" parameterType="CategoryM">
+		<include refid="selectSql"/>
+		<include refid="whereCateMNoCateBNoSql"/>		
 	</select>
 
 </mapper>

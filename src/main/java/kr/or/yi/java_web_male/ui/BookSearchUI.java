@@ -46,7 +46,23 @@ public class BookSearchUI extends JFrame {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JComboBox comboBoxCateBNo;
 	private DefaultComboBoxModel<CategoryM> modelM;
-	private JComboBox comboBoxCatMNo;
+	private JComboBox comboBoxCateMNo;
+	private JComboBox comboBoxCateSNo;
+	private CategoryB cateB;
+	private CategoryM cateM;
+	private CategoryS cateS;
+	private DefaultComboBoxModel<CategoryS> modelS;
+	private JComboBox comboBoxPublisher;
+	private DefaultComboBoxModel modelPublisher;
+	/*private boolean cateBview = false;*/
+	private boolean cateMview = false;
+	private boolean cateSview = false;
+	private JCheckBox chckbxCategory;
+	private JCheckBox chckbxPublisher;
+	private JCheckBox chckbxAuthor;
+	private JCheckBox chckbxTranslator;
+	private JCheckBox chckbxTitle;
+	private JPanel panel_2;
 
 	/**
 	 * Launch the application.
@@ -83,10 +99,24 @@ public class BookSearchUI extends JFrame {
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JRadioButton RadioSelectOther = new JRadioButton("");
+		RadioSelectOther.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (RadioSelectOther.isSelected()) {
+					chckbxCategory.setEnabled(true);
+					chckbxAuthor.setEnabled(true);
+					chckbxPublisher.setEnabled(true);
+					chckbxTitle.setEnabled(true);
+					chckbxTranslator.setEnabled(true);
+					tfCode.setEnabled(false);
+					panel_2.setVisible(true);
+					
+				} 
+			}
+		});
 		buttonGroup.add(RadioSelectOther);
 		panel.add(RadioSelectOther, BorderLayout.NORTH);
 		
-		JPanel panel_2 = new JPanel();
+		panel_2 = new JPanel();
 		panel.add(panel_2, BorderLayout.CENTER);
 		panel_2.setLayout(new GridLayout(0, 1, 0, 20));
 		
@@ -94,7 +124,27 @@ public class BookSearchUI extends JFrame {
 		panel_2.add(panel_3);
 		panel_3.setLayout(new GridLayout(0, 7, 0, 0));
 		
-		JCheckBox chckbxCategory = new JCheckBox("");
+		chckbxCategory = new JCheckBox("");
+		chckbxCategory.setEnabled(false);
+		chckbxCategory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if (chckbxCategory.isSelected()) {
+					comboBoxCateBNo.setEnabled(true);
+					if (cateMview) {
+						comboBoxCateMNo.setEnabled(true);
+						/*cateBview=true;*/
+					}
+					if (cateSview) {
+						comboBoxCateSNo.setEnabled(true);
+					}
+				}else {
+					comboBoxCateBNo.setEnabled(false);
+					comboBoxCateMNo.setEnabled(false);
+					comboBoxCateSNo.setEnabled(false);
+				}
+			}
+		});
 		chckbxCategory.setFont(new Font("굴림체", Font.BOLD, 20));
 		chckbxCategory.setHorizontalAlignment(SwingConstants.RIGHT);
 		panel_3.add(chckbxCategory);
@@ -108,16 +158,18 @@ public class BookSearchUI extends JFrame {
 		DefaultComboBoxModel<CategoryB> modelB = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryBByAll()));
 		
 		comboBoxCateBNo = new JComboBox(modelB);
+		comboBoxCateBNo.setEnabled(false);
 		comboBoxCateBNo.addItemListener(new ItemListener() {
 			//대분류가 선택되었을때
 			public void itemStateChanged(ItemEvent e) {
-				CategoryB cateB = (CategoryB) comboBoxCateBNo.getSelectedItem();
+				cateB = (CategoryB) comboBoxCateBNo.getSelectedItem();
 				//분류번호확인
 				/*JOptionPane.showInputDialog(cateB.getbCode()+"/"+cateB.getbName());*/
-				
-				int i =cateB.getbCode();
+				cateMview = true;
 				modelM = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryMByBNo(cateB)));
-				comboBoxCatMNo.setModel(modelM);
+				comboBoxCateMNo.setModel(modelM);
+				comboBoxCateMNo.setEnabled(true);
+				comboBoxCateSNo.setEnabled(false);
 			}
 		});
 		panel_3.add(comboBoxCateBNo);
@@ -131,24 +183,51 @@ public class BookSearchUI extends JFrame {
 		
 		modelM = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryMByAll()));
 		
-		comboBoxCatMNo = new JComboBox(modelM);
-		panel_3.add(comboBoxCatMNo);
+		comboBoxCateMNo = new JComboBox(modelM);
+		comboBoxCateMNo.addItemListener(new ItemListener() {
+
+			public void itemStateChanged(ItemEvent arg0) {
+				
+				cateM = (CategoryM) comboBoxCateMNo.getSelectedItem();
+				/*JOptionPane.showInputDialog(cateM.getbCode().getbCode()+"/"+cateM.getmCode()+"/"+cateM.getmName());*/
+				modelS = new DefaultComboBoxModel<>(new Vector<>(service.selectCategorySByBNoMno(cateM)));
+				comboBoxCateSNo.setModel(modelS);
+				comboBoxCateSNo.setEnabled(true);
+				cateSview = true;
+				
+				
+			}
+		});
+		comboBoxCateMNo.setEnabled(false);
+		panel_3.add(comboBoxCateMNo);
 		
 		JLabel lblNewLabel_2 = new JLabel("소분류");
 		lblNewLabel_2.setFont(new Font("굴림체", Font.BOLD, 20));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_3.add(lblNewLabel_2);
 		
-		DefaultComboBoxModel<CategoryS> modelS = new DefaultComboBoxModel<>(new Vector<>(service.selectCategorySByAll()));
+		modelS = new DefaultComboBoxModel<>(new Vector<>(service.selectCategorySByAll()));
 		
-		JComboBox comboBoxCateSNo = new JComboBox(modelS);
+		comboBoxCateSNo = new JComboBox(modelS);
+		comboBoxCateSNo.setEnabled(false);
 		panel_3.add(comboBoxCateSNo);
 		
 		JPanel panel_4 = new JPanel();
 		panel_2.add(panel_4);
 		panel_4.setLayout(new GridLayout(0, 7, 0, 0));
 		
-		JCheckBox chckbxPublisher = new JCheckBox("");
+		chckbxPublisher = new JCheckBox("");
+		chckbxPublisher.setEnabled(false);
+		chckbxPublisher.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (chckbxPublisher.isSelected()) {
+					comboBoxPublisher.setEnabled(true);
+				}else {
+					comboBoxPublisher.setEnabled(false);
+				}
+			}
+		});
 		chckbxPublisher.setHorizontalAlignment(SwingConstants.RIGHT);
 		chckbxPublisher.setFont(new Font("굴림체", Font.BOLD, 20));
 		panel_4.add(chckbxPublisher);
@@ -158,14 +237,27 @@ public class BookSearchUI extends JFrame {
 		lblNewLabel_5.setFont(new Font("굴림", Font.BOLD, 20));
 		panel_4.add(lblNewLabel_5);
 		
-		JComboBox comboBoxPublisher = new JComboBox();
+		modelPublisher = new DefaultComboBoxModel<>(new Vector<>(service.selectPublisherByAll()));
+		
+		comboBoxPublisher = new JComboBox(modelPublisher);
+		comboBoxPublisher.setEnabled(false);
 		panel_4.add(comboBoxPublisher);
 		
 		JPanel panel_7 = new JPanel();
 		panel_2.add(panel_7);
 		panel_7.setLayout(new GridLayout(0, 7, 0, 0));
 		
-		JCheckBox chckbxAuthor = new JCheckBox("");
+		chckbxAuthor = new JCheckBox("");
+		chckbxAuthor.setEnabled(false);
+		chckbxAuthor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (chckbxAuthor.isSelected()) {
+					tfAuthor.setEnabled(true);
+				}else {
+					tfAuthor.setEnabled(false);
+				}
+			}
+		});
 		chckbxAuthor.setHorizontalAlignment(SwingConstants.RIGHT);
 		chckbxAuthor.setFont(new Font("굴림체", Font.BOLD, 20));
 		panel_7.add(chckbxAuthor);
@@ -176,6 +268,7 @@ public class BookSearchUI extends JFrame {
 		panel_7.add(lblNewLabel);
 		
 		tfAuthor = new JTextField();
+		tfAuthor.setEnabled(false);
 		tfAuthor.setToolTipText("작가를입력하세요");
 		panel_7.add(tfAuthor);
 		tfAuthor.setColumns(10);
@@ -184,7 +277,17 @@ public class BookSearchUI extends JFrame {
 		panel_2.add(panel_8);
 		panel_8.setLayout(new GridLayout(0, 7, 0, 0));
 		
-		JCheckBox chckbxTranslator = new JCheckBox("");
+		chckbxTranslator = new JCheckBox("");
+		chckbxTranslator.setEnabled(false);
+		chckbxTranslator.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (chckbxTranslator.isSelected()) {
+					tfTranslator.setEnabled(true);
+				}else {
+					tfTranslator.setEnabled(false);
+				}
+			}
+		});
 		chckbxTranslator.setHorizontalAlignment(SwingConstants.RIGHT);
 		chckbxTranslator.setFont(new Font("굴림체", Font.BOLD, 20));
 		panel_8.add(chckbxTranslator);
@@ -195,6 +298,7 @@ public class BookSearchUI extends JFrame {
 		panel_8.add(lblNewLabel_3);
 		
 		tfTranslator = new JTextField();
+		tfTranslator.setEnabled(false);
 		panel_8.add(tfTranslator);
 		tfTranslator.setColumns(10);
 		
@@ -202,7 +306,17 @@ public class BookSearchUI extends JFrame {
 		panel_2.add(panel_9);
 		panel_9.setLayout(new GridLayout(0, 7, 0, 0));
 		
-		JCheckBox chckbxTitle = new JCheckBox("");
+		chckbxTitle = new JCheckBox("");
+		chckbxTitle.setEnabled(false);
+		chckbxTitle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (chckbxTitle.isSelected()) {
+					tfTitle.setEnabled(true);
+				}else {
+					tfTitle.setEnabled(false);
+				}
+			}
+		});
 		chckbxTitle.setHorizontalAlignment(SwingConstants.RIGHT);
 		chckbxTitle.setFont(new Font("굴림체", Font.BOLD, 20));
 		panel_9.add(chckbxTitle);
@@ -213,6 +327,7 @@ public class BookSearchUI extends JFrame {
 		panel_9.add(lblNewLabel_4);
 		
 		tfTitle = new JTextField();
+		tfTitle.setEnabled(false);
 		panel_9.add(tfTitle);
 		tfTitle.setColumns(10);
 		
@@ -227,10 +342,32 @@ public class BookSearchUI extends JFrame {
 		panel_1.add(panel_5);
 		
 		JRadioButton RadioSelectCode = new JRadioButton("코드");
+		RadioSelectCode.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (RadioSelectCode.isSelected()) {
+					/*tfCode.setEnabled(true);
+					chckbxCategory.setEnabled(false);
+					chckbxAuthor.setEnabled(false);
+					chckbxPublisher.setEnabled(false);
+					chckbxTitle.setEnabled(false);
+					chckbxTranslator.setEnabled(false);
+					comboBoxCateBNo.setEnabled(false);
+					comboBoxCateMNo.setEnabled(false);
+					comboBoxCateSNo.setEnabled(false);
+					comboBoxPublisher.setEnabled(false);*/
+					panel_2.setVisible(false);
+					tfCode.setEnabled(true);
+					
+				} else {
+					
+				}
+			}
+		});
 		buttonGroup.add(RadioSelectCode);
 		panel_5.add(RadioSelectCode);
 		
 		tfCode = new JTextField();
+		tfCode.setEnabled(false);
 		panel_5.add(tfCode);
 		tfCode.setColumns(10);
 		
