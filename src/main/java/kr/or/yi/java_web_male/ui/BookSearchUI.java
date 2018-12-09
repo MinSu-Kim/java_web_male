@@ -8,8 +8,13 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
@@ -33,9 +38,8 @@ import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
 import kr.or.yi.java_web_male.dto.CategoryS;
 import kr.or.yi.java_web_male.service.LibraryUIService;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 
+@SuppressWarnings("serial")
 public class BookSearchUI extends JFrame {
 
 	private JPanel contentPane;
