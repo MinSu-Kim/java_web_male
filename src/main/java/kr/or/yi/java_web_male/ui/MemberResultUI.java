@@ -1,23 +1,22 @@
 package kr.or.yi.java_web_male.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.util.List;
-import java.util.Vector;
-import java.awt.Color;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import kr.or.yi.java_web_male.dto.Member;
 
+@SuppressWarnings("serial")
 public class MemberResultUI extends JFrame {
 
 	private JPanel contentPane;

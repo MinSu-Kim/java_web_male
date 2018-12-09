@@ -1,7 +1,6 @@
 package kr.or.yi.java_web_male.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import kr.or.yi.java_web_male.dto.CategoryM;
 import kr.or.yi.java_web_male.dto.CategoryS;
