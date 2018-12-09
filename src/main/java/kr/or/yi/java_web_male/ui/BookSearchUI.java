@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -27,6 +28,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
+import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
 import kr.or.yi.java_web_male.dto.CategoryS;
@@ -51,10 +53,11 @@ public class BookSearchUI extends JFrame {
 	private CategoryB cateB;
 	private CategoryM cateM;
 	private CategoryS cateS;
+	private Book book;
 	private DefaultComboBoxModel<CategoryS> modelS;
 	private JComboBox comboBoxPublisher;
 	private DefaultComboBoxModel modelPublisher;
-	/*private boolean cateBview = false;*/
+	private List<Book> lists;
 	private boolean cateMview = false;
 	private boolean cateSview = false;
 	private JCheckBox chckbxCategory;
@@ -63,6 +66,9 @@ public class BookSearchUI extends JFrame {
 	private JCheckBox chckbxTranslator;
 	private JCheckBox chckbxTitle;
 	private JPanel panel_2;
+	private JPanel tablePanel;
+	private JPanel panel_1;
+	private JPanel panelForTable;
 
 	/**
 	 * Launch the application.
@@ -87,7 +93,7 @@ public class BookSearchUI extends JFrame {
 		service = new LibraryUIService();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 795, 532);
+		setBounds(100, 100, 880, 627);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -331,7 +337,7 @@ public class BookSearchUI extends JFrame {
 		panel_9.add(tfTitle);
 		tfTitle.setColumns(10);
 		
-		JPanel panel_1 = new JPanel();
+		panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 		
@@ -380,10 +386,39 @@ public class BookSearchUI extends JFrame {
 		JButton btnNewButton = new JButton("검색");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (RadioSelectCode.isSelected()) {
+					tablePanel = new BookTablePanel();
+					lists = new ArrayList<>();
+					book = new Book();
+					book.setBookCode(tfCode.getText().trim());
+					
+					lists = service.selectbookbybookCode(book);
+					/*JOptionPane.showMessageDialog(null, lists);*/
+					((BookTablePanel) tablePanel).setLists(lists);
+					
+					((BookTablePanel) tablePanel).loadDatas();
+					panel_1.add(tablePanel);
+					JOptionPane.showMessageDialog(null, tablePanel);
+					panelForTable.add(tablePanel, BorderLayout.CENTER);
+				} else if (RadioSelectOther.isSelected()) {
+					tablePanel = new BookTablePanel();
+					lists = new ArrayList<>();
+				}else {
+					JOptionPane.showMessageDialog(null, "검색방법을선택하주세요");
+				}
 			}
 		});
 		btnNewButton.setFont(new Font("굴림", Font.BOLD, 20));
 		panel_6.add(btnNewButton);
+		
+		panelForTable = new JPanel();
+		panel_1.add(panelForTable);
+		panelForTable.setLayout(null);
+		
+		
+		
+		
+		
 	}
 
 }

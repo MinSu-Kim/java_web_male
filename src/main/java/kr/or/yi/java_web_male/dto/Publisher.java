@@ -1,35 +1,48 @@
 package kr.or.yi.java_web_male.dto;
 
 public class Publisher {
-	private String publisherNo;
-	private String name;
+	private String pubNo;
+	private String pubName;
 
 	public Publisher() {}
 
-	public Publisher(String publisherNo, String name) {
-		this.publisherNo = publisherNo;
-		this.name = name;
+	
+
+	public String getPubNo() {
+		return pubNo;
 	}
 
-	public String getPublisherNo() {
-		return publisherNo;
+
+
+	public void setPubNo(String pubNo) {
+		this.pubNo = pubNo;
 	}
 
-	public void setPublisherNo(String publisherNo) {
-		this.publisherNo = publisherNo;
+
+
+	public String getPubName() {
+		return pubName;
 	}
 
-	public String getName() {
-		return name;
+
+
+	public void setPubName(String pubName) {
+		this.pubName = pubName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	
+
+	public Publisher(String pubNo, String pubName) {
+		super();
+		this.pubNo = pubNo;
+		this.pubName = pubName;
 	}
+
+
 
 	@Override
 	public String toString() {
-		return name;
+		return pubName;
 	}
 
 }

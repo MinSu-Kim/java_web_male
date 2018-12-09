@@ -33,9 +33,9 @@ public class BookMapperImplTest extends AbstractTest {
 	public void test02selectbookbybookCode() {
 		log.debug("test02selectbookbybookCode");
 		Book book = new Book();
-		book.setBookCode("00001");
-		book = dao.selectbookbybookCode(book);
-		Assert.assertNotNull(book);
+		book.setBookCode("000");
+		List<Book> stdList = dao.selectbookbybookCode(book);
+		Assert.assertNotNull(stdList);
 	}
 
 	@Test
@@ -48,6 +48,14 @@ public class BookMapperImplTest extends AbstractTest {
 	public void test05selectPublisherByAll() {
 		log.debug("test05selectPublisherByAll");
 		List<Publisher> stdList = dao2.selectPublisherByAll();
+		Assert.assertNotNull(stdList);
+	}
+	@Test
+	public void test06selectPublisherByNo() {
+		log.debug("test06selectPublisherByNo");
+		Publisher Publisher = new Publisher();
+		Publisher.setPubNo("P001");
+		Publisher stdList = dao2.selectPublisherByNo(Publisher);
 		Assert.assertNotNull(stdList);
 	}
 }

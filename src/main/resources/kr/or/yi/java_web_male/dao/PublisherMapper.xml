@@ -5,11 +5,22 @@
 		SELECT pub_no, pub_name
 		FROM proj_library.publisher
 	</sql>
+	<sql id="wherepubNo">
+		<where>
+			<if test="pubNo != null">
+				pub_no=#{pubNo}
+			</if>
+		</where>		
+	</sql>
 	<resultMap type="kr.or.yi.java_web_male.dto.Publisher" id="selectAll">
-		<result property="publisherNo" column="pub_no"/>
-		<result property="name" column="pub_name"/>
+		<result property="pubNo" column="pub_no"/>
+		<result property="pubName" column="pub_name"/>
 	</resultMap>
-	<select id="selectPublisherByAll" resultMap="selectAll">
+	<select id="selectPublisherByAll" resultType="Publisher">
 		<include refid="selectSql"/>
+	</select>
+	<select id="selectPublisherByNo" resultType="Publisher">
+		<include refid="selectSql"/>
+		<include refid="wherepubNo"/>
 	</select>
 </mapper>

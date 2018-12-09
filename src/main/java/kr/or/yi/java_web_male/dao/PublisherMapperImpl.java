@@ -17,4 +17,11 @@ public class PublisherMapperImpl implements PublisherMapper {
 		}
 	}
 
+	@Override
+	public Publisher selectPublisherByNo(Publisher publisher) {
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();){
+			return sqlSession.selectOne(namespace+".selectPublisherByNo",publisher);
+		}
+	}
+
 }
