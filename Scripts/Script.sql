@@ -48,3 +48,4 @@ select * from `member`;
 
 insert into `member` values("2","asdf", "이천희", "lch","01022306796","921012","tjehdxo2002@","비밀","하핫",0,"하말없음");
 
+select * from book WHERE book_code REGEXP '00001';

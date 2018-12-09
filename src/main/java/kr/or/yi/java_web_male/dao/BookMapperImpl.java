@@ -18,9 +18,9 @@ public class BookMapperImpl implements BookMapper {
 	}
 
 	@Override
-	public Book selectbookbybookCode(Book book) {
+	public List<Book> selectbookbybookCode(Book book) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
-			return sqlSession.selectOne(namespace + ".selectbookbybookCode", book);
+			return sqlSession.selectList(namespace + ".selectbookbybookCode", book);
 		}
 	}
 
