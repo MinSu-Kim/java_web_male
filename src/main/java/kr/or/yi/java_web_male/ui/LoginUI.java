@@ -76,7 +76,7 @@ public class LoginUI extends JFrame {
 		tfPassword = new JTextField();
 		panel.add(tfPassword);
 		tfPassword.setColumns(10);
-
+		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1);
 		panel_1.setLayout(new BorderLayout(10, 10));
@@ -94,30 +94,39 @@ public class LoginUI extends JFrame {
 	protected void do_btnLogin_actionPerformed(ActionEvent arg0) {
 		String id = tfMemberNo.getText().trim();
 		String pw = tfPassword.getText().trim();
-		Member member = memberMapper.selectMemberbyNo(id);
+		Member member = memberMapper.selectMemberByNo(id);
 		System.out.println(member);
-		/*if (id.equals(member.getmemberNo())) {*/
-			if (pw.equals(member.getPassword())) {
-				JOptionPane.showMessageDialog(null, "성공");
-				/*switch (member.getAdmin()) {
-				case 0:
-					 사용자 로그인 
-					adminMainUI.setVisible(true);
-				case 1:
-					 관리자 로그인 
-					memberInfoUI.setVisible(true);
-				}*/
-			} /*else {
-				 로그인 실패 팝업 & 클리어 
-				clearTf();
-				System.out.println("로그인 실패!");
+		try {
+			if (member != null) {
+				if (member.getPassword().equals(pw)) {
+					System.out.println("로그인 되었습니다.");
+					if (member.getAdmin() == 1) {
+						if (adminMainUI == null) {
+							adminMainUI = new AdminMainUI();
+						}
+						adminMainUI.setVisible(true);
+					} else {
+						if (memberInfoUI == null) {
+							memberInfoUI = new MemberInfoUI();
+							memberInfoUI.getMemberInfo(member);
+						}
+						memberInfoUI.setVisible(true);
+					}
+				} else {
+					failLogin();
+				}
+			} else {
+				failLogin();
 			}
-		} else {
-			 로그인 실패 
-			clearTf();
-			System.out.println("로그인 실패!");
-		}*/
-		
+		} catch (Exception e) {
+			e.printStackTrace();
+			failLogin();
+		}
+	}
+
+	private void failLogin() {
+		clearTf();
+		System.out.println("로그인 실패");
 	}
 
 	private void clearTf() {

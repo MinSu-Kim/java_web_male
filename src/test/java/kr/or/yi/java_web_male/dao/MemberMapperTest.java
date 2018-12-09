@@ -16,7 +16,7 @@ public class MemberMapperTest {
 	@Test
 	public void test01inSertMember() {
 		Member member = new Member();
-		member.setmemberNo("1");
+		member.setMemberNo("1");
 		member.setPassword("tgkdsfld");
 		member.setKorName("서동준");
 		member.setEngName("seo-dong-june");
@@ -40,9 +40,9 @@ public class MemberMapperTest {
 	@Test
 	public void test03selectMemberByNo() {
 		Member searchMem = new Member();
-		searchMem.setmemberNo("1");
+		searchMem.setMemberNo("1");
 
-		Member searchedMem = dao.selectMemberbyNo(searchMem);
+		Member searchedMem = dao.selectMemberByNo(searchMem);
 		Assert.assertNotNull(searchedMem);
 	}
 	
@@ -50,14 +50,14 @@ public class MemberMapperTest {
 	public void test04selectMemberByNo() {
 		String searchStr = "1";
 
-		Member searchedMem = dao.selectMemberbyNo(searchStr);
+		Member searchedMem = dao.selectMemberByNo(searchStr);
 		Assert.assertNotNull(searchedMem);
 	}
 
 	@Test
 	public void test05UpdateMember() {
 		Member member = new Member();
-		member.setmemberNo("1");
+		member.setMemberNo("1");
 		member.setPassword("donggay");
 		member.setKorName("김동준");
 		member.setEngName("gayking");
