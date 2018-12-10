@@ -1,16 +1,20 @@
 package kr.or.yi.java_web_male.ui;
 
+import java.awt.GridLayout;
+import java.util.List;
+
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-
+import javax.swing.border.TitledBorder;
 
 import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.Publisher;
 import kr.or.yi.java_web_male.service.LibraryUIService;
 
+<<<<<<< HEAD
 import java.awt.BorderLayout;
 import java.util.List;
 import java.awt.Dimension;
@@ -21,6 +25,8 @@ import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import java.awt.CardLayout;
 
+=======
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male
 public class BookTablePanel extends JPanel {
 	
 	private JTable table;	
