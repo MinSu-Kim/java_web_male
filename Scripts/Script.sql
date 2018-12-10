@@ -10,8 +10,25 @@ insert into category_s values('0','6','1','아시아 일반 학회,단체 등');
 insert into category_s values('0','7','1','아시아 신문,저널리즘 등');
 insert into category_s values('1','1','4','공간');
 insert into publisher values('P001','영남인제교육원');
+
 insert into book_rental_info values(3,'2018-12-10','2018-12-17',null,'2','00001');
 insert into book_rental_info values(4,'2018-12-11','2018-12-17',null,'3','00002');
+
+
+
+
+
+SELECT *
+from book_rental_info;
+
+delete 
+from book_rental_info
+where rental_no = 2;
+
+insert into book_rental_info
+values (3,'2018-12-10',null,'2018-12-17' ,'2','00001');
+
+
 
 SELECT *
 from member;
