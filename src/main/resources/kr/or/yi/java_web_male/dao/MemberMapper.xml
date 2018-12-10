@@ -80,4 +80,8 @@
 		where
 		member_no=#{memberNo}
 	</select>
+	<!-- 이름으로 검색하기 -->
+	<select id="searchMemberName" statementType="CALLABLE" parameterType="Member">
+		{call search_memberno(#{membernom, mode = IN, jdbcType= CHAR})}
+	</select>
 </mapper>
