@@ -50,7 +50,11 @@ ALTER TABLE proj_library.book_rental_info
 	MODIFY COLUMN rental_no INT(11) NOT NULL AUTO_INCREMENT COMMENT '대여번호';
 
 ALTER TABLE proj_library.book_rental_info
+<<<<<<< HEAD
 	AUTO_INCREMENT = 1;
+=======
+	AUTO_INCREMENT = 4;
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
 
 -- 대분류
 CREATE TABLE proj_library.category_b (
@@ -168,6 +172,18 @@ ALTER TABLE proj_library.publisher
 		PRIMARY KEY (
 			pub_no -- 출판사번호
 		);
+
+-- 우편번호
+CREATE TABLE proj_library.post (
+	zipcode   char(5)     NULL COMMENT '우편번호', -- 우편번호
+	sido      VARCHAR(20) NULL COMMENT '시도', -- 시도
+	sigungu   VARCHAR(20) NULL COMMENT '시군구', -- 시군구
+	eupmyeon  VARCHAR(20) NULL COMMENT '읍면', -- 읍면
+	doro      VARCHAR(80) NULL COMMENT '도로명', -- 도로명
+	building1 INT(5)      NULL COMMENT '건물번호1', -- 건물번호1
+	building2 INT(5)      NULL COMMENT '건물번호2' -- 건물번호2
+)
+COMMENT '우편번호';
 
 -- 책
 ALTER TABLE proj_library.book

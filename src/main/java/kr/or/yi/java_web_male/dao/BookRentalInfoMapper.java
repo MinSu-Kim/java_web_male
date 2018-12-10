@@ -7,7 +7,7 @@ import kr.or.yi.java_web_male.dto.BookRentalInfo;
 public interface BookRentalInfoMapper {
 	List<BookRentalInfo> selectBookRentalInfoByAll();
 
-	BookRentalInfo selectBookRentalInfoByNo(BookRentalInfo bookRentalInfo);
+	BookRentalInfo selectBookRentalInfoByCode(BookRentalInfo bookRentalInfo);
 
 	int insertBookRentalInfo(BookRentalInfo bookRentalInfo);
 }

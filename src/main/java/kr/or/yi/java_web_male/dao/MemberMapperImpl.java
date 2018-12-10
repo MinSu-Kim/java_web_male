@@ -75,4 +75,11 @@ public class MemberMapperImpl implements MemberMapper {
 		return null;
 	}
 
+	@Override
+	public Member searchMemberName(Member member) {
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();){
+			return sqlSession.selectOne(namespace+ ".searchMemberName", member);
+		}
+	}
+
 }
