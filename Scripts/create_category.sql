@@ -5,6 +5,8 @@ DELETE FROM category_m;
 DELETE FROM category_b;
 
 SELECT * FROM category_b;
+select * from category_m;
+select * from category_s;
 
 -- 대분류
 INSERT INTO category_b VALUES
