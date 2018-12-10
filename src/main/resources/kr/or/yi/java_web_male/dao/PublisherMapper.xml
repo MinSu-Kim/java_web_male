@@ -19,7 +19,7 @@
 	<select id="selectPublisherByAll" resultType="Publisher">
 		<include refid="selectSql"/>
 	</select>
-	<select id="selectPublisherByNo" resultType="Publisher">
+	<select id="selectPublisherByNo" resultMap="selectAll">
 		<include refid="selectSql"/>
 		<include refid="wherepubNo"/>
 	</select>

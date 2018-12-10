@@ -20,10 +20,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import java.awt.CardLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
 
 public class BookTablePanel extends JPanel {
 	
@@ -73,16 +69,16 @@ public class BookTablePanel extends JPanel {
 
 	private Object[] getBookArray(Book book) {
 		String bookCode = book.getBookCode();
-		String title = book.getTitle();
-		
-		
+		String title = book.getTitle();				
 		String PubNo = book.getPubNo().getPubNo();
-		/*JOptionPane.showMessageDialog(null, PubNo);*/
+		
 		publishers = new Publisher();
-		JOptionPane.showMessageDialog(null, book.getPubNo());
+
 		publishers = service.selectPublisherByNo(book.getPubNo());
+
 		JOptionPane.showMessageDialog(null, publishers);
 		String publisher = publishers.getPubName();
+		/*String publisher = "";*/
 		String author = book.getAuthor();
 		boolean rentalPossible = book.isRentalPossible();
 		String canPossible;

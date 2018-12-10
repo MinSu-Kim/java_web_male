@@ -397,7 +397,7 @@ public class BookSearchUI extends JFrame {
 					book.setBookCode(tfCode.getText().trim());
 					
 					lists = service.selectbookbybookCode(book);
-					/*JOptionPane.showMessageDialog(null, lists);*/
+
 					((BookTablePanel) tablePanel).setLists(lists);
 					
 					((BookTablePanel) tablePanel).loadDatas();

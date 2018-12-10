@@ -3,9 +3,11 @@
 <mapper namespace="kr.or.yi.java_web_male.dao.BookMapper">
 
 	<sql id="selectSql">
-		select * from book
+		SELECT book_code, book_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no, pub_no
+		FROM proj_library.book
+
 	</sql>
-	
+
 	<sql id="whereSql">
 		<where>
 			<if test="bookCode != null">
