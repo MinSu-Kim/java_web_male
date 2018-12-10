@@ -13,6 +13,16 @@ insert into publisher values('P001','영남인제교육원');
 
 
 SELECT *
+from book_rental_info;
+
+delete 
+from book_rental_info
+where rental_no = 2;
+
+insert into book_rental_info
+values (3,'2018-12-10',null,'2018-12-17' ,'2','00001');
+
+SELECT *
 from member;
 insert into `member` values("1","gfkrtkf", "서동준", "kiggay","01022306796","921012","tjehdxo2002@","비밀","하핫",1,"하말없음");
 select kor_name, phone, jumin

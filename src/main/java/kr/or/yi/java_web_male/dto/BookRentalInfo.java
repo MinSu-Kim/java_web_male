@@ -2,24 +2,31 @@ package kr.or.yi.java_web_male.dto;
 
 import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("BookRentalInfo")
 public class BookRentalInfo {
 	private int rentalNo;
 	private Date rentalDate;
 	private Date returnDate;
 	private Date returnSchedule;
-	private Member member_no;
-	private Book bookNo;
+	private Member memberNo;
+	private Book bookCode;
+	
+	public BookRentalInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-	public BookRentalInfo() {}
-
-	public BookRentalInfo(int rentalNo, Date rentalDate, Date returnDate, Date returnSchedule, Member member_no,
-			Book bookNo) {
+	public BookRentalInfo(int rentalNo, Date rentalDate, Date returnDate, Date returnSchedule, Member memberNo,
+			Book bookCode) {
+		super();
 		this.rentalNo = rentalNo;
 		this.rentalDate = rentalDate;
 		this.returnDate = returnDate;
 		this.returnSchedule = returnSchedule;
-		this.member_no = member_no;
-		this.bookNo = bookNo;
+		this.memberNo = memberNo;
+		this.bookCode = bookCode;
 	}
 
 	public int getRentalNo() {
@@ -55,26 +62,26 @@ public class BookRentalInfo {
 	}
 
 	public Member getMemberNo() {
-		return member_no;
+		return memberNo;
 	}
 
 	public void setMemberNo(Member memberNo) {
-		this.member_no = memberNo;
+		this.memberNo = memberNo;
 	}
 
-	public Book getBookNo() {
-		return bookNo;
+	public Book getBookCode() {
+		return bookCode;
 	}
 
-	public void setBookNo(Book bookNo) {
-		this.bookNo = bookNo;
+	public void setBookCode(Book bookCode) {
+		this.bookCode = bookCode;
 	}
 
 	@Override
 	public String toString() {
-		return String.format(
-				"BookRentalInfo [rentalNo=%s, rentalDate=%s, returnDate=%s, returnSchedule=%s, member_no=%s, bookNo=%s]",
-				rentalNo, rentalDate, returnDate, returnSchedule, member_no, bookNo);
+		return "BookRentalInfo [rentalNo=" + rentalNo + ", rentalDate=" + rentalDate + ", returnDate=" + returnDate
+				+ ", returnSchedule=" + returnSchedule + ", memberNo=" + memberNo + ", bookCode=" + bookCode + "]";
 	}
 
+	
 }
