@@ -9,10 +9,11 @@
 	<sql id="whereSql">
 		<where>
 			<if test="bookCode != null">
-				book_code=#{bookCode}
+				book_code REGEXP#{bookCode}
 			</if>
 		</where>
 	</sql>
+	
 	
 	<select id="selectBookByAll" parameterType="Book"
 		resultType="Book">
@@ -23,28 +24,28 @@
 	<sql id="updateSql">
 		update book set book_no=#{bookNo}, author=#{writter}, translator=#{translator}, title=#{title}, price=#{priece}, rental_possible=#{rentable}, image=#{image}, cate_s_no=#{categorynoS.categorynoS}, cate_m_no=#{categorynoM.categorynoM}, cate_b_no=#{categorynoB.categorynoB}, pub_no=#{publisherNo.publisherNo}
 		WHERE book_code=#{bookCode};
-	</sql>
+	</sql>	
+	
+	<resultMap type="Book" id="Booktyepinsert">
+		<id property="bookCode" column="book_code"/>
+		<result property="bookNo" column="book_no"/>
+		<result property="pubNo.pubNo" column="pub_no"/>
+		<result property="author" column="author"/>
+		<result property="translator" column="translator"/>
+		<result property="title" column="title"/>
+		<result property="image" column="image"/>
+		<result property="price" column="price"/>
+		<!-- <result property="rentalPossible" column="rental_possible"/> -->
+		<result property="cateBNo.bCode" column="cate_b_no"/>
+		<result property="cateMNo.mCode" column="cate_m_no"/>
+		<result property="cateSNo.sCode" column="cate_s_no"/>		
+	</resultMap>
 	
 	<select id="selectbookbybookCode" parameterType="Book"
-		resultType="Book">
+		resultMap="Booktyepinsert">
 		<include refid="selectSql" />
 		<include refid="whereSql" />
 	</select>
-	
-	<!-- <resultMap type="Book" id="Booktyepinsert">
-		<id property="studId" column="stud_id"/>
-		<result property="bookCode" column="book_code"/>
-		<result property="bookNo" column="book_no"/>
-		<result property="Publisher.name" column="publisher_no"/>
-		<result property="writter" column="writter"/>
-		<result property="translator" column="translator"/>
-		<result property="title" column="title"/>
-		<result property="priece" column="priece"/>
-		<result property="rentable" column="rentable"/>
-		<result property="categorynoB.categorynoB" column="categoryno_B"/>
-		<result property="categorynoM.categorynoM" column="categoryno_M"/>
-		<result property="categorynoS.categorynoS" column="categoryno_S"/>		
-	</resultMap> -->
 	
 	<insert id="insertBook" parameterType="Book">
 		INSERT INTO proj_library.book (book_code, book_no, pub_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no)

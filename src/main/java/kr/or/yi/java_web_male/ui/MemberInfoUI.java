@@ -1,31 +1,47 @@
 package kr.or.yi.java_web_male.ui;
 
 import java.awt.BorderLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import java.awt.GridLayout;
-import java.awt.FlowLayout;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import kr.or.yi.java_web_male.dto.Member;
+
+@SuppressWarnings("serial")
 public class MemberInfoUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField tfMemberNo;
+	private JTextField tfPhone;
+	private JTextField tfAddress;
+	private JTextField tfKorName;
+	private JTextField tfGrade;
+	private JTextField tfEngName;
 
+	private Member memberInfo;
+	
+	private BookSearchUI bookSearchUI;
+	private MemberModUI memberModUI;
+	
 	public MemberInfoUI() {
+		initComponent();
+		
+		tfMemberNo.setEditable(false);
+		tfPhone.setEditable(false);
+		tfAddress.setEditable(false);
+		tfKorName.setEditable(false);
+		tfEngName.setEditable(false);
+		tfGrade.setEditable(false);
+	}
+
+	private void initComponent() {
 		setTitle("내 정보");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -42,51 +58,51 @@ public class MemberInfoUI extends JFrame {
 		panel.add(panel_3);
 		panel_3.setLayout(new GridLayout(0, 2, 10, 10));
 
-		JLabel lblNewLabel = new JLabel("회원 번호");
-		panel_3.add(lblNewLabel);
+		JLabel lblMemberNo = new JLabel("회원 번호");
+		panel_3.add(lblMemberNo);
 
-		textField = new JTextField();
-		panel_3.add(textField);
-		textField.setColumns(10);
+		tfMemberNo = new JTextField();
+		panel_3.add(tfMemberNo);
+		tfMemberNo.setColumns(10);
 
-		JLabel lblNewLabel_1 = new JLabel("전화번호");
-		panel_3.add(lblNewLabel_1);
+		JLabel lblPhone = new JLabel("전화번호");
+		panel_3.add(lblPhone);
 
-		textField_1 = new JTextField();
-		panel_3.add(textField_1);
-		textField_1.setColumns(10);
+		tfPhone = new JTextField();
+		panel_3.add(tfPhone);
+		tfPhone.setColumns(10);
 
-		JLabel lblNewLabel_2 = new JLabel("여기엔");
-		panel_3.add(lblNewLabel_2);
+		JLabel lblAddress = new JLabel("여기엔");
+		panel_3.add(lblAddress);
 
-		textField_2 = new JTextField();
-		panel_3.add(textField_2);
-		textField_2.setColumns(10);
+		tfAddress = new JTextField();
+		panel_3.add(tfAddress);
+		tfAddress.setColumns(10);
 
 		JPanel panel_4 = new JPanel();
 		panel.add(panel_4);
 		panel_4.setLayout(new GridLayout(0, 2, 10, 10));
 
-		JLabel label = new JLabel("회원 이름");
-		panel_4.add(label);
+		JLabel lblKorName = new JLabel("회원 이름");
+		panel_4.add(lblKorName);
 
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		panel_4.add(textField_3);
+		tfKorName = new JTextField();
+		tfKorName.setColumns(10);
+		panel_4.add(tfKorName);
 
-		JLabel label_1 = new JLabel("회원등급");
-		panel_4.add(label_1);
+		JLabel lblGrade = new JLabel("회원등급");
+		panel_4.add(lblGrade);
 
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		panel_4.add(textField_4);
+		tfGrade = new JTextField();
+		tfGrade.setColumns(10);
+		panel_4.add(tfGrade);
 
-		JLabel label_2 = new JLabel("뭘넣을까");
-		panel_4.add(label_2);
+		JLabel lblEngName = new JLabel("뭘넣을까");
+		panel_4.add(lblEngName);
 
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		panel_4.add(textField_5);
+		tfEngName = new JTextField();
+		tfEngName.setColumns(10);
+		panel_4.add(tfEngName);
 
 		JPanel panel_5 = new JPanel();
 		panel.add(panel_5);
@@ -99,18 +115,61 @@ public class MemberInfoUI extends JFrame {
 		contentPane.add(panel_2, BorderLayout.SOUTH);
 		panel_2.setLayout(new GridLayout(0, 3, 10, 10));
 
-		JButton btnNewButton_1 = new JButton("회원정보수정");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnMod = new JButton("회원정보수정");
+		btnMod.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				do_btnMod_actionPerformed(e);
 			}
 		});
-		panel_2.add(btnNewButton_1);
+		panel_2.add(btnMod);
 
-		JButton btnNewButton = new JButton("도서 검색");
-		panel_2.add(btnNewButton);
+		JButton btnSearch = new JButton("도서 검색");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnSearch_actionPerformed(e);
+			}
+		});
+		panel_2.add(btnSearch);
 
-		JButton btnNewButton_2 = new JButton("사엣정보");
-		panel_2.add(btnNewButton_2);
+		JButton btnDetail = new JButton("사엣정보");
+		btnDetail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnDetail_actionPerformed(e);
+			}
+		});
+		panel_2.add(btnDetail);
+	}
+
+	public void getMemberInfo(Member member) {
+		this.memberInfo = member;
+		System.out.println(member);
+		tfMemberNo.setText(member.getMemberNo());
+		tfPhone.setText(member.getPhone());
+		tfAddress.setText(member.getAddress());
+		tfKorName.setText(member.getKorName());
+		tfEngName.setText(member.getEngName());
+	}
+	
+	// 회원정보수정 이동
+	protected void do_btnMod_actionPerformed(ActionEvent arg0) {
+		if (memberModUI == null) {
+			memberModUI = new MemberModUI();
+		}
+		memberModUI.getMemberInfo(this.memberInfo);
+		memberModUI.setVisible(true);
+	}
+	
+	// 도서검색 이동
+	protected void do_btnSearch_actionPerformed(ActionEvent arg0) {
+		if (bookSearchUI == null) {
+			bookSearchUI = new BookSearchUI();
+		}
+		bookSearchUI.setVisible(true);
+	}
+	
+	// 상세정보
+	protected void do_btnDetail_actionPerformed(ActionEvent arg0) {
+		
 	}
 
 }

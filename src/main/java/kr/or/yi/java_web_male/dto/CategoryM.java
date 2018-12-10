@@ -43,7 +43,8 @@ public class CategoryM {
 
 	@Override
 	public String toString() {
-		return mName;
+		return bCode.getbCode() +""+ mCode +""+mName;
+
 	}
 
 }

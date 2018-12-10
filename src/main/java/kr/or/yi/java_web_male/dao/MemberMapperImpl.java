@@ -11,7 +11,7 @@ public class MemberMapperImpl implements MemberMapper {
 	private static final String namespace = "kr.or.yi.java_web_male.dao.MemberMapper";
 
 	@Override
-	public Member selectMemberbyNo(Member member) {
+	public Member selectMemberByNo(Member member) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
 			return sqlSession.selectOne(namespace + ".selectMemberbyNo", member);
 		}
@@ -63,7 +63,14 @@ public class MemberMapperImpl implements MemberMapper {
 	}
 
 	@Override
-	public List<Member> selectMemberByMemberNO() {
+	public Member selectMemberByNo(String member) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectOne(namespace + ".selectMemberByNoToString", member);
+		}
+	}
+
+	@Override
+	public List<Member> selectMemberByMemberNo() {
 		// TODO Auto-generated method stub
 		return null;
 	}

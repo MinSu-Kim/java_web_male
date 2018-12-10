@@ -4,7 +4,8 @@
 
 	<!-- 셀렉트구문 sql -->
 	<sql id="selectSql">
-		select member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness
+		select member_no, password, kor_name, eng_name, phone,
+		jumin, email, address, photo, admin, uniqueness
 		from member
 	</sql>
 
@@ -18,9 +19,34 @@
 	</sql>
 
 	<!-- 검색 sql -->
-	<select id="selectMemberbyNo" parameterType="Member" resultType="Member">
+	<select id="selectMemberbyNo" parameterType="Member"
+		resultType="Member">
 		<include refid="selectSql"></include>
 		<include refid="whereSql"></include>
+	</select>
+
+	<resultMap id="MemberResult" type="Member">
+		<id property="memberNo" column="member_no" />
+		<result property="password" column="password" />
+		<result property="korName" column="kor_name" />
+		<result property="engName" column="eng_name" />
+		<result property="phone" column="phone" />
+		<result property="jumin" column="jumin" />
+		<result property="email" column="email" />
+		<result property="address" column="address" />
+		<result property="photo" column="photo" />
+		<result property="admin" column="admin" />
+		<result property="uniqueness" column="uniqueness" />
+	</resultMap>
+
+
+	<select id="selectMemberByNoToString" parameterType="String"
+		resultMap="MemberResult">
+		select member_no, password, kor_name, eng_name, phone,
+		jumin, email, address, photo, admin, uniqueness
+		from member
+		where
+		member_no=#{memberNo}
 	</select>
 
 	<!-- 모든 리스트 검색 -->
@@ -30,19 +56,28 @@
 
 	<!-- 추가 sql 구문 -->
 	<select id="insertMember" parameterType="Member">
-		insert into Member(member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, Uniqueness)
-		values(#{memberNo},#{password},#{korName},#{engName},#{phone},#{jumin},#{email},#{address},#{photo},#{admin},#{Uniqueness});
+		insert into
+		Member(member_no, password, kor_name, eng_name, phone, jumin, email,
+		address, photo, admin, uniqueness)
+		values(#{memberNo}, #{password},
+		#{korName}, #{engName}, #{phone}, #{jumin}, #{email}, #{address},
+		#{photo}, #{admin}, #{uniqueness});
 	</select>
 
 	<!-- 수정 구문 -->
 	<select id="updateMember" parameterType="Member">
-		update Member set password=#{password}, kor_name=#{korName}, eng_name=#{engName}, phone=#{phone}, jumin=#{jumin}, email=#{email}, address=#{address}, photo=#{photo}, admin=#{admin}, Uniqueness=#{Uniqueness}
-		where member_no=#{memberNo}
+		update Member set
+		password=#{password}, kor_name=#{korName}, eng_name=#{engName},
+		phone=#{phone}, jumin=#{jumin}, email=#{email}, address=#{address},
+		photo=#{photo}, admin=#{admin}, uniqueness=#{uniqueness}
+		where
+		member_no=#{memberNo}
 	</select>
 
 	<!-- 삭제 구문 -->
 	<select id="deleteMember" parameterType="String">
 		delete from Member
-		where member_no=#{memberNo}
+		where
+		member_no=#{memberNo}
 	</select>
 </mapper>

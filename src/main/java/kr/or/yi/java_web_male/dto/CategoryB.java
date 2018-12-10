@@ -32,7 +32,8 @@ public class CategoryB {
 
 	@Override
 	public String toString() {
-		return bName;
+		return bCode+""+bName;
+
 	}
 
 }

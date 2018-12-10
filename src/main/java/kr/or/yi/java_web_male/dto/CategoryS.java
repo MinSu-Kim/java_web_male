@@ -46,13 +46,14 @@ public class CategoryS {
 	public void setbCode(CategoryB bCode) {
 		this.bCode = bCode;
 	}
-	
-
-	
-
 	@Override
 	public String toString() {
-		return sName;
+		return bCode.getbCode() +""+ mCode.getmCode() +""+sCode+""+sName;
 	}
+	
+
+	
+
+	
 
 }

@@ -9,10 +9,12 @@ public interface BookMapper {
 
 	Book selectBookbyno(Book book);
 
-	Book selectbookbybookCode(Book book);
+	List<Book> selectbookbybookCode(Book book);
 
 	int insertBook(Book book);
 	
 	int updateBook(Book book);
+	
+	
 
 }

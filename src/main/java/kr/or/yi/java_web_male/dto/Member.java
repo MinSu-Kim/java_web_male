@@ -14,9 +14,10 @@ public class Member {
 	private String address;
 	private String photo;
 	private int admin;
-	private String Uniqueness;
+	private String uniqueness;
 
-	public Member() {}
+	public Member() {
+	}
 
 	public Member(String memberNo, String password, String korName, String engName, String phone, String jumin,
 			String email, String address, String photo, int admin, String uniqueness) {
@@ -30,14 +31,14 @@ public class Member {
 		this.address = address;
 		this.photo = photo;
 		this.admin = admin;
-		this.Uniqueness = uniqueness;
+		this.uniqueness = uniqueness;
 	}
 
-	public String getmemberNo() {
+	public String getMemberNo() {
 		return memberNo;
 	}
 
-	public void setmemberNo(String memberNo) {
+	public void setMemberNo(String memberNo) {
 		this.memberNo = memberNo;
 	}
 
@@ -114,18 +115,43 @@ public class Member {
 	}
 
 	public String getUniqueness() {
-		return Uniqueness;
+		return uniqueness;
 	}
 
 	public void setUniqueness(String uniqueness) {
-		this.Uniqueness = uniqueness;
+		this.uniqueness = uniqueness;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((memberNo == null) ? 0 : memberNo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Member other = (Member) obj;
+		if (memberNo == null) {
+			if (other.memberNo != null)
+				return false;
+		} else if (!memberNo.equals(other.memberNo))
+			return false;
+		return true;
 	}
 
 	@Override
 	public String toString() {
 		return String.format(
-				"Member [memberNo=%s, password=%s, kor_name=%s, eng_name=%s, phone=%s, jumin=%s, email=%s, address=%s, photo=%s, admin=%s, Uniqueness=%s]",
-				memberNo, password, korName, engName, phone, jumin, email, address, photo, admin, Uniqueness);
+				"Member [memberNo=%s, password=%s, korName=%s, engName=%s, phone=%s, jumin=%s, email=%s, address=%s, photo=%s, admin=%s, uniqueness=%s]",
+				memberNo, password, korName, engName, phone, jumin, email, address, photo, admin, uniqueness);
 	}
 
 }

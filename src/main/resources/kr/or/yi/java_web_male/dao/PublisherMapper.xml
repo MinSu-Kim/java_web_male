@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.yi.java_web_male.dao.PublisherMapper">
+	<sql id="selectSql">
+		SELECT pub_no, pub_name
+		FROM proj_library.publisher
+	</sql>
+	<sql id="wherepubNo">
+		<where>
+			<if test="pubNo != null">
+				pub_no=#{pubNo}
+			</if>
+		</where>		
+	</sql>
+	<resultMap type="kr.or.yi.java_web_male.dto.Publisher" id="selectAll">
+		<result property="pubNo" column="pub_no"/>
+		<result property="pubName" column="pub_name"/>
+	</resultMap>
+	<select id="selectPublisherByAll" resultType="Publisher">
+		<include refid="selectSql"/>
+	</select>
+	<select id="selectPublisherByNo" resultType="Publisher">
+		<include refid="selectSql"/>
+		<include refid="wherepubNo"/>
+	</select>
+</mapper>

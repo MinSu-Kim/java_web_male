@@ -19,10 +19,8 @@ import kr.or.yi.java_web_male.dto.Publisher;
 public class BookMapperImplTest extends AbstractTest {
 
 	private BookMapper dao = new BookMapperImpl();
-
+	private PublisherMapper dao2 = new PublisherMapperImpl();
 	private CategoryBMapper dao1 = new CategoryBMapperImpl();
-
-
 
 	@Test
 	public void test01selectBookByAll() {
@@ -35,15 +33,29 @@ public class BookMapperImplTest extends AbstractTest {
 	public void test02selectbookbybookCode() {
 		log.debug("test02selectbookbybookCode");
 		Book book = new Book();
-		book.setBookCode("00001");
-		book = dao.selectbookbybookCode(book);
-		Assert.assertNotNull(book);
+		book.setBookCode("000");
+		List<Book> stdList = dao.selectbookbybookCode(book);
+		Assert.assertNotNull(stdList);
 	}
 
 	@Test
-	public void test04selectCategoryBByAll () {
+	public void test04selectCategoryBByAll() {
 		log.debug("test04selectCategoryBByAll");
 		List<CategoryB> stdList = dao1.selectCategoryBByAll();
+		Assert.assertNotNull(stdList);
+	}
+	@Test
+	public void test05selectPublisherByAll() {
+		log.debug("test05selectPublisherByAll");
+		List<Publisher> stdList = dao2.selectPublisherByAll();
+		Assert.assertNotNull(stdList);
+	}
+	@Test
+	public void test06selectPublisherByNo() {
+		log.debug("test06selectPublisherByNo");
+		Publisher Publisher = new Publisher();
+		Publisher.setPubNo("P001");
+		Publisher stdList = dao2.selectPublisherByNo(Publisher);
 		Assert.assertNotNull(stdList);
 	}
 }
