@@ -2,7 +2,9 @@ package kr.or.yi.java_web_male.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
@@ -56,6 +58,14 @@ public class BookMapperImplTest extends AbstractTest {
 		Publisher Publisher = new Publisher();
 		Publisher.setPubNo("P001");
 		Publisher stdList = dao2.selectPublisherByNo(Publisher);
+		Assert.assertNotNull(stdList);
+	}
+	@Test
+	public void test07selectbookbyOther() {
+		log.debug("test07selectbookbyOther");
+		Map<String, Object> map = new HashMap<String, Object>();
+        map.put("pubNo","P001");
+		List<Book> stdList = dao.selectbookbyOther(map);
 		Assert.assertNotNull(stdList);
 	}
 }

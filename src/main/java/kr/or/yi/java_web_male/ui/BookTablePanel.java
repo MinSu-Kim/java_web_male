@@ -32,9 +32,9 @@ public class BookTablePanel extends JPanel {
 	
 	
 	public BookTablePanel() {
-		service = new LibraryUIService();
 		setBorder(new TitledBorder(null, "\uAC80\uC0C9\uACB0\uACFC", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		setLayout(new GridLayout(0, 1, 0, 0));
+		service = new LibraryUIService();
+		setLayout(new BorderLayout(0, 0));
 		
 		scrollPane = new JScrollPane();
 		add(scrollPane);
@@ -75,8 +75,8 @@ public class BookTablePanel extends JPanel {
 		publishers = new Publisher();
 
 		publishers = service.selectPublisherByNo(book.getPubNo());
-
-		JOptionPane.showMessageDialog(null, publishers);
+		
+		/*JOptionPane.showMessageDialog(null, publishers);*/
 		String publisher = publishers.getPubName();
 		/*String publisher = "";*/
 		String author = book.getAuthor();

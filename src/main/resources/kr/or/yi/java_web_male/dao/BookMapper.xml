@@ -15,6 +15,31 @@
 			</if>
 		</where>
 	</sql>
+	<sql id="whereOtherSql">
+		<where>
+			<if test="pubNo != null">
+				pub_no=#{pubNo}
+			</if>
+			<if test="cateBNo != null">
+				and cate_b_no =#{cateBNo}
+			</if>
+			<if test="cateMNo != null">
+				AND cate_m_no=#{cateMNo}
+			</if>
+			<if test="cateSNo != null">
+				AND cate_s_no=#{cateSNo}
+			</if>			
+			<if test="author != null">
+				AND author=#{author}
+			</if>
+			<if test="translator != null">
+				AND translator=#{translator}
+			</if>
+			<if test="title != null">
+				AND title=#{title}
+			</if>
+		</where>
+	</sql>
 	
 	
 	<select id="selectBookByAll" parameterType="Book"
@@ -47,6 +72,12 @@
 		resultMap="Booktyepinsert">
 		<include refid="selectSql" />
 		<include refid="whereSql" />
+	</select>
+	
+	<select id="selectbookbyOther"  parameterType="hashmap"
+		resultMap="Booktyepinsert">
+		<include refid="selectSql" />
+		<include refid="whereOtherSql" />
 	</select>
 	
 	<insert id="insertBook" parameterType="Book">

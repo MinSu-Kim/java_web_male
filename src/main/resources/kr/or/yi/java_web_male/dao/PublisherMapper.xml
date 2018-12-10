@@ -12,6 +12,13 @@
 			</if>
 		</where>		
 	</sql>
+	<sql id="wherepubName">
+		<where>
+			<if test="pubName != null">
+				pub_name=#{pubName}
+			</if>
+		</where>		
+	</sql>
 	<resultMap type="kr.or.yi.java_web_male.dto.Publisher" id="selectAll">
 		<result property="pubNo" column="pub_no"/>
 		<result property="pubName" column="pub_name"/>
@@ -22,5 +29,9 @@
 	<select id="selectPublisherByNo" resultMap="selectAll">
 		<include refid="selectSql"/>
 		<include refid="wherepubNo"/>
+	</select>
+	<select id="selectPublisherByName" resultMap="selectAll">
+		<include refid="selectSql"/>
+		<include refid="wherepubName"/>
 	</select>
 </mapper>

@@ -38,11 +38,11 @@ public class BookRentalInfoMapperTest extends AbstractTest {
 		Assert.assertNotNull(bookRentalInfo);
 	}
 
-	@Test
+	/*@Test
 	public void test03insertBookRentalInfo() {
 		log.debug("test03insertBookRentalInfo");
 		BookRentalInfo bookRentalInfo = new BookRentalInfo();
-		/* Calendar newDate = GregorianCalendar.getInstance(); */
+		 Calendar newDate = GregorianCalendar.getInstance(); 
 		CategoryB b = new CategoryB(0, "총류");
 		CategoryM m = new CategoryM(0, "총류", b);
 		CategoryS s = new CategoryS(0, "총류", m, b);
@@ -52,5 +52,5 @@ public class BookRentalInfoMapperTest extends AbstractTest {
 		BookRentalInfo bookRentalInfo1 = new BookRentalInfo(1, new Date(), null, new Date(+7), me, bo);
 		int res = dao.insertBookRentalInfo(bookRentalInfo);
 		Assert.assertEquals(1, res);
-	}
+	}*/
 }
