@@ -25,8 +25,6 @@ import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
 import java.awt.CardLayout;
 
-=======
->>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male
 public class BookTablePanel extends JPanel {
 	
 	private JTable table;	
