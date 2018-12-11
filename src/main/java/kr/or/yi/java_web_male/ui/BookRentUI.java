@@ -15,6 +15,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class BookRentUI extends JFrame {
 
@@ -26,6 +28,13 @@ public class BookRentUI extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		// 룩앤필 변경
+		try {
+			UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

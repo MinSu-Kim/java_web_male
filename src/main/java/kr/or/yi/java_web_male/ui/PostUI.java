@@ -1,0 +1,155 @@
+package kr.or.yi.java_web_male.ui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.GridLayout;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class PostUI extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField TextPostCode;
+	private JTextField TextAddress;
+	private JTextField TextDetailAddress;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		// 룩앤필 변경
+				try {
+					UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+						| UnsupportedLookAndFeelException e1) {
+					e1.printStackTrace();
+				}
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PostUI frame = new PostUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public PostUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 479, 312);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(new GridLayout(0, 1, 0, 5));
+		
+		JPanel PostCodePanel = new JPanel();
+		contentPane.add(PostCodePanel);
+		PostCodePanel.setLayout(new GridLayout(0, 2, 10, 0));
+		
+		JPanel PostCodeLblPanel = new JPanel();
+		PostCodePanel.add(PostCodeLblPanel);
+		PostCodeLblPanel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JLabel space1 = new JLabel("");
+		PostCodeLblPanel.add(space1);
+		
+		JLabel LblPostCode = new JLabel("우편번호");
+		PostCodeLblPanel.add(LblPostCode);
+		LblPostCode.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		JPanel PostCodeTextPanel = new JPanel();
+		PostCodePanel.add(PostCodeTextPanel);
+		PostCodeTextPanel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		TextPostCode = new JTextField();
+		PostCodeTextPanel.add(TextPostCode);
+		TextPostCode.setColumns(10);
+		
+		JButton BtnPostCodeSearch = new JButton("우편번호 검색");
+		
+		/*버튼기능*/
+		BtnPostCodeSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PostSearchUI psu = new PostSearchUI();
+				psu.setVisible(true);
+			}
+		});
+		
+		PostCodeTextPanel.add(BtnPostCodeSearch);
+		
+		JPanel AddressPanel = new JPanel();
+		contentPane.add(AddressPanel);
+		AddressPanel.setLayout(new GridLayout(0, 2, 10, 0));
+		
+		JPanel AddressLblPanel = new JPanel();
+		AddressPanel.add(AddressLblPanel);
+		AddressLblPanel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JLabel LblAddress = new JLabel("주소");
+		AddressLblPanel.add(LblAddress);
+		LblAddress.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		JPanel AddressTextPanel = new JPanel();
+		AddressPanel.add(AddressTextPanel);
+		AddressTextPanel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		TextAddress = new JTextField();
+		AddressTextPanel.add(TextAddress);
+		TextAddress.setColumns(10);
+		
+		JPanel DetailAddressPanel = new JPanel();
+		contentPane.add(DetailAddressPanel);
+		DetailAddressPanel.setLayout(new GridLayout(0, 2, 10, 0));
+		
+		JPanel DetailAddressLblPanel = new JPanel();
+		DetailAddressPanel.add(DetailAddressLblPanel);
+		DetailAddressLblPanel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JLabel LblDetailAddress = new JLabel("세부주소");
+		DetailAddressLblPanel.add(LblDetailAddress);
+		LblDetailAddress.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		JPanel DetailAddressTextPanel = new JPanel();
+		DetailAddressPanel.add(DetailAddressTextPanel);
+		DetailAddressTextPanel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		TextDetailAddress = new JTextField();
+		DetailAddressTextPanel.add(TextDetailAddress);
+		TextDetailAddress.setColumns(10);
+		
+		JPanel BtnPanel = new JPanel();
+		contentPane.add(BtnPanel);
+		BtnPanel.setLayout(new GridLayout(0, 2, 10, 0));
+		
+		JPanel BtnLblPanel = new JPanel();
+		BtnPanel.add(BtnLblPanel);
+		BtnLblPanel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JLabel space2 = new JLabel("");
+		BtnLblPanel.add(space2);
+		space2.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		JPanel BtnButtonPanel = new JPanel();
+		BtnPanel.add(BtnButtonPanel);
+		BtnButtonPanel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JButton BtnOk = new JButton("등록");
+		BtnButtonPanel.add(BtnOk);
+	}
+
+}
