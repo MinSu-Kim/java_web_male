@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
@@ -24,6 +26,13 @@ public class Main extends JFrame {
 	 */
 
 	public static void main(String[] args) {
+		// 룩앤필 변경
+		try {
+			UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

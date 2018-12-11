@@ -67,7 +67,7 @@ public class MemberSearchUI extends JFrame {
 		Search_panel.add(label);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"회원번호", "이름", "전화번호"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"회원번호", "이름", "생년월일"}));
 		Search_panel.add(comboBox);
 		
 		textField = new JTextField();

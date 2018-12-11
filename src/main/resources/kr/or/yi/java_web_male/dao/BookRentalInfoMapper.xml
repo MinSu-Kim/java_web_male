@@ -18,14 +18,14 @@
 		<include refid="selectSql" />
 	</select>
 	
-	<select id="selectBookRentalInfoByNo" parameterType="BookRentalInfo" resultType="BookRentalInfo">
+	<select id="selectBookRentalInfoByCode" parameterType="BookRentalInfo" resultType="BookRentalInfo">
 		<include refid="selectSql" />
 		<include refid="whereSql" />
 	</select>
 	
 	<insert id="insertBookRentalInfo" parameterType="BookRentalInfo">
 		INSERT INTO proj_library.book_rental_info (rental_no, rental_date, return_date, return_schedule, member_no, book_code)
-		VALUES (#{rentalNo},#{rentalDate},#{returnDate}, #{returnSchedule}, #{member_no.member_no}, #{bookNo.bookNo})
+		VALUES (#{rentalNo},#{rentalDate},#{returnDate}, #{returnSchedule}, #{memberNo.memberNo}, #{bookCode.bookCode})
 	</insert>
 	
 </mapper>

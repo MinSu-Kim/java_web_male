@@ -14,7 +14,7 @@ import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.Publisher;
 import kr.or.yi.java_web_male.service.LibraryUIService;
 
-<<<<<<< HEAD
+
 import java.awt.BorderLayout;
 import java.util.List;
 import java.awt.Dimension;
@@ -36,9 +36,9 @@ public class BookTablePanel extends JPanel {
 	
 	
 	public BookTablePanel() {
-		service = new LibraryUIService();
 		setBorder(new TitledBorder(null, "\uAC80\uC0C9\uACB0\uACFC", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		setLayout(new GridLayout(0, 1, 0, 0));
+		service = new LibraryUIService();
+		setLayout(new BorderLayout(0, 0));
 		
 		scrollPane = new JScrollPane();
 		add(scrollPane);
@@ -73,16 +73,16 @@ public class BookTablePanel extends JPanel {
 
 	private Object[] getBookArray(Book book) {
 		String bookCode = book.getBookCode();
-		String title = book.getTitle();
-		
-		
+		String title = book.getTitle();				
 		String PubNo = book.getPubNo().getPubNo();
-		/*JOptionPane.showMessageDialog(null, PubNo);*/
+		
 		publishers = new Publisher();
-		JOptionPane.showMessageDialog(null, book.getPubNo());
+
 		publishers = service.selectPublisherByNo(book.getPubNo());
-		JOptionPane.showMessageDialog(null, publishers);
+		
+		/*JOptionPane.showMessageDialog(null, publishers);*/
 		String publisher = publishers.getPubName();
+		/*String publisher = "";*/
 		String author = book.getAuthor();
 		boolean rentalPossible = book.isRentalPossible();
 		String canPossible;

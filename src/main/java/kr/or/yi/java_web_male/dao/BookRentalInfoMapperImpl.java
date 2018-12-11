@@ -18,9 +18,9 @@ public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 	}
 
 	@Override
-	public BookRentalInfo selectBookRentalInfoByNo(BookRentalInfo bookRentalInfo) {
+	public BookRentalInfo selectBookRentalInfoByCode(BookRentalInfo bookRentalInfo) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
-			return sqlSession.selectOne(namespace + ".selectBookRentalInfoByNo", bookRentalInfo);
+			return sqlSession.selectOne(namespace + ".selectBookRentalInfoByCode", bookRentalInfo);
 		}
 	}
 

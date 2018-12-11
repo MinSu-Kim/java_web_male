@@ -1,6 +1,7 @@
 package kr.or.yi.java_web_male.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.yi.java_web_male.dao.BookMapper;
 import kr.or.yi.java_web_male.dao.BookMapperImpl;
@@ -57,8 +58,15 @@ public class LibraryUIService {
 	public Publisher selectPublisherByNo(Publisher pub) {
 		return publisher.selectPublisherByNo(pub);
 	}
+	public Publisher selectPublisherByName(Publisher pub) {
+		return publisher.selectPublisherByName(pub);
+	}
 	public List<Book> selectbookbybookCode(Book book) {
 		return bookMapper.selectbookbybookCode(book);
+	}
+
+	public List<Book> selectbookbyOther(Map<String, Object> map) {
+		return bookMapper.selectbookbyOther(map);
 	}
 	
 

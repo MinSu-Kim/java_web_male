@@ -1,6 +1,7 @@
 package kr.or.yi.java_web_male.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -45,6 +46,13 @@ public class BookMapperImpl implements BookMapper {
 			int res = sqlSession.insert(namespace + ".updateBook", book);
 			sqlSession.commit();
 			return res;
+		}
+	}
+
+	@Override
+	public List<Book> selectbookbyOther(Map<String, Object> map) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectList(namespace + ".selectbookbyOther", map);
 		}
 	}
 
