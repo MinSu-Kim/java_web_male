@@ -179,14 +179,15 @@ public class BookInsertUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("title", tfTitle.getText());
-				String str = comboBoxCateSNo.getSelectedItem().toString().substring(0, 3) + (3154);
+				JOptionPane.showConfirmDialog(null, cateS.getbCode().getbCode() +""+ cateS.getmCode().getmCode() +""+ cateS.getsCode() +"");
+				String str = cateS.getbCode().getbCode() +""+ cateS.getmCode().getmCode() +""+ cateS.getsCode() +"";
 				/* + service.selectbookbyOther(map) */;
 				System.out.println(str);
 				Publisher publisher = new Publisher();
 				publisher.setPubNo("P001");
 				Book book = new Book();
 
-				tfBookCode.setText(str);
+				tfBookCode.setText(str.trim());
 				book.setBookCode(str);
 				book.setBookNo(0);
 				book.setPubNo(publisher);
@@ -205,37 +206,6 @@ public class BookInsertUI extends JFrame {
 
 				System.out.println(book);
 				bookMapper.insertBook(book);
-				
-				/*Publisher p = new Publisher();
-				p.setPubNo("P001");
-				
-				CategoryB categoryB = new CategoryB();
-				categoryB.setbCode(0);
-				categoryB.setbName("1");
-				
-				CategoryM categoryM = new CategoryM();
-				categoryM.setmCode(0);
-				categoryM.setmName("1");
-				
-				CategoryS categoryS = new CategoryS();
-				categoryS.setsCode(0);
-				categoryS.setsName("1");
-				
-				log.debug("test08InsertBook()");
-				Book book = new Book();
-				book.setBookCode("001158");
-				book.setBookNo(123);
-				book.setTitle("자바의 호우");
-				book.setAuthor("호우");
-				book.setTranslator("호우");
-				book.setAuthor("작가");
-				book.setTranslator("역자");
-				book.setCateBNo(categoryB);
-				book.setCateMNo(categoryM);
-				book.setCateSNo(categoryS);		
-				book.setPrice(1000);
-				int res = dao.insertBook(book);
-				Assert.assertEquals(1, res);*/
 			}
 		});
 	}
