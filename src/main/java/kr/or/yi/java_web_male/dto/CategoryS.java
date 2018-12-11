@@ -48,7 +48,7 @@ public class CategoryS {
 	}
 	@Override
 	public String toString() {
-		return bCode.getbCode() +""+ mCode.getmCode() +""+sCode+""+sName;
+		return sName;
 	}
 	
 
