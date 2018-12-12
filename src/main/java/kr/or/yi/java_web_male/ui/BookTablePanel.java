@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -36,9 +37,10 @@ public class BookTablePanel extends JPanel {
 	
 	
 	public BookTablePanel() {
+		
 		setBorder(new TitledBorder(null, "\uAC80\uC0C9\uACB0\uACFC", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		service = new LibraryUIService();
-		setLayout(new BorderLayout(0, 0));
+		setLayout(new GridLayout(0, 1, 0, 0));
 		
 		scrollPane = new JScrollPane();
 		add(scrollPane);
@@ -54,8 +56,14 @@ public class BookTablePanel extends JPanel {
 		table.setModel(model);
 	}
 
-	public void setLists(List<Book> lists) {
+	public Boolean setLists(List<Book> lists) {
 		this.lists = lists;
+		if(lists.size()==0) {			
+			return false;
+		}else {
+			return true;
+		}
+		
 	}
 
 
@@ -93,10 +101,10 @@ public class BookTablePanel extends JPanel {
 		}
 		return new Object[] { bookCode,title,author,publisher,canPossible};
 	}
-	/*public void setPopMenu(JPopupMenu popup) {
+	public void setPopMenu(JPopupMenu popup) {
 		scrollPane.setComponentPopupMenu(popup);
 		table.setComponentPopupMenu(popup);
-	}*/
+	}
 
 
 	/*public Book getSelectedEmployee() {

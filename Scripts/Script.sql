@@ -70,6 +70,8 @@ select * from publisher;
 SELECT cate_m_no, cate_b_no, cate_m_name
 		FROM proj_library.category_m
 		WHERE cate_b_no=1;
+	
+insert into publisher values('P001', null);
 		
 
 	
@@ -81,4 +83,8 @@ insert into `member` values("2","asdf", "이천희", "lch","01022306796","921012
 
 select * from book WHERE book_code REGEXP '00001';
 
+=======
+delete
+from book
+where book_code = 001158;
 
