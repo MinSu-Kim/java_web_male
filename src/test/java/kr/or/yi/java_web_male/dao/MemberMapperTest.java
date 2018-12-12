@@ -16,7 +16,7 @@ import kr.or.yi.java_web_male.dto.Member;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MemberMapperTest {
-	private MemberMapper dao = new MemberMapperImpl();
+	private MemberMapper dao = MemberMapperImpl.getInstance();
 
 	@Test
 	public void test01inSertMember() {

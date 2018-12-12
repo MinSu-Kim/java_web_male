@@ -7,7 +7,7 @@ import kr.or.yi.java_web_male.dao.MemberMapperImpl;
 import kr.or.yi.java_web_male.dto.Member;
 
 public class MemberUIService {
-	private MemberMapper dao = new MemberMapperImpl();
+	private MemberMapper dao = MemberMapperImpl.getInstance();
 	
 	public List<Member> selectMemberByAll(){
 		return dao.selectMemberByAll();
