@@ -5,6 +5,8 @@ import java.util.Map;
 
 import kr.or.yi.java_web_male.dao.BookMapper;
 import kr.or.yi.java_web_male.dao.BookMapperImpl;
+import kr.or.yi.java_web_male.dao.BookRentalInfoMapper;
+import kr.or.yi.java_web_male.dao.BookRentalInfoMapperImpl;
 import kr.or.yi.java_web_male.dao.CategoryBMapper;
 import kr.or.yi.java_web_male.dao.CategoryBMapperImpl;
 import kr.or.yi.java_web_male.dao.CategoryMMapper;
@@ -14,6 +16,7 @@ import kr.or.yi.java_web_male.dao.CategorySMapperImpl;
 import kr.or.yi.java_web_male.dao.PublisherMapper;
 import kr.or.yi.java_web_male.dao.PublisherMapperImpl;
 import kr.or.yi.java_web_male.dto.Book;
+import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
 import kr.or.yi.java_web_male.dto.CategoryS;
@@ -25,6 +28,7 @@ public class LibraryUIService {
 	private CategorySMapper cateSMapper;
 	private PublisherMapper publisher;
 	private BookMapper bookMapper;
+	private BookRentalInfoMapper bookRentalInfoMapper;
 
 	public LibraryUIService() {
 		cateBMapper = new CategoryBMapperImpl();
@@ -32,6 +36,7 @@ public class LibraryUIService {
 		cateSMapper = new CategorySMapperImpl();
 		publisher =new PublisherMapperImpl();
 		bookMapper = new BookMapperImpl();
+		bookRentalInfoMapper = new BookRentalInfoMapperImpl();
 	}
 	
 	public List<CategoryB> selectCategoryBByAll() {
@@ -69,5 +74,8 @@ public class LibraryUIService {
 		return bookMapper.selectbookbyOther(map);
 	}
 	
+	public List<BookRentalInfo> selectCategoryBByAll(Book book) {
+		return bookRentalInfoMapper.selectBookRentalInfoByBookCode(book);
+	}
 
 }

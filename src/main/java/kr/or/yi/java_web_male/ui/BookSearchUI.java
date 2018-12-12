@@ -592,6 +592,10 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		popupMenu.add(Showmore);
 		
 		if (true /*Login.loginInfo.getAdmin()*/) {
+			JMenuItem bookRentInfo = new JMenuItem("도서대여 정보");
+			bookRentInfo.addActionListener(this);
+			popupMenu.add(bookRentInfo);
+			
 			JMenuItem upDate = new JMenuItem("수정");
 			upDate.addActionListener(this);
 			popupMenu.add(upDate);
@@ -609,7 +613,11 @@ public class BookSearchUI extends JFrame implements ActionListener{
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {		
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("도서대여 정보")) {
+			do_bookRentInfo_actionPerformed(e);
+			JOptionPane.showMessageDialog(null, "도서대여 정보");
+		}
 		if (e.getActionCommand().equals("상새정보")) {
 			do_Showmore_actionPerformed(e);
 			JOptionPane.showMessageDialog(null, "상새정보");
@@ -623,6 +631,11 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		if (e.getActionCommand().equals("추가")) {
 			JOptionPane.showMessageDialog(null, "추가");
 		}
+		
+	}
+
+	private void do_bookRentInfo_actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 
