@@ -10,7 +10,7 @@ import kr.or.yi.java_web_male.jdbc.MyBatisSqlSessionFactory;
 
 public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 	private static final String namespace = "kr.or.yi.java_web_male.dao.BookRentalInfoMapper";
-	private static final String namespacekjy = "kr.or.yi.java_web_male.dao.BookRentalInfoMapperkjy";
+	
 
 	@Override
 	public List<BookRentalInfo> selectBookRentalInfoByAll() {
@@ -38,7 +38,7 @@ public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 	@Override
 	public List<BookRentalInfo> selectBookRentalInfoByBookCode(Book book) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
-			return sqlSession.selectList(namespacekjy + ".selectBookRentalInfoByBookCode",book);
+			return sqlSession.selectList(namespace + ".selectBookRentalInfoByBookCode",book);
 		}
 	}
 

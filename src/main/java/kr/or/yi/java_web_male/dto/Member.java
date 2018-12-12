@@ -171,11 +171,10 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [memberNo=" + memberNo + ", password=" + password + ", korName=" + korName + ", engName="
-				+ engName + ", phone=" + phone + ", jumin=" + jumin + ", email=" + email + ", address=" + address
-				+ ", photo=" + photo + ", admin=" + admin + ", uniqueness=" + uniqueness + ", bookRentallInfo="
-				+ bookRentallInfo + ", book=" + book + "]";
+		return memberNo;
 	}
+	
+	
 
 	
 	

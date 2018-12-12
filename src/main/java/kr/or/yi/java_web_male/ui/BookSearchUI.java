@@ -265,7 +265,7 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		comboBoxCateBNo.setEnabled(false);
 		comboBoxCateBNo.addItemListener(new ItemListener() {
 
-			// 대분류가 선택되었을때
+			// 대분류아이탬이 선택되었을때
 			public void itemStateChanged(ItemEvent e) {
 				if (comboBoxCateBNo.getSelectedItem().equals(b)) {
 					cateBview = false;

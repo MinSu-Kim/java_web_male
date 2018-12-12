@@ -12,5 +12,8 @@ public class MemberUIService {
 	public List<Member> selectMemberByAll(){
 		return dao.selectMemberByAll();
 	}
+	public Member selectMemberByNo(Member member){
+		return dao.selectMemberByNo(member);
+	}
 		
 }

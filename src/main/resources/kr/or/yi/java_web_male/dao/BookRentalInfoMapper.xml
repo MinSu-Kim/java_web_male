@@ -29,4 +29,36 @@
 		VALUES (#{rentalNo},#{rentalDate},#{returnDate}, #{returnSchedule}, #{memberNo.memberNo}, #{bookCode.bookCode})
 	</insert>
 	
+	<sql id="selectSqlkjy">
+		SELECT rental_no, rental_date, return_date,	return_schedule, member_no, book_code FROM proj_library.book_rental_info
+	</sql>
+	
+	
+	
+	
+	
+	
+	
+	
+	<resultMap type="BookRentalInfo" id="selectBookRentalInfoAll">
+		<result property="rentalNo" column="rental_no" />
+		<result property="rentalDate" column="rental_date" />
+		<result property="returnDate" column="return_date" />
+		<result property="returnSchedule" column="return_schedule" />
+		<result property="memberNo.memberNo" column="member_no" />
+		<result property="bookCode.bookCode" column="book_code" />		
+	</resultMap>							
+		
+	<sql id="whereBookCodeSql">
+		<where>
+			<if test="bookCode != null">
+				book_code =#{bookCode}
+			</if>
+		</where>
+	</sql>
+	<select id="selectBookRentalInfoByBookCode" parameterType="Book" resultMap="selectBookRentalInfoAll">
+		<include refid="selectSqlkjy"/>
+		<include refid="whereBookCodeSql"/>
+	</select>
+	
 </mapper>

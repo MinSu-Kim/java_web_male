@@ -9,6 +9,13 @@ import kr.or.yi.java_web_male.dto.CategoryS;
 import kr.or.yi.java_web_male.jdbc.MyBatisSqlSessionFactory;
 
 public class CategorySMapperImpl implements CategorySMapper {
+	private static final CategorySMapperImpl instance = new CategorySMapperImpl();
+
+	public static CategorySMapperImpl getInstance() {
+		return instance;
+	}
+
+	private CategorySMapperImpl() {}
 	private static final String namespace = "kr.or.yi.java_web_male.dao.CategorySMapper";
 																		
 	@Override
