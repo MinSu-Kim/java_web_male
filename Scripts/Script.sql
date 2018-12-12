@@ -43,7 +43,7 @@ call search_phone("01022306796");
 call search_jumin("921012");
 
 call search_membername("서동준");
-call search_memberno("3");
+call search_memberno("2");
 call search_phone("010-4354-2435");
 
 select kor_name, m.member_no, title, rental_date, return_date, return_schedule
@@ -80,3 +80,5 @@ select * from `member`;
 insert into `member` values("2","asdf", "이천희", "lch","01022306796","921012","tjehdxo2002@","비밀","하핫",0,"하말없음");
 
 select * from book WHERE book_code REGEXP '00001';
+
+

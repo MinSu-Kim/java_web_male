@@ -14,6 +14,7 @@
 		</where>
 	</sql>
 	
+	
 	<select id="selectBookRentalInfoByAll" parameterType="BookRentalInfo" resultType="BookRentalInfo">
 		<include refid="selectSql" />
 	</select>
