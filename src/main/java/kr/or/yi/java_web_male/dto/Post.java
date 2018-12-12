@@ -52,8 +52,8 @@ public class Post {
 	}
 	@Override
 	public String toString() {
-		return String.format("Post [zipcode=%s, sido=%s, sigungu=%s, eupmyeon=%s, doro=%s, building1=%s, building2=%s]",
-				zipcode, sido, sigungu, eupmyeon, doro, building1, building2);
+		return String.format("%s %s %s %s %s %s",
+				sido, sigungu, eupmyeon, doro, building1, building2);
 	}
 	
 	

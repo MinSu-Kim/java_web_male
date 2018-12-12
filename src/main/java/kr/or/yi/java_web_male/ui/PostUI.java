@@ -1,27 +1,30 @@
 package kr.or.yi.java_web_male.ui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
+
+import javafx.scene.text.Text;
+import kr.or.yi.java_web_male.dto.Post;
 
 public class PostUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField TextPostCode;
-	private JTextField TextAddress;
-	private JTextField TextDetailAddress;
+	private JTextField textPostCode;
+	private JTextField textAddress;
+	private JTextField textDetailAddress;
 
 	/**
 	 * Launch the application.
@@ -76,9 +79,9 @@ public class PostUI extends JFrame {
 		PostCodePanel.add(PostCodeTextPanel);
 		PostCodeTextPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		TextPostCode = new JTextField();
-		PostCodeTextPanel.add(TextPostCode);
-		TextPostCode.setColumns(10);
+		textPostCode = new JTextField();
+		PostCodeTextPanel.add(textPostCode);
+		textPostCode.setColumns(10);
 		
 		JButton BtnPostCodeSearch = new JButton("우편번호 검색");
 		
@@ -86,6 +89,7 @@ public class PostUI extends JFrame {
 		BtnPostCodeSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PostSearchUI psu = new PostSearchUI();
+				psu.setPostUI(PostUI.this);
 				psu.setVisible(true);
 			}
 		});
@@ -108,9 +112,9 @@ public class PostUI extends JFrame {
 		AddressPanel.add(AddressTextPanel);
 		AddressTextPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		TextAddress = new JTextField();
-		AddressTextPanel.add(TextAddress);
-		TextAddress.setColumns(10);
+		textAddress = new JTextField();
+		AddressTextPanel.add(textAddress);
+		textAddress.setColumns(10);
 		
 		JPanel DetailAddressPanel = new JPanel();
 		contentPane.add(DetailAddressPanel);
@@ -128,9 +132,9 @@ public class PostUI extends JFrame {
 		DetailAddressPanel.add(DetailAddressTextPanel);
 		DetailAddressTextPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		TextDetailAddress = new JTextField();
-		DetailAddressTextPanel.add(TextDetailAddress);
-		TextDetailAddress.setColumns(10);
+		textDetailAddress = new JTextField();
+		DetailAddressTextPanel.add(textDetailAddress);
+		textDetailAddress.setColumns(10);
 		
 		JPanel BtnPanel = new JPanel();
 		contentPane.add(BtnPanel);
@@ -149,7 +153,19 @@ public class PostUI extends JFrame {
 		BtnButtonPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		
 		JButton BtnOk = new JButton("등록");
+		BtnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null,String.format("%s%s,%s",textPostCode.getText(), textAddress.getText(),textDetailAddress.getText()));
+				
+			}
+		});
 		BtnButtonPanel.add(BtnOk);
 	}
 
+	
+	public void setAddress(Post post) {
+		this.textPostCode.setText(post.getZipcode());
+		this.textAddress.setText(post.toString());
+		textAddress.requestFocus();
+	}
 }

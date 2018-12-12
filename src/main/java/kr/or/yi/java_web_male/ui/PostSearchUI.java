@@ -11,11 +11,14 @@ import kr.or.yi.java_web_male.dto.Post;
 import kr.or.yi.java_web_male.service.PostUIService;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
@@ -26,27 +29,10 @@ public class PostSearchUI extends JFrame {
 	private PostUIService service;
 	private JComboBox BoxSido;
 	private Post doro;
+	private PostUI postUI;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PostSearchUI frame = new PostSearchUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public PostSearchUI() {
+		service = new PostUIService();
 		setTitle("우편번호 검색");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -82,27 +68,42 @@ public class PostSearchUI extends JFrame {
 		JButton BtnSearch = new JButton("검색");
 		BtnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-			         doro = new Post();
-			         doro.setSido((String)BoxSido.getSelectedItem());
-			         doro.setDoro(TextDoro.getText().trim());
-			         postList.setList(service.selectPostByDoro(BoxSido));
-			         postList.loadData();
-//			         pList.getItem(selectedIndex);
-
-			      } catch (SQLException e1) {
-			         e1.printStackTrace();
-			      }
+				/*try {*/
+					doro = new Post();
+					 doro.setSido((String)BoxSido.getSelectedItem());
+					 doro.setDoro(TextDoro.getText().trim());
+					 postList.setLists(service.selectPostByDoro(doro));
+					 postList.loadData();
+//					 postList.selectedItem(selectedIndex);
+/*				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}*/
+					
 			}
 		});
 		
 		
 		panel.add(BtnSearch);
 		
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.CENTER);
+		postList = new PostListPanel();
+		postList.getTable().addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Post post = postList.selectedItem();
+				postUI.setAddress(post);
+				PostSearchUI.this.dispose();
+			}
+			
+		});
+		contentPane.add(postList, BorderLayout.CENTER);
 		
 		
 	}
 
+	public void setPostUI(PostUI postUI) {
+		this.postUI = postUI;
+	}
+
+	
 }

@@ -12,9 +12,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 		<package name="kr.or.yi.java_web_male.dto" />
 	</typeAliases>
-	<typeHandlers>
-		<package name="kr.or.yi.java_web_male.typehandler"/>
-	</typeHandlers>
+	
 	<environments default="development2">
 
 		<environment id="development1">

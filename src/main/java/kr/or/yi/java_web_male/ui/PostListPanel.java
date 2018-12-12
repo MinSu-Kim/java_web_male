@@ -42,7 +42,7 @@ public class PostListPanel extends JPanel {
 	}
 
 	private Object[] getColumn() {
-		return new String[]{"우편번호","시도","시군구","읍면","도로명","건물번호1","건물번호2"};
+		return new String[]{"우편번호","주소"};
 	}
 	
 
@@ -55,7 +55,7 @@ public class PostListPanel extends JPanel {
 	}
 
 	private Object[] getRow(Post post) {
-		return new Object[]{post.getZipcode(),post.getSido(),post.getSigungu(),post.getEupmyeon(),post.getDoro(),post.getBuilding1(),post.getBuilding2()};
+		return new Object[]{post.getZipcode(),post.toString()};
 	}
 
 	public Post selectedItem() {
@@ -64,14 +64,11 @@ public class PostListPanel extends JPanel {
 			JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요");
 			return null;
 		}
-		String zipcode = (String) table.getValueAt(selectedIndex, 0);
-		String sido = (String) table.getValueAt(selectedIndex, 1);
-		String sigungu = (String) table.getValueAt(selectedIndex, 2);
-		String eupmyeon = (String) table.getValueAt(selectedIndex, 3);
-		String doro = (String) table.getValueAt(selectedIndex, 4);
-		int building1 = (int) table.getValueAt(selectedIndex, 5);
-		int building2 = (int) table.getValueAt(selectedIndex, 6);
-		return new Post();
+		return list.get(selectedIndex);
 	}
-
+	public JTable getTable() {
+		return table;
+	}
+	
+	
 }
