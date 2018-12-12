@@ -36,7 +36,8 @@ public class LibraryUIService {
 		cateSMapper = new CategorySMapperImpl();
 		publisher =new PublisherMapperImpl();
 		bookMapper = new BookMapperImpl();
-		bookRentalInfoMapper = new BookRentalInfoMapperImpl();
+		bookRentalInfoMapper = BookRentalInfoMapperImpl.getInstance();
+		
 	}
 	
 	public List<CategoryB> selectCategoryBByAll() {

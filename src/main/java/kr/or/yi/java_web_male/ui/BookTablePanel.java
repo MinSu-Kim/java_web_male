@@ -12,6 +12,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.TitledBorder;
 
 import kr.or.yi.java_web_male.dto.Book;
+import kr.or.yi.java_web_male.dto.Post;
 import kr.or.yi.java_web_male.dto.Publisher;
 import kr.or.yi.java_web_male.service.LibraryUIService;
 
@@ -112,6 +113,18 @@ public class BookTablePanel extends JPanel {
 		String empno = (String) table.getValueAt(selectedIndex, 0);
 		return new Book(empno);
 	}*/
+	
+	public Book selectedItem() {
+		int selectedIndex = table.getSelectedRow();
+		if (selectedIndex == -1) {
+			JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요");
+			return null;
+		}
+		return lists.get(selectedIndex);
+	}
+	public JTable getTable() {
+		return table;
+	}
 
 	
 }

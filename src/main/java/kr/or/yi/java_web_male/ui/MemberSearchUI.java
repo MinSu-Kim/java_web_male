@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.service.MemberUIService;
 
 import javax.swing.JComboBox;
@@ -16,6 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,6 +29,7 @@ public class MemberSearchUI extends JFrame {
 	private JTextField textField;
 	private MemberSearchResult Slist;
 	private MemberUIService service;
+	private BookRentUI bookRentUI;
 
 	/**
 	 * Launch the application.
@@ -78,9 +82,30 @@ public class MemberSearchUI extends JFrame {
 		Search_panel.add(button);
 		
 		Slist = new MemberSearchResult();
+		Slist.getTable().addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount()==2) {
+					Member member = Slist.selectedItem();
+					bookRentUI.setMemberNo(member);
+					MemberSearchUI.this.dispose();
+					
+				}
+			}
+			
+		});
+		
+		
+		
 		Slist.setLists(service.selectMemberByAll());
 		Slist.loadData();
 		contentPane.add(Slist);
+	}
+	
+	public void setBookRentUI(BookRentUI bookRentUI) {
+		this.bookRentUI = bookRentUI;
+		
 	}
 
 }

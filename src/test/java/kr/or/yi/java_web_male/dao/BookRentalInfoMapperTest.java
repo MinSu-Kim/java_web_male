@@ -21,7 +21,7 @@ import kr.or.yi.java_web_male.dto.Publisher;
 
 public class BookRentalInfoMapperTest extends AbstractTest {
 
-	private BookRentalInfoMapper dao = new BookRentalInfoMapperImpl();
+	private BookRentalInfoMapper dao = BookRentalInfoMapperImpl.getInstance();
 
 	@Test
 	public void test0selectBookRentalInfoByAll() {
