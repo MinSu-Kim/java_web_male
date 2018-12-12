@@ -87,6 +87,9 @@ public class BookSearchUI extends JFrame implements ActionListener{
 	private DefaultComboBoxModel<CategoryB> modelB;
 	private JButton btnLogin;
 	private String log;
+	private boolean searchwhat =true;
+	private Book selectedBook;
+	private BookDetailUI bookDetailUI;
 
 	/**
 	 * Launch the application.
@@ -126,28 +129,6 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
-		/*
-		 * modelM = new DefaultComboBoxModel<>(new
-		 * Vector<>(service.selectCategoryMByAll()));
-		 */
-
-		/*
-		 * CategoryB b = new CategoryB(); b.setbName(""); b.setbCode(0);
-		 * modelB.addElement(b);
-		 */
-		/*
-		 * CategoryM m = new CategoryM(); m.setmName(""); modelM.addElement(m);
-		 * CategoryS s = new CategoryS(); s.setsName("");
-		 */
-
-		/*
-		 * modelS = new DefaultComboBoxModel<>(new
-		 * Vector<>(service.selectCategorySByAll()));
-		 */
-		/* modelS.addElement(s); */
-
-		
-
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, BorderLayout.NORTH);
 
@@ -180,11 +161,14 @@ public class BookSearchUI extends JFrame implements ActionListener{
 				book.setBookCode(tfCode.getText().trim());
 				lists = service.selectbookbybookCode(book);
 				if((((BookTablePanel) tablePanel).setLists(lists))==false) {
+					((BookTablePanel) tablePanel).loadDatas();
+					((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
 					JOptionPane.showMessageDialog(null, "검색결과없음");
 					return;
 				};
 				((BookTablePanel) tablePanel).loadDatas();
 				((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
+				searchwhat =true;
 			}
 		});
 		btnsearchbyBookCode.setFont(new Font("굴림", Font.BOLD, 20));
@@ -225,15 +209,6 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		});
 		panel_6.add(btnLogin);
 
-		/*
-		 * panelForTable = new JPanel();
-		 * 
-		 * panelForTable.setLayout(new BorderLayout());
-		 * 
-		 * panelForTable.add(tablePanel, BorderLayout.CENTER);
-		 * 
-		 * panel_1.add(panelForTable);
-		 */
 
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("기타로 검색", null, panel, null);
@@ -563,11 +538,14 @@ public class BookSearchUI extends JFrame implements ActionListener{
 				lists = service.selectbookbyOther(map);
 				/* JOptionPane.showMessageDialog(null, lists); */
 				if((((BookTablePanel) tablePanel2).setLists(lists))==false) {
+					((BookTablePanel) tablePanel2).loadDatas();
+					((BookTablePanel) tablePanel2).setPopMenu(getPopupMenu());
 					JOptionPane.showMessageDialog(null, "검색결과없음");
 					return;
 				};
 				((BookTablePanel) tablePanel2).loadDatas();
 				((BookTablePanel) tablePanel2).setPopMenu(getPopupMenu());
+				searchwhat =false;
 
 			}
 		});
@@ -614,10 +592,6 @@ public class BookSearchUI extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("도서대여 정보")) {
-			do_bookRentInfo_actionPerformed(e);
-			JOptionPane.showMessageDialog(null, "도서대여 정보");
-		}
 		if (e.getActionCommand().equals("상새정보")) {
 			do_Showmore_actionPerformed(e);
 			JOptionPane.showMessageDialog(null, "상새정보");
@@ -634,13 +608,50 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		
 	}
 
-	private void do_bookRentInfo_actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	private void do_Showmore_actionPerformed(ActionEvent e) {
-				
+		try {
+			if(searchwhat) {
+				selectedBook = ((BookTablePanel) tablePanel).getSelectedBook();
+			}else {
+				selectedBook = tablePanel2.getSelectedBook();
+			}
+			String bookCode = "";
+			boolean RentalPossible =false;
+			Book book = new Book();
+			lists =service.selectbookbybookCode(selectedBook);
+			int totalBook = lists.size();
+			if (lists.size()>1) {
+				for (Book books : lists) {
+					if(books.isRentalPossible()) {
+						RentalPossible = true;
+					}
+					bookCode = bookCode + books.getBookCode()+",";
+					book = books;
+				}
+			}else {
+				for (Book books : lists) {
+					if(books.isRentalPossible()) {
+						RentalPossible = true;						
+					}
+					bookCode = bookCode + books.getBookCode();
+					book = books;
+				}
+			}
+			book.setBookCode(bookCode);
+			book.setRentalPossible(RentalPossible);			
+
+			bookDetailUI = new BookDetailUI();
+			bookDetailUI.setBookInfo(book,totalBook);
+			bookDetailUI.setVisible(true);
+			bookDetailUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			
+			
+						
+		}catch (Exception e1) {
+			JOptionPane.showMessageDialog(null, "선택하신책정보가 없습니다.");
+			
+		}		
 	}
 
 }
