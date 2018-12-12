@@ -43,7 +43,7 @@ call search_phone("01022306796");
 call search_jumin("921012");
 
 call search_membername("서동준");
-call search_memberno("3");
+call search_memberno("2");
 call search_phone("010-4354-2435");
 
 select kor_name, m.member_no, title, rental_date, return_date, return_schedule
@@ -70,6 +70,8 @@ select * from publisher;
 SELECT cate_m_no, cate_b_no, cate_m_name
 		FROM proj_library.category_m
 		WHERE cate_b_no=1;
+	
+insert into publisher values('P001', null);
 		
 
 	
@@ -80,6 +82,7 @@ select * from `member`;
 insert into `member` values("2","asdf", "이천희", "lch","01022306796","921012","tjehdxo2002@","비밀","하핫",0,"하말없음");
 
 select * from book WHERE book_code REGEXP '00001';
+
 
 
 
@@ -106,11 +109,12 @@ set zipcode=@zipcode, sido=@sido, sigungu=@sigungu, eupmyeon=@eupmyeon, doro=@do
 
 
 
-
-
-
-
-
 SELECT zipcode, sido, sigungu, eupmyeon, doro, building1, building2
 FROM proj_library.post
 where sido like '%%';
+
+delete
+from book
+where book_code = 001158;
+
+

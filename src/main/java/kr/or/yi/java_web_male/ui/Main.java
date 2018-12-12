@@ -20,6 +20,7 @@ import javax.swing.border.EmptyBorder;
 public class Main extends JFrame {
 
 	private JPanel contentPane;
+	private BookSearchUI BookSearchUI;
 
 	/**
 	 * Launch the application.
@@ -73,7 +74,12 @@ public class Main extends JFrame {
 
 		JButton btnNewButton = new JButton("도서검색");
 		btnNewButton.addActionListener(new ActionListener() {
+			
+
 			public void actionPerformed(ActionEvent e) {
+				BookSearchUI = new BookSearchUI();
+				BookSearchUI.setVisible(true);
+				BookSearchUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			}
 		});
 		btnNewButton.setFont(new Font("굴림", Font.PLAIN, 35));
@@ -86,6 +92,7 @@ public class Main extends JFrame {
 		JButton btnNewButton_2 = new JButton("BEST!");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		btnNewButton_2.setFont(new Font("굴림", Font.PLAIN, 18));

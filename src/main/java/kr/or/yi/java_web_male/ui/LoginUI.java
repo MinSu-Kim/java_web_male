@@ -30,6 +30,12 @@ public class LoginUI extends JFrame {
 	// ui 몽음
 	private AdminMainUI adminMainUI;
 	private MemberInfoUI memberInfoUI;
+	
+	public Member login;
+
+	public Member getLogin() {
+		return login;
+	}
 
 	// 서비스 만들기
 	private MemberMapper memberMapper;

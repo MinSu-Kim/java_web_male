@@ -25,12 +25,15 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
@@ -41,9 +44,10 @@ import kr.or.yi.java_web_male.dto.CategoryS;
 import kr.or.yi.java_web_male.dto.Publisher;
 import kr.or.yi.java_web_male.service.LibraryUIService;
 import javax.swing.JTabbedPane;
+import javax.swing.BoxLayout;
 
 @SuppressWarnings("serial")
-public class BookSearchUI extends JFrame {
+public class BookSearchUI extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTextField tfCode;
@@ -59,12 +63,15 @@ public class BookSearchUI extends JFrame {
 	private JComboBox comboBoxCateSNo;
 	private CategoryB cateB;
 	private CategoryM cateM;
+	private CategoryM m;
 	private CategoryS cateS;
+	private CategoryS s;
 	private Book book;
 	private DefaultComboBoxModel<CategoryS> modelS;
 	private JComboBox comboBoxPublisher;
 	private DefaultComboBoxModel modelPublisher;
 	private List<Book> lists;
+	private boolean cateBview = false;
 	private boolean cateMview = false;
 	private boolean cateSview = false;
 	private JCheckBox chckbxCategory;
@@ -78,11 +85,20 @@ public class BookSearchUI extends JFrame {
 	private JPanel panelForTable;
 	private BookTablePanel tablePanel2;
 	private DefaultComboBoxModel<CategoryB> modelB;
+	private JButton btnLogin;
+	private String log;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		// 룩앤필 변경
+		try {
+			UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -99,34 +115,38 @@ public class BookSearchUI extends JFrame {
 	 * Create the frame.
 	 */
 	public BookSearchUI() {
+		setTitle("도서검색");
+		setResizable(false);
 		service = new LibraryUIService();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 878, 642);
+		setBounds(100, 100, 878, 1002);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		
-		modelB = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryBByAll()));
-		
-		modelM = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryMByAll()));
-		
-		CategoryB b = new CategoryB();
-		b.setbName("");
-		b.setbCode(0);
-		modelB.addElement(b);
-		/*CategoryM m = new CategoryM();
-		m.setmName("");
-		modelM.addElement(m);
-		CategoryS s = new CategoryS();
-		s.setsName("");*/
-		
 
-		modelS = new DefaultComboBoxModel<>(new Vector<>(service.selectCategorySByAll()));
-		/*modelS.addElement(s);*/
+		/*
+		 * modelM = new DefaultComboBoxModel<>(new
+		 * Vector<>(service.selectCategoryMByAll()));
+		 */
+
+		/*
+		 * CategoryB b = new CategoryB(); b.setbName(""); b.setbCode(0);
+		 * modelB.addElement(b);
+		 */
+		/*
+		 * CategoryM m = new CategoryM(); m.setmName(""); modelM.addElement(m);
+		 * CategoryS s = new CategoryS(); s.setsName("");
+		 */
+
+		/*
+		 * modelS = new DefaultComboBoxModel<>(new
+		 * Vector<>(service.selectCategorySByAll()));
+		 */
+		/* modelS.addElement(s); */
+
 		
-		modelPublisher = new DefaultComboBoxModel<>(new Vector<>(service.selectPublisherByAll()));
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, BorderLayout.NORTH);
@@ -146,7 +166,8 @@ public class BookSearchUI extends JFrame {
 		panel_5.add(tfCode);
 		tfCode.setColumns(10);
 
-		JButton btnsearchbyBookCode = new JButton("검색");
+		JButton btnsearchbyBookCode = 
+				new JButton("검색");
 		panel_5.add(btnsearchbyBookCode);
 		btnsearchbyBookCode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -158,22 +179,61 @@ public class BookSearchUI extends JFrame {
 				book = new Book();
 				book.setBookCode(tfCode.getText().trim());
 				lists = service.selectbookbybookCode(book);
-				((BookTablePanel) tablePanel).setLists(lists);
+				if((((BookTablePanel) tablePanel).setLists(lists))==false) {
+					JOptionPane.showMessageDialog(null, "검색결과없음");
+					return;
+				};
 				((BookTablePanel) tablePanel).loadDatas();
+				((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
 			}
 		});
 		btnsearchbyBookCode.setFont(new Font("굴림", Font.BOLD, 20));
+		
+		JLabel lblNewLabel_10 = new JLabel("New label");
+		panel_5.add(lblNewLabel_10);
 
 		tablePanel = new BookTablePanel();
+		
 		panel_1.add(tablePanel);
+		tablePanel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JPanel panel_6 = new JPanel();
+		panel_1.add(panel_6, BorderLayout.SOUTH);
+		panel_6.setLayout(new BoxLayout(panel_6, BoxLayout.X_AXIS));
+		
+		
+		if (/*LoginUI.loginInfo.getMemberNo() != null*/false) {
+			log = "로그아웃";
+		}else {
+			log = "로그인";
+		}
+		
+		btnLogin = new JButton(log);
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getActionCommand().equals("로그아웃")) {
+					/*do_Showmore_actionPerformed(e);*/
+					JOptionPane.showMessageDialog(null, "로그아웃");
+				}
+				if (e.getActionCommand().equals("로그인")) {
+					
+					JOptionPane.showMessageDialog(null, "로그인");
+					//로그인UI생성
+				}
+				
+			}
+		});
+		panel_6.add(btnLogin);
 
-		panelForTable = new JPanel();
-
-		panelForTable.setLayout(new BorderLayout());
-
-		panelForTable.add(tablePanel, BorderLayout.CENTER);
-
-		panel_1.add(panelForTable);
+		/*
+		 * panelForTable = new JPanel();
+		 * 
+		 * panelForTable.setLayout(new BorderLayout());
+		 * 
+		 * panelForTable.add(tablePanel, BorderLayout.CENTER);
+		 * 
+		 * panel_1.add(panelForTable);
+		 */
 
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("기타로 검색", null, panel, null);
@@ -191,13 +251,14 @@ public class BookSearchUI extends JFrame {
 
 		chckbxCategory = new JCheckBox("");
 		chckbxCategory.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (chckbxCategory.isSelected()) {
 					comboBoxCateBNo.setEnabled(true);
 					if (cateMview) {
 						comboBoxCateMNo.setEnabled(true);
-						/* cateBview=true; */
+						cateBview = true;
 					}
 					if (cateSview) {
 						comboBoxCateSNo.setEnabled(true);
@@ -218,17 +279,40 @@ public class BookSearchUI extends JFrame {
 		lblNewLabel_6.setFont(new Font("굴림", Font.BOLD, 20));
 		panel_3.add(lblNewLabel_6);
 
+		List<CategoryB> blist = service.selectCategoryBByAll();
+		CategoryB b = new CategoryB();
+		b.setbName("");
+		blist.add(0, b);
+		modelB = new DefaultComboBoxModel<>(new Vector<>(blist));
 		comboBoxCateBNo = new JComboBox(modelB);
+
+		comboBoxCateBNo.setSelectedItem(b);
 		comboBoxCateBNo.setEnabled(false);
 		comboBoxCateBNo.addItemListener(new ItemListener() {
+
 			// 대분류가 선택되었을때
 			public void itemStateChanged(ItemEvent e) {
+				if (comboBoxCateBNo.getSelectedItem().equals(b)) {
+					cateBview = false;
+					if (m != null) {
+						modelM = new DefaultComboBoxModel<>(new Vector<>());
+						comboBoxCateMNo.setModel(modelM);
+						comboBoxCateMNo.setEnabled(false);
+						comboBoxCateSNo.setEnabled(false);
+					}
+					return;
+				}
 				cateB = (CategoryB) comboBoxCateBNo.getSelectedItem();
 				// 분류번호확인
 				/* JOptionPane.showInputDialog(cateB.getbCode()+"/"+cateB.getbName()); */
-				cateMview = true;
-				modelM = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryMByBNo(cateB)));
+				cateBview = true;
+				List<CategoryM> mlist = service.selectCategoryMByBNo(cateB);
+				m = new CategoryM();
+				m.setmName("");
+				mlist.add(0, m);
+				modelM = new DefaultComboBoxModel<>(new Vector<>(mlist));
 				comboBoxCateMNo.setModel(modelM);
+				comboBoxCateMNo.setSelectedItem(m);
 				comboBoxCateMNo.setEnabled(true);
 				comboBoxCateSNo.setEnabled(false);
 			}
@@ -240,21 +324,31 @@ public class BookSearchUI extends JFrame {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_3.add(lblNewLabel_1);
 
-		comboBoxCateMNo = new JComboBox(modelM);
+		comboBoxCateMNo = new JComboBox();
+
 		comboBoxCateMNo.addItemListener(new ItemListener() {
 
 			public void itemStateChanged(ItemEvent arg0) {
-
+				if (comboBoxCateMNo.getSelectedItem().equals(m)) {
+					cateMview = false;
+					if (s != null) {
+						modelS = new DefaultComboBoxModel<>(new Vector<>());
+						comboBoxCateSNo.setModel(modelS);
+						comboBoxCateSNo.setEnabled(false);
+					}
+					return;
+				}
 				cateM = (CategoryM) comboBoxCateMNo.getSelectedItem();
-				/*
-				 * JOptionPane.showInputDialog(cateM.getbCode().getbCode()+"/"+cateM.getmCode()+
-				 * "/"+cateM.getmName());
-				 */
-				modelS = new DefaultComboBoxModel<>(new Vector<>(service.selectCategorySByBNoMno(cateM)));
-				comboBoxCateSNo.setModel(modelS);
-				comboBoxCateSNo.setEnabled(true);
-				cateSview = true;
 
+				List<CategoryS> slist = service.selectCategorySByBNoMno(cateM);
+				s = new CategoryS();
+				s.setsName("");
+				slist.add(0, s);
+				modelS = new DefaultComboBoxModel<>(new Vector<>(slist));
+				comboBoxCateSNo.setModel(modelS);
+				comboBoxCateMNo.setSelectedItem(s);
+				comboBoxCateSNo.setEnabled(true);
+				cateMview = true;
 			}
 		});
 		comboBoxCateMNo.setEnabled(false);
@@ -265,7 +359,17 @@ public class BookSearchUI extends JFrame {
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_3.add(lblNewLabel_2);
 
-		comboBoxCateSNo = new JComboBox(modelS);
+		comboBoxCateSNo = new JComboBox();
+		comboBoxCateSNo.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (comboBoxCateSNo.getSelectedItem().equals(s)) {
+					cateSview = false;
+					return;
+				}
+				cateS = (CategoryS) comboBoxCateSNo.getSelectedItem();
+				cateSview = true;
+			}
+		});
 		comboBoxCateSNo.setEnabled(false);
 		panel_3.add(comboBoxCateSNo);
 
@@ -293,6 +397,7 @@ public class BookSearchUI extends JFrame {
 		lblNewLabel_5.setFont(new Font("굴림", Font.BOLD, 20));
 		panel_4.add(lblNewLabel_5);
 
+		modelPublisher = new DefaultComboBoxModel<>(new Vector<>(service.selectPublisherByAll()));
 		comboBoxPublisher = new JComboBox(modelPublisher);
 		comboBoxPublisher.setEnabled(false);
 		panel_4.add(comboBoxPublisher);
@@ -395,18 +500,20 @@ public class BookSearchUI extends JFrame {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Map<String, Object> map = new HashMap<String, Object>();
+				/* JOptionPane.showInputDialog(cateB.getbCode()); */
 				if (chckbxCategory.isSelected()) {
-					String b = (comboBoxCateBNo.getSelectedItem()+"").trim();
-					map.put("cateBNo", b);
 
-					if (cateMview) {
-						String m = (comboBoxCateMNo.getSelectedItem()+"").trim();
-						map.put("cateMNo", m);
-						
-						if (cateSview) {
-							String s = (comboBoxCateSNo.getSelectedItem()+"").trim();
-							map.put("cateSNo", s);
-							
+					if (cateBview) {
+						String b = (cateB.getbCode() + "").trim();
+						map.put("cateBNo", b);
+						if (cateMview) {
+							String m = (cateM.getmCode() + "").trim();
+							map.put("cateMNo", m);
+							if (cateSview) {
+								String s = (cateS.getsCode() + "").trim();
+								map.put("cateSNo", s);
+
+							}
 						}
 					}
 				}
@@ -414,37 +521,58 @@ public class BookSearchUI extends JFrame {
 					Publisher pub = new Publisher();
 					pub = (Publisher) comboBoxPublisher.getSelectedItem();
 					pub = service.selectPublisherByName(pub);
-					String pNo = (pub.getPubNo()+"").trim();
+					String pNo = (pub.getPubNo() + "").trim();										
 					map.put("pubNo", pNo);
 				}
 				if (chckbxAuthor.isSelected()) {
+					if ((tfAuthor.getText().trim()).equals("")) {
+						JOptionPane.showMessageDialog(null, "역자를입력해주세요");
+						return;
+					}
 					map.put("author", (tfAuthor.getText()).trim());
-					
+
 				}
 				if (chckbxTranslator.isSelected()) {
+					if ((tfTranslator.getText().trim()).equals("")) {
+						JOptionPane.showMessageDialog(null, "역자를입력해주세요");
+						return;
+					}
 					map.put("translator", (tfTranslator.getText()).trim());
-					
+
 				}
 				if (chckbxTitle.isSelected()) {
+					if ((tfTitle.getText().trim()).equals("")) {
+						JOptionPane.showMessageDialog(null, "제목을입력해주세요");
+						return;
+					}
 					map.put("title", (tfTitle.getText()).trim());
-					
+
 				}
 				if ((chckbxCategory.isSelected() || chckbxPublisher.isSelected() || chckbxAuthor.isSelected()
 						|| chckbxTranslator.isSelected() || chckbxTitle.isSelected()) == false) {
 					JOptionPane.showMessageDialog(null, "검색정보를 입력하세요");
+					return;
 				} else {
 
 				}
+				if ((chckbxCategory.isSelected() == true && cateBview == false)) {
+					JOptionPane.showMessageDialog(null, "분류를 선택하세요");
+					return;
+				}
 				lists = new ArrayList<>();
 				lists = service.selectbookbyOther(map);
-				/*JOptionPane.showMessageDialog(null, lists);*/
-				((BookTablePanel) tablePanel2).setLists(lists);
+				/* JOptionPane.showMessageDialog(null, lists); */
+				if((((BookTablePanel) tablePanel2).setLists(lists))==false) {
+					JOptionPane.showMessageDialog(null, "검색결과없음");
+					return;
+				};
 				((BookTablePanel) tablePanel2).loadDatas();
+				((BookTablePanel) tablePanel2).setPopMenu(getPopupMenu());
 
 			}
 		});
 		panel_9.add(button);
-		
+
 		tablePanel2 = new BookTablePanel();
 		JPanel panelForTable_1 = new JPanel();
 		panelForTable_1.setLayout(new BorderLayout());
@@ -452,18 +580,67 @@ public class BookSearchUI extends JFrame {
 		panelForTable_1.setLayout(new BorderLayout(0, 0));
 		panelForTable_1.add(tablePanel2);
 		panelForTable_1.add(tablePanel2, BorderLayout.CENTER);
+
+
+
+	}
+	private JPopupMenu getPopupMenu() {
+		JPopupMenu popupMenu = new JPopupMenu();
 		
+		JMenuItem Showmore = new JMenuItem("상새정보");
+		Showmore.addActionListener(this);
+		popupMenu.add(Showmore);
 		
-		/*panel_1.add(tablePanel);
+		if (true /*Login.loginInfo.getAdmin()*/) {
+			JMenuItem bookRentInfo = new JMenuItem("도서대여 정보");
+			bookRentInfo.addActionListener(this);
+			popupMenu.add(bookRentInfo);
+			
+			JMenuItem upDate = new JMenuItem("수정");
+			upDate.addActionListener(this);
+			popupMenu.add(upDate);
+			
+			JMenuItem delet = new JMenuItem("삭제");
+			delet.addActionListener(this);
+			popupMenu.add(delet);
+			
+			JMenuItem add = new JMenuItem("추가");
+			add.addActionListener(this);
+			popupMenu.add(add);
+			
+		}
+		return popupMenu;
+	}
 
-		panelForTable = new JPanel();
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("도서대여 정보")) {
+			do_bookRentInfo_actionPerformed(e);
+			JOptionPane.showMessageDialog(null, "도서대여 정보");
+		}
+		if (e.getActionCommand().equals("상새정보")) {
+			do_Showmore_actionPerformed(e);
+			JOptionPane.showMessageDialog(null, "상새정보");
+		}
+		if (e.getActionCommand().equals("수정")) {
+			JOptionPane.showMessageDialog(null, "수정");
+		}
+		if (e.getActionCommand().equals("삭제")) {
+			JOptionPane.showMessageDialog(null, "삭제");
+		}
+		if (e.getActionCommand().equals("추가")) {
+			JOptionPane.showMessageDialog(null, "추가");
+		}
+		
+	}
 
-		panelForTable.setLayout(new BorderLayout());
+	private void do_bookRentInfo_actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
-		panelForTable.add(tablePanel, BorderLayout.CENTER);
-
-		panel_1.add(panelForTable);*/
-
+	private void do_Showmore_actionPerformed(ActionEvent e) {
+				
 	}
 
 }

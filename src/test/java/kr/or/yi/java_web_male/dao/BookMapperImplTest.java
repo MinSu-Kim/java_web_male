@@ -15,6 +15,7 @@ import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
 import kr.or.yi.java_web_male.dto.CategoryS;
+import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.dto.Publisher;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -46,12 +47,14 @@ public class BookMapperImplTest extends AbstractTest {
 		List<CategoryB> stdList = dao1.selectCategoryBByAll();
 		Assert.assertNotNull(stdList);
 	}
+
 	@Test
 	public void test05selectPublisherByAll() {
 		log.debug("test05selectPublisherByAll");
 		List<Publisher> stdList = dao2.selectPublisherByAll();
 		Assert.assertNotNull(stdList);
 	}
+
 	@Test
 	public void test06selectPublisherByNo() {
 		log.debug("test06selectPublisherByNo");
@@ -60,12 +63,47 @@ public class BookMapperImplTest extends AbstractTest {
 		Publisher stdList = dao2.selectPublisherByNo(Publisher);
 		Assert.assertNotNull(stdList);
 	}
+
 	@Test
 	public void test07selectbookbyOther() {
 		log.debug("test07selectbookbyOther");
 		Map<String, Object> map = new HashMap<String, Object>();
-        map.put("pubNo","P001");
+		map.put("pubNo", "P001");
 		List<Book> stdList = dao.selectbookbyOther(map);
 		Assert.assertNotNull(stdList);
+	}
+
+	@Test
+	public void test08InsertBook() {
+		Publisher p = new Publisher();
+		p.setPubNo("P001");
+
+		CategoryB categoryB = new CategoryB();
+		categoryB.setbCode(0);
+		categoryB.setbName("1");
+
+		CategoryM categoryM = new CategoryM();
+		categoryM.setmCode(0);
+		categoryM.setmName("1");
+
+		CategoryS categoryS = new CategoryS();
+		categoryS.setsCode(0);
+		categoryS.setsName("1");
+
+		log.debug("test08InsertBook()");
+		Book book = new Book();
+		book.setBookCode("001158");
+		book.setBookNo(123);
+		book.setTitle("자바의 호우");
+		book.setAuthor("호우");
+		book.setTranslator("호우");
+		book.setAuthor("작가");
+		book.setTranslator("역자");
+		book.setCateBNo(categoryB);
+		book.setCateMNo(categoryM);
+		book.setCateSNo(categoryS);
+		book.setPrice(1000);
+		int res = dao.insertBook(book);
+		Assert.assertEquals(1, res);
 	}
 }

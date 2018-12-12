@@ -32,6 +32,7 @@
 		<result property="bookCode.bookCode" column="book_code"/>
 	</resultMap>
 	
+	
 	<select id="selectBookRentalInfoByAll" parameterType="BookRentalInfo" resultType="BookRentalInfo">
 		<include refid="selectSql" />
 	</select>

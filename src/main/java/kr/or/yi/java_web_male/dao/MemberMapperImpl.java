@@ -1,6 +1,8 @@
 package kr.or.yi.java_web_male.dao;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -75,10 +77,17 @@ public class MemberMapperImpl implements MemberMapper {
 		return null;
 	}
 
-	@Override
-	public Member searchMemberName(Member member) {
+/*	@Override
+	public List<Map<String, String>> searchMemberNo(Map<String, String> map) {
 		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();){
-			return sqlSession.selectOne(namespace+ ".searchMemberName", member);
+			return sqlSession.selectList(namespace + ".searchMemberNo", map);
+		}
+	}
+*/
+	@Override
+	public Member searchMemberNo(Map<String, String> map) {
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();){
+			return sqlSession.selectOne(namespace + ".searchMemberNo", map);
 		}
 	}
 

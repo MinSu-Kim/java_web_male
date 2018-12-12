@@ -36,12 +36,19 @@
 		<result property="admin" column="admin" />
 		<result property="uniqueness" column="uniqueness" />
 	</resultMap>
-
-
+	
+	<resultMap id="MemberResultPro" type="Member">
+		<id property="memberNo" column="member_no"/>
+		<result property="korName" column="kor_name"/>
+		<result property="book.title" column="title"/>
+		<result property="bookRentallInfo.rentalDate" column="rental_date"/>
+		<result property="bookRentallInfo.returnDate" column="return_date"/>
+		<result property="bookRentallInfo.returnSchedule" column="return_schedule"/>
+	</resultMap>
 	<select id="selectMemberByNoToString" parameterType="String" resultMap="MemberResult">
 		select member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness
 		from member
-		where member_no=#{memberNo}
+		where member_no=#{param1}
 	</select>
 
 	<!-- 모든 리스트 검색 -->
@@ -73,7 +80,7 @@
 		member_no=#{memberNo}
 	</select>
 	<!-- 이름으로 검색하기 -->
-	<select id="searchMemberName" statementType="CALLABLE" parameterType="Member">
-		{call search_memberno(#{membernom, mode = IN, jdbcType= CHAR})}
+	<select id="searchMemberNo" statementType="CALLABLE" parameterType="hashmap" resultMap="MemberResultPro">
+		{call search_memberno(#{memberNo, mode = IN, jdbcType=CHAR})}
 	</select>
 </mapper>
