@@ -51,6 +51,14 @@ public class CategoryS {
 		return sName;
 	}
 	
+	public void setAllCode(int sCode, CategoryM mCode, CategoryB bCode) {
+		this.sCode = sCode;
+		this.mCode = mCode;
+		this.bCode = bCode;
+	}
+	
+	
+	
 
 	
 
