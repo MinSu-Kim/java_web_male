@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.ui.LoginUI;
 
 @SuppressWarnings("serial")
 public class MemberInfoUI extends JFrame {
@@ -24,21 +25,15 @@ public class MemberInfoUI extends JFrame {
 	private JTextField tfKorName;
 	private JTextField tfGrade;
 	private JTextField tfEngName;
-
-	private Member memberInfo;
 	
 	private BookSearchUI bookSearchUI;
 	private MemberModUI memberModUI;
+	private MemberDetailUI memberDetailUI;
 	
 	public MemberInfoUI() {
 		initComponent();
-		
-		tfMemberNo.setEditable(false);
-		tfPhone.setEditable(false);
-		tfAddress.setEditable(false);
-		tfKorName.setEditable(false);
-		tfEngName.setEditable(false);
-		tfGrade.setEditable(false);
+
+		System.out.println("다른 클래스에서 호출" + LoginUI.getLogin());
 	}
 
 	private void initComponent() {
@@ -114,6 +109,8 @@ public class MemberInfoUI extends JFrame {
 		JPanel panel_2 = new JPanel();
 		contentPane.add(panel_2, BorderLayout.SOUTH);
 		panel_2.setLayout(new GridLayout(0, 3, 10, 10));
+		
+		
 
 		JButton btnMod = new JButton("회원정보수정");
 		btnMod.addActionListener(new ActionListener() {
@@ -138,16 +135,23 @@ public class MemberInfoUI extends JFrame {
 			}
 		});
 		panel_2.add(btnDetail);
+		
+		getMemberInfo(LoginUI.getLogin());
 	}
 
 	public void getMemberInfo(Member member) {
-		this.memberInfo = member;
-		System.out.println(member);
 		tfMemberNo.setText(member.getMemberNo());
 		tfPhone.setText(member.getPhone());
 		tfAddress.setText(member.getAddress());
 		tfKorName.setText(member.getKorName());
 		tfEngName.setText(member.getEngName());
+		
+		tfMemberNo.setEditable(false);
+		tfPhone.setEditable(false);
+		tfAddress.setEditable(false);
+		tfKorName.setEditable(false);
+		tfEngName.setEditable(false);
+		tfGrade.setEditable(false);
 	}
 	
 	// 회원정보수정 이동
@@ -155,7 +159,6 @@ public class MemberInfoUI extends JFrame {
 		if (memberModUI == null) {
 			memberModUI = new MemberModUI();
 		}
-		memberModUI.getMemberInfo(this.memberInfo);
 		memberModUI.setVisible(true);
 	}
 	
@@ -169,7 +172,10 @@ public class MemberInfoUI extends JFrame {
 	
 	// 상세정보
 	protected void do_btnDetail_actionPerformed(ActionEvent arg0) {
-		
+		if (memberDetailUI == null) {
+			memberDetailUI = new MemberDetailUI();
+		}
+		memberDetailUI.setVisible(true);
 	}
 
 }

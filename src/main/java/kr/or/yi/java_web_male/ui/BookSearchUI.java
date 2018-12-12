@@ -217,7 +217,7 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 
 		panel_2 = new JPanel();
-		panel.add(panel_2);
+		panel.add(panel_2);	
 		panel_2.setLayout(new GridLayout(0, 1, 0, 20));
 
 		JPanel panel_3 = new JPanel();
