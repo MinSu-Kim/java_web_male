@@ -15,9 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
@@ -89,8 +87,6 @@ public class BookSearchUI extends JFrame implements ActionListener{
 	private DefaultComboBoxModel<CategoryB> modelB;
 	private JButton btnLogin;
 	private String log;
-	private BookRentUI bookRentUI;
-	
 	private boolean searchwhat =true;
 	private Book selectedBook;
 	private BookDetailUI bookDetailUI;
@@ -176,9 +172,11 @@ public class BookSearchUI extends JFrame implements ActionListener{
 			}
 		});
 		btnsearchbyBookCode.setFont(new Font("굴림", Font.BOLD, 20));
+		
+		JLabel lblNewLabel_10 = new JLabel("New label");
+		panel_5.add(lblNewLabel_10);
 
 		tablePanel = new BookTablePanel();
-		
 		
 		panel_1.add(tablePanel);
 		tablePanel.setLayout(new GridLayout(1, 0, 0, 0));
@@ -554,19 +552,6 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		panel_9.add(button);
 
 		tablePanel2 = new BookTablePanel();
-		tablePanel2.getTable().addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(e.getClickCount()==2) {
-				/*	JOptionPane.showMessageDialog(null, "2번클릭");*/
-					Book book = tablePanel2.selectedItem();
-					bookRentUI.setBookCode(book);
-					BookSearchUI.this.dispose();
-				}
-			}
-			
-		});
 		JPanel panelForTable_1 = new JPanel();
 		panelForTable_1.setLayout(new BorderLayout());
 		panel.add(panelForTable_1);
@@ -609,6 +594,7 @@ public class BookSearchUI extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("상새정보")) {
 			do_Showmore_actionPerformed(e);
+			
 		}
 		if (e.getActionCommand().equals("수정")) {
 			JOptionPane.showMessageDialog(null, "수정");
@@ -624,7 +610,7 @@ public class BookSearchUI extends JFrame implements ActionListener{
 
 
 	private void do_Showmore_actionPerformed(ActionEvent e) {
-		/*try {
+		try {
 			if(searchwhat) {
 				selectedBook = ((BookTablePanel) tablePanel).getSelectedBook();
 			}else {
@@ -665,14 +651,7 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		}catch (Exception e1) {
 			JOptionPane.showMessageDialog(null, "선택하신책정보가 없습니다.");
 			
-		}		*/
+		}		
 	}
-
-	public void setBookRentUI(BookRentUI bookRentUI) {
-		this.bookRentUI = bookRentUI;
-		
-	}
-	
-	
 
 }
