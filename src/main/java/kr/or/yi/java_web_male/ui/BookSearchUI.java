@@ -176,9 +176,6 @@ public class BookSearchUI extends JFrame implements ActionListener{
 			}
 		});
 		btnsearchbyBookCode.setFont(new Font("굴림", Font.BOLD, 20));
-		
-		JLabel lblNewLabel_10 = new JLabel("New label");
-		panel_5.add(lblNewLabel_10);
 
 		tablePanel = new BookTablePanel();
 		
@@ -270,7 +267,7 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		comboBoxCateBNo.setEnabled(false);
 		comboBoxCateBNo.addItemListener(new ItemListener() {
 
-			// 대분류가 선택되었을때
+			// 대분류아이탬이 선택되었을때
 			public void itemStateChanged(ItemEvent e) {
 				if (comboBoxCateBNo.getSelectedItem().equals(b)) {
 					cateBview = false;
@@ -612,7 +609,6 @@ public class BookSearchUI extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("상새정보")) {
 			do_Showmore_actionPerformed(e);
-			JOptionPane.showMessageDialog(null, "상새정보");
 		}
 		if (e.getActionCommand().equals("수정")) {
 			JOptionPane.showMessageDialog(null, "수정");

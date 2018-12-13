@@ -31,6 +31,7 @@ public class LibraryUIService {
 	private BookRentalInfoMapper bookRentalInfoMapper;
 
 	public LibraryUIService() {
+<<<<<<< HEAD
 		cateBMapper = new CategoryBMapperImpl();
 		cateMMapper = new CategoryMMapperImpl();
 		cateSMapper = new CategorySMapperImpl();
@@ -38,6 +39,14 @@ public class LibraryUIService {
 		bookMapper = new BookMapperImpl();
 		bookRentalInfoMapper = BookRentalInfoMapperImpl.getInstance();
 		
+=======
+		cateBMapper = CategoryBMapperImpl.getInstance();
+		cateMMapper =  CategoryMMapperImpl.getInstance();
+		cateSMapper =  CategorySMapperImpl.getInstance();
+		publisher = PublisherMapperImpl.getInstance();
+		bookMapper =  BookMapperImpl.getInstance();
+		bookRentalInfoMapper = new BookRentalInfoMapperImpl();
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
 	}
 	
 	public List<CategoryB> selectCategoryBByAll() {
@@ -78,7 +87,7 @@ public class LibraryUIService {
 		return bookMapper.selectbookbyOther(map);
 	}
 	
-	public List<BookRentalInfo> selectCategoryBByAll(Book book) {
+	public List<BookRentalInfo> selectBookRentalInfoByBookCode(Book book) {
 		return bookRentalInfoMapper.selectBookRentalInfoByBookCode(book);
 	}
 

@@ -9,6 +9,16 @@ import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.jdbc.MyBatisSqlSessionFactory;
 
 public class BookMapperImpl implements BookMapper {
+	private static final BookMapperImpl instance = new BookMapperImpl();
+	
+	
+	
+	public static BookMapperImpl getInstance() {
+		return instance;
+	}
+	
+	private BookMapperImpl() {}
+
 	private static final String namespace = "kr.or.yi.java_web_male.dao.BookMapper";
 
 	@Override
