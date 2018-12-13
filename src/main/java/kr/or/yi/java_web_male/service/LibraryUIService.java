@@ -31,11 +31,11 @@ public class LibraryUIService {
 	private BookRentalInfoMapper bookRentalInfoMapper;
 
 	public LibraryUIService() {
-		cateBMapper = new CategoryBMapperImpl();
-		cateMMapper = new CategoryMMapperImpl();
-		cateSMapper = new CategorySMapperImpl();
-		publisher =new PublisherMapperImpl();
-		bookMapper = new BookMapperImpl();
+		cateBMapper = CategoryBMapperImpl.getInstance();
+		cateMMapper =  CategoryMMapperImpl.getInstance();
+		cateSMapper =  CategorySMapperImpl.getInstance();
+		publisher = PublisherMapperImpl.getInstance();
+		bookMapper =  BookMapperImpl.getInstance();
 		bookRentalInfoMapper = new BookRentalInfoMapperImpl();
 	}
 	
@@ -52,6 +52,9 @@ public class LibraryUIService {
 	}
 	public List<CategoryS> selectCategorySByBNoMno(CategoryM cateM) {
 		return cateSMapper.selectCategorySByBNoMno(cateM);
+	}
+	public CategoryS selectCategoryAllCode(CategoryS cateS) {
+		return cateSMapper.selectCategoryAllCode(cateS);
 	}
 	
 	public List<CategoryM> selectCategoryMByBNo(CategoryB cateB) {
@@ -74,7 +77,7 @@ public class LibraryUIService {
 		return bookMapper.selectbookbyOther(map);
 	}
 	
-	public List<BookRentalInfo> selectCategoryBByAll(Book book) {
+	public List<BookRentalInfo> selectBookRentalInfoByBookCode(Book book) {
 		return bookRentalInfoMapper.selectBookRentalInfoByBookCode(book);
 	}
 

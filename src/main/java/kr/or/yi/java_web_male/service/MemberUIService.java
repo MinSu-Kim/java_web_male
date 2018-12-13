@@ -8,11 +8,14 @@ import kr.or.yi.java_web_male.dao.MemberMapperImpl;
 import kr.or.yi.java_web_male.dto.Member;
 
 public class MemberUIService {
+
 	private MemberMapper dao =  MemberMapperImpl.getInstance();
-	
+
+
 	public List<Member> selectMemberByAll(){
 		return dao.selectMemberByAll();
 	}
+
 	public Member searchMemberNo(Map<String, String> map) {
 		return dao.searchMemberNo(map);
 	}
@@ -22,4 +25,10 @@ public class MemberUIService {
 	public Member searchMemberPhone(Map<String, String> map) {
 		return dao.searchMemberPhone(map);
 	}
+
+	public Member selectMemberByNo(Member member){
+		return dao.selectMemberByNo(member);
+	}
+		
+
 }

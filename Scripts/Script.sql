@@ -11,8 +11,8 @@ insert into category_s values('0','7','1','아시아 신문,저널리즘 등');
 insert into category_s values('1','1','4','공간');
 insert into publisher values('P001','영남인제교육원');
 
-insert into book_rental_info values(3,'2018-12-10','2018-12-17',null,'2','00001');
-insert into book_rental_info values(4,'2018-12-11','2018-12-17',null,'3','00002');
+insert into book_rental_info values(5,'2018-12-10','2018-12-17',null,'2','0000000001');
+insert into book_rental_info values(6,'2018-12-11','2018-12-17',null,'3','0000000002');
 
 
 
@@ -26,7 +26,7 @@ from book_rental_info
 where rental_no = 2;
 
 insert into book_rental_info
-values (3,'2018-12-10',null,'2018-12-17' ,'2','00001');
+values (7,'2018-12-10',null,'2018-12-17' ,'2','1110000005');
 
 
 
@@ -57,11 +57,11 @@ from member;
 
 INSERT INTO proj_library.book
 (book_code, book_no, pub_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no)
-VALUES('00001', 0, 'P001', '김재영', '김재영', '자바의 정석', 40000, true, NULL, 0, 0, 0);
+VALUES('1110000005', 0, 'P001', '김재영', '김재영', '자바의 정석', 40000, true, null, 0, 0, 0);
 
 insert into proj_library.book
 (book_code, book_no, pub_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no)
-values('00002', 0, 'P001', '서동준','서동준', 'web개발', 20000,true, null, 0, 0 ,0);
+values('0000000002', 0, 'P001', '서동준','서동준', 'web개발', 20000,true, null, 0, 0 ,0);
 
 SELECT * FROM book;
 select * from book_rental_info;
@@ -79,7 +79,7 @@ SELECT cate_s_no, cate_m_no, cate_b_no, cate_s_name FROM proj_library.category_s
 
 select * from `member`;
 
-insert into `member` values("2","asdf", "이천희", "lch","01022306796","921012","tjehdxo2002@","비밀","하핫",0,"하말없음");
+insert into `member` values("3","asdf", "이천희", "lch","01022306796","921012","tjehdxo2002@","비밀","하핫",0,"하말없음");
 
 select * from book WHERE book_code REGEXP '00001';
 

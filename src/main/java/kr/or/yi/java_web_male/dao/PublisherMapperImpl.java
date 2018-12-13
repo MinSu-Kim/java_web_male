@@ -8,6 +8,14 @@ import kr.or.yi.java_web_male.dto.Publisher;
 import kr.or.yi.java_web_male.jdbc.MyBatisSqlSessionFactory;
 
 public class PublisherMapperImpl implements PublisherMapper {
+	private static final PublisherMapperImpl instance = new PublisherMapperImpl();
+
+	public static PublisherMapperImpl getInstance() {
+		return instance;
+	}
+
+	private PublisherMapperImpl() {}
+	
 	private static final String namespace = "kr.or.yi.java_web_male.dao.PublisherMapper";
 
 	@Override

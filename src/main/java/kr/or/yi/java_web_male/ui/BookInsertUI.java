@@ -23,6 +23,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -62,8 +63,10 @@ public class BookInsertUI extends JFrame {
 	private CategoryM cateM;
 	private CategoryS cateS;
 
+	private boolean cateBview = false;
 	private boolean cateMview = false;
 	private boolean cateSview = false;
+
 	private BookMapper bookMapper;
 
 	/**
@@ -87,7 +90,7 @@ public class BookInsertUI extends JFrame {
 	 */
 	public BookInsertUI() {
 		service = new LibraryUIService();
-		bookMapper = new BookMapperImpl();
+		bookMapper = BookMapperImpl.getInstance();
 		initComponents();
 	}
 
@@ -179,9 +182,11 @@ public class BookInsertUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("title", tfTitle.getText());
-				JOptionPane.showConfirmDialog(null, cateS.getbCode().getbCode() +""+ cateS.getmCode().getmCode() +""+ cateS.getsCode() +"");
-				String str = cateS.getbCode().getbCode() +""+ cateS.getmCode().getmCode() +""+ cateS.getsCode() +"";
-				/* + service.selectbookbyOther(map) */;
+				JOptionPane.showConfirmDialog(null,
+						cateS.getbCode().getbCode() + "" + cateS.getmCode().getmCode() + "" + cateS.getsCode() + "");
+				String str = cateS.getbCode().getbCode() + "" + cateS.getmCode().getmCode() + "" + cateS.getsCode()
+						+ "";
+
 				System.out.println(str);
 				Publisher publisher = new Publisher();
 				publisher.setPubNo("P001");
@@ -191,6 +196,7 @@ public class BookInsertUI extends JFrame {
 				book.setBookCode(str);
 				book.setBookNo(0);
 				book.setPubNo(publisher);
+				System.out.println("출판사 : " + publisher + publisher.getPubNo() + publisher.getPubName());
 				book.setTitle(tfTitle.getText().trim());
 				book.setAuthor(tfAuthor.getText().trim());
 				book.setTranslator(tfTranslator.getText().trim());
@@ -212,63 +218,5 @@ public class BookInsertUI extends JFrame {
 
 	// 카테고리 콤보박스
 	private void categoryComboBox(JPanel panel) {
-
-		JLabel lblNewLabel = new JLabel("도서 분류");
-		panel.add(lblNewLabel);
-
-		modelB = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryBByAll()));
-		JOptionPane.showMessageDialog(null, modelB);
-		comboBoxCateBNo = new JComboBox(modelB);
-		comboBoxCateBNo.addItemListener(new ItemListener() {
-			// 대분류가 선택되었을때
-			public void itemStateChanged(ItemEvent e) {
-				cateB = (CategoryB) comboBoxCateBNo.getSelectedItem();
-				// 분류번호확인
-				/* JOptionPane.showInputDialog(cateB.getbCode()+"/"+cateB.getbName()); */
-				cateMview = true;
-				modelM = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryMByBNo(cateB)));
-				comboBoxCateMNo.setModel(modelM);
-				comboBoxCateMNo.setEnabled(true);
-				comboBoxCateSNo.setEnabled(false);
-			}
-		});
-		panel.add(comboBoxCateBNo);
-
-		modelM = new DefaultComboBoxModel<>(new Vector<>(service.selectCategoryMByAll()));
-
-		comboBoxCateMNo = new JComboBox(modelM);
-		comboBoxCateMNo.addItemListener(new ItemListener() {
-
-			public void itemStateChanged(ItemEvent arg0) {
-
-				cateM = (CategoryM) comboBoxCateMNo.getSelectedItem();
-				/*
-				 * JOptionPane.showInputDialog(cateM.getbCode().getbCode()+"/"+cateM.getmCode()+
-				 * "/"+cateM.getmName());
-				 */
-				modelS = new DefaultComboBoxModel<>(new Vector<>(service.selectCategorySByBNoMno(cateM)));
-				comboBoxCateSNo.setModel(modelS);
-				comboBoxCateSNo.setEnabled(true);
-				cateSview = true;
-			}
-		});
-
-		modelS = new DefaultComboBoxModel<>(new Vector<>(service.selectCategorySByAll()));
-		panel.add(comboBoxCateMNo);
-
-		comboBoxCateSNo = new JComboBox(modelS);
-		comboBoxCateSNo.addItemListener(new ItemListener() {
-
-			public void itemStateChanged(ItemEvent arg0) {
-
-				cateS = (CategoryS) comboBoxCateSNo.getSelectedItem();
-
-				/*JOptionPane.showInputDialog(cateM.getbCode().getbCode()
-						+ "/" + cateM.getmCode() + "/" + cateM.getmName());*/
-
-			}
-		});
-		panel.add(comboBoxCateSNo);
 	}
-
 }
