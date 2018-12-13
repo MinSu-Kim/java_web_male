@@ -11,8 +11,6 @@ import kr.or.yi.java_web_male.jdbc.MyBatisSqlSessionFactory;
 public class BookMapperImpl implements BookMapper {
 	private static final BookMapperImpl instance = new BookMapperImpl();
 	
-	
-	
 	public static BookMapperImpl getInstance() {
 		return instance;
 	}

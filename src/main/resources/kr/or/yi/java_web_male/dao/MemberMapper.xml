@@ -79,8 +79,16 @@
 		where
 		member_no=#{memberNo}
 	</select>
-	<!-- 이름으로 검색하기 -->
+	<!-- 회원번호로 검색하기 -->
 	<select id="searchMemberNo" statementType="CALLABLE" parameterType="hashmap" resultMap="MemberResultPro">
 		{call search_memberno(#{memberNo, mode = IN, jdbcType=CHAR})}
+	</select>
+	<!-- 이름으로 검색하기 -->
+	<select id="searchMemberName" statementType="CALLABLE" parameterType="hashmap" resultMap="MemberResultPro">
+		{call search_memberName(#{korName, mode = IN, jdbcType=CHAR})}
+	</select>
+	<!-- 전화번호로 검색하기 -->
+	<select id="searchMemberPhone" statementType="CALLABLE" parameterType="hashmap" resultMap="MemberResultPro">
+		{call search_phone(#{phone, mode = IN, jdbcType=CHAR})}
 	</select>
 </mapper>

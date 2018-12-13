@@ -21,9 +21,9 @@ import kr.or.yi.java_web_male.dto.Publisher;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BookMapperImplTest extends AbstractTest {
 
-	private BookMapper dao = new BookMapperImpl();
-	private PublisherMapper dao2 = new PublisherMapperImpl();
-	private CategoryBMapper dao1 = new CategoryBMapperImpl();
+	private BookMapper dao = BookMapperImpl.getInstance();
+	private PublisherMapper dao2 = PublisherMapperImpl.getInstance();
+	private CategoryBMapper dao1 = CategoryBMapperImpl.getInstance();
 
 	@Test
 	public void test01selectBookByAll() {

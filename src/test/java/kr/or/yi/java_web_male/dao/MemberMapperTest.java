@@ -91,4 +91,18 @@ public class MemberMapperTest {
 		Member list = dao.searchMemberNo(map);
 		Assert.assertNotNull(list);
 	}
+	@Test
+	public void test08searchMemberName() {
+		Map<String, String> map = new HashMap<>();
+		map.put("korName", "김동준");
+		Member list = dao.searchMemberName(map);
+		Assert.assertNotNull(list);
+	}
+	@Test
+	public void test09searchMemberPhone() {
+		Map<String, String> map = new HashMap<>();
+		map.put("phone", "010-4354-2435");
+		Member list = dao.searchMemberPhone(map);
+		Assert.assertNotNull(list);
+	}
 }// end of testClass

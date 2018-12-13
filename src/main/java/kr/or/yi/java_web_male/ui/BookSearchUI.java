@@ -594,7 +594,7 @@ public class BookSearchUI extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("상새정보")) {
 			do_Showmore_actionPerformed(e);
-			JOptionPane.showMessageDialog(null, "상새정보");
+			
 		}
 		if (e.getActionCommand().equals("수정")) {
 			JOptionPane.showMessageDialog(null, "수정");

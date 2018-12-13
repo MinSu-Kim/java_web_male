@@ -15,6 +15,7 @@ public class PublisherMapperImpl implements PublisherMapper {
 	}
 
 	private PublisherMapperImpl() {}
+	
 	private static final String namespace = "kr.or.yi.java_web_male.dao.PublisherMapper";
 
 	@Override

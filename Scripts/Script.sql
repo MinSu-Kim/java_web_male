@@ -13,11 +13,36 @@ insert into publisher values('P001','영남인제교육원');
 
 insert into book_rental_info values(5,'2018-12-10','2018-12-17',null,'2','0000000001');
 insert into book_rental_info values(6,'2018-12-11','2018-12-17',null,'3','0000000002');
+---- 프로시저 생성하기 -----
+delimiter $$
+CREATE PROCEDURE `proj_library`.`search_membername`(in korname char(50))
+begin
+	select kor_name, m.member_no, title, rental_date, return_date, return_schedule
+from member m join book_rental_info r on m.member_no = r.member_no
+	join book b on b.book_code =  r.book_code
+	where kor_name= korname;
+end $$
+delimiter ;
 
+delimiter $$
+CREATE PROCEDURE `proj_library`.`search_memberno`(in memberno char(50))
+begin
+	select kor_name, m.member_no, title, rental_date, return_date, return_schedule
+from member m join book_rental_info r on m.member_no = r.member_no
+	join book b on b.book_code =  r.book_code
+	where m.member_no= memberno;
+END	
+delimiter ;
 
-
-
-
+delimiter $$
+CREATE PROCEDURE `proj_library`.`search_phone`(in phonenum char(30))
+begin
+	select kor_name, m.member_no, title, rental_date, return_date, return_schedule
+	from member m join book_rental_info r on m.member_no = r.member_no
+	join book b on b.book_code =  r.book_code
+	where phone= phonenum;
+END
+delimiter ;
 SELECT *
 from book_rental_info;
 
@@ -83,8 +108,38 @@ insert into `member` values("3","asdf", "이천희", "lch","01022306796","921012
 
 select * from book WHERE book_code REGEXP '00001';
 
-=======
+
+
+
+/*post*/
+LOAD data LOCAL INFILE 'D:/workspace_project/java_web_male/DataFiles/대구광역시.txt' INTO table post
+character set 'euckr'
+fields TERMINATED by '|'
+IGNORE 1 lines
+(@zipcode,@sido,@d,@sigungu,@d,@eupmyeon,@d,@d,@doro,@d,@d,@building1,@building2,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d)
+set zipcode=@zipcode, sido=@sido, sigungu=@sigungu, eupmyeon=@eupmyeon, doro=@doro, building1=@building1, building2=@building2
+
+CREATE INDEX idx_post_sido On post(sido);
+CREATE INDEX idx_post_doro ON post(doro);
+
+select * from post
+where doro = '통학로';
+
+LOAD data LOCAL INFILE '대구광역시.txt' INTO table post
+character set 'euckr'
+fields TERMINATED by '|'
+IGNORE 1 lines
+(@zipcode,@sido,@d,@sigungu,@d,@eupmyeon,@d,@d,@doro,@d,@d,@building1,@building2,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d)
+set zipcode=@zipcode, sido=@sido, sigungu=@sigungu, eupmyeon=@eupmyeon, doro=@doro, building1=@building1, building2=@building2
+
+
+
+SELECT zipcode, sido, sigungu, eupmyeon, doro, building1, building2
+FROM proj_library.post
+where sido like '%%';
+
 delete
 from book
 where book_code = 001158;
+
 

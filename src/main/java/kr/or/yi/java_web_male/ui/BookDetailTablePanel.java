@@ -2,6 +2,7 @@ package kr.or.yi.java_web_male.ui;
 
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -43,38 +44,31 @@ public class BookDetailTablePanel extends JPanel {
 		service = new LibraryUIService();
 		serviceMember = new MemberUIService();
 		setBorder(new TitledBorder(null, "\uB3C4\uC11C \uB300\uC5EC \uC815\uBCF4", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		setLayout(new BorderLayout(0, 0));
+		setLayout(new GridLayout(0, 1, 0, 0));
+		
+		lblNewLabel = new JLabel("총대여 횟수 :");
+		add(lblNewLabel);
 		
 		scrollPane = new JScrollPane();
 		add(scrollPane);
 		
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null},
-			},
-			new String[] {
-					"대여 번호","대여일", "반납일", "대여한 회원 이름","대여한 회원번호"
-			}
-		));
+		
 		
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
-		
-		lblNewLabel = new JLabel("총대여 횟수 :");
-		add(lblNewLabel, BorderLayout.NORTH);
 
 	}
 	public void loadDatas() {
+		
 		model = new NonEditableModel(getDatas(), getColumnNames());
-		table.setModel(model);
-		lblNewLabel.setText("총대여 횟수 : " + lists.size());
-		JOptionPane.showMessageDialog(null,table);
+		table.setModel(model);		
+		/*JOptionPane.showMessageDialog(null,table);*/
 	}
 
 	public Boolean setLists(List<BookRentalInfo> lists) {
 		this.lists = lists;
-		JOptionPane.showMessageDialog(null, lists.size());
+		lblNewLabel.setText("총대여 횟수 : " + lists.size());
 		if(lists.size()==0) {			
 			return false;
 		}else {
@@ -98,11 +92,14 @@ public class BookDetailTablePanel extends JPanel {
 
 	private Object[] getBookRentalInfoArray(BookRentalInfo bookRentalInfo) {
 		int rentalNo = bookRentalInfo.getRentalNo();
-		Date rentalDate = bookRentalInfo.getReturnDate();		
+		Date rentalDate = bookRentalInfo.getReturnDate();
+		
+		Calendar cal = Calendar.getInstance();
+		
 		Date returnDate =  bookRentalInfo.getReturnDate();
 		member = new Member();
 		member = serviceMember.selectMemberByNo(bookRentalInfo.getMemberNo());	
-		return new Object[] {rentalNo,"a","a",member.getKorName(),member.getMemberNo()};
+		return new Object[] {rentalNo,"a","a",member.getKorName(),member};
 	}
 
 }

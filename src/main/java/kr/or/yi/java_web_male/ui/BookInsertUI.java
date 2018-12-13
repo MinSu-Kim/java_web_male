@@ -78,9 +78,14 @@ public class BookInsertUI extends JFrame {
 	 * Create the frame.
 	 */
 	public BookInsertUI() {
+<<<<<<< HEAD
 		bMapper = CategoryBMapperImpl.getInstance();
 		mMapper = CategoryMMapperImpl.getInstance();
 		sMapper = CategorySMapperImpl.getInstance();
+=======
+		service = new LibraryUIService();
+		bookMapper = BookMapperImpl.getInstance();
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male
 		initComponents();
 	}
 
