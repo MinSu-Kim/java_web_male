@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.yi.java_web_male.dao.PostMapper">
+
+	<sql id="selectSql">
+		SELECT zipcode, sido, sigungu, eupmyeon, doro, building1, building2
+		FROM proj_library.post
+	</sql>
+	
+	<sql id="whereSql">
+		<where>
+			<if test=" sido != null, doro != null">
+				 sido and doro order by building1,building2
+			</if>
+		</where>
+	</sql>
+	
+	<!-- <resultMap type="Post" id="PostByDoroResult">
+		<id property="doro" column="doro"/>
+		<result property="zipcode" column="zipcode"/>
+		<result property="sido" column="sido"/>
+		<result property="sigungu" column="sigungu"/>
+		<result property="eupmyeon" column="eupmyeon"/>
+		<result property="building1" column="building1"/>
+		<result property="building2" column="building2"/>
+	</resultMap> -->
+	
+	<select id="selectPostByAll" parameterType="Post" resultType="Post">
+		<include refid="selectSql" />
+	</select>
+	
+	<select id="selectPostByDoro" parameterType="Post" resultType="Post">
+		<include refid="selectSql" />
+		where sido=#{sido} and doro=#{doro} order by building1=#{building1},building2=#{building2}
+	</select>
+	
+	
+</mapper>

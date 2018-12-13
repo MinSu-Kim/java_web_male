@@ -13,13 +13,31 @@
 			</if>
 		</where>
 	</sql>
+	<!-- <resultMap type="BookRentalInfo" id="BookRentalInfoResult">
+		<id property="rentalNo" column="retal_no"></id>
+		<result property="rentalDate" column="rental_date"/>
+		<result property="returnDate" column="return_date"/>
+		<result property="returnSchedule" column="return_schedule"/>
+	</resultMap> -->
+	
+	
+	
+	
+	<resultMap type="BookRentalInfo" id="BookRentalInfoResult">
+		<id property="rentalNo" column="retal_no"></id>
+		<result property="rentalDate" column="rental_date"/>
+		<result property="returnDate" column="return_date"/>
+		<result property="returnSchedule" column="return_schedule"/>
+		<result property="memberNo.memberNo" column="member_no"/>
+		<result property="bookCode.bookCode" column="book_code"/>
+	</resultMap>
 	
 	
 	<select id="selectBookRentalInfoByAll" parameterType="BookRentalInfo" resultType="BookRentalInfo">
 		<include refid="selectSql" />
 	</select>
 	
-	<select id="selectBookRentalInfoByCode" parameterType="BookRentalInfo" resultType="BookRentalInfo">
+	<select id="selectBookRentalInfoByCode" parameterType="BookRentalInfo" resultMap="BookRentalInfoResult">
 		<include refid="selectSql" />
 		<include refid="whereSql" />
 	</select>

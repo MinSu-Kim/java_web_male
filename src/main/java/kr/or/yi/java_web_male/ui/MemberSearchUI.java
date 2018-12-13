@@ -20,6 +20,8 @@ import javafx.scene.control.ComboBox;
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.service.MemberUIService;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 
 public class MemberSearchUI extends JFrame {
@@ -30,6 +32,9 @@ public class MemberSearchUI extends JFrame {
 	private MemberUIService service;
 	private JPanel ResultPanel;
 	private JComboBox<String> comboBox;
+	private BookRentUI bookRentUI;
+
+
 	/**
 	 * Launch the application.
 	 */
@@ -139,8 +144,32 @@ public class MemberSearchUI extends JFrame {
 		List<Member> list = new ArrayList<>();
 		list.add(member);
 		Slist.setLists(list);
+=======
+		Slist.getTable().addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount()==2) {
+					Member member = Slist.selectedItem();
+					bookRentUI.setMemberNo(member);
+					MemberSearchUI.this.dispose();
+					
+				}
+			}
+			
+		});
+		
+		
+		
+		Slist.setLists(service.selectMemberByAll());
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
 		Slist.loadData();
 		contentPane.add(Slist);*/
+	}
+	
+	public void setBookRentUI(BookRentUI bookRentUI) {
+		this.bookRentUI = bookRentUI;
+		
 	}
 
 }

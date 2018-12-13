@@ -31,12 +31,18 @@ public class LibraryUIService {
 	private BookRentalInfoMapper bookRentalInfoMapper;
 
 	public LibraryUIService() {
+
+		
+		bookRentalInfoMapper = BookRentalInfoMapperImpl.getInstance();
+		
+
 		cateBMapper = CategoryBMapperImpl.getInstance();
 		cateMMapper =  CategoryMMapperImpl.getInstance();
 		cateSMapper =  CategorySMapperImpl.getInstance();
 		publisher = PublisherMapperImpl.getInstance();
 		bookMapper =  BookMapperImpl.getInstance();
-		bookRentalInfoMapper = new BookRentalInfoMapperImpl();
+		
+
 	}
 	
 	public List<CategoryB> selectCategoryBByAll() {

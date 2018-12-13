@@ -64,7 +64,7 @@ public class BookRerutnUi extends JFrame {
 		JButton btnNewButton = new JButton("New button");
 		panel_1.add(btnNewButton);
 		
-		JLabel lblNewLabel_1 = new JLabel("                                                                                ");
+		JLabel lblNewLabel_1 = new JLabel("                                                                                                          ");
 		panel_1.add(lblNewLabel_1);
 		
 		JPanel panel_3 = new JPanel();

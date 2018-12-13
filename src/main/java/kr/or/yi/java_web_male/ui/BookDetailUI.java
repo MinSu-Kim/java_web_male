@@ -23,6 +23,28 @@ import kr.or.yi.java_web_male.dto.CategoryS;
 import kr.or.yi.java_web_male.dto.Publisher;
 import kr.or.yi.java_web_male.service.LibraryUIService;
 
+
+import java.awt.GridLayout;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import javax.swing.BoxLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import java.awt.CardLayout;
+
 public class BookDetailUI extends JFrame {
 
 	private JPanel contentPane;

@@ -1,5 +1,6 @@
 package kr.or.yi.java_web_male.ui;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.util.List;
@@ -8,6 +9,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.Member;
 
 public class MemberSearchResult extends JPanel {
@@ -56,6 +58,17 @@ public class MemberSearchResult extends JPanel {
 							 member.getBookRentallInfo().getReturnDate(),
 							 member.getBookRentallInfo().getReturnSchedule()};
 	}
-
+	public Member selectedItem() {
+		int selectedIndex = table.getSelectedRow();
+		if (selectedIndex == -1) {
+			JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요");
+			return null;
+		}
+		return list.get(selectedIndex);
+	}
+	
+	public JTable getTable() {
+		return table;
+	}
 
 }
