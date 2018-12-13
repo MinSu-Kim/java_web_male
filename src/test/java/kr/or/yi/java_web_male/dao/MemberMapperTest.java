@@ -16,7 +16,7 @@ import kr.or.yi.java_web_male.dto.Member;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MemberMapperTest {
-	private MemberMapper dao = new MemberMapperImpl();
+	private MemberMapper dao = MemberMapperImpl.getInstance();
 
 	@Test
 	public void test01inSertMember() {
@@ -89,6 +89,20 @@ public class MemberMapperTest {
 		Map<String, String> map = new HashMap<>();
 		map.put("memberNo", "3");
 		Member list = dao.searchMemberNo(map);
+		Assert.assertNotNull(list);
+	}
+	@Test
+	public void test08searchMemberName() {
+		Map<String, String> map = new HashMap<>();
+		map.put("korName", "김동준");
+		Member list = dao.searchMemberName(map);
+		Assert.assertNotNull(list);
+	}
+	@Test
+	public void test09searchMemberPhone() {
+		Map<String, String> map = new HashMap<>();
+		map.put("phone", "010-4354-2435");
+		Member list = dao.searchMemberPhone(map);
 		Assert.assertNotNull(list);
 	}
 }// end of testClass

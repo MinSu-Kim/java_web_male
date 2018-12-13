@@ -37,7 +37,7 @@ public class MemberSearchResult extends JPanel {
 				));
 	}
 	private Object[] getCoulum() {
-		return new String[] {"이름","회원번호","책이름","대여일","반납일","반납예정일"};
+		return new String[] {"회원번호","이름","책이름","대여일","반납일","반납예정일"};
 	}
 
 	private Object[][] getdatas() {
@@ -49,7 +49,12 @@ public class MemberSearchResult extends JPanel {
 	}
 
 	private Object[] getRow(Member member) {
-		return new Object[] {member.getKorName(),member.getPhone(),member.getJumin()};
+		return new Object[] {member.getMemberNo(),
+							 member.getKorName(),
+							 member.getBook().getTitle(),
+							 member.getBookRentallInfo().getRentalDate(),
+							 member.getBookRentallInfo().getReturnDate(),
+							 member.getBookRentallInfo().getReturnSchedule()};
 	}
 
 

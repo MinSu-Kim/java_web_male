@@ -10,6 +10,13 @@ import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.jdbc.MyBatisSqlSessionFactory;
 
 public class MemberMapperImpl implements MemberMapper {
+	private static final MemberMapperImpl instance = new MemberMapperImpl();
+	
+	public static MemberMapperImpl getInstance() {
+		return instance;
+	}
+	private MemberMapperImpl() {}
+	
 	private static final String namespace = "kr.or.yi.java_web_male.dao.MemberMapper";
 
 	@Override
@@ -88,6 +95,20 @@ public class MemberMapperImpl implements MemberMapper {
 	public Member searchMemberNo(Map<String, String> map) {
 		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();){
 			return sqlSession.selectOne(namespace + ".searchMemberNo", map);
+		}
+	}
+
+	@Override
+	public Member searchMemberName(Map<String, String> map) {
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();){
+			return sqlSession.selectOne(namespace + ".searchMemberName", map);
+		}
+	}
+
+	@Override
+	public Member searchMemberPhone(Map<String, String> map) {
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();){
+			return sqlSession.selectOne(namespace + ".searchMemberPhone", map);
 		}
 	}
 

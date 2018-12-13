@@ -37,7 +37,7 @@ public class MemberModUI extends JFrame {
 	private MemberMapper memberMapper;
 
 	public MemberModUI() {
-		memberMapper = new MemberMapperImpl();
+		memberMapper = MemberMapperImpl.getInstance();
 		initComponents();
 	}
 

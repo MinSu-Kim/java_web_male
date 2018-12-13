@@ -62,7 +62,7 @@ public class LoginUI extends JFrame {
 	}
 
 	public LoginUI() {
-		memberMapper = new MemberMapperImpl();
+		memberMapper = MemberMapperImpl.getInstance();
 		initComponent();
 	}
 
