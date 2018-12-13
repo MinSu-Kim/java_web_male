@@ -66,6 +66,8 @@ public class PostListPanel extends JPanel {
 		}
 		return list.get(selectedIndex);
 	}
+	
+	
 	public JTable getTable() {
 		return table;
 	}
