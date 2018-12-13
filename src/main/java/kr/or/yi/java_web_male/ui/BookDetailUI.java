@@ -63,6 +63,7 @@ public class BookDetailUI extends JFrame {
 	private JLabel labelForImg;
 	private BookDetailTablePanel forTable;
 	private List<BookRentalInfo> lists;
+	private List<Book> listBook;
 
 	/**
 	 * Launch the application.
@@ -102,7 +103,7 @@ public class BookDetailUI extends JFrame {
 
 		JPanel panel_4 = new JPanel();
 		panel_2.add(panel_4);
-		panel_4.setLayout(new GridLayout(0, 2, 0, 0));
+		panel_4.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		JLabel lblbookCode = new JLabel("번호 : ");
 		lblbookCode.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -209,7 +210,11 @@ public class BookDetailUI extends JFrame {
 		JButton btnbookRentalInfo = new JButton("대여 정보보기");
 		btnbookRentalInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				lists = new ArrayList<>();
+				List<Book> listsBooks = null;
+				for(Book book : listBook ) {
+					listsBooks.add(book);
+				}
+				/*lists = new ArrayList<>();*/
 				Book book = new Book();
 				book.setBookCode(showbookCode.getText());
 				lists = service.selectBookRentalInfoByBookCode(book);			
@@ -238,7 +243,8 @@ public class BookDetailUI extends JFrame {
 
 	}
 
-	public void setBookInfo(Book book, int totalBook) {
+	public void setBookInfo(Book book, int totalBook, List<Book> lists) {
+		this.listBook = lists;
 		showbookCode.setText(book.getBookCode());
 		showtitle.setText(book.getTitle());
 		Publisher pub = new Publisher();
@@ -260,7 +266,11 @@ public class BookDetailUI extends JFrame {
 		if (book.getImage() != null) {
 			labelForImg.setIcon(new ImageIcon(imgPath + book.getImage()));
 		}
-
+		
 	}
+
+
+
+	
 
 }

@@ -90,6 +90,7 @@ public class BookSearchUI extends JFrame implements ActionListener{
 	private boolean searchwhat =true;
 	private Book selectedBook;
 	private BookDetailUI bookDetailUI;
+	private List<Book> listBook;
 
 	/**
 	 * Launch the application.
@@ -156,7 +157,7 @@ public class BookSearchUI extends JFrame implements ActionListener{
 					JOptionPane.showMessageDialog(null, "코드를입력해주세요");
 					return;
 				}
-				lists = new ArrayList<>();
+				/*lists = new ArrayList<>();*/
 				book = new Book();
 				book.setBookCode(tfCode.getText().trim());
 				lists = service.selectbookbybookCode(book);
@@ -172,9 +173,6 @@ public class BookSearchUI extends JFrame implements ActionListener{
 			}
 		});
 		btnsearchbyBookCode.setFont(new Font("굴림", Font.BOLD, 20));
-		
-		JLabel lblNewLabel_10 = new JLabel("New label");
-		panel_5.add(lblNewLabel_10);
 
 		tablePanel = new BookTablePanel();
 		
@@ -642,7 +640,7 @@ public class BookSearchUI extends JFrame implements ActionListener{
 			book.setRentalPossible(RentalPossible);			
 
 			bookDetailUI = new BookDetailUI();
-			bookDetailUI.setBookInfo(book,totalBook);
+			bookDetailUI.setBookInfo(book,totalBook,lists);
 			bookDetailUI.setVisible(true);
 			bookDetailUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			
