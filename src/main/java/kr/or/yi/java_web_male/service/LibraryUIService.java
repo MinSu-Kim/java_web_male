@@ -54,6 +54,9 @@ public class LibraryUIService {
 	public List<CategoryS> selectCategorySByBNoMno(CategoryM cateM) {
 		return cateSMapper.selectCategorySByBNoMno(cateM);
 	}
+	public CategoryS selectCategoryAllCode(CategoryS cateS) {
+		return cateSMapper.selectCategoryAllCode(cateS);
+	}
 	
 	public List<CategoryM> selectCategoryMByBNo(CategoryB cateB) {
 		return cateMMapper.selectCategoryMByBNo(cateB);

@@ -25,4 +25,11 @@ public class CategorySMapperImpl implements CategorySMapper {
 		}
 	}
 
+	@Override
+	public CategoryS selectCategoryAllCode(CategoryS cateS) {
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();){
+			return sqlSession.selectOne(namespace+".selectCategoryAllCode",cateS);
+		}
+	}
+
 }

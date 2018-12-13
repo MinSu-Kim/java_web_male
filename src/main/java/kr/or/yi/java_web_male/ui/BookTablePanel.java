@@ -95,7 +95,7 @@ public class BookTablePanel extends JPanel {
 		String author = book.getAuthor();
 		boolean rentalPossible = book.isRentalPossible();
 		String canPossible;
-		if(rentalPossible==false) {
+		if(rentalPossible==true) {
 			canPossible="대여가능";
 		}else {
 			canPossible="대여불가능";
@@ -108,8 +108,9 @@ public class BookTablePanel extends JPanel {
 	}
 
 
-	/*public Book getSelectedEmployee() {
+	/*public Book getSelectedBook() {
 		int selectedIndex = table.getSelectedRow();
+
 		String empno = (String) table.getValueAt(selectedIndex, 0);
 		return new Book(empno);
 	}*/
@@ -122,8 +123,15 @@ public class BookTablePanel extends JPanel {
 		}
 		return lists.get(selectedIndex);
 	}
-	public JTable getTable() {
+		public JTable getTable() {
 		return table;
+
+		String bookCode = ((String) table.getValueAt(selectedIndex, 0)).substring(0,9);).substring(0,9)).trim(); //문자열  start위치 부터 end전까지 문자열 발췌;;
+		JOptionPane.showMessageDialog(null, bookCode);
+		Book book= new Book();
+		book.setBookCode(bookCode);
+		return book;
+
 	}
 
 	

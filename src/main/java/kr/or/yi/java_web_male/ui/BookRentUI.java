@@ -142,6 +142,7 @@ public class BookRentUI extends JFrame {
 		JButton btnRent = new JButton("대여");
 		btnRent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		container2.add(btnRent);

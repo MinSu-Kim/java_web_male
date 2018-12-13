@@ -57,11 +57,11 @@ from member;
 
 INSERT INTO proj_library.book
 (book_code, book_no, pub_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no)
-VALUES('00001', 0, 'P001', '김재영', '김재영', '자바의 정석', 40000, true, NULL, 0, 0, 0);
+VALUES('0000000001', 0, 'P001', '김재영', '김재영', '자바의 정석', 40000, true, NULL, 0, 0, 0);
 
 insert into proj_library.book
 (book_code, book_no, pub_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no)
-values('00002', 0, 'P001', '서동준','서동준', 'web개발', 20000,true, null, 0, 0 ,0);
+values('0000000002', 0, 'P001', '서동준','서동준', 'web개발', 20000,true, null, 0, 0 ,0);
 
 SELECT * FROM book;
 select * from book_rental_info;
