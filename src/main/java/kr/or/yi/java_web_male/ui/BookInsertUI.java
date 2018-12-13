@@ -1,40 +1,33 @@
 package kr.or.yi.java_web_male.ui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import org.junit.Assert;
-
-import kr.or.yi.java_web_male.dao.BookMapper;
-import kr.or.yi.java_web_male.dao.BookMapperImpl;
+import kr.or.yi.java_web_male.dao.CategoryBMapper;
+import kr.or.yi.java_web_male.dao.CategoryBMapperImpl;
+import kr.or.yi.java_web_male.dao.CategoryMMapper;
+import kr.or.yi.java_web_male.dao.CategoryMMapperImpl;
+import kr.or.yi.java_web_male.dao.CategorySMapper;
+import kr.or.yi.java_web_male.dao.CategorySMapperImpl;
 import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
 import kr.or.yi.java_web_male.dto.CategoryS;
-import kr.or.yi.java_web_male.dto.Publisher;
 import kr.or.yi.java_web_male.service.LibraryUIService;
 
 import java.awt.GridLayout;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
@@ -42,32 +35,28 @@ import javax.swing.JComboBox;
 public class BookInsertUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField tfTitle;
-	private JTextField tfPublisher;
-	private JTextField tfAuthor;
-	private JTextField tfTranslator;
-	private JTextField tfPrice;
 	private JTextField tfBookCode;
+	private JTextField tfBookName;
+	private JTextField tfAuthor;
+	private JTextField tfTrans;
+	private JTextField tfPub;
+	private JTextField tfPrice;
+
+	private CategoryBMapper bMapper;
+	private CategoryMMapper mMapper;
+	private CategorySMapper sMapper;
 
 	private DefaultComboBoxModel<CategoryB> modelB;
 	private DefaultComboBoxModel<CategoryM> modelM;
 	private DefaultComboBoxModel<CategoryS> modelS;
 
-	private JComboBox comboBoxCateBNo;
-	private JComboBox comboBoxCateMNo;
-	private JComboBox comboBoxCateSNo;
-
-	private LibraryUIService service;
+	private JComboBox comboCateB;
+	private JComboBox comboCateM;
+	private JComboBox comboCateS;
 
 	private CategoryB cateB;
 	private CategoryM cateM;
 	private CategoryS cateS;
-
-	private boolean cateBview = false;
-	private boolean cateMview = false;
-	private boolean cateSview = false;
-
-	private BookMapper bookMapper;
 
 	/**
 	 * Launch the application.
@@ -89,134 +78,174 @@ public class BookInsertUI extends JFrame {
 	 * Create the frame.
 	 */
 	public BookInsertUI() {
+<<<<<<< HEAD
+		bMapper = CategoryBMapperImpl.getInstance();
+		mMapper = CategoryMMapperImpl.getInstance();
+		sMapper = CategorySMapperImpl.getInstance();
+=======
 		service = new LibraryUIService();
 		bookMapper = BookMapperImpl.getInstance();
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male
 		initComponents();
 	}
 
 	private void initComponents() {
+		setTitle("도서 추가");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 611);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(new GridLayout(0, 1, 10, 10));
 
 		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.NORTH);
-		panel.setLayout(new GridLayout(0, 4, 10, 10));
+		contentPane.add(panel);
+		panel.setLayout(new GridLayout(0, 2, 10, 10));
 
-		categoryComboBox(panel);
+		JPanel panel_3 = new JPanel();
+		panel.add(panel_3);
+		panel_3.setLayout(new GridLayout(0, 2, 10, 10));
 
-		JPanel panel_1 = new JPanel();
-		contentPane.add(panel_1, BorderLayout.WEST);
-		panel_1.setLayout(new GridLayout(0, 2, 10, 10));
-
-		JPanel pBookNo = new JPanel();
-		panel_1.add(pBookNo);
-		pBookNo.setLayout(new GridLayout(0, 2, 10, 10));
-
-		JLabel lblBookCode = new JLabel("도서번호");
-		pBookNo.add(lblBookCode);
+		JLabel lblBookCode = new JLabel("도서 번호");
+		panel_3.add(lblBookCode);
 
 		tfBookCode = new JTextField();
 		tfBookCode.setEditable(false);
-		pBookNo.add(tfBookCode);
+		panel_3.add(tfBookCode);
 		tfBookCode.setColumns(10);
 
-		JPanel pPhoto = new JPanel();
-		panel_1.add(pPhoto);
-		pPhoto.setLayout(new GridLayout(0, 1, 10, 10));
+		JPanel panel_4 = new JPanel();
+		panel.add(panel_4);
+		panel_4.setLayout(new GridLayout(0, 1, 10, 10));
 
 		JPanel panel_2 = new JPanel();
-		pPhoto.add(panel_2);
+		contentPane.add(panel_2);
+		panel_2.setLayout(new GridLayout(0, 4, 10, 10));
 
-		JButton btnPhoto = new JButton("사진추가");
-		pPhoto.add(btnPhoto);
+		JLabel lblNewLabel_3 = new JLabel("도서 분류");
+		panel_2.add(lblNewLabel_3);
 
-		JPanel panel_3 = new JPanel();
-		contentPane.add(panel_3, BorderLayout.SOUTH);
-		panel_3.setLayout(new GridLayout(0, 2, 10, 10));
+		List<CategoryB> bList = bMapper.selectCategoryBByAll();
+		
+		modelB = new DefaultComboBoxModel<>(new Vector<>(bList));
+		comboCateB = new JComboBox(modelB);
+		comboCateB.addItemListener(new ItemListener() {
 
-		JLabel lblTitle = new JLabel("도서명");
-		panel_3.add(lblTitle);
-
-		tfTitle = new JTextField();
-		panel_3.add(tfTitle);
-		tfTitle.setColumns(10);
-
-		JLabel lblPublisher = new JLabel("출판사");
-		panel_3.add(lblPublisher);
-
-		tfPublisher = new JTextField();
-		panel_3.add(tfPublisher);
-		tfPublisher.setColumns(10);
-
-		JLabel lblAuthor = new JLabel("저자");
-		panel_3.add(lblAuthor);
-
-		tfAuthor = new JTextField();
-		panel_3.add(tfAuthor);
-		tfAuthor.setColumns(10);
-
-		JLabel lblTranslator = new JLabel("역자");
-		panel_3.add(lblTranslator);
-
-		tfTranslator = new JTextField();
-		panel_3.add(tfTranslator);
-		tfTranslator.setColumns(10);
-
-		JLabel lblPrice = new JLabel("가격");
-		panel_3.add(lblPrice);
-
-		tfPrice = new JTextField();
-		panel_3.add(tfPrice);
-		tfPrice.setColumns(10);
-
-		JButton btnOk = new JButton("추가");
-		panel_3.add(btnOk);
-
-		JButton btnCancel = new JButton("취소");
-		panel_3.add(btnCancel);
-		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("title", tfTitle.getText());
-				JOptionPane.showConfirmDialog(null,
-						cateS.getbCode().getbCode() + "" + cateS.getmCode().getmCode() + "" + cateS.getsCode() + "");
-				String str = cateS.getbCode().getbCode() + "" + cateS.getmCode().getmCode() + "" + cateS.getsCode()
-						+ "";
-
-				System.out.println(str);
-				Publisher publisher = new Publisher();
-				publisher.setPubNo("P001");
-				Book book = new Book();
-
-				tfBookCode.setText(str.trim());
-				book.setBookCode(str);
-				book.setBookNo(0);
-				book.setPubNo(publisher);
-				System.out.println("출판사 : " + publisher + publisher.getPubNo() + publisher.getPubName());
-				book.setTitle(tfTitle.getText().trim());
-				book.setAuthor(tfAuthor.getText().trim());
-				book.setTranslator(tfTranslator.getText().trim());
-				book.setPrice(Integer.parseInt(tfPrice.getText().trim()));
-				book.setRentalPossible(true);
-				book.setImage("이미지 경로");
-				book.setCateBNo(cateB);
-				System.out.println(cateB);
-				book.setCateMNo(cateM);
-				System.out.println(cateM);
-				book.setCateSNo(cateS);
-				System.out.println(cateS);
-
-				System.out.println(book);
-				bookMapper.insertBook(book);
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				cateB = (CategoryB) comboCateB.getSelectedItem();
+				List<CategoryM> mList = mMapper.selectCategoryMByBNo(cateB);
+				modelM = new DefaultComboBoxModel<>(new Vector<>(mList));
+				comboCateM.removeAll();
+				comboCateM.setModel(modelM);
+				comboCateM.setEnabled(true);
+				comboCateS.setEnabled(false);
 			}
 		});
-	}
+		panel_2.add(comboCateB);
 
-	// 카테고리 콤보박스
-	private void categoryComboBox(JPanel panel) {
+		List<CategoryM> mList = mMapper.selectCategoryMByAll();
+		modelM = new DefaultComboBoxModel<>(new Vector<>(mList));
+		comboCateM = new JComboBox(modelM);
+		comboCateM.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				cateM = (CategoryM) comboCateM.getSelectedItem();
+				List<CategoryS> sList = sMapper.selectCategorySByBNoMno(cateM);
+				System.out.println(sList);
+				modelS = new DefaultComboBoxModel<>(new Vector<>(sList));
+				comboCateS.removeAll();
+				comboCateS.setModel(modelS);
+				System.out.println(modelS);
+				comboCateS.setEnabled(true);
+			}
+		});
+		comboCateM.setEnabled(false);
+		panel_2.add(comboCateM);
+
+		List<CategoryS> sList = sMapper.selectCategorySByAll();
+		modelS = new DefaultComboBoxModel<>(new Vector<>(sList));
+		comboCateS = new JComboBox(modelS);
+		comboCateM.addItemListener(new ItemListener() {
+
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				cateS = (CategoryS) comboCateS.getSelectedItem();
+				System.out.println(cateS);
+			}
+		});
+		comboCateS.setEnabled(false);
+		panel_2.add(comboCateS);
+
+		JPanel panel_1 = new JPanel();
+		contentPane.add(panel_1);
+		panel_1.setLayout(new GridLayout(0, 2, 10, 10));
+
+		JLabel lblBookName = new JLabel("도서명");
+		panel_1.add(lblBookName);
+
+		tfBookName = new JTextField();
+		panel_1.add(tfBookName);
+		tfBookName.setColumns(10);
+
+		JLabel lblPub = new JLabel("출판사");
+		panel_1.add(lblPub);
+
+		tfPub = new JTextField();
+		tfPub.setColumns(10);
+		panel_1.add(tfPub);
+
+		JLabel lblAuthor = new JLabel("저자");
+		panel_1.add(lblAuthor);
+
+		tfAuthor = new JTextField();
+		panel_1.add(tfAuthor);
+		tfAuthor.setColumns(10);
+
+		JLabel lblTrans = new JLabel("역자");
+		panel_1.add(lblTrans);
+
+		tfTrans = new JTextField();
+		tfTrans.setColumns(10);
+		panel_1.add(tfTrans);
+
+		JLabel lblPrice = new JLabel("가격");
+		panel_1.add(lblPrice);
+
+		tfPrice = new JTextField();
+		tfPrice.setColumns(10);
+		panel_1.add(tfPrice);
+
+		JPanel panel_5 = new JPanel();
+		contentPane.add(panel_5);
+		panel_5.setLayout(new GridLayout(0, 2, 10, 10));
+
+		JButton btnInsert = new JButton("추가");
+		btnInsert.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Book book = new Book();
+
+				/*
+				 * book.setCateBNo(cateBNo); book.setCateMNo(cateMNo); book.setCateSNo(cateSNo);
+				 */
+
+				book.setTitle(tfBookName.getText());
+				book.setAuthor(tfAuthor.getText());
+				book.setPubNo(null);
+				book.setAuthor(tfAuthor.getText());
+				book.setTranslator(tfTrans.getText());
+				book.setPrice(Integer.parseInt(tfPrice.getText().trim()));
+
+				/* tfBookCode.setText(); */
+				book.setBookCode(tfBookCode.getText());
+				System.out.println(book);
+
+			}
+		});
+		panel_5.add(btnInsert);
+
+		JButton btnCancel = new JButton("취소");
+		panel_5.add(btnCancel);
 	}
 }

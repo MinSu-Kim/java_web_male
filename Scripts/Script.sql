@@ -13,11 +13,36 @@ insert into publisher values('P001','영남인제교육원');
 
 insert into book_rental_info values(5,'2018-12-10','2018-12-17',null,'2','0000000001');
 insert into book_rental_info values(6,'2018-12-11','2018-12-17',null,'3','0000000002');
+---- 프로시저 생성하기 -----
+delimiter $$
+CREATE PROCEDURE `proj_library`.`search_membername`(in korname char(50))
+begin
+	select kor_name, m.member_no, title, rental_date, return_date, return_schedule
+from member m join book_rental_info r on m.member_no = r.member_no
+	join book b on b.book_code =  r.book_code
+	where kor_name= korname;
+end $$
+delimiter ;
 
+delimiter $$
+CREATE PROCEDURE `proj_library`.`search_memberno`(in memberno char(50))
+begin
+	select kor_name, m.member_no, title, rental_date, return_date, return_schedule
+from member m join book_rental_info r on m.member_no = r.member_no
+	join book b on b.book_code =  r.book_code
+	where m.member_no= memberno;
+END	
+delimiter ;
 
-
-
-
+delimiter $$
+CREATE PROCEDURE `proj_library`.`search_phone`(in phonenum char(30))
+begin
+	select kor_name, m.member_no, title, rental_date, return_date, return_schedule
+	from member m join book_rental_info r on m.member_no = r.member_no
+	join book b on b.book_code =  r.book_code
+	where phone= phonenum;
+END
+delimiter ;
 SELECT *
 from book_rental_info;
 
