@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.yi.java_web_male.dao.BookMapper;
+import kr.or.yi.java_web_male.dao.BookMapperImpl;
 import kr.or.yi.java_web_male.dao.CategoryBMapper;
 import kr.or.yi.java_web_male.dao.CategoryBMapperImpl;
 import kr.or.yi.java_web_male.dao.CategoryMMapper;
@@ -27,7 +29,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
@@ -36,7 +40,7 @@ public class BookInsertUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField tfBookCode;
-	private JTextField tfBookName;
+	private JTextField tfTitle;
 	private JTextField tfAuthor;
 	private JTextField tfTrans;
 	private JTextField tfPub;
@@ -57,6 +61,8 @@ public class BookInsertUI extends JFrame {
 	private CategoryB cateB;
 	private CategoryM cateM;
 	private CategoryS cateS;
+	
+	private BookMapper bookMapper;
 
 	/**
 	 * Launch the application.
@@ -78,14 +84,11 @@ public class BookInsertUI extends JFrame {
 	 * Create the frame.
 	 */
 	public BookInsertUI() {
-<<<<<<< HEAD
 		bMapper = CategoryBMapperImpl.getInstance();
 		mMapper = CategoryMMapperImpl.getInstance();
 		sMapper = CategorySMapperImpl.getInstance();
-=======
-		service = new LibraryUIService();
 		bookMapper = BookMapperImpl.getInstance();
->>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male
+
 		initComponents();
 	}
 
@@ -126,7 +129,7 @@ public class BookInsertUI extends JFrame {
 		panel_2.add(lblNewLabel_3);
 
 		List<CategoryB> bList = bMapper.selectCategoryBByAll();
-		
+
 		modelB = new DefaultComboBoxModel<>(new Vector<>(bList));
 		comboCateB = new JComboBox(modelB);
 		comboCateB.addItemListener(new ItemListener() {
@@ -185,9 +188,9 @@ public class BookInsertUI extends JFrame {
 		JLabel lblBookName = new JLabel("도서명");
 		panel_1.add(lblBookName);
 
-		tfBookName = new JTextField();
-		panel_1.add(tfBookName);
-		tfBookName.setColumns(10);
+		tfTitle = new JTextField();
+		panel_1.add(tfTitle);
+		tfTitle.setColumns(10);
 
 		JLabel lblPub = new JLabel("출판사");
 		panel_1.add(lblPub);
@@ -225,19 +228,29 @@ public class BookInsertUI extends JFrame {
 		btnInsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Book book = new Book();
-
-				/*
-				 * book.setCateBNo(cateBNo); book.setCateMNo(cateMNo); book.setCateSNo(cateSNo);
-				 */
-
-				book.setTitle(tfBookName.getText());
+				
+				
+				/* 1. 분류 번호 */
+				String str = cateB.getbCode() + "" + cateM.getmCode() + "" + cateS.getsCode() + "";
+				/* 2. 도서 번호 */
+				//bookMapper.selectbookbyOther(map); map 또는 hashmap 사용
+				/* 3. 중복 권수 */
+				//if() {}
+				
+				
+				tfBookCode.setText(str);
+				
+				book.setBookCode(str);
+				book.setTitle(tfTitle.getText());
 				book.setAuthor(tfAuthor.getText());
 				book.setPubNo(null);
 				book.setAuthor(tfAuthor.getText());
 				book.setTranslator(tfTrans.getText());
 				book.setPrice(Integer.parseInt(tfPrice.getText().trim()));
+				book.setCateBNo(cateB);
+				book.setCateMNo(cateM);
+				book.setCateSNo(cateS);
 
-				/* tfBookCode.setText(); */
 				book.setBookCode(tfBookCode.getText());
 				System.out.println(book);
 
