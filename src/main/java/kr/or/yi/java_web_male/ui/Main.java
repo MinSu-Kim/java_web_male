@@ -11,16 +11,21 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
-public class Main extends JFrame {
+public class Main extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private BookSearchUI BookSearchUI;
+	private BookSearchUI bookSearchUI;
+	private JButton btnLogin;
+	private JButton btnSearchBook;
+	private JButton btnBest;
+	private LoginUI loginUI; 
 
 	/**
 	 * Launch the application.
@@ -64,39 +69,60 @@ public class Main extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(new GridLayout(0, 2, 10, 10));
 
-		JButton btnNewButton_1 = new JButton("로그인");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_1.setFont(new Font("굴림", Font.PLAIN, 35));
-		panel.add(btnNewButton_1);
+		btnLogin = new JButton("로그인");
+		btnLogin.addActionListener(this);
 
-		JButton btnNewButton = new JButton("도서검색");
-		btnNewButton.addActionListener(new ActionListener() {
-			
+		btnLogin.setFont(new Font("굴림", Font.PLAIN, 35));
+		panel.add(btnLogin);
 
-			public void actionPerformed(ActionEvent e) {
-				BookSearchUI = new BookSearchUI();
-				BookSearchUI.setVisible(true);
-				BookSearchUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			}
-		});
-		btnNewButton.setFont(new Font("굴림", Font.PLAIN, 35));
-		panel.add(btnNewButton);
+		btnSearchBook = new JButton("도서검색");
+		btnSearchBook.addActionListener(this);
+
+		btnSearchBook.setFont(new Font("굴림", Font.PLAIN, 35));
+		panel.add(btnSearchBook);
 
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		JButton btnNewButton_2 = new JButton("BEST!");
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		btnNewButton_2.setFont(new Font("굴림", Font.PLAIN, 18));
-		panel_1.add(btnNewButton_2);
+		btnBest = new JButton("BEST!");
+		btnBest.addActionListener(this);
+
+		btnBest.setFont(new Font("굴림", Font.PLAIN, 18));
+		panel_1.add(btnBest);
 	}
 
+	
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnBest) {
+			do_btnBest_actionPerformed(e);
+		}
+		if (e.getSource() == btnLogin) {
+			do_btnLogin_actionPerformed(e);
+		}
+		if (e.getSource() == btnSearchBook) {
+			do_btnSearchBook_actionPerformed(e);
+		}
+	}
+	private void do_btnSearchBook_actionPerformed(ActionEvent e) {
+		if (bookSearchUI == null) {
+			bookSearchUI = new BookSearchUI();
+		}else {
+			JOptionPane.showMessageDialog(null, "이미사용중인 창입니다");
+		}
+		bookSearchUI.setVisible(true);
+	}
+
+	protected void do_btnLogin_actionPerformed(ActionEvent e) {
+		if (loginUI == null) {
+			loginUI = new LoginUI();
+		}else {
+			JOptionPane.showMessageDialog(null, "이미사용중인 창입니다");
+		}
+		loginUI.setVisible(true);
+	}
+	
+	protected void do_btnBest_actionPerformed(ActionEvent e) {
+		
+	}
 }
