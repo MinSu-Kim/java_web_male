@@ -87,7 +87,9 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	private DefaultComboBoxModel<CategoryB> modelB;
 	private JButton btnLogin;
 	private String log;
-	private boolean searchwhat = true;
+	private BookRentUI bookRentUI;
+	private boolean searchwhat =true;
+
 	private Book selectedBook;
 	private BookDetailUI bookDetailUI;
 	private List<Book> listBook;
@@ -667,6 +669,12 @@ public class BookSearchUI extends JFrame implements ActionListener {
 		}
 	}
 
+	public void setBookRentUI(BookRentUI bookRentUI) {
+		this.bookRentUI = bookRentUI;
+		
+	}
+
+
 	private void do_Showmore_actionPerformed(ActionEvent e) {
 		try {
 			if (tabbedPane.getSelectedIndex() == 0) {
@@ -726,4 +734,5 @@ public class BookSearchUI extends JFrame implements ActionListener {
 			loginUI.setVisible(true);
 		}
 	}
+
 }

@@ -27,7 +27,8 @@ public interface MemberMapper {
 //	List<Map<String, String>> searchMemberNo(Map<String, String> map);
 	Member searchMemberNo(Map<String, String> map);
 
-	Member searchMemberName(Map<String, String> map);
+	/*Member searchMemberName(Map<String, String> map);*/
+	List<Member> searchMemberName(Map<String, String> map);
 	
 	Member searchMemberPhone(Map<String, String>map);
 }
