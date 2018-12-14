@@ -1,9 +1,24 @@
 package kr.or.yi.java_web_male.ui;
 
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.java_web_male.dao.BookMapper;
@@ -18,23 +33,6 @@ import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
 import kr.or.yi.java_web_male.dto.CategoryS;
-import kr.or.yi.java_web_male.service.LibraryUIService;
-
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
 
 public class BookInsertUI extends JFrame {
 
@@ -61,7 +59,7 @@ public class BookInsertUI extends JFrame {
 	private CategoryB cateB;
 	private CategoryM cateM;
 	private CategoryS cateS;
-	
+
 	private BookMapper bookMapper;
 
 	/**
@@ -228,19 +226,7 @@ public class BookInsertUI extends JFrame {
 		btnInsert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Book book = new Book();
-				
-				
-				/* 1. 분류 번호 */
-				String str = cateB.getbCode() + "" + cateM.getmCode() + "" + cateS.getsCode() + "";
-				/* 2. 도서 번호 */
-				//bookMapper.selectbookbyOther(map); map 또는 hashmap 사용
-				/* 3. 중복 권수 */
-				//if() {}
-				
-				
-				tfBookCode.setText(str);
-				
-				book.setBookCode(str);
+
 				book.setTitle(tfTitle.getText());
 				book.setAuthor(tfAuthor.getText());
 				book.setPubNo(null);
@@ -251,9 +237,39 @@ public class BookInsertUI extends JFrame {
 				book.setCateMNo(cateM);
 				book.setCateSNo(cateS);
 
-				book.setBookCode(tfBookCode.getText());
-				System.out.println(book);
+				Map<String, Object> map = new HashMap<>();
 
+				map.put("title", book.getTitle());
+				map.get("title");
+				map.put("author", book.getAuthor());
+				map.get("author");
+				map.put("translator", book.getTranslator());
+				map.get("translator");
+				
+				int j = 0;
+
+				if (!bookMapper.selectbookbyOther(map).equals(null) && !bookMapper.selectbookbyOther(map).equals(null)
+						&& !bookMapper.selectbookbyOther(map).equals(null)) {
+					/* 중복권수 증가 */
+					
+				} else {
+					/* 도서번호 증가 */
+				}
+
+				/* 분류번호 */
+				String cn = cateB.getbCode() + "" + cateM.getmCode() + "" + cateS.getsCode() + "";
+
+				/* 도서번호 */
+				int i = 0;
+
+				/* 중복권수 */
+
+				String bc = String.format("%s%05d%02d", cn, i, j);
+
+				tfBookCode.setText(bc);
+
+				book.setBookCode(tfBookCode.getText());
+				book.setBookCode(bc);
 			}
 		});
 		panel_5.add(btnInsert);
