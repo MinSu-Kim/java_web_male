@@ -38,6 +38,7 @@ public class MemberSearchUI extends JFrame {
 	private JPanel ResultPanel;
 	private JComboBox<String> comboBox;
 	private BookRentUI bookRentUI;
+	private MemberSearchDetail memberDetailUI;
 
 	/**
 	 * Launch the application.
@@ -61,6 +62,7 @@ public class MemberSearchUI extends JFrame {
 
 	public MemberSearchUI() {
 		service = new MemberUIService();
+		memberDetailUI = new MemberSearchDetail();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 228);
 		contentPane = new JPanel();
@@ -181,14 +183,22 @@ public class MemberSearchUI extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getActionCommand().equals("상세보기")) {
-				JOptionPane.showMessageDialog(null,e.getActionCommand());
-				MemberSearchDetail memberDetailUI = new MemberSearchDetail();
+				do_showMemberDetail(e);
 				memberDetailUI.setVisible(true);
 			}else {
 				JOptionPane.showMessageDialog(null,e.getActionCommand());
 			}
 			
 		}
+
+		private void do_showMemberDetail(ActionEvent e) {
+			
+				
+			
+		}
+			
+			
+		
 	};
 	public void setBookRentUI(BookRentUI bookRentUI) {
 		this.bookRentUI = bookRentUI;
