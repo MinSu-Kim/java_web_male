@@ -11,7 +11,6 @@ public class MemberUIService {
 
 	private MemberMapper dao =  MemberMapperImpl.getInstance();
 
-
 	public List<Member> selectMemberByAll(){
 		return dao.selectMemberByAll();
 	}
@@ -19,7 +18,7 @@ public class MemberUIService {
 	public Member searchMemberNo(Map<String, String> map) {
 		return dao.searchMemberNo(map);
 	}
-	public Member searchMemberName(Map<String, String> map) {
+	public List<Member> searchMemberName(Map<String, String> map) {
 		return dao.searchMemberName(map);
 	}
 	public Member searchMemberPhone(Map<String, String> map) {

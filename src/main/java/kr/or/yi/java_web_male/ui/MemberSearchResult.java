@@ -2,6 +2,8 @@ package kr.or.yi.java_web_male.ui;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+
 import java.awt.BorderLayout;
 import java.util.List;
 
@@ -39,7 +41,7 @@ public class MemberSearchResult extends JPanel {
 				));
 	}
 	private Object[] getCoulum() {
-		return new String[] {"회원번호","이름","책이름","대여일","반납일","반납예정일"};
+		return new String[] {"회원번호","이름","생년월일","전화번호"};
 	}
 
 	private Object[][] getdatas() {
@@ -53,10 +55,8 @@ public class MemberSearchResult extends JPanel {
 	private Object[] getRow(Member member) {
 		return new Object[] {member.getMemberNo(),
 							 member.getKorName(),
-							 member.getBook().getTitle(),
-							 member.getBookRentallInfo().getRentalDate(),
-							 member.getBookRentallInfo().getReturnDate(),
-							 member.getBookRentallInfo().getReturnSchedule()};
+							 member.getJumin(),
+							 member.getPhone()};
 	}
 	public Member selectedItem() {
 		int selectedIndex = table.getSelectedRow();
@@ -66,9 +66,17 @@ public class MemberSearchResult extends JPanel {
 		}
 		return list.get(selectedIndex);
 	}
-	
-	public JTable getTable() {
-		return table;
+	public void setPopupMenu(JPopupMenu popupMenu) {
+		table.setComponentPopupMenu(popupMenu);
 	}
+	public Member getSelectedMember() {
+		int selectedIndex = table.getSelectedRow();
+		String memberNo = (String) table.getValueAt(selectedIndex, 0);
+		Member mem = new Member();
+		return list.get(list.indexOf(mem));
+	}
+/*	public JTable getTable() {
+		return table;
+	}*/
 
 }

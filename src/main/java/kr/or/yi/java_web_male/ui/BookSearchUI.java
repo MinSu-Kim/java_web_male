@@ -87,6 +87,7 @@ public class BookSearchUI extends JFrame implements ActionListener{
 	private DefaultComboBoxModel<CategoryB> modelB;
 	private JButton btnLogin;
 	private String log;
+	private BookRentUI bookRentUI;
 	private boolean searchwhat =true;
 	private Book selectedBook;
 	private BookDetailUI bookDetailUI;
@@ -652,6 +653,11 @@ public class BookSearchUI extends JFrame implements ActionListener{
 			JOptionPane.showMessageDialog(null, "선택하신책정보가 없습니다.");
 			
 		}		
+	}
+
+	public void setBookRentUI(BookRentUI bookRentUI) {
+		this.bookRentUI = bookRentUI;
+		
 	}
 
 }
