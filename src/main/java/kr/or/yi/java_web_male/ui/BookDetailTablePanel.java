@@ -2,6 +2,8 @@ package kr.or.yi.java_web_male.ui;
 
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -79,7 +81,7 @@ public class BookDetailTablePanel extends JPanel {
 
 
 	private Object[] getColumnNames() {
-		return new String[] { "대여 번호","대여일", "반납일", "대여한 회원 이름","대여한 회원번호"};
+		return new String[] {"책번호", "대여 번호","대여일", "반납일", "대여한 회원 이름","대여한 회원번호"};
 	}
 
 	private Object[][] getDatas() {
@@ -91,15 +93,15 @@ public class BookDetailTablePanel extends JPanel {
 	}
 
 	private Object[] getBookRentalInfoArray(BookRentalInfo bookRentalInfo) {
+		String bookCode = bookRentalInfo.getBookCode().getBookCode();
 		int rentalNo = bookRentalInfo.getRentalNo();
-		Date rentalDate = bookRentalInfo.getReturnDate();
-		
-		Calendar cal = Calendar.getInstance();
-		
+		Date rentalDate = bookRentalInfo.getRentalDate();
+		SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
 		Date returnDate =  bookRentalInfo.getReturnDate();
 		member = new Member();
 		member = serviceMember.selectMemberByNo(bookRentalInfo.getMemberNo());	
-		return new Object[] {rentalNo,"a","a",member.getKorName(),member};
+		
+		return new Object[] {bookCode,rentalNo,date.format(rentalDate),date.format(returnDate),member.getKorName(),member};
 	}
 
 }

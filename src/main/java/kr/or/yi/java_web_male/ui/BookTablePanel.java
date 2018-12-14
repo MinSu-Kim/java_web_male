@@ -114,6 +114,13 @@ public class BookTablePanel extends JPanel {
 		book.setBookCode(bookCode);
 		return book;
 	}
+	public Book getSelectedBookCodeAll() {
+		int selectedIndex = table.getSelectedRow();
+		String bookCode = ((String) table.getValueAt(selectedIndex, 0));
+		Book book= new Book();
+		book.setBookCode(bookCode);
+		return book;
+	}
 
 	
 }
