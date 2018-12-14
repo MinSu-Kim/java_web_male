@@ -47,7 +47,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.BoxLayout;
 
 @SuppressWarnings("serial")
-public class BookSearchUI extends JFrame implements ActionListener{
+public class BookSearchUI extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField tfCode;
@@ -87,10 +87,15 @@ public class BookSearchUI extends JFrame implements ActionListener{
 	private DefaultComboBoxModel<CategoryB> modelB;
 	private JButton btnLogin;
 	private String log;
+	private BookRentUI bookRentUI;
 	private boolean searchwhat =true;
+
 	private Book selectedBook;
 	private BookDetailUI bookDetailUI;
 	private List<Book> listBook;
+	private LoginUI loginUI;
+	private JButton btnlogin;
+	private JTabbedPane tabbedPane;
 
 	/**
 	 * Launch the application.
@@ -130,7 +135,7 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		contentPane.add(tabbedPane, BorderLayout.NORTH);
 
 		panel_1 = new JPanel();
@@ -148,8 +153,7 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		panel_5.add(tfCode);
 		tfCode.setColumns(10);
 
-		JButton btnsearchbyBookCode = 
-				new JButton("검색");
+		JButton btnsearchbyBookCode = new JButton("검색");
 		panel_5.add(btnsearchbyBookCode);
 		btnsearchbyBookCode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -157,56 +161,61 @@ public class BookSearchUI extends JFrame implements ActionListener{
 					JOptionPane.showMessageDialog(null, "코드를입력해주세요");
 					return;
 				}
-				/*lists = new ArrayList<>();*/
+				/* lists = new ArrayList<>(); */
 				book = new Book();
 				book.setBookCode(tfCode.getText().trim());
 				lists = service.selectbookbybookCode(book);
-				if((((BookTablePanel) tablePanel).setLists(lists))==false) {
+				if ((((BookTablePanel) tablePanel).setLists(lists)) == false) {
 					((BookTablePanel) tablePanel).loadDatas();
 					((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
 					JOptionPane.showMessageDialog(null, "검색결과없음");
 					return;
-				};
+				}
+				;
 				((BookTablePanel) tablePanel).loadDatas();
 				((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
-				searchwhat =true;
+				searchwhat = true;
 			}
 		});
 		btnsearchbyBookCode.setFont(new Font("굴림", Font.BOLD, 20));
 
 		tablePanel = new BookTablePanel();
-		
+
 		panel_1.add(tablePanel);
 		tablePanel.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		JPanel panel_6 = new JPanel();
 		panel_1.add(panel_6, BorderLayout.SOUTH);
-		panel_6.setLayout(new BoxLayout(panel_6, BoxLayout.X_AXIS));
-		
-		
-		if (/*LoginUI.loginInfo.getMemberNo() != null*/false) {
-			log = "로그아웃";
-		}else {
+
+		if (LoginUI.getLogin() == null) {
 			log = "로그인";
+		} else {
+			log = "로그아웃";
 		}
-		
+
 		btnLogin = new JButton(log);
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand().equals("로그아웃")) {
-					/*do_Showmore_actionPerformed(e);*/
+					/* do_Showmore_actionPerformed(e); */
 					JOptionPane.showMessageDialog(null, "로그아웃");
 				}
 				if (e.getActionCommand().equals("로그인")) {
-					
+
 					JOptionPane.showMessageDialog(null, "로그인");
-					//로그인UI생성
+					// 로그인UI생성
+					if (loginUI == null) {
+						loginUI = new LoginUI();
+					} else {
+						JOptionPane.showMessageDialog(null, "이미사용중인 창입니다");
+					}
+					loginUI.setVisible(true);
 				}
-				
+
 			}
 		});
+		panel_6.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panel_6.add(btnLogin);
-
 
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("기타로 검색", null, panel, null);
@@ -215,7 +224,7 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 
 		panel_2 = new JPanel();
-		panel.add(panel_2);	
+		panel.add(panel_2);
 		panel_2.setLayout(new GridLayout(0, 1, 0, 20));
 
 		JPanel panel_3 = new JPanel();
@@ -466,9 +475,6 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		JLabel lblNewLabel_8 = new JLabel("");
 		panel_9.add(lblNewLabel_8);
 
-		JLabel lblNewLabel_9 = new JLabel("");
-		panel_9.add(lblNewLabel_9);
-
 		JButton button = new JButton("검색");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -494,7 +500,7 @@ public class BookSearchUI extends JFrame implements ActionListener{
 					Publisher pub = new Publisher();
 					pub = (Publisher) comboBoxPublisher.getSelectedItem();
 					pub = service.selectPublisherByName(pub);
-					String pNo = (pub.getPubNo() + "").trim();										
+					String pNo = (pub.getPubNo() + "").trim();
 					map.put("pubNo", pNo);
 				}
 				if (chckbxAuthor.isSelected()) {
@@ -535,19 +541,27 @@ public class BookSearchUI extends JFrame implements ActionListener{
 				lists = new ArrayList<>();
 				lists = service.selectbookbyOther(map);
 				/* JOptionPane.showMessageDialog(null, lists); */
-				if((((BookTablePanel) tablePanel2).setLists(lists))==false) {
+				if ((((BookTablePanel) tablePanel2).setLists(lists)) == false) {
 					((BookTablePanel) tablePanel2).loadDatas();
 					((BookTablePanel) tablePanel2).setPopMenu(getPopupMenu());
 					JOptionPane.showMessageDialog(null, "검색결과없음");
 					return;
-				};
+				}
+				;
 				((BookTablePanel) tablePanel2).loadDatas();
 				((BookTablePanel) tablePanel2).setPopMenu(getPopupMenu());
-				searchwhat =false;
+				searchwhat = false;
 
 			}
 		});
 		panel_9.add(button);
+
+		JLabel lblNewLabel_9 = new JLabel("");
+		panel_9.add(lblNewLabel_9);
+
+		btnlogin = new JButton(log);
+		btnlogin.addActionListener(this);
+		panel_9.add(btnlogin);
 
 		tablePanel2 = new BookTablePanel();
 		JPanel panelForTable_1 = new JPanel();
@@ -557,42 +571,48 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		panelForTable_1.add(tablePanel2);
 		panelForTable_1.add(tablePanel2, BorderLayout.CENTER);
 
-
-
 	}
+
 	private JPopupMenu getPopupMenu() {
 		JPopupMenu popupMenu = new JPopupMenu();
-		
-		JMenuItem Showmore = new JMenuItem("상새정보");
+
+		JMenuItem Showmore = new JMenuItem("상세정보");
 		Showmore.addActionListener(this);
 		popupMenu.add(Showmore);
-		
-		if (true /*Login.loginInfo.getAdmin()*/) {
+
+		if (true /* Login.loginInfo.getAdmin() */) {
 			JMenuItem bookRentInfo = new JMenuItem("도서대여 정보");
 			bookRentInfo.addActionListener(this);
 			popupMenu.add(bookRentInfo);
-			
+
 			JMenuItem upDate = new JMenuItem("수정");
 			upDate.addActionListener(this);
 			popupMenu.add(upDate);
-			
+
 			JMenuItem delet = new JMenuItem("삭제");
 			delet.addActionListener(this);
 			popupMenu.add(delet);
-			
+
 			JMenuItem add = new JMenuItem("추가");
 			add.addActionListener(this);
 			popupMenu.add(add);
-			
+
 		}
 		return popupMenu;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("상새정보")) {
+		if (e.getSource() == btnlogin) {
+			do_btnlogin_actionPerformed(e);
+		}
+		if (e.getActionCommand().equals("상세정보")) {
 			do_Showmore_actionPerformed(e);
-			
+
+		}
+		if (e.getActionCommand().equals("도서대여 정보")) {
+			do_ShowBookrentInfo_actionPerformed(e);
+
 		}
 		if (e.getActionCommand().equals("수정")) {
 			JOptionPane.showMessageDialog(null, "수정");
@@ -603,53 +623,116 @@ public class BookSearchUI extends JFrame implements ActionListener{
 		if (e.getActionCommand().equals("추가")) {
 			JOptionPane.showMessageDialog(null, "추가");
 		}
-		
+
 	}
 
-
-	private void do_Showmore_actionPerformed(ActionEvent e) {
+	private void do_ShowBookrentInfo_actionPerformed(ActionEvent e) {
 		try {
-			if(searchwhat) {
-				selectedBook = ((BookTablePanel) tablePanel).getSelectedBook();
-			}else {
-				selectedBook = tablePanel2.getSelectedBook();
+			if (tabbedPane.getSelectedIndex() == 0) {
+				selectedBook = ((BookTablePanel) tablePanel).getSelectedBookCodeAll();
+			} else {
+				selectedBook = tablePanel2.getSelectedBookCodeAll();
 			}
 			String bookCode = "";
-			boolean RentalPossible =false;
+			boolean RentalPossible = false;
 			Book book = new Book();
-			lists =service.selectbookbybookCode(selectedBook);
+			lists = service.selectbookbybookCode(selectedBook);
 			int totalBook = lists.size();
-			if (lists.size()>1) {
+			if (lists.size() > 1) {
 				for (Book books : lists) {
-					if(books.isRentalPossible()) {
+					if (books.isRentalPossible()) {
 						RentalPossible = true;
 					}
-					bookCode = bookCode + books.getBookCode()+",";
+					bookCode = bookCode + books.getBookCode() + ",";
 					book = books;
 				}
-			}else {
+			} else {
 				for (Book books : lists) {
-					if(books.isRentalPossible()) {
-						RentalPossible = true;						
+					if (books.isRentalPossible()) {
+						RentalPossible = true;
 					}
 					bookCode = bookCode + books.getBookCode();
 					book = books;
 				}
 			}
 			book.setBookCode(bookCode);
-			book.setRentalPossible(RentalPossible);			
+			book.setRentalPossible(RentalPossible);
 
 			bookDetailUI = new BookDetailUI();
-			bookDetailUI.setBookInfo(book,totalBook,lists);
+			bookDetailUI.setBookInfo(book, totalBook, lists);
+			bookDetailUI.loadTable();
+			bookDetailUI.btnbookRentalInfoHide();
 			bookDetailUI.setVisible(true);
 			bookDetailUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			
-			
-						
-		}catch (Exception e1) {
+		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(null, "선택하신책정보가 없습니다.");
-			
-		}		
+		}
+	}
+
+	public void setBookRentUI(BookRentUI bookRentUI) {
+		this.bookRentUI = bookRentUI;
+		
+	}
+
+
+	private void do_Showmore_actionPerformed(ActionEvent e) {
+		try {
+			if (tabbedPane.getSelectedIndex() == 0) {
+				selectedBook = ((BookTablePanel) tablePanel).getSelectedBook();
+			} else {
+				selectedBook = tablePanel2.getSelectedBook();
+			}
+			String bookCode = "";
+			boolean RentalPossible = false;
+			Book book = new Book();
+			lists = service.selectbookbybookCode(selectedBook);
+			int totalBook = lists.size();
+			if (lists.size() > 1) {
+				for (Book books : lists) {
+					if (books.isRentalPossible()) {
+						RentalPossible = true;
+					}
+					bookCode = bookCode + books.getBookCode() + ",";
+					book = books;
+				}
+			} else {
+				for (Book books : lists) {
+					if (books.isRentalPossible()) {
+						RentalPossible = true;
+					}
+					bookCode = bookCode + books.getBookCode();
+					book = books;
+				}
+			}
+			book.setBookCode(bookCode);
+			book.setRentalPossible(RentalPossible);
+
+			bookDetailUI = new BookDetailUI();
+			bookDetailUI.setBookInfo(book, totalBook, lists);
+			bookDetailUI.setVisible(true);
+			bookDetailUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(null, "선택하신책정보가 없습니다.");
+
+		}
+	}
+
+	protected void do_btnlogin_actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("로그아웃")) {
+			JOptionPane.showMessageDialog(null, "로그아웃");
+		}
+		if (e.getActionCommand().equals("로그인")) {
+
+			JOptionPane.showMessageDialog(null, "로그인");
+			// 로그인UI생성
+			if (loginUI == null) {
+				loginUI = new LoginUI();
+			} else {
+				JOptionPane.showMessageDialog(null, "이미사용중인 창입니다");
+			}
+			loginUI.setVisible(true);
+		}
 	}
 
 }

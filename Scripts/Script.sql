@@ -21,7 +21,7 @@ begin
 from member m join book_rental_info r on m.member_no = r.member_no
 	join book b on b.book_code =  r.book_code
 	where kor_name= korname;
-end $$
+end 
 delimiter ;
 
 delimiter $$
@@ -63,12 +63,12 @@ select kor_name, phone, jumin
 from `member` where kor_name="개동준";
 
 call search_memberno("2");
-call search_name("김동준");
+call search_membername("김동준");
 call search_phone("01022306796");
 call search_jumin("921012");
 
 call search_membername("서동준");
-call search_memberno("2");
+call search_memberno("3");
 call search_phone("010-4354-2435");
 
 select kor_name, m.member_no, title, rental_date, return_date, return_schedule
@@ -142,4 +142,15 @@ delete
 from book
 where book_code = 001158;
 
+
+
+
+
+INSERT INTO proj_library.`member`
+(member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness)
+VALUES(123, '1111', '김재영', 'kjy', '01099865500', '950316-1111111', 'rlawpdud301@naver.com', '우리집', null, true, null);
+
+INSERT INTO proj_library.`member`
+(member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness)
+VALUES(1234, '1111', '김재영', 'kjy', '01099865500', '950316-1111111', 'rlawpdud301@naver.com', '우리집', null, false, null);
 

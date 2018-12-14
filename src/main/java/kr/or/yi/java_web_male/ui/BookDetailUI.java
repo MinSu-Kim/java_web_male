@@ -64,6 +64,8 @@ public class BookDetailUI extends JFrame {
 	private BookDetailTablePanel forTable;
 	private List<BookRentalInfo> lists;
 	private List<Book> listBook;
+	private JButton btnbookRentalInfo;
+	private JPanel panel_3;
 
 	/**
 	 * Launch the application.
@@ -203,26 +205,12 @@ public class BookDetailUI extends JFrame {
 		JLabel label = new JLabel("");
 		panel.add(label);
 
-		JPanel panel_3 = new JPanel();
+		panel_3 = new JPanel();
 		panel.add(panel_3);
 		panel_3.setLayout(new BorderLayout(0, 0));
 
-		JButton btnbookRentalInfo = new JButton("대여 정보보기");
-		btnbookRentalInfo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				List<Book> listsBooks = null;
-				for(Book book : listBook ) {
-					listsBooks.add(book);
-				}
-				/*lists = new ArrayList<>();*/
-				Book book = new Book();
-				book.setBookCode(showbookCode.getText());
-				lists = service.selectBookRentalInfoByBookCode(book);			
-				((BookDetailTablePanel) tablePanel).setLists(lists);				
-				((BookDetailTablePanel) tablePanel).loadDatas();
-
-			}
-		});
+		btnbookRentalInfo = new JButton("대여 정보보기");
+		btnbookRentalInfo.addActionListener(loadList);
 		contentPane.setLayout(new GridLayout(0, 1, 0, 0));
 		panel_3.add(btnbookRentalInfo, BorderLayout.SOUTH);
 
@@ -243,6 +231,28 @@ public class BookDetailUI extends JFrame {
 
 	}
 
+	ActionListener loadList = new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			loadTable();
+
+		}
+
+		
+	};
+	public void loadTable() {
+		List<BookRentalInfo> listsBooks = new ArrayList<>();
+		for(Book book : listBook ) {
+			List<BookRentalInfo> bookinfo = service.selectBookRentalInfoByBookCode(book);					
+			listsBooks.addAll(bookinfo);
+			
+		}
+		/*lists = new ArrayList<>();*/
+		/*Book book = new Book();
+		book.setBookCode(showbookCode.getText());*/
+		/*lists = service.selectBookRentalInfoByBookCode(book);	*/		
+		((BookDetailTablePanel) tablePanel).setLists(listsBooks);				
+		((BookDetailTablePanel) tablePanel).loadDatas();
+	}
 	public void setBookInfo(Book book, int totalBook, List<Book> lists) {
 		this.listBook = lists;
 		showbookCode.setText(book.getBookCode());
@@ -267,6 +277,11 @@ public class BookDetailUI extends JFrame {
 			labelForImg.setIcon(new ImageIcon(imgPath + book.getImage()));
 		}
 		
+	}
+	public void btnbookRentalInfoHide() {
+		panel_3.remove(btnbookRentalInfo);
+		revalidate();
+//		btnbookRentalInfo.remove(this);
 	}
 
 
