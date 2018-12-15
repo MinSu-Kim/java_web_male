@@ -44,7 +44,7 @@ public class BookMapperImpl implements BookMapper {
 	}
 
 	@Override
-	public Book selectBookbyno(Book book) {
+	public Book selectBookbyno(int book) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
 			return sqlSession.selectOne(namespace + ".selectBookByBookNo", book);
 		}
@@ -63,13 +63,6 @@ public class BookMapperImpl implements BookMapper {
 	public List<Book> selectbookbyOther(Map<String, Object> map) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
 			return sqlSession.selectList(namespace + ".selectbookbyOther", map);
-		}
-	}
-
-	@Override
-	public int selectBookByBookNoToMAx(Book book) {
-		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
-			return sqlSession.selectOne(namespace + ".selectBookByBookNoToMax");
 		}
 	}
 

@@ -93,7 +93,7 @@
 		where book_no = #{bookNo}
 	</select>
 	
-	<select id="selectBookByBookNoToMax" parameterType="Book" resultType="int">
+	<select id="selectBookByBookNoToMax" parameterType="Book" resultType="Book">
 		select max(book_no) from book
 	</select>
 

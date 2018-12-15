@@ -8,7 +8,7 @@ import kr.or.yi.java_web_male.dto.Book;
 public interface BookMapper {
 	List<Book> selectBookByAll();
 
-	Book selectBookbyno(Book book);
+	Book selectBookbyno(int i);
 
 	List<Book> selectbookbybookCode(Book book);
 
@@ -17,7 +17,5 @@ public interface BookMapper {
 	int updateBook(Book book);
 
 	List<Book> selectbookbyOther(Map<String, Object> map);
-
-	int selectBookByBookNoToMAx(Book list);
 
 }

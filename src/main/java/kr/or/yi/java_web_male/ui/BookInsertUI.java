@@ -241,31 +241,37 @@ public class BookInsertUI extends JFrame {
 				String cn = cateB.getbCode() + "" + cateM.getmCode() + "" + cateS.getsCode() + "";
 				System.out.println(cn);
 				
-				int i = 0, j = 1;
+				int i = 0, j = 0, max = 0;
 				
 				Map<String, Object> map = new HashMap<>();
 				map.put("title", book.getTitle());
+				System.out.println("확인" + bookMapper.selectbookbyOther(map));
+				/*int bos = bookMapper.selectbookbyOther(map).get(0).getBookNo();
+				System.out.println(bos + "는 일련번호");*/
 				map.put("author", book.getAuthor());
 				map.put("translator", book.getTranslator());
 				System.out.println(map.get("title"));
 				System.out.println(map.get("author"));
-				System.out.println(map.get("translator"));
-				System.out.println(bookMapper.selectbookbyOther((Map) map.get("title")));
+				System.out.println(map.containsKey("title"));
 				
-
-				/*if (!bookMapper.selectbookbyOther((Map) map.get("title")).equals(null)
-						&& !bookMapper.selectbookbyOther((Map) map.get("author")).equals(null)
-						&& !bookMapper.selectbookbyOther((Map) map.get("translator")).equals(null)) {
-					i = bookMapper.selectBookbyno((Book) bookMapper.selectbookbyOther((Map) map.get("title")))
-							.getBookNo();
+				List<Book> boog = bookMapper.selectbookbyOther(map);
+				System.out.println(boog.size());
+				if (bookMapper.selectbookbyOther(map).equals(null)) {
+					System.out.println("존재");
+					System.out.println(bookMapper.selectbookbyOther(map).size() + 1);
+					i = bookMapper.selectbookbyOther(map).get(0).getBookNo();
 					System.out.println(i);
-					j = bookMapper.selectbookbyOther((Map) map.get("title")).size() + 1;
+					j = bookMapper.selectbookbyOther(map).size() + 1;
 					System.out.println(j);
 				} else {
-					Book book2 = (Book) bookMapper.selectBookByAll();
-					i = bookMapper.selectBookByBookNoToMAx(book2) + 1;
-					System.out.println(i);
-				}*/
+					for (int k = 0; k < bookMapper.selectBookByAll().size(); k++) {
+						max = bookMapper.selectBookByAll().get(k).getBookNo();
+					}
+					i = max + 1;
+					j = 1;
+					System.out.println("음슴");
+					System.out.println(bookMapper.selectBookbyno(123));
+				}
 
 				String bc = String.format("%s%05d%02d", cn, i, j);
 				System.out.println(bc);
