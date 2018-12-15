@@ -6,7 +6,12 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import kr.or.yi.java_web_male.dto.Member;
+
 import java.awt.GridLayout;
+import java.util.List;
+
 import javax.swing.JLabel;
 import java.awt.Component;
 import javax.swing.SwingConstants;
@@ -27,7 +32,7 @@ public class MemberSearchDetail extends JFrame {
 	private JTextField textAddress;
 	private JTextField textAdmin;
 	private JTextField textUni;
-
+	private List<Member> listMember;
 	/**
 	 * Launch the application.
 	 */
@@ -200,5 +205,8 @@ public class MemberSearchDetail extends JFrame {
 		JButton UpdateButton = new JButton("수정하기");
 		panel_12.add(UpdateButton, BorderLayout.SOUTH);
 	}
-
+	public void setMemberInfo(List<Member> lists) {
+		this.listMember = lists;
+		
+	}
 }

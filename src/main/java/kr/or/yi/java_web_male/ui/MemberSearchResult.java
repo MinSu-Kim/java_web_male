@@ -73,10 +73,9 @@ public class MemberSearchResult extends JPanel {
 		int selectedIndex = table.getSelectedRow();
 		String memberNo = (String) table.getValueAt(selectedIndex, 0);
 		Member mem = new Member();
-		return list.get(list.indexOf(mem));
+		mem.setMemberNo(memberNo);
+		return mem;
 	}
-/*	public JTable getTable() {
-		return table;
-	}*/
+
 
 }
