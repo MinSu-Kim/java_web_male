@@ -41,7 +41,6 @@
 		</where>
 	</sql>
 	
-	
 	<select id="selectBookByAll" parameterType="Book"
 		resultType="Book">
 		<include refid="selectSql" />
@@ -88,5 +87,14 @@
 	<update id="updateBook" parameterType="Book">
 		<include refid="updateSql" />
 	</update>
+	
+	<select id="selectBookByBookNo" parameterType="Book" resultMap="Booktyepinsert">
+		<include refid="selectSql" />
+		where book_no = #{bookNo}
+	</select>
+	
+	<select id="selectBookByBookNoToMax" parameterType="Book" resultType="int">
+		select max(book_no) from book
+	</select>
 
 </mapper>

@@ -13,9 +13,11 @@ public interface BookMapper {
 	List<Book> selectbookbybookCode(Book book);
 
 	int insertBook(Book book);
-	
+
 	int updateBook(Book book);
 
 	List<Book> selectbookbyOther(Map<String, Object> map);
+
+	int selectBookByBookNoToMAx(Book list);
 
 }

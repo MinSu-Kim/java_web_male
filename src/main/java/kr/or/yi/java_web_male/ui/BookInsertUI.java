@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +28,8 @@ import kr.or.yi.java_web_male.dao.CategoryMMapper;
 import kr.or.yi.java_web_male.dao.CategoryMMapperImpl;
 import kr.or.yi.java_web_male.dao.CategorySMapper;
 import kr.or.yi.java_web_male.dao.CategorySMapperImpl;
+import kr.or.yi.java_web_male.dao.PublisherMapper;
+import kr.or.yi.java_web_male.dao.PublisherMapperImpl;
 import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
@@ -61,6 +62,7 @@ public class BookInsertUI extends JFrame {
 	private CategoryS cateS;
 
 	private BookMapper bookMapper;
+	private PublisherMapper publisherMapper;
 
 	/**
 	 * Launch the application.
@@ -86,6 +88,7 @@ public class BookInsertUI extends JFrame {
 		mMapper = CategoryMMapperImpl.getInstance();
 		sMapper = CategorySMapperImpl.getInstance();
 		bookMapper = BookMapperImpl.getInstance();
+		publisherMapper = PublisherMapperImpl.getInstance();
 
 		initComponents();
 	}
@@ -158,7 +161,6 @@ public class BookInsertUI extends JFrame {
 				modelS = new DefaultComboBoxModel<>(new Vector<>(sList));
 				comboCateS.removeAll();
 				comboCateS.setModel(modelS);
-				System.out.println(modelS);
 				comboCateS.setEnabled(true);
 			}
 		});
@@ -168,12 +170,11 @@ public class BookInsertUI extends JFrame {
 		List<CategoryS> sList = sMapper.selectCategorySByAll();
 		modelS = new DefaultComboBoxModel<>(new Vector<>(sList));
 		comboCateS = new JComboBox(modelS);
-		comboCateM.addItemListener(new ItemListener() {
+		comboCateS.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				cateS = (CategoryS) comboCateS.getSelectedItem();
-				System.out.println(cateS);
 			}
 		});
 		comboCateS.setEnabled(false);
@@ -237,39 +238,45 @@ public class BookInsertUI extends JFrame {
 				book.setCateMNo(cateM);
 				book.setCateSNo(cateS);
 
-				Map<String, Object> map = new HashMap<>();
-
-				map.put("title", book.getTitle());
-				map.get("title");
-				map.put("author", book.getAuthor());
-				map.get("author");
-				map.put("translator", book.getTranslator());
-				map.get("translator");
-				
-				int j = 0;
-
-				if (!bookMapper.selectbookbyOther(map).equals(null) && !bookMapper.selectbookbyOther(map).equals(null)
-						&& !bookMapper.selectbookbyOther(map).equals(null)) {
-					/* 중복권수 증가 */
-					
-				} else {
-					/* 도서번호 증가 */
-				}
-
-				/* 분류번호 */
 				String cn = cateB.getbCode() + "" + cateM.getmCode() + "" + cateS.getsCode() + "";
+				System.out.println(cn);
+				
+				int i = 0, j = 1;
+				
+				Map<String, Object> map = new HashMap<>();
+				map.put("title", book.getTitle());
+				map.put("author", book.getAuthor());
+				map.put("translator", book.getTranslator());
+				System.out.println(map.get("title"));
+				System.out.println(map.get("author"));
+				System.out.println(map.get("translator"));
+				System.out.println(bookMapper.selectbookbyOther((Map) map.get("title")));
+				
 
-				/* 도서번호 */
-				int i = 0;
-
-				/* 중복권수 */
+				/*if (!bookMapper.selectbookbyOther((Map) map.get("title")).equals(null)
+						&& !bookMapper.selectbookbyOther((Map) map.get("author")).equals(null)
+						&& !bookMapper.selectbookbyOther((Map) map.get("translator")).equals(null)) {
+					i = bookMapper.selectBookbyno((Book) bookMapper.selectbookbyOther((Map) map.get("title")))
+							.getBookNo();
+					System.out.println(i);
+					j = bookMapper.selectbookbyOther((Map) map.get("title")).size() + 1;
+					System.out.println(j);
+				} else {
+					Book book2 = (Book) bookMapper.selectBookByAll();
+					i = bookMapper.selectBookByBookNoToMAx(book2) + 1;
+					System.out.println(i);
+				}*/
 
 				String bc = String.format("%s%05d%02d", cn, i, j);
+				System.out.println(bc);
 
 				tfBookCode.setText(bc);
 
 				book.setBookCode(tfBookCode.getText());
 				book.setBookCode(bc);
+				book.setBookNo(i);
+
+				System.out.println(book);
 			}
 		});
 		panel_5.add(btnInsert);
