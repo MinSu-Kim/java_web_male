@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -228,9 +229,9 @@ public class BookInsertUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Book book = new Book();
 
+				book.setPubNo(null);
 				book.setTitle(tfTitle.getText());
 				book.setAuthor(tfAuthor.getText());
-				book.setPubNo(null);
 				book.setAuthor(tfAuthor.getText());
 				book.setTranslator(tfTrans.getText());
 				book.setPrice(Integer.parseInt(tfPrice.getText().trim()));
@@ -238,51 +239,38 @@ public class BookInsertUI extends JFrame {
 				book.setCateMNo(cateM);
 				book.setCateSNo(cateS);
 
-				String cn = cateB.getbCode() + "" + cateM.getmCode() + "" + cateS.getsCode() + "";
-				System.out.println(cn);
-				
-				int i = 0, j = 0, max = 0;
-				
 				Map<String, Object> map = new HashMap<>();
 				map.put("title", book.getTitle());
-				System.out.println("확인" + bookMapper.selectbookbyOther(map));
-				/*int bos = bookMapper.selectbookbyOther(map).get(0).getBookNo();
-				System.out.println(bos + "는 일련번호");*/
 				map.put("author", book.getAuthor());
 				map.put("translator", book.getTranslator());
-				System.out.println(map.get("title"));
-				System.out.println(map.get("author"));
-				System.out.println(map.containsKey("title"));
-				
-				List<Book> boog = bookMapper.selectbookbyOther(map);
-				System.out.println(boog.size());
-				if (bookMapper.selectbookbyOther(map).equals(null)) {
-					System.out.println("존재");
-					System.out.println(bookMapper.selectbookbyOther(map).size() + 1);
-					i = bookMapper.selectbookbyOther(map).get(0).getBookNo();
-					System.out.println(i);
-					j = bookMapper.selectbookbyOther(map).size() + 1;
-					System.out.println(j);
-				} else {
-					for (int k = 0; k < bookMapper.selectBookByAll().size(); k++) {
-						max = bookMapper.selectBookByAll().get(k).getBookNo();
+				map.put("cate_b_no", book.getCateBNo());
+				map.put("cate_m_no", book.getCateMNo());
+				map.put("cate_s_no", book.getCateSNo());
+
+				int i = 0, j = 0, max = 0;
+
+				if (!bookMapper.selectbookbyOther(map).equals(null)) {
+					if (bookMapper.selectbookbyOther(map).size() > 0) {
+						i = bookMapper.selectbookbyOther(map).get(0).getBookNo();
+						j = bookMapper.selectbookbyOther(map).size() + 1;
+					} else {
+						for (int k = 0; k < bookMapper.selectBookByAll().size(); k++) {
+							if (max < bookMapper.selectBookByAll().get(k).getBookNo()) {
+								max = bookMapper.selectBookByAll().get(k).getBookNo();
+							}
+						}
+						i = max + 1;
+						j = 1;
 					}
-					i = max + 1;
-					j = 1;
-					System.out.println("음슴");
-					System.out.println(bookMapper.selectBookbyno(123));
 				}
 
+				String cn = cateB.getbCode() + "" + cateM.getmCode() + "" + cateS.getsCode() + "";
 				String bc = String.format("%s%05d%02d", cn, i, j);
-				System.out.println(bc);
 
 				tfBookCode.setText(bc);
 
-				book.setBookCode(tfBookCode.getText());
 				book.setBookCode(bc);
 				book.setBookNo(i);
-
-				System.out.println(book);
 			}
 		});
 		panel_5.add(btnInsert);

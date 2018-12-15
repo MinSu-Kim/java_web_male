@@ -96,7 +96,7 @@ SELECT cate_m_no, cate_b_no, cate_m_name
 		FROM proj_library.category_m
 		WHERE cate_b_no=1;
 	
-insert into publisher values('P001', null);
+insert into publisher values('P001', '오라클');
 		
 
 	
