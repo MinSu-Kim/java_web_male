@@ -17,11 +17,10 @@ insert into book_rental_info values(6,'2018-12-11','2018-12-17',null,'3','000000
 delimiter $$
 CREATE PROCEDURE `proj_library`.`search_membername`(in korname char(50))
 begin
-	select kor_name, m.member_no, title, rental_date, return_date, return_schedule
-from member m join book_rental_info r on m.member_no = r.member_no
-	join book b on b.book_code =  r.book_code
+	select kor_name, member_no, phone, jumin
+	from member
 	where kor_name= korname;
-end 
+end $$
 delimiter ;
 
 delimiter $$
