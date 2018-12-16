@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.service.MemberUIService;
 
 import java.awt.GridLayout;
 import java.util.List;
@@ -33,6 +34,7 @@ public class MemberSearchDetail extends JFrame {
 	private JTextField textAdmin;
 	private JTextField textUni;
 	private List<Member> listMember;
+	private MemberUIService service;
 	/**
 	 * Launch the application.
 	 */
@@ -205,8 +207,17 @@ public class MemberSearchDetail extends JFrame {
 		JButton UpdateButton = new JButton("수정하기");
 		panel_12.add(UpdateButton, BorderLayout.SOUTH);
 	}
-	public void setMemberInfo(List<Member> lists) {
+	public void setMemberInfo(Member member, List<Member> lists) {
 		this.listMember = lists;
-		
+		textMemberNo.setText(member.getMemberNo());
+		textPass.setText(member.getPassword());
+		textKor.setText(member.getKorName());
+		textEng.setText(member.getEngName());
+		textPhone.setText(member.getPhone());
+		textJumin.setText(member.getJumin());
+		textEmail.setText(member.getEmail());
+		textAddress.setText(member.getAddress());
+//		textAdmin.setText(member.getAdmin());
+		textUni.setText(member.getUniqueness());
 	}
 }

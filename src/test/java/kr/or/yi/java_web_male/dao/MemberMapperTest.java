@@ -78,12 +78,13 @@ public class MemberMapperTest {
 		Assert.assertSame(1, res);
 	}
 
-	/*@Test
+	@Test
 	public void test06DeleteMember() {
 		int deleteMember = dao.deleteMember("1");
 		Assert.assertSame(1, deleteMember);
 
-	}*/
+
+	}
 	@Test
 	public void test07searchMemberno() {
 		Map<String, String> map = new HashMap<>();

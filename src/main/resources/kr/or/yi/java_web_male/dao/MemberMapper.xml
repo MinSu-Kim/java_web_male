@@ -50,7 +50,7 @@
 		from member
 		where member_no=#{param1}
 	</select>
-
+	
 	<!-- 모든 리스트 검색 -->
 	<select id="selectMemberByAll" resultType="Member">
 		<include refid="selectSql"></include>

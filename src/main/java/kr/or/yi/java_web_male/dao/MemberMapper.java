@@ -23,6 +23,7 @@ public interface MemberMapper {
 	
 	List<Member> selectMemberByMemberNo();
 	
+
 	//프로시저 해시맵
 //	List<Map<String, String>> searchMemberNo(Map<String, String> map);
 	Member searchMemberNo(Map<String, String> map);
@@ -31,4 +32,5 @@ public interface MemberMapper {
 	List<Member> searchMemberName(Map<String, String> map);
 	
 	Member searchMemberPhone(Map<String, String>map);
+
 }
