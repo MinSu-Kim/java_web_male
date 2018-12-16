@@ -1,6 +1,11 @@
 package kr.or.yi.java_web_male.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
@@ -11,7 +16,7 @@ import kr.or.yi.java_web_male.dto.Member;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MemberMapperTest {
-	private MemberMapper dao = new MemberMapperImpl();
+	private MemberMapper dao = MemberMapperImpl.getInstance();
 
 	@Test
 	public void test01inSertMember() {
@@ -27,16 +32,17 @@ public class MemberMapperTest {
 		member.setPhoto("박예븜");
 		member.setAdmin(1);
 		member.setUniqueness("아 한번에 안되겠지");
-		int res = dao.insertMember(member);
-		Assert.assertEquals(1, res);
+		System.out.println(member);
+	/*	int res = dao.insertMember(member);
+		Assert.assertEquals(1, res);*/
 	}
-
+	/*모두선택*/
 	@Test
 	public void test02selectMemberByAll() {
 		List<Member> list = dao.selectMemberByAll();
 		Assert.assertNotNull(list);
 	}
-
+	/*검색*/
 	@Test
 	public void test03selectMemberByNo() {
 		Member searchMem = new Member();
@@ -45,7 +51,7 @@ public class MemberMapperTest {
 		Member searchedMem = dao.selectMemberByNo(searchMem);
 		Assert.assertNotNull(searchedMem);
 	}
-	
+	/*로그인*/
 	@Test
 	public void test04selectMemberByNo() {
 		String searchStr = "1";
@@ -77,5 +83,27 @@ public class MemberMapperTest {
 		int deleteMember = dao.deleteMember("1");
 		Assert.assertSame(1, deleteMember);
 
+
+	}
+	@Test
+	public void test07searchMemberno() {
+		Map<String, String> map = new HashMap<>();
+		map.put("memberNo", "3");
+		Member list = dao.searchMemberNo(map);
+		Assert.assertNotNull(list);
+	}
+	@Test
+	public void test08searchMemberName() {
+		Map<String, String> map = new HashMap<>();
+		map.put("korName", "김동준");
+		List<Member> list = dao.searchMemberName(map);
+		Assert.assertNotNull(list);
+	}
+	@Test
+	public void test09searchMemberPhone() {
+		Map<String, String> map = new HashMap<>();
+		map.put("phone", "010-4354-2435");
+		Member list = dao.searchMemberPhone(map);
+		Assert.assertNotNull(list);
 	}
 }// end of testClass

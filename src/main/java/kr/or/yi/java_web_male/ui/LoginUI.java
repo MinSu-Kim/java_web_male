@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.java_web_male.dao.MemberMapper;
@@ -28,11 +30,28 @@ public class LoginUI extends JFrame {
 	// ui 몽음
 	private AdminMainUI adminMainUI;
 	private MemberInfoUI memberInfoUI;
+	private static Member loginMember;
 
 	// 서비스 만들기
 	private MemberMapper memberMapper;
 
+	public static final Member getLogin() {
+		return loginMember;
+	}
+
+	public static final void memberLogOut() {
+		loginMember = null;
+	}
+
 	public static void main(String[] args) {
+		// 룩앤필 변경
+		try {
+			UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+		}
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -46,7 +65,7 @@ public class LoginUI extends JFrame {
 	}
 
 	public LoginUI() {
-		memberMapper = new MemberMapperImpl();
+		memberMapper = MemberMapperImpl.getInstance();
 		initComponent();
 	}
 
@@ -76,7 +95,7 @@ public class LoginUI extends JFrame {
 		tfPassword = new JTextField();
 		panel.add(tfPassword);
 		tfPassword.setColumns(10);
-		
+
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1);
 		panel_1.setLayout(new BorderLayout(10, 10));
@@ -87,7 +106,6 @@ public class LoginUI extends JFrame {
 				do_btnLogin_actionPerformed(e);
 			}
 		});
-
 		panel_1.add(btnLogin);
 	}
 
@@ -95,11 +113,12 @@ public class LoginUI extends JFrame {
 		String id = tfMemberNo.getText().trim();
 		String pw = tfPassword.getText().trim();
 		Member member = memberMapper.selectMemberByNo(id);
-		System.out.println(member);
+
 		try {
 			if (member != null) {
 				if (member.getPassword().equals(pw)) {
-					System.out.println("로그인 되었습니다.");
+					loginMember = member;
+					System.out.println("저장된 로그인 정보" + getLogin());
 					if (member.getAdmin() == 1) {
 						if (adminMainUI == null) {
 							adminMainUI = new AdminMainUI();
@@ -108,7 +127,6 @@ public class LoginUI extends JFrame {
 					} else {
 						if (memberInfoUI == null) {
 							memberInfoUI = new MemberInfoUI();
-							memberInfoUI.getMemberInfo(member);
 						}
 						memberInfoUI.setVisible(true);
 					}

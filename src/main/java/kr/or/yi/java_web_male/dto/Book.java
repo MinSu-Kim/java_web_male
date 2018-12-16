@@ -22,131 +22,152 @@ public class Book {
 	}
 
 
-
-	
-
-
-	public Book(String bookCode, int bookNo, Publisher publisherNo, String writter, String translator, String title,
-			int priece, boolean rentable, String image, CategoryS categorynoS, CategoryM categorynoM,
-			CategoryB categorynoB) {
+	public Book(String bookCode, int bookNo, Publisher pubNo, String author, String translator, String title, int price,
+			boolean rentalPossible, String image, CategoryS cateSNo, CategoryM cateMNo, CategoryB cateBNo) {
+		super();
 		this.bookCode = bookCode;
 		this.bookNo = bookNo;
-		this.pubNo = publisherNo;
-		this.author = writter;
+		this.pubNo = pubNo;
+		this.author = author;
 		this.translator = translator;
 		this.title = title;
-		this.price = priece;
-		this.rentalPossible = rentable;
+		this.price = price;
+		this.rentalPossible = rentalPossible;
 		this.image = image;
-		this.cateSNo = categorynoS;
-		this.cateMNo = categorynoM;
-		this.cateBNo = categorynoB;
+		this.cateSNo = cateSNo;
+		this.cateMNo = cateMNo;
+		this.cateBNo = cateBNo;
 	}
+
 
 	public String getBookCode() {
 		return bookCode;
 	}
 
+
 	public void setBookCode(String bookCode) {
 		this.bookCode = bookCode;
 	}
+
 
 	public int getBookNo() {
 		return bookNo;
 	}
 
+
 	public void setBookNo(int bookNo) {
 		this.bookNo = bookNo;
 	}
 
-	public Publisher getPublisherNo() {
+
+	public Publisher getPubNo() {
 		return pubNo;
 	}
 
-	public void setPublisherNo(Publisher publisherNo) {
-		this.pubNo = publisherNo;
+
+	public void setPubNo(Publisher pubNo) {
+		this.pubNo = pubNo;
 	}
 
-	public String getWritter() {
+
+	public String getAuthor() {
 		return author;
 	}
 
-	public void setWritter(String writter) {
-		this.author = writter;
+
+	public void setAuthor(String author) {
+		this.author = author;
 	}
+
 
 	public String getTranslator() {
 		return translator;
 	}
 
+
 	public void setTranslator(String translator) {
 		this.translator = translator;
 	}
+
 
 	public String getTitle() {
 		return title;
 	}
 
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
-	public int getPriece() {
+
+	public int getPrice() {
 		return price;
 	}
 
-	public void setPriece(int priece) {
-		this.price = priece;
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
-	public boolean isRentable() {
+
+	public boolean isRentalPossible() {
 		return rentalPossible;
 	}
 
-	public void setRentable(boolean rentable) {
-		this.rentalPossible = rentable;
+
+	public void setRentalPossible(boolean rentalPossible) {
+		this.rentalPossible = rentalPossible;
 	}
+
 
 	public String getImage() {
 		return image;
 	}
 
+
 	public void setImage(String image) {
 		this.image = image;
 	}
 
-	public CategoryS getCategorynoS() {
+
+	public CategoryS getCateSNo() {
 		return cateSNo;
 	}
 
-	public void setCategorynoS(CategoryS categorynoS) {
-		this.cateSNo = categorynoS;
+
+	public void setCateSNo(CategoryS cateSNo) {
+		this.cateSNo = cateSNo;
 	}
 
-	public CategoryM getCategorynoM() {
+
+	public CategoryM getCateMNo() {
 		return cateMNo;
 	}
 
-	public void setCategorynoM(CategoryM categorynoM) {
-		this.cateMNo = categorynoM;
+
+	public void setCateMNo(CategoryM cateMNo) {
+		this.cateMNo = cateMNo;
 	}
 
-	public CategoryB getCategorynoB() {
+
+	public CategoryB getCateBNo() {
 		return cateBNo;
 	}
 
-	public void setCategorynoB(CategoryB categorynoB) {
-		this.cateBNo = categorynoB;
+
+	public void setCateBNo(CategoryB cateBNo) {
+		this.cateBNo = cateBNo;
 	}
+
 
 	@Override
 	public String toString() {
-
-		return String.format(
-				"Book [bookCode=%s, bookNo=%s, publisherNo=%s, writter=%s, translator=%s, title=%s, priece=%s, rentable=%s, image=%s, categorynoS=%s, categorynoM=%s, categorynoB=%s]",
-				bookCode, bookNo, pubNo, author, translator, title, price, rentalPossible, image, cateSNo,
-				cateMNo, cateBNo);
-
+		return "Book [ bookNo=" + bookNo + ", pubNo=" + pubNo + ", author=" + author+ ", translator=" + translator + ", title=" + title + ", price=" + price + ", rentalPossible="
+				+ rentalPossible + ", image=" + image + ", cateSNo=" + cateSNo + ", cateMNo=" + cateMNo + ", cateBNo="
+				+ cateBNo + "]";
 	}
+
+
+	
 
 }

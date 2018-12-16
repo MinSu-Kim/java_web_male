@@ -8,4 +8,5 @@ import kr.or.yi.java_web_male.dto.CategoryS;
 public interface CategorySMapper {
 	List<CategoryS> selectCategorySByAll();
 	List<CategoryS> selectCategorySByBNoMno(CategoryM cateM);
+	CategoryS selectCategoryAllCode(CategoryS cateS);
 }

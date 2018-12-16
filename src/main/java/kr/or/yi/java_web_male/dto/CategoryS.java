@@ -48,8 +48,16 @@ public class CategoryS {
 	}
 	@Override
 	public String toString() {
-		return bCode.getbCode() +""+ mCode.getmCode() +""+sCode+""+sName;
+		return sName;
 	}
+	
+	public void setAllCode(int sCode, CategoryM mCode, CategoryB bCode) {
+		this.sCode = sCode;
+		this.mCode = mCode;
+		this.bCode = bCode;
+	}
+	
+	
 	
 
 	

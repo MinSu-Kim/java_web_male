@@ -12,6 +12,12 @@ dependencies {
 	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.11.1'
 
     testImplementation 'junit:junit:4.12'
+    
+        // libs폴더 생성 후 jar파일 추가
+    compile fileTree(dir:'libs', include:['*.jar'])
+    
+    // LookAndFeel 파일 추가(jar 파일 추가)
+	compile files('libs/liquidlnf.jar')
 }
 
 tasks.withType(JavaCompile){

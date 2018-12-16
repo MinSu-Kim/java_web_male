@@ -1,5 +1,7 @@
 package kr.or.yi.java_web_male.dto;
 
+import java.util.List;
+
 import org.apache.ibatis.type.Alias;
 
 @Alias("Member")
@@ -15,7 +17,9 @@ public class Member {
 	private String photo;
 	private int admin;
 	private String uniqueness;
-
+	private BookRentalInfo bookRentallInfo;
+	private Book book;
+	
 	public Member() {
 	}
 
@@ -121,6 +125,24 @@ public class Member {
 	public void setUniqueness(String uniqueness) {
 		this.uniqueness = uniqueness;
 	}
+	
+	
+	
+	public BookRentalInfo getBookRentallInfo() {
+		return bookRentallInfo;
+	}
+
+	public void setBookRentallInfo(BookRentalInfo bookRentallInfo) {
+		this.bookRentallInfo = bookRentallInfo;
+	}
+
+	public Book getBook() {
+		return book;
+	}
+
+	public void setBook(Book book) {
+		this.book = book;
+	}
 
 	@Override
 	public int hashCode() {
@@ -147,11 +169,14 @@ public class Member {
 		return true;
 	}
 
+
 	@Override
 	public String toString() {
-		return String.format(
-				"Member [memberNo=%s, password=%s, korName=%s, engName=%s, phone=%s, jumin=%s, email=%s, address=%s, photo=%s, admin=%s, uniqueness=%s]",
-				memberNo, password, korName, engName, phone, jumin, email, address, photo, admin, uniqueness);
+		return memberNo;
 	}
+	
+	
 
+	
+	
 }

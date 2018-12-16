@@ -5,15 +5,6 @@
 		SELECT cate_s_no, cate_m_no, cate_b_no, cate_s_name
 		FROM proj_library.category_s
 	</sql>
-	<resultMap type="CategoryS" id="selectcateSAll">
-		<result property="mCode.mCode" column="cate_m_no" />
-		<result property="bCode.bCode" column="cate_b_no" />
-		<result property="sCode" column="cate_s_no" />
-		<result property="sName" column="cate_s_name" />
-	</resultMap>
-	<select id="selectCategorySByAll" resultMap="selectcateSAll">
-		<include refid="selectSql" />
-	</select>
 	<sql id="whereCateMNoCateBNoSql">
 		<where>
 			<if test="mCode != null">
@@ -24,11 +15,39 @@
 			</if>
 		</where>
 	</sql>
+	<sql id="whereCateAllCodeSql">
+		<where>
+			<if test="sCode != null">
+				cate_s_no=#{sCode}
+			</if>
+			<if test="mCode.mCode != null">
+				AND cate_m_no=#{mCode.mCode}
+			</if>
+			<if test="bCode.bCode != null">
+				AND cate_b_no=#{bCode.bCode}
+			</if>
+		</where>
+	</sql>
+	<resultMap type="CategoryS" id="selectcateSAll">
+		<result property="mCode.mCode" column="cate_m_no" />
+		<result property="bCode.bCode" column="cate_b_no" />
+		<result property="sCode" column="cate_s_no" />
+		<result property="sName" column="cate_s_name" />
+	</resultMap>
+	<select id="selectCategorySByAll" resultMap="selectcateSAll">
+		<include refid="selectSql" />
+	</select>
+	
 	
 	
 	<select id="selectCategorySByBNoMno" resultMap="selectcateSAll" parameterType="CategoryM">
 		<include refid="selectSql"/>
 		<include refid="whereCateMNoCateBNoSql"/>		
+	</select>
+	
+	<select id="selectCategoryAllCode" resultMap="selectcateSAll" parameterType="CategoryS">
+		<include refid="selectSql"/>
+		<include refid="whereCateAllCodeSql"/>		
 	</select>
 
 </mapper>

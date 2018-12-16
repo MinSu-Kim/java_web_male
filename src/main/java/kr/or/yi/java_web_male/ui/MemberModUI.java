@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 import kr.or.yi.java_web_male.dao.MemberMapper;
 import kr.or.yi.java_web_male.dao.MemberMapperImpl;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.ui.LoginUI;
 
 @SuppressWarnings("serial")
 public class MemberModUI extends JFrame {
@@ -37,7 +38,7 @@ public class MemberModUI extends JFrame {
 	private MemberMapper memberMapper;
 
 	public MemberModUI() {
-		memberMapper = new MemberMapperImpl();
+		memberMapper = MemberMapperImpl.getInstance();
 		initComponents();
 	}
 
@@ -149,37 +150,35 @@ public class MemberModUI extends JFrame {
 		JButton btnCancel = new JButton("취소");
 		contentPane.add(btnCancel);
 
-		tfMemberNo.setEditable(false);
-		tfJumin.setEditable(false);
-		tfMemberNo.setEditable(false);
-		tfMemberNo.setEditable(false);
+		getMemberInfo(LoginUI.getLogin());
 
 	}
 
 	public void getMemberInfo(Member member) {
-		this.memberInfo = member;
-		System.out.println(member);
 		tfMemberNo.setText(member.getMemberNo());
 		tfJumin.setText(member.getJumin());
 		tfEmail.setText(member.getEmail());
 		tfPhone.setText(member.getPhone());
 		tfAddress.setText(member.getAddress());
 		tfKorName.setText(member.getKorName());
-		tfEngName.setText(member.getEngName());
+		tfEngName.setText(member.getEngName());tfMemberNo.setEditable(false);
+		tfJumin.setEditable(false);
+		tfMemberNo.setEditable(false);
+		tfMemberNo.setEditable(false);
 	}
 
 	protected void do_btnChange_actionPerformed(ActionEvent arg0) {
 		Member editMember = new Member();
 	
-		editMember.setMemberNo(this.memberInfo.getMemberNo());
-		editMember.setPassword(this.memberInfo.getPassword());
+		editMember.setMemberNo(LoginUI.getLogin().getMemberNo());
+		editMember.setPassword(LoginUI.getLogin().getPassword());
 		editMember.setKorName(tfKorName.getText());
 		editMember.setEngName(tfEngName.getText());
 		editMember.setPhone(tfPhone.getText());
 		editMember.setEmail(tfEmail.getText());
 		editMember.setAddress(tfAddress.getText());
-		editMember.setUniqueness(this.memberInfo.getUniqueness());
-		editMember.setJumin(this.memberInfo.getJumin());
+		editMember.setUniqueness(LoginUI.getLogin().getUniqueness());
+		editMember.setJumin(LoginUI.getLogin().getJumin());
 		
 		System.out.println(editMember);
 		
