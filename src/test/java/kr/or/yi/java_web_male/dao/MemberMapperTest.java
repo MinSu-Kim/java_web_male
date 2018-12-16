@@ -72,10 +72,10 @@ public class MemberMapperTest {
 		Assert.assertSame(1, res);
 	}
 
-	/*@Test
+	@Test
 	public void test06DeleteMember() {
 		int deleteMember = dao.deleteMember("1");
 		Assert.assertSame(1, deleteMember);
 
-	}*/
+	}
 }// end of testClass

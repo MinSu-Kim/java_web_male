@@ -20,4 +20,6 @@ public interface MemberMapper {
 	Member selectMemberByNo(String member);
 	
 	List<Member> selectMemberByMemberNo();
+	
+	
 }
