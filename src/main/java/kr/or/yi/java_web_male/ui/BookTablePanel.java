@@ -121,6 +121,19 @@ public class BookTablePanel extends JPanel {
 		book.setBookCode(bookCode);
 		return book;
 	}
+	
+	public Book selectedItem() {
+		int selectedIndex = table.getSelectedRow();
+		if (selectedIndex == -1) {
+			JOptionPane.showMessageDialog(null, "해당 항목을 선택하세요");
+			return null;
+		}
+		return lists.get(selectedIndex);
+	}
+	
+	public JTable getTable() {
+		return table;
 
+	}
 	
 }

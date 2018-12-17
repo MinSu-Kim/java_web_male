@@ -3,7 +3,8 @@
 <mapper namespace="kr.or.yi.java_web_male.dao.BookRentalInfoMapper">
 
 	<sql id="selectSql">
-		select * from book_rental_info
+		SELECT rental_no, rental_date, return_date, return_schedule, member_no, book_code
+		FROM proj_library.book_rental_info
 	</sql>
 
 	<sql id="whereSql">
@@ -13,14 +14,7 @@
 			</if>
 		</where>
 	</sql>
-	<!-- <resultMap type="BookRentalInfo" id="BookRentalInfoResult">
-		<id property="rentalNo" column="retal_no"></id>
-		<result property="rentalDate" column="rental_date"/>
-		<result property="returnDate" column="return_date"/>
-		<result property="returnSchedule" column="return_schedule"/>
-	</resultMap> -->
-	
-	
+		
 	
 	
 	<resultMap type="BookRentalInfo" id="BookRentalInfoResult">
@@ -33,7 +27,7 @@
 	</resultMap>
 	
 	
-	<select id="selectBookRentalInfoByAll" parameterType="BookRentalInfo" resultType="BookRentalInfo">
+	<select id="selectBookRentalInfoByAll" parameterType="BookRentalInfo" resultMap="BookRentalInfoResult">
 		<include refid="selectSql" />
 	</select>
 	

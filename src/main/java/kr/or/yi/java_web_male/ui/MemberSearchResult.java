@@ -76,6 +76,11 @@ public class MemberSearchResult extends JPanel {
 		mem.setMemberNo(memberNo);
 		return mem;
 	}
+	
+	public JTable getTable() {
+		return table;
+
+	}
 
 
 }
