@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -27,6 +28,7 @@ public class LoginUI extends JFrame {
 	private JTextField tfPassword;
 	private JLabel lblMemberNo;
 	private JLabel lblPassword;
+
 	// ui 몽음
 	private AdminMainUI adminMainUI;
 	private MemberInfoUI memberInfoUI;
@@ -72,7 +74,7 @@ public class LoginUI extends JFrame {
 	private void initComponent() {
 		setTitle("로그인");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 150);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -92,7 +94,7 @@ public class LoginUI extends JFrame {
 		lblPassword = new JLabel("비밀번호");
 		panel.add(lblPassword);
 
-		tfPassword = new JTextField();
+		tfPassword = new JPasswordField();
 		panel.add(tfPassword);
 		tfPassword.setColumns(10);
 
@@ -119,7 +121,7 @@ public class LoginUI extends JFrame {
 				if (member.getPassword().equals(pw)) {
 					loginMember = member;
 					System.out.println("저장된 로그인 정보" + getLogin());
-					if (member.getAdmin() == 1) {
+					if (member.isAdmin() == true) {
 						if (adminMainUI == null) {
 							adminMainUI = new AdminMainUI();
 						}
