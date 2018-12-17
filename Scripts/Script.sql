@@ -153,3 +153,16 @@ INSERT INTO proj_library.`member`
 (member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness)
 VALUES(1234, '1111', '김재영', 'kjy', '01099865500', '950316-1111111', 'rlawpdud301@naver.com', '우리집', null, false, null);
 
+
+create view bestsaler as select left(i.book_code,8) as bc, b.title, b.author ,p.pub_name
+FROM book_rental_info i join book b on i.book_code=b.book_code join publisher p on b.pub_no=p.pub_no;
+show create view bestsaler;
+drop view bestsaler;
+
+select *, count(bc) from bestsaler group by bc  ;
+
+SELECT rental_no, rental_date, return_date, return_schedule, member_no, book_code
+FROM proj_library.book_rental_info
+where book_code regexp '^[0][0-9]+$' ;
+
+
