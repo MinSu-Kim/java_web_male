@@ -41,8 +41,23 @@ public class Member {
 		this.bookRentallInfo = bookRentallInfo;
 		this.book = book;
 	}
+	
+	
 
-
+	public Member(String memberNo, String password, String korName, String engName, String phone, String jumin,
+			String email, String address, boolean admin, String uniqueness) {
+		super();
+		this.memberNo = memberNo;
+		this.password = password;
+		this.korName = korName;
+		this.engName = engName;
+		this.phone = phone;
+		this.jumin = jumin;
+		this.email = email;
+		this.address = address;
+		this.admin = admin;
+		this.uniqueness = uniqueness;
+	}
 
 	public String getMemberNo() {
 		return memberNo;

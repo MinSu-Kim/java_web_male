@@ -28,6 +28,11 @@ public class MemberUIService {
 	public Member selectMemberByNo(Member member){
 		return dao.selectMemberByNo(member);
 	}
-		
+	public Member selectMemberByNo2(String string){
+		return dao.selectMemberByNo(string);
+	}
+	public int updateMember(Member member) {
+		return dao.updateMember(member);
+	}
 
 }

@@ -14,12 +14,16 @@ import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Component;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MemberSearchDetail extends JFrame {
 
@@ -38,6 +42,7 @@ public class MemberSearchDetail extends JFrame {
 	private List<Member> listMember;
 	private MemberUIService service;
 	private String imgPath;
+	private MemberSearchDetail DetailUI;
 	/**
 	 * Launch the application.
 	 */
@@ -59,6 +64,7 @@ public class MemberSearchDetail extends JFrame {
 	 */
 	public MemberSearchDetail() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
+		service = new MemberUIService();
 		setTitle("회원상세정보");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 473);
@@ -137,7 +143,6 @@ public class MemberSearchDetail extends JFrame {
 		panel_8.add(lblPhone);
 		
 		textPhone = new JTextField();
-		textPhone.setEditable(false);
 		panel_8.add(textPhone);
 		textPhone.setColumns(10);
 		
@@ -163,7 +168,6 @@ public class MemberSearchDetail extends JFrame {
 		panel_10.add(lblEmail);
 		
 		textEmail = new JTextField();
-		textEmail.setEditable(false);
 		panel_10.add(textEmail);
 		textEmail.setColumns(10);
 		
@@ -176,7 +180,6 @@ public class MemberSearchDetail extends JFrame {
 		panel_11.add(lblAddress);
 		
 		textAddress = new JTextField();
-		textAddress.setEditable(false);
 		panel_11.add(textAddress);
 		textAddress.setColumns(10);
 		
@@ -217,8 +220,25 @@ public class MemberSearchDetail extends JFrame {
 		panel_12.add(labelImg);
 		labelImg.setIcon(new ImageIcon(imgPath + "bback2.jpeg"));
 		
-		JButton UpdateButton = new JButton("수정하기");
-		panel_12.add(UpdateButton, BorderLayout.SOUTH);
+		JPanel panel_1 = new JPanel();
+		panel_12.add(panel_1, BorderLayout.SOUTH);
+		
+		JButton btnUpdate = new JButton("수정");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnUpdate_actionPerform(e);
+			
+			}
+		});
+		panel_1.add(btnUpdate);
+		
+		JButton btnCancel = new JButton("취소");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		panel_1.add(btnCancel);
 	}
 	public void setLists(Member member) {
 		textMemberNo.setText(member.getMemberNo());
@@ -232,6 +252,43 @@ public class MemberSearchDetail extends JFrame {
 		textAdmin.setText(((member.isAdmin())+"").trim());
 		textUni.setText(member.getUniqueness());	
 	}
-
+	/*private Member getList() {
+		String Mno = textMemberNo.getText().trim();
+		String Pass = textPass.getText().trim();
+		String Kor = textKor.getText().trim();
+		String Eng = textEng.getText().trim();
+		String Phone = textPhone.getText().trim();
+		String jumin = textJumin.getText().trim();
+		String Email = textEmail.getText().trim();
+		String Address = textAddress.getText().trim();
+		boolean Admin = textAdmin.getText().trim() != null;
+		String Uni = textUni.getText().trim();
+		return new Member(Mno,Pass,Kor,Eng,Phone,jumin,Email,Address,Admin,Uni);
+	}*/
+	private void do_btnUpdate_actionPerform(ActionEvent e) {
+		Member editMem = new Member();		
+		
+		editMem.setMemberNo(textMemberNo.getText());
+		editMem.setPassword(textPass.getText());
+		editMem.setKorName(textKor.getText());
+		editMem.setEngName(textEng.getText());
+		editMem.setPhone(textPhone.getText());
+		editMem.setJumin(textJumin.getText());
+		editMem.setEmail(textEmail.getText());
+		editMem.setAddress(textAddress.getText());
+		editMem.setAdmin(textAdmin.getText() != null);
+		editMem.setUniqueness(textUni.getText());
+		
+		service.updateMember(editMem);
+		System.out.println(editMem);
+		Member member = service.selectMemberByNo2(editMem.getMemberNo());
+		
+		if (DetailUI == null) {
+			DetailUI = new MemberSearchDetail();
+			JOptionPane.showMessageDialog(null, "t수정하지자");
+		}
+		DetailUI.setVisible(true);
+		
+	}
 
 }
