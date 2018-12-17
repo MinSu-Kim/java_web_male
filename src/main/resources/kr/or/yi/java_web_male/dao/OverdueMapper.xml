@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.yi.java_web_male.dao.OverdueMapper">
+
+	<sql id="selectSql">
+		select member_no, stop_date, overdue_count, rental_authority from overdue
+	</sql>
+
+	<sql id="whereSql">
+		<where>
+			<if test="memberNo != null">
+				member_no=#{memberNo}
+			</if>
+		</where>
+	</sql>
+	
+	<resultMap type="Overdue" id="OverdueResult">
+		<id property="memberNo" column="member_no" />
+		<result property="stopDate" column="stop_date"/>
+		<result property="overdueCount" column="overdue_count"/>
+		<result property="rentalAuthority" column="rental_authority"/>
+	</resultMap>
+	
+</mapper>
