@@ -153,3 +153,4 @@ INSERT INTO proj_library.`member`
 (member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness)
 VALUES(1234, '1111', '김재영', 'kjy', '01099865500', '950316-1111111', 'rlawpdud301@naver.com', '우리집', null, false, null);
 
+select * from member_rental_info;
