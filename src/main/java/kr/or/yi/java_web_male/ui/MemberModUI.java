@@ -161,7 +161,8 @@ public class MemberModUI extends JFrame {
 		tfPhone.setText(member.getPhone());
 		tfAddress.setText(member.getAddress());
 		tfKorName.setText(member.getKorName());
-		tfEngName.setText(member.getEngName());tfMemberNo.setEditable(false);
+		tfEngName.setText(member.getEngName());
+		tfMemberNo.setEditable(false);
 		tfJumin.setEditable(false);
 		tfMemberNo.setEditable(false);
 		tfMemberNo.setEditable(false);
@@ -169,7 +170,7 @@ public class MemberModUI extends JFrame {
 
 	protected void do_btnChange_actionPerformed(ActionEvent arg0) {
 		Member editMember = new Member();
-	
+
 		editMember.setMemberNo(LoginUI.getLogin().getMemberNo());
 		editMember.setPassword(LoginUI.getLogin().getPassword());
 		editMember.setKorName(tfKorName.getText());
@@ -179,9 +180,9 @@ public class MemberModUI extends JFrame {
 		editMember.setAddress(tfAddress.getText());
 		editMember.setUniqueness(LoginUI.getLogin().getUniqueness());
 		editMember.setJumin(LoginUI.getLogin().getJumin());
-		
+
 		System.out.println(editMember);
-		
+
 		memberMapper.updateMember(editMember);
 
 		Member member = memberMapper.selectMemberByNo(editMember.getMemberNo());
@@ -190,6 +191,7 @@ public class MemberModUI extends JFrame {
 			memberInfoUI = new MemberInfoUI();
 			memberInfoUI.getMemberInfo(member);
 		}
+
 		memberInfoUI.setVisible(true);
 	}
 
