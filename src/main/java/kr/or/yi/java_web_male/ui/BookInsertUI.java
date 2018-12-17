@@ -271,6 +271,16 @@ public class BookInsertUI extends JFrame {
 
 				book.setBookCode(bc);
 				book.setBookNo(i);
+				
+				int result = JOptionPane.showConfirmDialog(null, bc, "확인", JOptionPane.YES_NO_OPTION);
+				if (result == JOptionPane.CLOSED_OPTION) {
+					
+				} else if (result == JOptionPane.YES_OPTION) {
+					bookMapper.insertBook(book);
+				} else {
+					
+				}
+				
 			}
 		});
 		panel_5.add(btnInsert);
