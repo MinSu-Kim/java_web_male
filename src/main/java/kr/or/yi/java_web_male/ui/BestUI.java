@@ -560,9 +560,7 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		String bookCode = "";
 		int sum = 1;
 		Map<String, Object> map = new HashMap<String, Object>();
-
-		List<BookRentalInfo> bookList = bestService.selectBookRentalInfoByAll();
-		JOptionPane.showMessageDialog(null, bookList);
+		List<BookRentalInfo> bookList = bestService.selectBookRentalInfoByAll();		
 		for (BookRentalInfo bookInfo : bookList) {
 			JOptionPane.showMessageDialog(null, bookInfo.getBookCode().getBookCode());
 			bookCode = (bookInfo.getBookCode().getBookCode().substring(0, 9));
