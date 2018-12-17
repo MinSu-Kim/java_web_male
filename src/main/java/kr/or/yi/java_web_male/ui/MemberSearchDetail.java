@@ -16,6 +16,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import java.awt.Component;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
@@ -33,8 +34,10 @@ public class MemberSearchDetail extends JFrame {
 	private JTextField textAddress;
 	private JTextField textAdmin;
 	private JTextField textUni;
+	private JLabel labelImg;
 	private List<Member> listMember;
 	private MemberUIService service;
+	private String imgPath;
 	/**
 	 * Launch the application.
 	 */
@@ -55,9 +58,10 @@ public class MemberSearchDetail extends JFrame {
 	 * Create the frame.
 	 */
 	public MemberSearchDetail() {
+		imgPath = System.getProperty("user.dir") + "\\images\\";
 		setTitle("회원상세정보");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 473);
+		setBounds(100, 100, 650, 473);
 		contentPane = new JPanel();
 		contentPane.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -94,6 +98,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_5.add(lblPass);
 		
 		textPass = new JTextField();
+		textPass.setEditable(false);
 		panel_5.add(textPass);
 		textPass.setColumns(10);
 		
@@ -106,6 +111,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_6.add(lblKor);
 		
 		textKor = new JTextField();
+		textKor.setEditable(false);
 		panel_6.add(textKor);
 		textKor.setColumns(10);
 		
@@ -118,6 +124,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_7.add(lblEng);
 		
 		textEng = new JTextField();
+		textEng.setEditable(false);
 		panel_7.add(textEng);
 		textEng.setColumns(10);
 		
@@ -130,6 +137,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_8.add(lblPhone);
 		
 		textPhone = new JTextField();
+		textPhone.setEditable(false);
 		panel_8.add(textPhone);
 		textPhone.setColumns(10);
 		
@@ -142,6 +150,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_9.add(lblJumin);
 		
 		textJumin = new JTextField();
+		textJumin.setEditable(false);
 		panel_9.add(textJumin);
 		textJumin.setColumns(10);
 		
@@ -154,6 +163,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_10.add(lblEmail);
 		
 		textEmail = new JTextField();
+		textEmail.setEditable(false);
 		panel_10.add(textEmail);
 		textEmail.setColumns(10);
 		
@@ -166,6 +176,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_11.add(lblAddress);
 		
 		textAddress = new JTextField();
+		textAddress.setEditable(false);
 		panel_11.add(textAddress);
 		textAddress.setColumns(10);
 		
@@ -178,6 +189,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_13.add(lblAdmin);
 		
 		textAdmin = new JTextField();
+		textAdmin.setEditable(false);
 		panel_13.add(textAdmin);
 		textAdmin.setColumns(10);
 		
@@ -201,14 +213,14 @@ public class MemberSearchDetail extends JFrame {
 		panel_2.add(panel_12, BorderLayout.CENTER);
 		panel_12.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblImg = new JLabel("");
-		panel_12.add(lblImg);
+		labelImg = new JLabel("");
+		panel_12.add(labelImg);
+		labelImg.setIcon(new ImageIcon(imgPath + "bback2.jpeg"));
 		
 		JButton UpdateButton = new JButton("수정하기");
 		panel_12.add(UpdateButton, BorderLayout.SOUTH);
 	}
-	public void setMemberInfo(Member member, List<Member> lists) {
-		this.listMember = lists;
+	public void setLists(Member member) {
 		textMemberNo.setText(member.getMemberNo());
 		textPass.setText(member.getPassword());
 		textKor.setText(member.getKorName());
@@ -217,7 +229,9 @@ public class MemberSearchDetail extends JFrame {
 		textJumin.setText(member.getJumin());
 		textEmail.setText(member.getEmail());
 		textAddress.setText(member.getAddress());
-//		textAdmin.setText(member.getAdmin());
-		textUni.setText(member.getUniqueness());
+		textAdmin.setText(((member.isAdmin())+"").trim());
+		textUni.setText(member.getUniqueness());	
 	}
+
+
 }

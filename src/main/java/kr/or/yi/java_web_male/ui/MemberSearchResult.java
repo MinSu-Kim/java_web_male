@@ -17,6 +17,7 @@ import kr.or.yi.java_web_male.dto.Member;
 public class MemberSearchResult extends JPanel {
 	private JTable table;
 	private List<Member> list;
+	private Member members;
 	public void setLists(List<Member> list) {
 		this.list = list;
 	}
@@ -76,6 +77,9 @@ public class MemberSearchResult extends JPanel {
 		mem.setMemberNo(memberNo);
 		return mem;
 	}
-
+	public void setLists(Member selectMemberByNo) {
+		this.members = selectMemberByNo;
+		
+	}
 
 }

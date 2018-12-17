@@ -119,7 +119,7 @@ public class LoginUI extends JFrame {
 				if (member.getPassword().equals(pw)) {
 					loginMember = member;
 					System.out.println("저장된 로그인 정보" + getLogin());
-					if (member.getAdmin() == 1) {
+					if (member.isAdmin() == true) {
 						if (adminMainUI == null) {
 							adminMainUI = new AdminMainUI();
 						}

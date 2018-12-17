@@ -15,7 +15,7 @@ public class Member {
 	private String email;
 	private String address;
 	private String photo;
-	private int admin;
+	private boolean admin;
 	private String uniqueness;
 	private BookRentalInfo bookRentallInfo;
 	private Book book;
@@ -24,7 +24,9 @@ public class Member {
 	}
 
 	public Member(String memberNo, String password, String korName, String engName, String phone, String jumin,
-			String email, String address, String photo, int admin, String uniqueness) {
+			String email, String address, String photo, boolean admin, String uniqueness,
+			BookRentalInfo bookRentallInfo, Book book) {
+		super();
 		this.memberNo = memberNo;
 		this.password = password;
 		this.korName = korName;
@@ -36,7 +38,11 @@ public class Member {
 		this.photo = photo;
 		this.admin = admin;
 		this.uniqueness = uniqueness;
+		this.bookRentallInfo = bookRentallInfo;
+		this.book = book;
 	}
+
+
 
 	public String getMemberNo() {
 		return memberNo;
@@ -110,11 +116,13 @@ public class Member {
 		this.photo = photo;
 	}
 
-	public int getAdmin() {
+	
+
+	public boolean isAdmin() {
 		return admin;
 	}
 
-	public void setAdmin(int admin) {
+	public void setAdmin(boolean admin) {
 		this.admin = admin;
 	}
 
