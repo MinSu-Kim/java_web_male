@@ -191,13 +191,10 @@ public class MemberSearchUI extends JFrame {
 		}
 
 		private void do_showMemberDetail(ActionEvent e) {
+				Member mem = Slist.getSelectedMember();
+				memberDetailUI.setLists(service.selectMemberByNo(mem));
 			
-				
-			
-		}
-			
-			
-		
+		}	
 	};
 	public void setBookRentUI(BookRentUI bookRentUI) {
 		this.bookRentUI = bookRentUI;

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.yi.java_web_male.dao.MemberRentalInfoMapper">
+
+	<sql id="selectSql">
+		select member_no, grade, now_total, total from Member_rental_info
+	</sql>
+
+	<sql id="whereSql">
+		<where>
+			<if test="memberNo != null">
+				member_no=#{memberNo}
+			</if>
+		</where>
+	</sql>
+	
+	<resultMap type="MemberRentalInfo" id="MemberRentalInfoResult">
+		<id property="memberNo" column="member_no" />
+		<result property="grade" column="grade"/>
+		<result property="nowTotal" column="now_total"/>
+		<result property="total" column="total"/>
+	</resultMap>
+	
+	<!-- <resultMap id="MemberResult" type="Member">
+		<id property="memberNo" column="member_no" />
+		<result property="password" column="password" />
+		<result property="korName" column="kor_name" />
+		<result property="engName" column="eng_name" />
+		<result property="phone" column="phone" />
+		<result property="jumin" column="jumin" />
+		<result property="email" column="email" />
+		<result property="address" column="address" />
+		<result property="photo" column="photo" />
+		<result property="admin" column="admin" />
+		<result property="uniqueness" column="uniqueness" />
+	</resultMap> -->
+	
+	<select id="selectMemberRentalInfoByAll" parameterType="MemberRentalInfo" resultType="MemberRentalInfo">
+		<include refid="selectSql" />
+	</select>
+		
+	<select id="selectMemberRentalInfoByCode" parameterType="MemberRentalInfo" resultMap="MemberRentalInfoResult">
+		<include refid="selectSql" />
+		<include refid="whereSql" />
+	</select>	
+	
+	<insert id="insertMemberRentalInfo" parameterType="MemberRentalInfo">
+		insert into proj_library.member_rental_info (member_no, grade, now_total, total)
+		values (#{memberNo}, #{grade}, #{nowTotal}, #{total})
+		
+	</insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

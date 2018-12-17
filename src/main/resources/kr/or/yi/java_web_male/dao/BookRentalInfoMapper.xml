@@ -14,7 +14,7 @@
 			</if>
 		</where>
 	</sql>
-		
+
 	
 	
 	<resultMap type="BookRentalInfo" id="BookRentalInfoResult">
