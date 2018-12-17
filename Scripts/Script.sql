@@ -159,7 +159,7 @@ FROM book_rental_info i join book b on i.book_code=b.book_code join publisher p 
 show create view bestsaler;
 drop view bestsaler;
 
-select *, count(bc) from bestsaler group by bc  ;
+select *, count(bc) as ranking from bestsaler group by bc limit 0,10;
 
 SELECT rental_no, rental_date, return_date, return_schedule, member_no, book_code
 FROM proj_library.book_rental_info
