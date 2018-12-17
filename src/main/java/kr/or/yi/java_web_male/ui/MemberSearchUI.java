@@ -22,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 import com.sun.javafx.collections.SetListenerHelper;
 
 import javafx.scene.control.ComboBox;
+import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.service.MemberUIService;
 import java.awt.event.ActionListener;
@@ -85,6 +86,23 @@ public class MemberSearchUI extends JFrame {
 		Searchpanel.add(textField);
 
 		Slist = new MemberSearchResult();
+		Slist.getTable().addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount()==2) {
+					/*JOptionPane.showMessageDialog(null, "2번클릭");*/
+					Member member = Slist.selectedItem();
+					
+						
+						bookRentUI.setMemberNo(member);
+						MemberSearchUI.this.dispose();
+					
+					
+				}
+			}
+			
+		});
 		contentPane.add(Slist, BorderLayout.CENTER);
 		Slist.setPopupMenu(getPopupMenu());
 		JButton button = new JButton("검색");
@@ -141,28 +159,9 @@ public class MemberSearchUI extends JFrame {
 			}
 		});// end of action
 		Searchpanel.add(button);
-		/*
-		 * Slist = new MemberSearchResult(); HashMap<String, String> map = new
-		 * HashMap<String, String>(); map.put("memberNo", "3"); Member member =
-		 * service.searchMemberNo(map); List<Member> list = new ArrayList<>();
-		 * list.add(member); Slist.setLists(list);
-		 * 
-		 * Slist.getTable().addMouseListener(new MouseAdapter() {
-		 * 
-		 * @Override public void mouseClicked(MouseEvent e) { if(e.getClickCount()==2) {
-		 * Member member = Slist.selectedItem(); bookRentUI.setMemberNo(member);
-		 * MemberSearchUI.this.dispose();
-		 * 
-		 * } }
-		 * 
-		 * });
-		 * 
-		 * 
-		 * 
-		 * Slist.setLists(service.selectMemberByAll());
-		 * 
-		 * Slist.loadData(); contentPane.add(Slist);
-		 */
+		
+		
+		
 	}
 
 

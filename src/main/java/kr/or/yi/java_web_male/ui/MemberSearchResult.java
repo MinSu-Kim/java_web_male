@@ -82,4 +82,12 @@ public class MemberSearchResult extends JPanel {
 		
 	}
 
+	
+	public JTable getTable() {
+		return table;
+
+	}
+
+
+
 }

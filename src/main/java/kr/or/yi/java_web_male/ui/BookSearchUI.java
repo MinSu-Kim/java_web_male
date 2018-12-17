@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Map;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import java.util.Vector;
 
@@ -564,6 +567,26 @@ public class BookSearchUI extends JFrame implements ActionListener {
 		panel_9.add(btnlogin);
 
 		tablePanel2 = new BookTablePanel();
+		tablePanel2.getTable().addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(e.getClickCount()==2) {
+					/*JOptionPane.showMessageDialog(null, "2번클릭");*/
+					Book book = tablePanel2.selectedItem();
+					if(book.isRentalPossible() == true) {
+						JOptionPane.showMessageDialog(null, "대여 가능한 책입니다.");
+						
+						bookRentUI.setBookCode(book);
+						BookSearchUI.this.dispose();
+					}else {
+						JOptionPane.showMessageDialog(null, "대여 불가능한 책입니다.");
+					}
+					
+				}
+			}
+			
+		});
 		JPanel panelForTable_1 = new JPanel();
 		panelForTable_1.setLayout(new BorderLayout());
 		panel.add(panelForTable_1);
@@ -734,5 +757,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 			loginUI.setVisible(true);
 		}
 	}
+	
+	
 
 }
