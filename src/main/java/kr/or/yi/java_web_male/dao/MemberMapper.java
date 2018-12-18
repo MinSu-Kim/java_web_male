@@ -32,5 +32,10 @@ public interface MemberMapper {
 	List<Member> searchMemberName(Map<String, String> map);
 	
 	Member searchMemberPhone(Map<String, String>map);
-
+	//대여된 책 확인하기 해쉬맵
+	List<Member> searchMembernoRent(Map<String, String> map);
+	
+	
+	
+	
 }

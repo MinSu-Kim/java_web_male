@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
@@ -16,11 +17,17 @@ import kr.or.yi.java_web_male.service.LibraryUIService;
 
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.Vector;
 
 import javax.swing.JLabel;
@@ -559,21 +566,74 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 	protected void do_btnBook_actionPerformed(ActionEvent e) {
 		String bookCode = "";
 		int sum = 1;
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<BookRentalInfo> bookList = bestService.selectBookRentalInfoByAll();		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> bestMap = new HashMap<String, Integer>();
+		List<BookRentalInfo> bookList = bestService.selectBookRentalInfoByAll();
 		for (BookRentalInfo bookInfo : bookList) {
-			JOptionPane.showMessageDialog(null, bookInfo.getBookCode().getBookCode());
 			bookCode = (bookInfo.getBookCode().getBookCode().substring(0, 9));
 			if (map.containsKey(bookCode)) {
-				int a =  Integer.parseInt((map.get(bookCode)+"").trim());
+				int a = Integer.parseInt((map.get(bookCode) + "").trim());
 				sum = a + 1;
 			} else {
 				sum = 1;
 			}
 			map.put(bookCode, sum);
 		}
-		JOptionPane.showMessageDialog(null, map.size());
+
+		Iterator it = sortByValue(map).iterator();
+		while(it.hasNext()) {
+            String temp = (String) it.next();
+            System.out.println(temp + " = " + map.get(temp));
+        }
+
+		/*
+		 * for(Entry<String, Object> bestMap2 : map.entrySet()) {
+		 * JOptionPane.showMessageDialog(null, bestMap2); for(Entry<String, Object>
+		 * bestMap3 : map.entrySet()) { JOptionPane.showMessageDialog(null, bestMap3);
+		 * if(Integer.parseInt(bestMap2.getValue()+"") <
+		 * Integer.parseInt(bestMap3.getValue()+"")) { int a =
+		 * Integer.parseInt(bestMap2.getValue()+"");
+		 * bestMap.put(bestMap3.getKey(),bestMap3.getValue());
+		 * 
+		 * } } }
+		 */
+		/*
+		 * List<BookRentalInfo> bookList = bestService.selectBookRentalInfoByAll();
+		 * List<String> bookCode = new ArrayList<>(); for (BookRentalInfo bookRentalInfo
+		 * : bookList) {
+		 * bookCode.add((bookRentalInfo.getBookCode().getBookCode()).substring(0, 9));
+		 * if(bookCode.contains((bookRentalInfo.getBookCode().getBookCode()).substring(
+		 * 0, 9))) {
+		 * 
+		 * }else {
+		 * bookCode.add((bookRentalInfo.getBookCode().getBookCode()).substring(0, 9)); }
+		 * } List<Book> bCode = new ArrayList<>(); Book b = new Book();
+		 * JOptionPane.showMessageDialog(null, bookCode); for(String booCode : bookCode)
+		 * { b.setBookCode(booCode); bCode.add(b); }
+		 * bestService.selectBookRentalInfoByBookCode(book);
+		 */
+
 	}
+
+	public static List sortByValue(final Map map) {
+
+        List<String> list = new ArrayList();
+        list.addAll(map.keySet());
+        Collections.sort(list,new Comparator() {
+
+            public int compare(Object o1,Object o2) {
+                Object v1 = map.get(o1);
+                Object v2 = map.get(o2);
+                return ((Comparable) v2).compareTo(v1);
+            }           
+        });
+        //Collections.reverse(list); // 주석시 오름차순
+        return list;
+
+
+    }
+
+
 
 	protected void do_btnmember_actionPerformed(ActionEvent e) {
 

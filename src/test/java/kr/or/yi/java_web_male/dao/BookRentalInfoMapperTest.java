@@ -51,7 +51,7 @@ public class BookRentalInfoMapperTest extends AbstractTest {
 		Book bo = new Book();
 		bo.setBookCode("00001");
 		
-		BookRentalInfo bookRentalInfo1 = new BookRentalInfo(2, new Date(), null, new Date(), me, bo);
+		BookRentalInfo bookRentalInfo1 = new BookRentalInfo(4, new Date(), null, new Date(), me, bo);
 		int res = dao.insertBookRentalInfo(bookRentalInfo1);
 		Assert.assertEquals(1, res);
 	}

@@ -21,17 +21,17 @@ public class MemberTypeHandler extends BaseTypeHandler<Member>{
 
 	@Override
 	public Member getNullableResult(ResultSet rs, String columnName) throws SQLException {
-		return new Member(rs.getString(columnName), columnName, columnName, columnName, columnName, columnName, columnName, columnName, columnName, 0, columnName);
+		return null;
 	}
 
 	@Override
 	public Member getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-		return new Member(rs.getString(columnIndex), null, null, null, null, null, null, null, null, columnIndex, null);
+		return null;
 	}
 
 	@Override
 	public Member getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-		return new Member(cs.getString(columnIndex), null, null, null, null, null, null, null, null, columnIndex, null);
+		return null;
 	}
 
 }

@@ -30,7 +30,7 @@ public class MemberMapperTest {
 		member.setEmail("super@naver.com");
 		member.setAddress("깊은산속 옹달샘");
 		member.setPhoto("박예븜");
-		member.setAdmin(1);
+		member.setAdmin(true);
 		member.setUniqueness("아 한번에 안되겠지");
 		System.out.println(member);
 	/*	int res = dao.insertMember(member);
@@ -72,7 +72,7 @@ public class MemberMapperTest {
 		member.setEmail("supterdongte@naver.com");
 		member.setAddress("이건 비밀입니닷");
 		member.setPhoto("김예쁨");
-		member.setAdmin(1);
+		member.setAdmin(true);
 		member.setUniqueness("내가 고자라닛");
 		int res = dao.updateMember(member);
 		Assert.assertSame(1, res);
@@ -104,6 +104,13 @@ public class MemberMapperTest {
 		Map<String, String> map = new HashMap<>();
 		map.put("phone", "010-4354-2435");
 		Member list = dao.searchMemberPhone(map);
+		Assert.assertNotNull(list);
+	}
+	@Test
+	public void test10searchMembernoRent() {
+		Map<String, String> map = new HashMap<>();
+		map.put("memberNo", "2");
+		List<Member> list = dao.searchMembernoRent(map);
 		Assert.assertNotNull(list);
 	}
 }// end of testClass

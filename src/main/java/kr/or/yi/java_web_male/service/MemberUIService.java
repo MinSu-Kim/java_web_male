@@ -1,5 +1,6 @@
 package kr.or.yi.java_web_male.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,17 @@ public class MemberUIService {
 	public Member selectMemberByNo(Member member){
 		return dao.selectMemberByNo(member);
 	}
-		
+	public Member selectMemberByNo2(String string){
+		return dao.selectMemberByNo(string);
+	}
+	public int updateMember(Member member) {
+		return dao.updateMember(member);
+	}
+	public List<Member>  searchMembernoRent(Map<String, String> map) {
+		return dao.searchMembernoRent(map);
+	}
+
+
+
 
 }

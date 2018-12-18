@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import javafx.scene.effect.Light.Distant;
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.service.MemberUIService;
 
@@ -14,11 +15,16 @@ import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Component;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MemberSearchDetail extends JFrame {
 
@@ -33,8 +39,11 @@ public class MemberSearchDetail extends JFrame {
 	private JTextField textAddress;
 	private JTextField textAdmin;
 	private JTextField textUni;
+	private JLabel labelImg;
 	private List<Member> listMember;
 	private MemberUIService service;
+	private String imgPath;
+	private MemberSearchDetail memberSearchDetail;
 	/**
 	 * Launch the application.
 	 */
@@ -55,9 +64,11 @@ public class MemberSearchDetail extends JFrame {
 	 * Create the frame.
 	 */
 	public MemberSearchDetail() {
+		imgPath = System.getProperty("user.dir") + "\\images\\";
+		service = new MemberUIService();
 		setTitle("회원상세정보");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 473);
+		setBounds(100, 100, 650, 473);
 		contentPane = new JPanel();
 		contentPane.setAlignmentX(Component.RIGHT_ALIGNMENT);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -94,6 +105,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_5.add(lblPass);
 		
 		textPass = new JTextField();
+		textPass.setEditable(false);
 		panel_5.add(textPass);
 		textPass.setColumns(10);
 		
@@ -106,6 +118,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_6.add(lblKor);
 		
 		textKor = new JTextField();
+		textKor.setEditable(false);
 		panel_6.add(textKor);
 		textKor.setColumns(10);
 		
@@ -118,6 +131,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_7.add(lblEng);
 		
 		textEng = new JTextField();
+		textEng.setEditable(false);
 		panel_7.add(textEng);
 		textEng.setColumns(10);
 		
@@ -142,6 +156,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_9.add(lblJumin);
 		
 		textJumin = new JTextField();
+		textJumin.setEditable(false);
 		panel_9.add(textJumin);
 		textJumin.setColumns(10);
 		
@@ -178,6 +193,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_13.add(lblAdmin);
 		
 		textAdmin = new JTextField();
+		textAdmin.setEditable(false);
 		panel_13.add(textAdmin);
 		textAdmin.setColumns(10);
 		
@@ -201,14 +217,31 @@ public class MemberSearchDetail extends JFrame {
 		panel_2.add(panel_12, BorderLayout.CENTER);
 		panel_12.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblImg = new JLabel("");
-		panel_12.add(lblImg);
+		labelImg = new JLabel("");
+		panel_12.add(labelImg);
+		labelImg.setIcon(new ImageIcon(imgPath + "bbak3.jpg"));
 		
-		JButton UpdateButton = new JButton("수정하기");
-		panel_12.add(UpdateButton, BorderLayout.SOUTH);
+		JPanel panel_1 = new JPanel();
+		panel_12.add(panel_1, BorderLayout.SOUTH);
+		
+		JButton btnUpdate = new JButton("수정");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				do_btnUpdate_actionPerform(e);
+			
+			}
+		});
+		panel_1.add(btnUpdate);
+		
+		JButton btnCancel = new JButton("취소");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		panel_1.add(btnCancel);
 	}
-	public void setMemberInfo(Member member, List<Member> lists) {
-		this.listMember = lists;
+	public void setLists(Member member) {
 		textMemberNo.setText(member.getMemberNo());
 		textPass.setText(member.getPassword());
 		textKor.setText(member.getKorName());
@@ -217,7 +250,27 @@ public class MemberSearchDetail extends JFrame {
 		textJumin.setText(member.getJumin());
 		textEmail.setText(member.getEmail());
 		textAddress.setText(member.getAddress());
-//		textAdmin.setText(member.getAdmin());
-		textUni.setText(member.getUniqueness());
+		textAdmin.setText(((member.isAdmin())+"").trim());
+		textUni.setText(member.getUniqueness());	
 	}
+	private Member getList() {
+		String Mno = textMemberNo.getText().trim();
+		String Pass = textPass.getText().trim();
+		String Kor = textKor.getText().trim();
+		String Eng = textEng.getText().trim();
+		String Phone = textPhone.getText().trim();
+		String jumin = textJumin.getText().trim();
+		String Email = textEmail.getText().trim();
+		String Address = textAddress.getText().trim();
+		boolean Admin = textAdmin.getText().trim() != null;
+		String Uni = textUni.getText().trim();
+		return new Member(Mno,Pass,Kor,Eng,Phone,jumin,Email,Address,Admin,Uni);
+	}
+	private void do_btnUpdate_actionPerform(ActionEvent e) {
+		Member editMem = getList();			
+		service.updateMember(editMem);
+		System.out.println(editMem);
+		JOptionPane.showMessageDialog(null, "수정되었습니다.");
+	}
+
 }
