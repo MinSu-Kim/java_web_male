@@ -50,11 +50,7 @@ ALTER TABLE proj_library.book_rental_info
 	MODIFY COLUMN rental_no INT(11) NOT NULL AUTO_INCREMENT COMMENT '대여번호';
 
 ALTER TABLE proj_library.book_rental_info
-<<<<<<< HEAD
 	AUTO_INCREMENT = 1;
-=======
-	AUTO_INCREMENT = 4;
->>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
 
 -- 대분류
 CREATE TABLE proj_library.category_b (
