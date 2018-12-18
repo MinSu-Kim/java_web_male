@@ -22,26 +22,36 @@ begin
 	where kor_name= korname;
 end $$
 delimiter ;
-
+------ search_membernoRent ------
 delimiter $$
 CREATE PROCEDURE `proj_library`.`search_membernoRent`(in memberno char(50))
 begin
-	select kor_name, m.member_no, title, rental_date, return_date, return_schedule
-from member m join book_rental_info r on m.member_no = r.member_no
+	select kor_name, member_no, title, rental_date, return_date, return_schedule
+	from member m join book_rental_info r on m.member_no = r.member_no
 	join book b on b.book_code =  r.book_code
 	where m.member_no= memberno;
 END	
 delimiter ;
-
+--------- search_phone ------------
 delimiter $$
 CREATE PROCEDURE `proj_library`.`search_phone`(in phonenum char(30))
 begin
-	select kor_name, m.member_no, title, rental_date, return_date, return_schedule
-	from member m join book_rental_info r on m.member_no = r.member_no
-	join book b on b.book_code =  r.book_code
+	select kor_name, member_no, phone, jumin
+	from member
 	where phone= phonenum;
 END
 delimiter ;
+------- search_memberno--------
+DELIMITER $$
+$$
+CREATE DEFINER=`user_library`@`localhost` PROCEDURE `proj_library`.`search_memberno`(in memberno char(50))
+begin
+	select kor_name, member_no, jumin, phone
+	from `member`
+	where member_no= memberno;
+END$$
+DELIMITER ;
+
 SELECT *
 from book_rental_info;
 
@@ -117,6 +127,16 @@ fields TERMINATED by '|'
 IGNORE 1 lines
 (@zipcode,@sido,@d,@sigungu,@d,@eupmyeon,@d,@d,@doro,@d,@d,@building1,@building2,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d)
 set zipcode=@zipcode, sido=@sido, sigungu=@sigungu, eupmyeon=@eupmyeon, doro=@doro, building1=@building1, building2=@building2
+
+/*post 서동준꺼*/
+LOAD data LOCAL INFILE 'D:/workspace-newproject/java_web_male/DataFiles/대구광역시.txt' INTO table post
+character set 'euckr'
+fields TERMINATED by '|'
+IGNORE 1 lines
+(@zipcode,@sido,@d,@sigungu,@d,@eupmyeon,@d,@d,@doro,@d,@d,@building1,@building2,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d)
+set zipcode=@zipcode, sido=@sido, sigungu=@sigungu, eupmyeon=@eupmyeon, doro=@doro, building1=@building1, building2=@building2
+
+
 
 CREATE INDEX idx_post_sido On post(sido);
 CREATE INDEX idx_post_doro ON post(doro);

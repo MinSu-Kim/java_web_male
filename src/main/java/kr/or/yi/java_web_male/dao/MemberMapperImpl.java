@@ -104,5 +104,16 @@ public class MemberMapperImpl implements MemberMapper {
 			return sqlSession.selectOne(namespace + ".searchMemberPhone", map);
 		}
 	}
-
+/*	@Override
+	public List<Member> searchMembernoRent(Map<String, String> map) {
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();){
+			return sqlSession.selectList(namespace + ".searchMembernoRent", map);
+		}
+	}*/
+	@Override
+	public List<Member> searchMembernoRent(Map<String, String> map) {
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();){
+			return sqlSession.selectList(namespace + ".searchMembernoRent", map);
+		}
+	}
 }
