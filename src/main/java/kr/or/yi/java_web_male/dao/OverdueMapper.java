@@ -8,6 +8,7 @@ public interface OverdueMapper {
 	List<Overdue> selectOverdueByAll();
 
 	Overdue selectOverdueByCode(Overdue overdue);
-
+	Overdue selectOverdueByMemberNo(Overdue overdue);
+	
 	int insertOverdue(Overdue overdue);
 }

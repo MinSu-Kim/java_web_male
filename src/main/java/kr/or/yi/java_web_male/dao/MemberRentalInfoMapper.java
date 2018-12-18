@@ -10,6 +10,6 @@ public interface MemberRentalInfoMapper {
 	List<MemberRentalInfo> selectMemberRentalInfoByAll();
 
 	MemberRentalInfo selectMemberRentalInfoByCode(MemberRentalInfo memberRentalInfo);
-
+	
 	int insertMemberRentalInfo(MemberRentalInfo memberRentalInfo);
 }

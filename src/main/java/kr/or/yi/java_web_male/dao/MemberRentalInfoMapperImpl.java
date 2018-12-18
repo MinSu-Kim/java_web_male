@@ -30,7 +30,8 @@ public class MemberRentalInfoMapperImpl implements MemberRentalInfoMapper {
 			return sqlSession.selectOne(namespace + ".selectMemberRentalInfoByCode", memberRentalInfo);
 		}
 	}
-
+	
+	
 	@Override
 	public int insertMemberRentalInfo(MemberRentalInfo memberRentalInfo) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
@@ -39,5 +40,6 @@ public class MemberRentalInfoMapperImpl implements MemberRentalInfoMapper {
 			return res;
 		}
 	}
+	
 
 }

@@ -22,8 +22,11 @@ import javax.swing.border.EmptyBorder;
 import com.sun.javafx.collections.SetListenerHelper;
 
 import javafx.scene.control.ComboBox;
+import kr.or.yi.java_web_male.dao.OverdueMapper;
+import kr.or.yi.java_web_male.dao.OverdueMapperImpl;
 import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.dto.Overdue;
 import kr.or.yi.java_web_male.service.MemberUIService;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -40,6 +43,8 @@ public class MemberSearchUI extends JFrame {
 	private JComboBox<String> comboBox;
 	private BookRentUI bookRentUI;
 	private MemberSearchDetail memberDetailUI;
+	private Overdue overdue;
+	private OverdueMapper overdueMapper;
 
 	/**
 	 * Launch the application.
@@ -62,6 +67,7 @@ public class MemberSearchUI extends JFrame {
 	 */
 
 	public MemberSearchUI() {
+		overdueMapper = OverdueMapperImpl.getInstance();
 		service = new MemberUIService();
 		memberDetailUI = new MemberSearchDetail();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,10 +99,20 @@ public class MemberSearchUI extends JFrame {
 				if(e.getClickCount()==2) {
 					/*JOptionPane.showMessageDialog(null, "2번클릭");*/
 					Member member = Slist.selectedItem();
-					
-						
+					/*Overdue의 memberNo(String형태)의 값이 member(Member형태)인 rentalAuthority의 값이 false면 실행 안되도록 설정*/
+					String mNo = String.valueOf(member);
+					Overdue overdue = new Overdue();
+					overdue.setMemberNo(mNo);
+					Overdue overdue1 = overdueMapper.selectOverdueByMemberNo(overdue);
+					if(overdue1.isRentalAuthority() == true) {
+						JOptionPane.showMessageDialog(null, "대여 가능한 회원입니다.");
 						bookRentUI.setMemberNo(member);
 						MemberSearchUI.this.dispose();
+					}else{
+						JOptionPane.showMessageDialog(null, "대여 가능한 회원입니다.");
+					}
+						
+						
 					
 					
 				}

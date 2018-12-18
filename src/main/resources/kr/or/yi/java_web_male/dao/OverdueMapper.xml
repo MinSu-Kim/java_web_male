@@ -21,4 +21,42 @@
 		<result property="rentalAuthority" column="rental_authority"/>
 	</resultMap>
 	
+	<resultMap id="MemberResult" type="Member">
+		<id property="memberNo" column="member_no" />
+		<result property="password" column="password" />
+		<result property="korName" column="kor_name" />
+		<result property="engName" column="eng_name" />
+		<result property="phone" column="phone" />
+		<result property="jumin" column="jumin" />
+		<result property="email" column="email" />
+		<result property="address" column="address" />
+		<result property="photo" column="photo" />
+		<result property="admin" column="admin" />
+		<result property="uniqueness" column="uniqueness" />
+	</resultMap>
+	
+	<resultMap type="Overdue" id="OverdueResult1">
+		<id property="memberNo" column="member_no" />
+		<result property="rentalAuthority" column="rental_authority"/>
+	</resultMap>
+	
+	<select id="selectOverdueByAll" parameterType="Overdue" resultType="Overdue">
+		<include refid="selectSql" />
+	</select>
+	
+	<select id="selectOverdueByCode" parameterType="Overdue" resultMap="OverdueResult">
+		<include refid="selectSql" />
+		<include refid="whereSql" />
+	</select>
+	
+	<select id="selectOverdueByMemberNo" parameterType="Overdue" resultType="Overdue">
+		select o.member_no, o.rental_authority
+		from member m join overdue o on m.member_no = o.member_no
+		where m.member_no=#{memberNo};
+	</select>
+	
+	<insert id="insertOverdue" parameterType="Overdue">
+		insert into proj_library.overdue (member_no, stop_date, overdue_count, rental_authority)
+		values (#{memberNo}, #{stopDate}, #{overdueCount}, #{rentalAuthority})
+	</insert>
 </mapper>

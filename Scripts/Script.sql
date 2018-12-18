@@ -154,3 +154,23 @@ INSERT INTO proj_library.`member`
 VALUES(1234, '1111', '김재영', 'kjy', '01099865500', '950316-1111111', 'rlawpdud301@naver.com', '우리집', null, false, null);
 
 select * from member_rental_info;
+
+delete 
+from member_rental_info
+where member_no = '123';
+
+select * from overdue;
+
+delete 
+from overdue
+where member_no = '123';
+
+delete 
+from member
+where member_no ='123';
+
+
+select o.member_no, o.rental_authority
+from member m join overdue o on m.member_no = o.member_no
+where o.member_no='123';
+
