@@ -154,12 +154,15 @@ INSERT INTO proj_library.`member`
 VALUES(1234, '1111', '김재영', 'kjy', '01099865500', '950316-1111111', 'rlawpdud301@naver.com', '우리집', null, false, null);
 
 
-create view bestsaler as select left(i.book_code,8) as bc, b.title, b.author ,p.pub_name
+create view bestsaler as select left(i.book_code,8) as bc, b.title, b.author ,p.pub_name,i.rental_date,b.cate_b_no,b.cate_m_no,b.cate_s_no
 FROM book_rental_info i join book b on i.book_code=b.book_code join publisher p on b.pub_no=p.pub_no;
 show create view bestsaler;
 drop view bestsaler;
 
-select *, count(bc) as ranking from bestsaler group by bc limit 0,10;
+select *, count(bc) as ranking 
+from bestsaler 
+where rental_date REGEXP'2018-1'
+group by bc limit 0,10;
 
 SELECT rental_no, rental_date, return_date, return_schedule, member_no, book_code
 FROM proj_library.book_rental_info
