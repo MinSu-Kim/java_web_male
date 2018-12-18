@@ -66,9 +66,16 @@
 			<if test="bookCode != null">
 				book_code =#{bookCode}
 			</if>
+			<if test="memberNo != null">
+				member_no =#{memberNo}
+			</if>
 		</where>
 	</sql>
 	<select id="selectBookRentalInfoByBookCode" parameterType="Book" resultMap="selectBookRentalInfoAll">
+		<include refid="selectSqlkjy"/>
+		<include refid="whereBookCodeSql"/>
+	</select>
+	<select id="selectBookRentalInfoByMemberNo" parameterType="Member" resultMap="selectBookRentalInfoAll">
 		<include refid="selectSqlkjy"/>
 		<include refid="whereBookCodeSql"/>
 	</select>
