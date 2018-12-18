@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import javafx.scene.effect.Light.Distant;
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.service.MemberUIService;
 
@@ -42,7 +43,7 @@ public class MemberSearchDetail extends JFrame {
 	private List<Member> listMember;
 	private MemberUIService service;
 	private String imgPath;
-	private MemberSearchDetail DetailUI;
+	private MemberSearchDetail memberSearchDetail;
 	/**
 	 * Launch the application.
 	 */
@@ -218,7 +219,7 @@ public class MemberSearchDetail extends JFrame {
 		
 		labelImg = new JLabel("");
 		panel_12.add(labelImg);
-		labelImg.setIcon(new ImageIcon(imgPath + "bback2.jpeg"));
+		labelImg.setIcon(new ImageIcon(imgPath + "bbak3.jpg"));
 		
 		JPanel panel_1 = new JPanel();
 		panel_12.add(panel_1, BorderLayout.SOUTH);
@@ -235,7 +236,7 @@ public class MemberSearchDetail extends JFrame {
 		JButton btnCancel = new JButton("취소");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
 			}
 		});
 		panel_1.add(btnCancel);
@@ -252,7 +253,7 @@ public class MemberSearchDetail extends JFrame {
 		textAdmin.setText(((member.isAdmin())+"").trim());
 		textUni.setText(member.getUniqueness());	
 	}
-	/*private Member getList() {
+	private Member getList() {
 		String Mno = textMemberNo.getText().trim();
 		String Pass = textPass.getText().trim();
 		String Kor = textKor.getText().trim();
@@ -264,31 +265,12 @@ public class MemberSearchDetail extends JFrame {
 		boolean Admin = textAdmin.getText().trim() != null;
 		String Uni = textUni.getText().trim();
 		return new Member(Mno,Pass,Kor,Eng,Phone,jumin,Email,Address,Admin,Uni);
-	}*/
+	}
 	private void do_btnUpdate_actionPerform(ActionEvent e) {
-		Member editMem = new Member();		
-		
-		editMem.setMemberNo(textMemberNo.getText());
-		editMem.setPassword(textPass.getText());
-		editMem.setKorName(textKor.getText());
-		editMem.setEngName(textEng.getText());
-		editMem.setPhone(textPhone.getText());
-		editMem.setJumin(textJumin.getText());
-		editMem.setEmail(textEmail.getText());
-		editMem.setAddress(textAddress.getText());
-		editMem.setAdmin(textAdmin.getText() != null);
-		editMem.setUniqueness(textUni.getText());
-		
+		Member editMem = getList();			
 		service.updateMember(editMem);
 		System.out.println(editMem);
-		Member member = service.selectMemberByNo2(editMem.getMemberNo());
-		
-		if (DetailUI == null) {
-			DetailUI = new MemberSearchDetail();
-			JOptionPane.showMessageDialog(null, "t수정하지자");
-		}
-		DetailUI.setVisible(true);
-		
+		JOptionPane.showMessageDialog(null, "수정되었습니다.");
 	}
 
 }
