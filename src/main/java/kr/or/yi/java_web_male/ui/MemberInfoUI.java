@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,9 +15,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.yi.java_web_male.dao.BookRentalInfoMapper;
+import kr.or.yi.java_web_male.dao.BookRentalInfoMapperImpl;
+import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.ui.LoginUI;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 @SuppressWarnings("serial")
 public class MemberInfoUI extends JFrame implements ActionListener {
@@ -28,15 +36,18 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	private BookSearchUI bookSearchUI;
 	private MemberModUI memberModUI;
-	private MemberRentalList memberRentalList;
 	private JButton btnMod;
 	private JButton btnSearch;
 	private JButton btnDetail;
 	private JTextField tfEngName;
 	private JTextField tfEmail;
 	private String imgPath;
+	private JTable table;
+	private List<BookRentalInfo> lists;
+	private BookRentalInfoMapper bookRentalInfoMapper;
 
 	public MemberInfoUI() {
+		bookRentalInfoMapper = BookRentalInfoMapperImpl.getInstance();
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 		initComponent();
 
@@ -133,6 +144,10 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		JScrollPane scrollPane = new JScrollPane();
 		pRentList.add(scrollPane, BorderLayout.CENTER);
 
+		table = new JTable();
+		loadDatas();
+		scrollPane.setViewportView(table);
+
 		JPanel pButton = new JPanel();
 		contentPane.add(pButton, BorderLayout.SOUTH);
 		pButton.setLayout(new GridLayout(0, 3, 10, 10));
@@ -150,6 +165,34 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pButton.add(btnSearch);
 
 		getMemberInfo(LoginUI.getLogin());
+		Member member = LoginUI.getLogin();
+		System.out.println("테스트중 : " + member);
+		System.out.println(lists);
+		List<BookRentalInfo> bookRentalInfo = bookRentalInfoMapper.selectBookRentalInfoByAll();
+		System.out.println("확인 : " + bookRentalInfo);
+		System.out.println(bookRentalInfo.get(0).getMemberNo());
+		
+	}
+
+	private void loadDatas() {
+		table.setModel(new DefaultTableModel(getDatas(), getColumnNames()));
+	}
+
+	private Object[][] getDatas() {
+		/*Object[][] datas = new Object[lists.size()][];
+		for (int i = 0; i < lists.size(); i++) {
+			datas[i] = getMemberRentalInfo(lists.get(i));
+		}
+		return datas;*/
+		return null;
+	}
+
+	private Object[] getMemberRentalInfo(BookRentalInfo bookRentalInfo) {
+		return null;
+	}
+
+	private String[] getColumnNames() {
+		return new String[] { "도서코드", "도서명", "출판사", "저자", "대여일자", "반납일자" };
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -182,10 +225,6 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	// 상세정보
 	protected void do_btnDetail_actionPerformed(ActionEvent arg0) {
-		if (memberRentalList == null) {
-			memberRentalList = new MemberRentalList();
-		}
-		memberRentalList.setVisible(true);
 	}
 
 	// 로그인 객체에서 정보 가져오기

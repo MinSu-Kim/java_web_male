@@ -20,7 +20,6 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	private MemberSearchUI memberSearchUI;
 
 	public AdminMainUI() {
-
 		initComponents();
 	}
 

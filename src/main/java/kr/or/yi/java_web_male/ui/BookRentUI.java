@@ -7,7 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.yi.java_web_male.dao.BookRentalInfoMapper;
 import kr.or.yi.java_web_male.dto.Book;
+import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.Member;
 
 import java.awt.GridLayout;
@@ -28,6 +30,8 @@ public class BookRentUI extends JFrame {
 	private JTextField textBookCode;
 	private JTextField textMemberNo;
 	private JButton btnBookSearch;
+	private BookRentalInfoMapper bookRentalInfoMapper;
+	private BookRentalInfo bookRentalInfo;
 
 	/**
 	 * Launch the application.
@@ -142,6 +146,7 @@ public class BookRentUI extends JFrame {
 		JButton btnRent = new JButton("대여");
 		btnRent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				BookRentalInfo bookRentalInfo = new BookRentalInfo();
 				
 			}
 		});

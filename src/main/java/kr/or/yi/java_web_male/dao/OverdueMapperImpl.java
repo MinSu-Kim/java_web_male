@@ -30,7 +30,14 @@ public class OverdueMapperImpl implements OverdueMapper {
 			return sqlSession.selectOne(namespace + ".selectOverdueByCode", overdue);
 		}
 	}
-
+	
+	@Override
+	public Overdue selectOverdueByMemberNo(Overdue overdue) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectOne(namespace + ".selectOverdueByMemberNo", overdue);
+		}
+	}
+	
 	@Override
 	public int insertOverdue(Overdue overdue) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
@@ -39,5 +46,6 @@ public class OverdueMapperImpl implements OverdueMapper {
 			return res;
 		}
 	}
+	
 	
 }

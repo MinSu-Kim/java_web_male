@@ -113,7 +113,7 @@ SELECT cate_s_no, cate_m_no, cate_b_no, cate_s_name FROM proj_library.category_s
 
 select * from `member`;
 
-insert into `member` values("3","asdf", "이천희", "lch","01022306796","921012","tjehdxo2002@","비밀","하핫",0,"하말없음");
+insert into `member` values("1","asdf", "이천희", "lch","01022306796","921012","tjehdxo2002@","비밀","하핫",0,"하말없음");
 
 select * from book WHERE book_code REGEXP '00001';
 
@@ -174,12 +174,38 @@ INSERT INTO proj_library.`member`
 VALUES(1234, '1111', '김재영', 'kjy', '01099865500', '950316-1111111', 'rlawpdud301@naver.com', '우리집', null, false, null);
 
 
-create view bestsaler as select left(i.book_code,8) as bc, b.title, b.author ,p.pub_name
+select * from member_rental_info;
+
+delete 
+from member_rental_info
+where member_no = '123';
+
+select * from overdue;
+
+delete 
+from overdue
+where member_no = '123';
+
+delete 
+from member
+where member_no ='123';
+
+
+select o.member_no, o.rental_authority
+from member m join overdue o on m.member_no = o.member_no
+where o.member_no='123';
+
+
+
+create view bestsaler as select left(i.book_code,8) as bc, b.title, b.author ,p.pub_name,i.rental_date,b.cate_b_no,b.cate_m_no,b.cate_s_no
 FROM book_rental_info i join book b on i.book_code=b.book_code join publisher p on b.pub_no=p.pub_no;
 show create view bestsaler;
 drop view bestsaler;
 
-select *, count(bc) as ranking from bestsaler group by bc limit 0,10;
+select *, count(bc) as ranking 
+from bestsaler 
+where rental_date REGEXP'2018-1'
+group by bc limit 0,10;
 
 SELECT rental_no, rental_date, return_date, return_schedule, member_no, book_code
 FROM proj_library.book_rental_info
@@ -188,4 +214,5 @@ where book_code regexp '^[0][0-9]+$' ;
 
 
 select * from member_rental_info;
+
 

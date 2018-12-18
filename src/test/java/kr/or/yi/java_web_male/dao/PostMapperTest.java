@@ -5,10 +5,12 @@ import static org.junit.Assert.*;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import kr.or.yi.java_web_male.dto.Post;
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PostMapperTest extends AbstractTest{
 	private PostMapper dao = new PostMapperImpl();
 	

@@ -9,7 +9,9 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
@@ -18,7 +20,7 @@ import kr.or.yi.java_web_male.dto.CategoryM;
 import kr.or.yi.java_web_male.dto.CategoryS;
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.dto.Publisher;
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class BookRentalInfoMapperTest extends AbstractTest {
 
 	private BookRentalInfoMapper dao = BookRentalInfoMapperImpl.getInstance();

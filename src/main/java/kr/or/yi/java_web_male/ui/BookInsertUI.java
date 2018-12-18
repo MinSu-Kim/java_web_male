@@ -276,6 +276,7 @@ public class BookInsertUI extends JFrame {
 				if (result == JOptionPane.CLOSED_OPTION) {
 					
 				} else if (result == JOptionPane.YES_OPTION) {
+					System.out.println(book);
 					bookMapper.insertBook(book);
 				} else {
 					

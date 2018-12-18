@@ -6,13 +6,15 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.dto.MemberRentalInfo;
-
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MemberRentalInfoMapperTest extends AbstractTest{
 	
 	private MemberRentalInfoMapper dao = MemberRentalInfoMapperImpl.getInstance();
