@@ -129,6 +129,7 @@ public class MemberSearchUI extends JFrame {
 				list.addAll(member);
 				Slist.setLists(list);
 				Slist.loadData();
+				Slist.setEnabled(false);
 
 			}
 
@@ -149,13 +150,14 @@ public class MemberSearchUI extends JFrame {
 		pContent.setLayout(new GridLayout(0, 1, 0, 0));
 
 		Slist = new MemberSearchResult();
+		Slist.setEnabled(false);
 		pContent.add(Slist);
 		Slist.getTable().addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
-					/* JOptionPane.showMessageDialog(null, "2번클릭"); */
+					 JOptionPane.showMessageDialog(null, "2번클릭"); 
 					Member member = Slist.selectedItem();
 
 					bookRentUI.setMemberNo(member);
@@ -166,7 +168,6 @@ public class MemberSearchUI extends JFrame {
 
 		});
 		Slist.setPopupMenu(getPopupMenu());
-		
 	}
 
 	private JPopupMenu getPopupMenu() {
