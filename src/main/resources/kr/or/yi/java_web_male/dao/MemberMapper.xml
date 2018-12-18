@@ -91,4 +91,8 @@
 	<select id="searchMemberPhone" statementType="CALLABLE" parameterType="hashmap" resultMap="MemberResultPro">
 		{call search_phone(#{phone, mode = IN, jdbcType=CHAR})}
 	</select>
+	<!--  회원번호로 대여 책 검색하기 -->
+	<select id="searchMembernoRent" statementType="CALLABLE" parameterType="hashmap" resultMap="MemberResultPro">
+		{call search_membernoRent(#{memberNo, mode = IN, jdbcType=CHAR})}
+	</select>
 </mapper>

@@ -15,7 +15,6 @@ import javax.swing.JTable;
 public class BookAdminUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -37,6 +36,7 @@ public class BookAdminUI extends JFrame {
 	 * Create the frame.
 	 */
 	public BookAdminUI() {
+		setTitle("도서관리");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -48,38 +48,21 @@ public class BookAdminUI extends JFrame {
 		contentPane.add(panel, BorderLayout.EAST);
 		
 		JButton btnNewButton = new JButton("도서추가");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		panel.setLayout(new GridLayout(0, 1, 10, 10));
 		panel.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("");
+		JButton btnNewButton_3 = new JButton("도서수정/삭제");
+		panel.add(btnNewButton_3);
+		
+		JButton btnNewButton_1 = new JButton("회원관리");
 		panel.add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("");
+		JButton btnNewButton_2 = new JButton("출납관리");
 		panel.add(btnNewButton_2);
-		
-		JButton btnNewButton_3 = new JButton("뒤로가기");
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		panel.add(btnNewButton_3);
 		
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.CENTER);
 		panel_1.setLayout(new GridLayout(0, 1, 10, 10));
-		
-		JPanel pSearch = new JPanel();
-		panel_1.add(pSearch);
-		
-		JPanel pList = new JPanel();
-		panel_1.add(pList);
-		
-		table = new JTable();
-		pList.add(table);
 	}
 
 }

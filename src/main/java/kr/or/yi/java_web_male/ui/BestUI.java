@@ -5,8 +5,11 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.yi.java_web_male.dto.Book;
+import kr.or.yi.java_web_male.dto.BookBest10;
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
@@ -16,14 +19,21 @@ import kr.or.yi.java_web_male.service.LibraryUIService;
 
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.Vector;
 
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
@@ -40,6 +50,8 @@ import javax.swing.UIManager;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class BestUI extends JFrame implements ItemListener, ActionListener {
 
@@ -49,6 +61,8 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 	private DefaultComboBoxModel<CategoryB> modelB;
 	private DefaultComboBoxModel<CategoryM> modelM;
 	private DefaultComboBoxModel<CategoryS> modelS;
+	private List<Book> BookLists;
+	private List<BookBest10> lists;
 	private LibraryUIService service;
 
 	private boolean bookCateBview;
@@ -84,6 +98,10 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 	private JButton btnBook;
 	private JButton btnmember;
 	private BestUIService bestService;
+	private BestUIBookTablePanel panelForBTable;
+	private TitledBorder titledBorder;
+	private BookDetailUI bookDetailUI; 
+
 
 	/**
 	 * Launch the application.
@@ -107,91 +125,105 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 	public BestUI() {
 		service = new LibraryUIService();
 		bestService = new BestUIService();
+		String[] KindsDatestrArr = { "년별", "월별", "전체" };
+		DefaultComboBoxModel<String> Datemodel = new DefaultComboBoxModel<>(KindsDatestrArr);
+		String[] KindsCatestrArr = { "전체", "장르별" };
+		DefaultComboBoxModel<String> Catemodel = new DefaultComboBoxModel<>(KindsCatestrArr);
+		List<CategoryB> blist = service.selectCategoryBByAll();
+		B = new CategoryB();
+		B.setbName("");
+		blist.add(0, B);
+		modelB = new DefaultComboBoxModel<>(new Vector<>(blist));
+		MmodelB = new DefaultComboBoxModel<>(new Vector<>(blist));
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		Date date = new Date();
+		String year = "";
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		year = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1);
+		map.put("rentalDate", year);
+		lists = bestService.selectBookRentalInfoByBookCode(map);
+		
+		DefaultComboBoxModel<String> MDatemodel = new DefaultComboBoxModel<>(KindsDatestrArr);
+
+		DefaultComboBoxModel<String> CatemodelM = new DefaultComboBoxModel<>(KindsCatestrArr);
+		
 		setTitle("Best");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1265, 494);
+		setBounds(100, 100, 1265, 841);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 2, 0, 0));
 
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uC774\uBC88\uB2EC Best10!",
+		panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Book Best10!",
 				TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		contentPane.add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
 		JPanel panel_2 = new JPanel();
 		panel.add(panel_2, BorderLayout.NORTH);
-
-		JPanel panelForBTable = new JPanel();
-		panel.add(panelForBTable, BorderLayout.CENTER);
-		panelForBTable.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
-		JPanel panel_4 = new JPanel();
-		panel.add(panel_4, BorderLayout.EAST);
-		panel_4.setLayout(new GridLayout(0, 1, 0, 0));
+		panel_2.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JPanel panel_5 = new JPanel();
-		panel_4.add(panel_5);
+		panel_2.add(panel_5);
 		panel_5.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JPanel panel_16 = new JPanel();
+		FlowLayout flowLayout_2 = (FlowLayout) panel_16.getLayout();
+		flowLayout_2.setAlignment(FlowLayout.LEFT);
 		panel_5.add(panel_16);
 
 		JLabel lblNewLabel = new JLabel("분류방법을선택하세요(년,월)");
 		panel_16.add(lblNewLabel);
-
-		String[] KindsDatestrArr = { "년별", "월별", "전체" };
-		DefaultComboBoxModel<String> Datemodel = new DefaultComboBoxModel<>(KindsDatestrArr);
 		BCBKindsDate = new JComboBox<>(Datemodel);
 		BCBKindsDate.setSelectedIndex(1);
 		BCBKindsDate.addItemListener(this);
 		panel_16.add(BCBKindsDate);
+		
+				bspinnerYear = new JSpinner();
+				bspinnerYear.setModel(new SpinnerDateModel(new Date(), null, new Date(), Calendar.DAY_OF_MONTH));
+				bspinnerYear.setEditor(new JSpinner.DateEditor(bspinnerYear, "yyyy"));
+				
+						JPanel panel_17 = new JPanel();
+						panel_5.add(panel_17);
+						FlowLayout flowLayout_1 = (FlowLayout) panel_17.getLayout();
+						flowLayout_1.setAlignment(FlowLayout.LEFT);
+						
+								panel_17.add(bspinnerYear);
+								
+										bspinnerMonth = new JSpinner();
+										bspinnerMonth.setModel(new SpinnerDateModel(new Date(1545107289098L), null, null, Calendar.DAY_OF_MONTH));
+										bspinnerMonth.setEditor(new JSpinner.DateEditor(bspinnerMonth, "MM"));
+										bspinnerMonth.setEnabled(true);
+										panel_17.add(bspinnerMonth);
 
-		JPanel panel_17 = new JPanel();
-		panel_5.add(panel_17);
-
-		bspinnerYear = new JSpinner();
-		bspinnerYear.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH));
-		bspinnerYear.setEditor(new JSpinner.DateEditor(bspinnerYear, "yyyy"));
-		panel_17.add(bspinnerYear);
-
-		bspinnerMonth = new JSpinner();
-		bspinnerMonth.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH));
-		bspinnerMonth.setEditor(new JSpinner.DateEditor(bspinnerMonth, "MM"));
-		bspinnerMonth.setEnabled(true);
-		panel_17.add(bspinnerMonth);
-
-		JPanel panel_6 = new JPanel();
-		panel_4.add(panel_6);
-		panel_6.setLayout(new GridLayout(0, 1, 0, 0));
+		JPanel panel_3 = new JPanel();
+		panel_2.add(panel_3);
+		panel_3.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JPanel panel_18 = new JPanel();
-		panel_6.add(panel_18);
+		FlowLayout flowLayout = (FlowLayout) panel_18.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		panel_3.add(panel_18);
 
 		JLabel lblNewLabel_2 = new JLabel("분류방법을선택하세요(장르)");
 		panel_18.add(lblNewLabel_2);
-
-		String[] KindsCatestrArr = { "전체", "장르별" };
-		DefaultComboBoxModel<String> Catemodel = new DefaultComboBoxModel<>(KindsCatestrArr);
 		BCBKindsCate = new JComboBox<>(Catemodel);
 		BCBKindsCate.addItemListener(this);
 		panel_18.add(BCBKindsCate);
 
 		JPanel panel_19 = new JPanel();
-		panel_6.add(panel_19);
-		panel_19.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel_3.add(panel_19);
+		panel_19.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 
 		JLabel lblNewLabel_3 = new JLabel("대");
 		panel_19.add(lblNewLabel_3);
-
-		List<CategoryB> blist = service.selectCategoryBByAll();
-		B = new CategoryB();
-		B.setbName("");
-		blist.add(0, B);
-		modelB = new DefaultComboBoxModel<>(new Vector<>(blist));
 		bCBCateB = new JComboBox(modelB);
+
+		bCBCateB.setMaximumRowCount(10);
 		bCBCateB.setEnabled(false);
 		bCBCateB.setSelectedItem(B);
 		bCBCateB.addItemListener(this);
@@ -201,6 +233,8 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		panel_19.add(lblNewLabel_1);
 
 		bCBCateM = new JComboBox();
+
+		bCBCateM.setMaximumRowCount(10);
 		bCBCateM.setEnabled(false);
 		bCBCateM.addItemListener(this);
 		panel_19.add(bCBCateM);
@@ -209,6 +243,7 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		panel_19.add(lblNewLabel_12);
 
 		bCBCateS = new JComboBox();
+		bCBCateS.setMaximumRowCount(10);
 		bCBCateS.setEnabled(false);
 		bCBCateS.addItemListener(this);
 		panel_19.add(bCBCateS);
@@ -216,6 +251,19 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		btnBook = new JButton("검색");
 		btnBook.addActionListener(this);
 		panel_19.add(btnBook);
+		bCBCateB.setEnabled(false);
+		bCBCateB.setSelectedItem(B);
+
+		panelForBTable = new BestUIBookTablePanel();
+		titledBorder = new TitledBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uC774\uBC88\uB2EC Best10!", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelForBTable.setBorder(titledBorder);
+
+		panelForBTable.setLists(lists);
+		panelForBTable.loadDatas();
+
+		panelForBTable.setPopMenu(getPopupMenu());
+		panel.add(panelForBTable, BorderLayout.CENTER);
+		panelForBTable.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1);
@@ -238,25 +286,19 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 
 		JPanel panel_11 = new JPanel();
 		panel_9.add(panel_11, BorderLayout.NORTH);
-
-		JPanel panelForMTable = new JPanel();
-		panel_9.add(panelForMTable, BorderLayout.CENTER);
-
-		JPanel panel_13 = new JPanel();
-		panel_9.add(panel_13, BorderLayout.EAST);
-		panel_13.setLayout(new GridLayout(0, 1, 0, 0));
+		panel_11.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JPanel panel_14 = new JPanel();
-		panel_13.add(panel_14);
+		panel_11.add(panel_14);
 		panel_14.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JPanel panel_26 = new JPanel();
+		FlowLayout flowLayout_3 = (FlowLayout) panel_26.getLayout();
+		flowLayout_3.setAlignment(FlowLayout.LEFT);
 		panel_14.add(panel_26);
 
 		JLabel label = new JLabel("분류방법을선택하세요(년,월)");
 		panel_26.add(label);
-
-		DefaultComboBoxModel<String> MDatemodel = new DefaultComboBoxModel<>(KindsDatestrArr);
 		MCBKindsDate = new JComboBox<>(MDatemodel);
 		MCBKindsDate.setSelectedIndex(1);
 		MCBKindsDate.addItemListener(this);
@@ -264,10 +306,12 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		panel_26.add(MCBKindsDate);
 
 		JPanel panel_27 = new JPanel();
+		FlowLayout flowLayout_4 = (FlowLayout) panel_27.getLayout();
+		flowLayout_4.setAlignment(FlowLayout.LEFT);
 		panel_14.add(panel_27);
 
 		mspinnerYear = new JSpinner();
-		mspinnerYear.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH));
+		mspinnerYear.setModel(new SpinnerDateModel(new Date(), null, new Date(), Calendar.DAY_OF_MONTH));
 		mspinnerYear.setEditor(new JSpinner.DateEditor(mspinnerYear, "yyyy"));
 		panel_27.add(mspinnerYear);
 
@@ -278,33 +322,31 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		panel_27.add(mspinnerMonth);
 
 		JPanel panel_28 = new JPanel();
-		panel_13.add(panel_28);
+		panel_11.add(panel_28);
 		panel_28.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JPanel panel_29 = new JPanel();
+		FlowLayout flowLayout_5 = (FlowLayout) panel_29.getLayout();
+		flowLayout_5.setAlignment(FlowLayout.LEFT);
 		panel_28.add(panel_29);
 
 		JLabel label_1 = new JLabel("분류방법을선택하세요(장르)");
 		panel_29.add(label_1);
-
-		DefaultComboBoxModel<String> CatemodelM = new DefaultComboBoxModel<>(KindsCatestrArr);
 		mCBKindsCate = new JComboBox(CatemodelM);
 		mCBKindsCate.addItemListener(this);
 		panel_29.add(mCBKindsCate);
 
 		JPanel panel_30 = new JPanel();
+		FlowLayout flowLayout_6 = (FlowLayout) panel_30.getLayout();
+		flowLayout_6.setAlignment(FlowLayout.LEFT);
 		panel_28.add(panel_30);
 
 		JLabel label_2 = new JLabel("대");
 		panel_30.add(label_2);
 
-		MmodelB = new DefaultComboBoxModel<>(new Vector<>(blist));
-
 		mCBCateB = new JComboBox(MmodelB);
 		mCBCateB.setEnabled(false);
 		mCBCateB.addItemListener(this);
-		bCBCateB.setEnabled(false);
-		bCBCateB.setSelectedItem(B);
 		panel_30.add(mCBCateB);
 
 		JLabel label_3 = new JLabel("중");
@@ -326,6 +368,13 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		btnmember = new JButton("검색");
 		btnmember.addActionListener(this);
 		panel_30.add(btnmember);
+
+		JPanel panelForMTable = new JPanel();
+		panel_9.add(panelForMTable, BorderLayout.CENTER);
+
+		
+
+		
 
 		JPanel panel_10 = new JPanel();
 		contentPane.add(panel_10);
@@ -554,28 +603,123 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		if (e.getSource() == btnBook) {
 			do_btnBook_actionPerformed(e);
 		}
+		if (e.getActionCommand().equals("상새정보보기")) {
+			do_Bookdtail_actionPerformed(e);
+		}
 	}
 
 	protected void do_btnBook_actionPerformed(ActionEvent e) {
-		String bookCode = "";
-		int sum = 1;
+		String title = "";
+		String year = "";
+		Date date;
+		Calendar cal = Calendar.getInstance();
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<BookRentalInfo> bookList = bestService.selectBookRentalInfoByAll();		
-		for (BookRentalInfo bookInfo : bookList) {
-			JOptionPane.showMessageDialog(null, bookInfo.getBookCode().getBookCode());
-			bookCode = (bookInfo.getBookCode().getBookCode().substring(0, 9));
-			if (map.containsKey(bookCode)) {
-				int a =  Integer.parseInt((map.get(bookCode)+"").trim());
-				sum = a + 1;
-			} else {
-				sum = 1;
-			}
-			map.put(bookCode, sum);
+		if (bspinnerYear.isEnabled()) {
+			date = (Date) bspinnerYear.getValue();
+			cal.setTime(date);
+			year = cal.get(Calendar.YEAR) + "-";
+			title = cal.get(Calendar.YEAR) + "년";
+			map.put("rentalDate", year);
 		}
-		JOptionPane.showMessageDialog(null, map.size());
+		if (bspinnerMonth.isEnabled()) {
+			date = (Date) bspinnerMonth.getValue();
+			cal.setTime(date);
+			year = year + (cal.get(Calendar.MONTH) + 1);
+			title = title + (cal.get(Calendar.MONTH) + 1)+"월 ";
+			map.put("rentalDate", year);
+		}
+		if (BCBKindsCate.getSelectedItem().equals("장르별")) {
+			try {
+				if (bookCateB.getbName().equals("")) {
+					JOptionPane.showMessageDialog(null, "장르를선택해주세요");
+					return;
+				}
+			} catch (Exception e2) {
+				JOptionPane.showMessageDialog(null, "장르를선택해주세요");
+				return;
+			}
+
+		}
+
+		if (bookCateBview) {
+			String b = (bookCateB.getbCode() + "").trim();
+			title = title + " " + bookCateB.getbName();
+			map.put("cateBNo", b);
+		}
+		if (bookCateMview) {
+			String m = (bookCateM.getmCode() + "").trim();
+			title = title + ">" + bookCateM.getmName()+"";
+			map.put("cateMNo", m);
+		}
+		if (bookCateSview) {
+			String s = (bookCateS.getsCode() + "").trim();
+			title = title + ">" + bookCateS.getsName()+"";
+			map.put("cateSNo", s);
+		}
+		lists = bestService.selectBookRentalInfoByBookCode(map);
+				
+		title = title + "Best10";
+		titledBorder = new TitledBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), title, TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelForBTable.setBorder(titledBorder);
+		panelForBTable.revalidate();
+		panelForBTable.setLists(lists);
+		panelForBTable.loadDatas();
 	}
 
 	protected void do_btnmember_actionPerformed(ActionEvent e) {
 
 	}
+
+	private void do_Bookdtail_actionPerformed(ActionEvent e) {
+		
+		try {
+			Book selectedBook = panelForBTable.getSelectedBookBest();						
+			String bookCode = "";
+			boolean RentalPossible = false;
+			Book book = new Book();
+			
+			BookLists = service.selectbookbybookCode(selectedBook);
+			int totalBook = BookLists.size();
+			if (BookLists.size() > 1) {
+				for (Book books : BookLists) {
+					if (books.isRentalPossible()) {
+						RentalPossible = true;
+					}
+					bookCode = bookCode + books.getBookCode() + ",";
+					book = books;
+				}
+			} else {
+				for (Book books : BookLists) {
+					if (books.isRentalPossible()) {
+						RentalPossible = true;
+					}
+					bookCode = bookCode + books.getBookCode();
+					book = books;
+				}
+			}
+			book.setBookCode(bookCode);
+			book.setRentalPossible(RentalPossible);
+
+			bookDetailUI = new BookDetailUI();
+			bookDetailUI.setBookInfo(book, totalBook, BookLists);
+			bookDetailUI.setVisible(true);
+			bookDetailUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(null, "선택하신책정보가 없습니다.");
+
+		}
+
+	}
+
+	private JPopupMenu getPopupMenu() {
+		JPopupMenu popupMenu = new JPopupMenu();
+
+		JMenuItem mntmAdd = new JMenuItem("상새정보보기");
+		mntmAdd.addActionListener(this);
+		popupMenu.add(mntmAdd);
+
+		return popupMenu;
+	}
+
 }

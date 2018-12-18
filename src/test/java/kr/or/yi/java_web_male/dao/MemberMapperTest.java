@@ -106,4 +106,11 @@ public class MemberMapperTest {
 		Member list = dao.searchMemberPhone(map);
 		Assert.assertNotNull(list);
 	}
+	@Test
+	public void test10searchMembernoRent() {
+		Map<String, String> map = new HashMap<>();
+		map.put("memberNo", "2");
+		List<Member> list = dao.searchMembernoRent(map);
+		Assert.assertNotNull(list);
+	}
 }// end of testClass
