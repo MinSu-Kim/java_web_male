@@ -15,5 +15,5 @@ public interface BookRentalInfoMapper {
 
 	List<BookRentalInfo> selectBookRentalInfoByBookCode(Book book);
 
-	List<BookRentalInfo> selectBookRentalInfoByMemberNo(Member member);
+	List<BookRentalInfo> selectBookRentalMemberInfo(Member member);
 }

@@ -26,8 +26,9 @@ public class BestUIService {
 	public List<BookRentalInfo> selectBookRentalInfoByBookCode(Book book) {
 		return bookRentalInfoMapper.selectBookRentalInfoByBookCode(book);
 	}*/
-	public List<BookBest10> selectBookRentalInfoByBookCode(Map<String, Object> map) {
+	public List<BookBest10> selectBookBest10ByMap(Map<String, Object> map) {
 		return best10Mapper.selectBookBest10ByMap(map);
 	}
+	
 	
 }

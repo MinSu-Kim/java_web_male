@@ -19,7 +19,8 @@ public class Member {
 	private String uniqueness;
 	private BookRentalInfo bookRentallInfo;
 	private Book book;
-	
+	private Publisher publisher;
+
 	public Member() {
 	}
 
@@ -41,8 +42,26 @@ public class Member {
 		this.bookRentallInfo = bookRentallInfo;
 		this.book = book;
 	}
-	
-	
+
+	public Member(String memberNo, String password, String korName, String engName, String phone, String jumin,
+			String email, String address, String photo, boolean admin, String uniqueness,
+			BookRentalInfo bookRentallInfo, Book book, Publisher publisher) {
+		super();
+		this.memberNo = memberNo;
+		this.password = password;
+		this.korName = korName;
+		this.engName = engName;
+		this.phone = phone;
+		this.jumin = jumin;
+		this.email = email;
+		this.address = address;
+		this.photo = photo;
+		this.admin = admin;
+		this.uniqueness = uniqueness;
+		this.bookRentallInfo = bookRentallInfo;
+		this.book = book;
+		this.publisher = publisher;
+	}
 
 	public Member(String memberNo, String password, String korName, String engName, String phone, String jumin,
 			String email, String address, boolean admin, String uniqueness) {
@@ -131,8 +150,6 @@ public class Member {
 		this.photo = photo;
 	}
 
-	
-
 	public boolean isAdmin() {
 		return admin;
 	}
@@ -148,9 +165,7 @@ public class Member {
 	public void setUniqueness(String uniqueness) {
 		this.uniqueness = uniqueness;
 	}
-	
-	
-	
+
 	public BookRentalInfo getBookRentallInfo() {
 		return bookRentallInfo;
 	}
@@ -165,6 +180,14 @@ public class Member {
 
 	public void setBook(Book book) {
 		this.book = book;
+	}
+
+	public Publisher getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
 	}
 
 	@Override
@@ -192,14 +215,9 @@ public class Member {
 		return true;
 	}
 
-
 	@Override
 	public String toString() {
 		return memberNo;
 	}
-	
-	
 
-	
-	
 }

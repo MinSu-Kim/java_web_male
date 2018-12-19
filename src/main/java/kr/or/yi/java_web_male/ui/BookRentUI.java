@@ -8,12 +8,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.java_web_male.dao.BookRentalInfoMapper;
+import kr.or.yi.java_web_male.dao.BookRentalInfoMapperImpl;
 import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.service.LibraryUIService;
 
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
@@ -34,9 +37,11 @@ public class BookRentUI extends JFrame {
 	private JTextField textMemberNo;
 	private JButton btnBookSearch;
 	private BookRentalInfoMapper bookRentalInfoMapper;
+	private BookRentalInfoMapperImpl bookRentalInfoMapperImpl;
 	private BookRentalInfo bookRentalInfo;
 	private Book book;
 	private InOutUI inOutUI;
+	private LibraryUIService service;
 
 	/**
 	 * Launch the application.
@@ -64,8 +69,9 @@ public class BookRentUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	int noCnt = 0;
+	int noCnt = 5;
 	public BookRentUI() {
+		service = new LibraryUIService();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 486, 347);
@@ -155,19 +161,25 @@ public class BookRentUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				Date rentalDate = new Date();
-				/*Book bCode = textBookCode.getText();*/
-				/*Book book = new Book();*/
 				
+				Book book = new Book();
+				book.setBookCode(textBookCode.getText());
+				
+				Member member = new Member();
+				member.setMemberNo(textMemberNo.getText());
 				
 				BookRentalInfo bookRentalInfo = new BookRentalInfo();
 				bookRentalInfo.setRentalNo(noCnt);
 				bookRentalInfo.setRentalDate(rentalDate);
 				bookRentalInfo.setReturnDate(null);
 				bookRentalInfo.setReturnSchedule(rentalDate);
-				/*bookRentalInfo.setBookCode();*/
-				textMemberNo.getText();
-				int bookRentalInfo1 = bookRentalInfoMapper.insertBookRentalInfo(bookRentalInfo);
+				bookRentalInfo.setBookCode(book);
+				bookRentalInfo.setMemberNo(member);
+				
+				
+				int bookRentalInfo1 = service.insertBookRentalInfo(bookRentalInfo);
 				noCnt++;
+				JOptionPane.showMessageDialog(null, "대여에 성공하셨습니다. 반납일자를 잘 지켜주세요.");
 			}
 		});
 		container2.add(btnRent);

@@ -240,10 +240,12 @@ public class BookInsertUI extends JFrame {
 				book.setCateSNo(cateS);
 
 				Map<String, Object> map = new HashMap<>();
+
 				map.put("title", book.getTitle());
+
 				map.put("author", book.getAuthor());
 				map.put("translator", book.getTranslator());
-				map.put("cate_b_no", book.getCateBNo());
+				map.put("cate_b_no", book.getCateBNo().getbCode());
 				map.put("cate_m_no", book.getCateMNo());
 				map.put("cate_s_no", book.getCateSNo());
 
@@ -271,17 +273,17 @@ public class BookInsertUI extends JFrame {
 
 				book.setBookCode(bc);
 				book.setBookNo(i);
-				
+
 				int result = JOptionPane.showConfirmDialog(null, bc, "확인", JOptionPane.YES_NO_OPTION);
 				if (result == JOptionPane.CLOSED_OPTION) {
-					
+
 				} else if (result == JOptionPane.YES_OPTION) {
 					System.out.println(book);
 					bookMapper.insertBook(book);
 				} else {
-					
+
 				}
-				
+
 			}
 		});
 		panel_5.add(btnInsert);

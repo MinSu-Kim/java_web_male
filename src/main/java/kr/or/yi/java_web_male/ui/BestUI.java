@@ -1,57 +1,48 @@
 package kr.or.yi.java_web_male.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import kr.or.yi.java_web_male.InitScene;
 import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.BookBest10;
-import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
 import kr.or.yi.java_web_male.dto.CategoryS;
 import kr.or.yi.java_web_male.service.BestUIService;
 import kr.or.yi.java_web_male.service.LibraryUIService;
-
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.TreeMap;
-import java.util.Vector;
-
-import javax.swing.JLabel;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JComboBox;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import java.awt.FlowLayout;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import javax.swing.BoxLayout;
-import java.awt.CardLayout;
-import javax.swing.border.TitledBorder;
-import javax.swing.UIManager;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 public class BestUI extends JFrame implements ItemListener, ActionListener {
 
@@ -62,7 +53,7 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 	private DefaultComboBoxModel<CategoryM> modelM;
 	private DefaultComboBoxModel<CategoryS> modelS;
 	private List<Book> BookLists;
-	private List<BookBest10> lists;
+	private List<BookBest10> Best10BookLists;
 	private LibraryUIService service;
 
 	private boolean bookCateBview;
@@ -100,13 +91,23 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 	private BestUIService bestService;
 	private BestUIBookTablePanel panelForBTable;
 	private TitledBorder titledBorder;
-	private BookDetailUI bookDetailUI; 
-
+	private BookDetailUI bookDetailUI;
+	private PanelBarChart pBarChart;
+	private String year;
+	private String now;
+	private String last;
+	private List<BookBest10> best10BookListsLast;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+				| UnsupportedLookAndFeelException e1) {
+			e1.printStackTrace();
+		}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -138,17 +139,17 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		Date date = new Date();
-		String year = "";
+		year = "";
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		year = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1);
 		map.put("rentalDate", year);
-		lists = bestService.selectBookRentalInfoByBookCode(map);
-		
+		Best10BookLists = bestService.selectBookBest10ByMap(map);
+
 		DefaultComboBoxModel<String> MDatemodel = new DefaultComboBoxModel<>(KindsDatestrArr);
 
 		DefaultComboBoxModel<String> CatemodelM = new DefaultComboBoxModel<>(KindsCatestrArr);
-		
+
 		setTitle("Best");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1265, 841);
@@ -182,23 +183,23 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		BCBKindsDate.setSelectedIndex(1);
 		BCBKindsDate.addItemListener(this);
 		panel_16.add(BCBKindsDate);
-		
-				bspinnerYear = new JSpinner();
-				bspinnerYear.setModel(new SpinnerDateModel(new Date(), null, new Date(), Calendar.DAY_OF_MONTH));
-				bspinnerYear.setEditor(new JSpinner.DateEditor(bspinnerYear, "yyyy"));
-				
-						JPanel panel_17 = new JPanel();
-						panel_5.add(panel_17);
-						FlowLayout flowLayout_1 = (FlowLayout) panel_17.getLayout();
-						flowLayout_1.setAlignment(FlowLayout.LEFT);
-						
-								panel_17.add(bspinnerYear);
-								
-										bspinnerMonth = new JSpinner();
-										bspinnerMonth.setModel(new SpinnerDateModel(new Date(1545107289098L), null, null, Calendar.DAY_OF_MONTH));
-										bspinnerMonth.setEditor(new JSpinner.DateEditor(bspinnerMonth, "MM"));
-										bspinnerMonth.setEnabled(true);
-										panel_17.add(bspinnerMonth);
+
+		bspinnerYear = new JSpinner();
+		bspinnerYear.setModel(new SpinnerDateModel(new Date(), null, new Date(), Calendar.DAY_OF_MONTH));
+		bspinnerYear.setEditor(new JSpinner.DateEditor(bspinnerYear, "yyyy"));
+
+		JPanel panel_17 = new JPanel();
+		panel_5.add(panel_17);
+		FlowLayout flowLayout_1 = (FlowLayout) panel_17.getLayout();
+		flowLayout_1.setAlignment(FlowLayout.LEFT);
+
+		panel_17.add(bspinnerYear);
+
+		bspinnerMonth = new JSpinner();
+		bspinnerMonth.setModel(new SpinnerDateModel(new Date(1545107289098L), null, null, Calendar.DAY_OF_MONTH));
+		bspinnerMonth.setEditor(new JSpinner.DateEditor(bspinnerMonth, "MM"));
+		bspinnerMonth.setEnabled(true);
+		panel_17.add(bspinnerMonth);
 
 		JPanel panel_3 = new JPanel();
 		panel_2.add(panel_3);
@@ -255,10 +256,11 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		bCBCateB.setSelectedItem(B);
 
 		panelForBTable = new BestUIBookTablePanel();
-		titledBorder = new TitledBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "\uC774\uBC88\uB2EC Best10!", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		titledBorder = new TitledBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"),
+				"\uC774\uBC88\uB2EC Best10!", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelForBTable.setBorder(titledBorder);
 
-		panelForBTable.setLists(lists);
+		panelForBTable.setLists(Best10BookLists);
 		panelForBTable.loadDatas();
 
 		panelForBTable.setPopMenu(getPopupMenu());
@@ -269,14 +271,24 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		contentPane.add(panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 
-		JPanel panel_7 = new JPanel();
-		panel_1.add(panel_7, BorderLayout.NORTH);
+		pBarChart = new PanelBarChart();
+		
+		now = ("("+cal.get(Calendar.YEAR) + "년)"+(cal.get(Calendar.MONTH) + 1) +"월").trim();
+		
+		Platform.runLater(() -> {pBarChart.setChartDataThis(Best10BookLists,now);});
+		
+		last = (cal.get(Calendar.MONTH) + "월").trim();
+		year = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH));
+		map.put("rentalDate", year);		
+		best10BookListsLast = bestService.selectBookBest10ByMap(map);
+		
+		Platform.runLater(() -> {pBarChart.setChartDataLast(best10BookListsLast,last);});
+		Platform.runLater(() -> initFX(pBarChart));
 
-		JLabel lblNewLabel_10 = new JLabel("그래프");
-		panel_7.add(lblNewLabel_10);
+		
+		panel_1.add(pBarChart, BorderLayout.CENTER);
 
-		JPanel panelForBGrap = new JPanel();
-		panel_1.add(panelForBGrap, BorderLayout.CENTER);
+		
 
 		JPanel panel_9 = new JPanel();
 		panel_9.setBorder(new TitledBorder(null, "\uC774\uB2EC\uC758 \uB2E4\uB3C5\uC655", TitledBorder.CENTER,
@@ -372,10 +384,6 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		JPanel panelForMTable = new JPanel();
 		panel_9.add(panelForMTable, BorderLayout.CENTER);
 
-		
-
-		
-
 		JPanel panel_10 = new JPanel();
 		contentPane.add(panel_10);
 		panel_10.setLayout(new BorderLayout(0, 0));
@@ -388,6 +396,12 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 
 		JPanel panelForMGrap = new JPanel();
 		panel_10.add(panelForMGrap, BorderLayout.CENTER);
+	}
+
+	public void initFX(InitScene fxPanel) {
+		Scene scene = fxPanel.createScene();
+		JFXPanel panel = (JFXPanel) fxPanel;
+		panel.setScene(scene);
 	}
 
 	public void itemStateChanged(ItemEvent e) {
@@ -611,22 +625,46 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 	protected void do_btnBook_actionPerformed(ActionEvent e) {
 		String title = "";
 		String year = "";
+		String lastYear = "";
 		Date date;
 		Calendar cal = Calendar.getInstance();
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> now = new HashMap<String, Object>();
+		Map<String, Object> last = new HashMap<String, Object>();
 		if (bspinnerYear.isEnabled()) {
 			date = (Date) bspinnerYear.getValue();
 			cal.setTime(date);
 			year = cal.get(Calendar.YEAR) + "-";
+			lastYear = year;
 			title = cal.get(Calendar.YEAR) + "년";
-			map.put("rentalDate", year);
+			now.put("rentalDate", year);
+			last.put("rentalDate", lastYear);
+			if(BCBKindsDate.getSelectedItem()=="년별") {				
+				lastYear = (cal.get(Calendar.YEAR)-1) + "-";
+				last.put("rentalDate", year);
+			}
+			if(BCBKindsDate.getSelectedItem()=="월별") {
+				/*if(Integer.parseInt((cal.get(Calendar.MONTH)+1) +"")==1) {
+					lastYear = lastYear + "12";
+				}else {
+					lastYear = lastYear + (cal.get(Calendar.MONTH));
+				}
+				last.put("rentalDate", lastYear);*/
+			}
 		}
 		if (bspinnerMonth.isEnabled()) {
 			date = (Date) bspinnerMonth.getValue();
 			cal.setTime(date);
 			year = year + (cal.get(Calendar.MONTH) + 1);
-			title = title + (cal.get(Calendar.MONTH) + 1)+"월 ";
-			map.put("rentalDate", year);
+			title = title + (cal.get(Calendar.MONTH) + 1) + "월 ";
+			now.put("rentalDate", year);
+			if(BCBKindsDate.getSelectedItem()=="월별") {
+				if(Integer.parseInt((cal.get(Calendar.MONTH)+1) +"")==1) {
+					lastYear = lastYear + "12";
+				}else {
+					lastYear = lastYear + (cal.get(Calendar.MONTH));
+				}
+				last.put("rentalDate", lastYear);
+			}
 		}
 		if (BCBKindsCate.getSelectedItem().equals("장르별")) {
 			try {
@@ -644,26 +682,42 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		if (bookCateBview) {
 			String b = (bookCateB.getbCode() + "").trim();
 			title = title + " " + bookCateB.getbName();
-			map.put("cateBNo", b);
+			now.put("cateBNo", b);
+			last.put("cateBNo", b);
 		}
 		if (bookCateMview) {
 			String m = (bookCateM.getmCode() + "").trim();
-			title = title + ">" + bookCateM.getmName()+"";
-			map.put("cateMNo", m);
+			title = title + ">" + bookCateM.getmName() + "";
+			now.put("cateMNo", m);
+			last.put("cateMNo", m);
 		}
 		if (bookCateSview) {
 			String s = (bookCateS.getsCode() + "").trim();
-			title = title + ">" + bookCateS.getsName()+"";
-			map.put("cateSNo", s);
+			title = title + ">" + bookCateS.getsName() + "";
+			now.put("cateSNo", s);
+			last.put("cateSNo", s);
 		}
-		lists = bestService.selectBookRentalInfoByBookCode(map);
-				
+		Best10BookLists = bestService.selectBookBest10ByMap(now);
+		StringBuilder bc= new StringBuilder();
+		int i=0;
+		for(i=0; i<Best10BookLists.size()-1; i++) {
+			bc.append(Best10BookLists.get(i).getBookCode().getBookCode());
+			bc.append(",");
+		}
+		bc.append(Best10BookLists.get(i).getBookCode().getBookCode());
+		JOptionPane.showMessageDialog(null, bc);
+		last.put("bookCode", bc);
+		
+		best10BookListsLast = bestService.selectBookBest10ByMap(last);
+
 		title = title + "Best10";
-		titledBorder = new TitledBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), title, TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		titledBorder = new TitledBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), title,
+				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelForBTable.setBorder(titledBorder);
 		panelForBTable.revalidate();
-		panelForBTable.setLists(lists);
+		panelForBTable.setLists(Best10BookLists);
 		panelForBTable.loadDatas();
+
 	}
 
 	protected void do_btnmember_actionPerformed(ActionEvent e) {
@@ -671,13 +725,13 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 	}
 
 	private void do_Bookdtail_actionPerformed(ActionEvent e) {
-		
+
 		try {
-			Book selectedBook = panelForBTable.getSelectedBookBest();						
+			Book selectedBook = panelForBTable.getSelectedBookBest();
 			String bookCode = "";
 			boolean RentalPossible = false;
 			Book book = new Book();
-			
+
 			BookLists = service.selectbookbybookCode(selectedBook);
 			int totalBook = BookLists.size();
 			if (BookLists.size() > 1) {
