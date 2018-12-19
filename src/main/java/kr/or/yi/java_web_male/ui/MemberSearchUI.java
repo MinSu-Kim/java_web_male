@@ -98,34 +98,7 @@ public class MemberSearchUI extends JFrame {
 		
 
 		Slist = new MemberSearchResult();
-		Slist.getTable().addMouseListener(new MouseAdapter() {
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(e.getClickCount()==2) {
-					/*JOptionPane.showMessageDialog(null, "2번클릭");*/
-					Member member = Slist.selectedItem();
-					/*Overdue의 memberNo(String형태)의 값이 member(Member형태)인 rentalAuthority의 값이 false면 실행 안되도록 설정*/
-					String mNo = String.valueOf(member);
-					Overdue overdue = new Overdue();
-					overdue.setMemberNo(mNo);
-					Overdue overdue1 = overdueMapper.selectOverdueByMemberNo(overdue);
-					if(overdue1.isRentalAuthority() == true) {
-						JOptionPane.showMessageDialog(null, "대여 가능한 회원입니다.");
-						bookRentUI.setMemberNo(member);
-						MemberSearchUI.this.dispose();
-					}else{
-						JOptionPane.showMessageDialog(null, "대여 불가능한 회원입니다.");
-						return;
-					}
-						
-						
-					
-					
-				}
-			}
-			
-		});
+
 		contentPane.add(Slist, BorderLayout.CENTER);
 		Slist.setPopupMenu(getPopupMenu());
 
@@ -189,23 +162,35 @@ public class MemberSearchUI extends JFrame {
 		pContent.setLayout(new GridLayout(0, 1, 0, 0));
 
 		Slist = new MemberSearchResult();
-		Slist.setEnabled(false);
 		pContent.add(Slist);
-	/*	Slist.getTable().addMouseListener(new MouseAdapter() {
-
+		Slist.getTable().addMouseListener(new MouseAdapter() {
+			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
-					 JOptionPane.showMessageDialog(null, "2번클릭"); 
+				if(e.getClickCount()==2) {
+					JOptionPane.showMessageDialog(null, "2번클릭");
 					Member member = Slist.selectedItem();
-
-					bookRentUI.setMemberNo(member);
-					MemberSearchUI.this.dispose();
-
+					/*Overdue의 memberNo(String형태)의 값이 member(Member형태)인 rentalAuthority의 값이 false면 실행 안되도록 설정*/
+					String mNo = String.valueOf(member);
+					Overdue overdue = new Overdue();
+					overdue.setMemberNo(mNo);
+					Overdue overdue1 = overdueMapper.selectOverdueByMemberNo(overdue);
+					if(overdue1.isRentalAuthority() == true) {
+						JOptionPane.showMessageDialog(null, "대여 가능한 회원입니다.");
+						bookRentUI.setMemberNo(member);
+						MemberSearchUI.this.dispose();
+					}else{
+						JOptionPane.showMessageDialog(null, "대여 불가능한 회원입니다.");
+						return;
+					}
+						
+						
+					
+					
 				}
 			}
-
-		});*/
+			
+		});
 		Slist.setPopupMenu(getPopupMenu());
 	}
 
@@ -230,8 +215,8 @@ public class MemberSearchUI extends JFrame {
 				do_showMemberDetail(e);
 				memberDetailUI.setVisible(true);
 			} else {
-				do_showMemberRent(e);				
-				MemberSearchUI.this.revalidate();//화면을 새로추가해줌
+				do_showMemberRent(e);
+				MemberSearchUI.this.revalidate();// 화면을 새로추가해줌
 				JOptionPane.showMessageDialog(null, e.getActionCommand());
 			}
 
@@ -251,13 +236,14 @@ public class MemberSearchUI extends JFrame {
 			pContent.add(p);
 			p.setLists(list);
 			p.loadData();
-			
+
 		}
 
 	};
 
-	
-	private JPanel pContent;public void setBookRentUI(BookRentUI bookRentUI) {
+	private JPanel pContent;
+
+	public void setBookRentUI(BookRentUI bookRentUI) {
 		this.bookRentUI = bookRentUI;
 	}
 

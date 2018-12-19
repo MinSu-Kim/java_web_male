@@ -35,6 +35,8 @@ public class BookRentUI extends JFrame {
 	private JButton btnBookSearch;
 	private BookRentalInfoMapper bookRentalInfoMapper;
 	private BookRentalInfo bookRentalInfo;
+	private Book book;
+	private InOutUI inOutUI;
 
 	/**
 	 * Launch the application.
@@ -152,14 +154,16 @@ public class BookRentUI extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				
-				Date retalDate = new Date();
+				Date rentalDate = new Date();
 				/*Book bCode = textBookCode.getText();*/
-			
+				/*Book book = new Book();*/
+				
+				
 				BookRentalInfo bookRentalInfo = new BookRentalInfo();
 				bookRentalInfo.setRentalNo(noCnt);
-				bookRentalInfo.setRentalDate(retalDate);
+				bookRentalInfo.setRentalDate(rentalDate);
 				bookRentalInfo.setReturnDate(null);
-				bookRentalInfo.setReturnSchedule(retalDate);
+				bookRentalInfo.setReturnSchedule(rentalDate);
 				/*bookRentalInfo.setBookCode();*/
 				textMemberNo.getText();
 				int bookRentalInfo1 = bookRentalInfoMapper.insertBookRentalInfo(bookRentalInfo);
@@ -177,6 +181,9 @@ public class BookRentUI extends JFrame {
 	public void setMemberNo(Member member) {
 		this.textMemberNo.setText(member.getMemberNo());
 		textMemberNo.requestFocus();
+	}
+	public void setInOutUI(InOutUI inOutUI) {
+		this.inOutUI = inOutUI;
 	}
 
 }
