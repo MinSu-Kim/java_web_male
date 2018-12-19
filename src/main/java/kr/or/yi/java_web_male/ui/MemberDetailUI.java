@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
+
 import java.awt.GridLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -14,26 +18,9 @@ public class MemberDetailUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MemberDetailUI frame = new MemberDetailUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	private PieChart pieChart;
+	
+	
 	public MemberDetailUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 652);
