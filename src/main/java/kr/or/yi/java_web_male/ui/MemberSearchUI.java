@@ -95,11 +95,11 @@ public class MemberSearchUI extends JFrame {
 		textField = new JTextField();
 		textField.setColumns(10);
 		Searchpanel.add(textField);
-
+		
 
 		Slist = new MemberSearchResult();
 		Slist.getTable().addMouseListener(new MouseAdapter() {
-
+			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(e.getClickCount()==2) {
@@ -115,7 +115,8 @@ public class MemberSearchUI extends JFrame {
 						bookRentUI.setMemberNo(member);
 						MemberSearchUI.this.dispose();
 					}else{
-						JOptionPane.showMessageDialog(null, "대여 가능한 회원입니다.");
+						JOptionPane.showMessageDialog(null, "대여 불가능한 회원입니다.");
+						return;
 					}
 						
 						
@@ -188,13 +189,14 @@ public class MemberSearchUI extends JFrame {
 		pContent.setLayout(new GridLayout(0, 1, 0, 0));
 
 		Slist = new MemberSearchResult();
+		Slist.setEnabled(false);
 		pContent.add(Slist);
-		Slist.getTable().addMouseListener(new MouseAdapter() {
+	/*	Slist.getTable().addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
-					/* JOptionPane.showMessageDialog(null, "2번클릭"); */
+					 JOptionPane.showMessageDialog(null, "2번클릭"); 
 					Member member = Slist.selectedItem();
 
 					bookRentUI.setMemberNo(member);
@@ -203,9 +205,8 @@ public class MemberSearchUI extends JFrame {
 				}
 			}
 
-		});
+		});*/
 		Slist.setPopupMenu(getPopupMenu());
-		
 	}
 
 	private JPopupMenu getPopupMenu() {

@@ -338,7 +338,7 @@ INSERT INTO category_s values
 
 -- 소분류:서양철학(16)
 INSERT INTO category_s values
-(0, 6, 1, '서양철학')
+(0, 6, 1, '서양철학'),
 (2, 6, 1, '미국철학'),
 (3, 6, 1, '북구철학'),
 (4, 6, 1, '영국철학'),

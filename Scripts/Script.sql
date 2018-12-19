@@ -113,7 +113,7 @@ SELECT cate_s_no, cate_m_no, cate_b_no, cate_s_name FROM proj_library.category_s
 
 select * from `member`;
 
-insert into `member` values("3","asdf", "이천희", "lch","01022306796","921012","tjehdxo2002@","비밀","하핫",0,"하말없음");
+insert into `member` values("1","asdf", "이천희", "lch","01022306796","921012","tjehdxo2002@","비밀","하핫",0,"하말없음");
 
 select * from book WHERE book_code REGEXP '00001';
 
@@ -214,5 +214,6 @@ where book_code regexp '^[0][0-9]+$' ;
 
 
 select * from member_rental_info;
-
+select * from overdue;
+insert into overdue values(3,0,0,0);
 
