@@ -1,6 +1,7 @@
 package kr.or.yi.java_web_male.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.PopupMenu;
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class MemberSearchUI extends JFrame {
 		memberDetailUI = new MemberSearchDetail();
 		memberRent = new MemberRent();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 476, 303);
+		setBounds(100, 100, 646, 338);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -96,7 +97,6 @@ public class MemberSearchUI extends JFrame {
 		textField.setColumns(10);
 		Searchpanel.add(textField);
 		
-
 		Slist = new MemberSearchResult();
 		Slist.getTable().addMouseListener(new MouseAdapter() {
 			
@@ -128,7 +128,7 @@ public class MemberSearchUI extends JFrame {
 		});
 		contentPane.add(Slist, BorderLayout.CENTER);
 		Slist.setPopupMenu(getPopupMenu());
-
+		
 		JButton button = new JButton("검색");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -207,6 +207,9 @@ public class MemberSearchUI extends JFrame {
 
 		});*/
 		Slist.setPopupMenu(getPopupMenu());
+		
+		p_rent = new JPanel();
+		pContent.add(p_rent);
 	}
 
 	private JPopupMenu getPopupMenu() {
@@ -231,7 +234,7 @@ public class MemberSearchUI extends JFrame {
 				memberDetailUI.setVisible(true);
 			} else {
 				do_showMemberRent(e);				
-				MemberSearchUI.this.revalidate();//화면을 새로추가해줌
+				MemberSearchUI.this.revalidate();///화면을 새로추가해줌
 				JOptionPane.showMessageDialog(null, e.getActionCommand());
 			}
 
@@ -243,21 +246,34 @@ public class MemberSearchUI extends JFrame {
 		}
 
 		private void do_showMemberRent(ActionEvent e) {
+/*			System.out.println("------------------------------------------------------ "+ pContent.getComponents().length);
+			for(Component c:pContent.getComponents()){
+				System.out.println(c);
+			}*/
 			Member mem = Slist.getSelectedMember();
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("memberNo", String.valueOf(mem));
 			List<Member> list = service.searchMembernoRent(map);
 			MemberRent p = new MemberRent();
-			pContent.add(p);
+/*			if( pContent.getComponents().length == 1) {
+				pContent.remove(0);
+			}
+			*/
+			if( p_rent.getComponents().length == 1) {
+				p_rent.remove(0);
+			}
+			p_rent.add(p);
+//			pContent.add(p);
 			p.setLists(list);
 			p.loadData();
-			
+			p.repaint();
 		}
 
 	};
 
 	
-	private JPanel pContent;public void setBookRentUI(BookRentUI bookRentUI) {
+	private JPanel pContent;
+	private JPanel p_rent;public void setBookRentUI(BookRentUI bookRentUI) {
 		this.bookRentUI = bookRentUI;
 	}
 
