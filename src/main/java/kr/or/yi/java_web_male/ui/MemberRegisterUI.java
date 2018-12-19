@@ -16,21 +16,26 @@ import java.awt.FlowLayout;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import java.awt.CardLayout;
+import javax.swing.JSpinner;
+import javax.swing.JComboBox;
+import java.awt.Component;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JPasswordField;
 
 public class MemberRegisterUI extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
 	private JTextField textField_5;
 	private JTextField textField_6;
-	private JTextField textField_7;
 	private JTextField textField_8;
-	private JTextField textField_9;
 	private JTextField textField_10;
+	private JTextField textField_7;
+	private JTextField textField_9;
+	private JPasswordField passwordField;
+	private JPasswordField passwordField_1;
 
 	/**
 	 * Launch the application.
@@ -53,7 +58,7 @@ public class MemberRegisterUI extends JFrame {
 	 */
 	public MemberRegisterUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 557, 543);
+		setBounds(100, 100, 734, 543);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -81,25 +86,24 @@ public class MemberRegisterUI extends JFrame {
 		panel_5.setLayout(new GridLayout(0, 3, 0, 0));
 		
 		JLabel lblNewLabel_2 = new JLabel("비밀번호");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		panel_5.add(lblNewLabel_2);
 		
-		textField_1 = new JTextField();
-		panel_5.add(textField_1);
-		textField_1.setColumns(10);
+		passwordField = new JPasswordField();
+		panel_5.add(passwordField);
 		
 		JPanel panel_12 = new JPanel();
 		panel_5.add(panel_12);
 		
 		JLabel lblNewLabel_3 = new JLabel("비밀번호 확인");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
 		panel_5.add(lblNewLabel_3);
 		
-		textField_2 = new JTextField();
-		panel_5.add(textField_2);
-		textField_2.setColumns(10);
+		passwordField_1 = new JPasswordField();
+		panel_5.add(passwordField_1);
 		
-		textField_9 = new JTextField();
-		panel_5.add(textField_9);
-		textField_9.setColumns(10);
+		JPanel panel_16 = new JPanel();
+		panel_5.add(panel_16);
 		
 		JPanel panel_6 = new JPanel();
 		panel.add(panel_6);
@@ -151,7 +155,7 @@ public class MemberRegisterUI extends JFrame {
 		
 		JPanel panel_10 = new JPanel();
 		panel.add(panel_10);
-		panel_10.setLayout(new GridLayout(0, 2, 0, 0));
+		panel_10.setLayout(new GridLayout(0, 4, 0, 0));
 		
 		JLabel lblNewLabel_8 = new JLabel("이메일");
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
@@ -160,6 +164,14 @@ public class MemberRegisterUI extends JFrame {
 		textField_7 = new JTextField();
 		panel_10.add(textField_7);
 		textField_7.setColumns(10);
+		
+		textField_9 = new JTextField();
+		panel_10.add(textField_9);
+		textField_9.setColumns(10);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"선택하세요", "@naver.com", "@google.com", "@daum.com", "직접입력"}));
+		panel_10.add(comboBox);
 		
 		JPanel panel_11 = new JPanel();
 		panel.add(panel_11);

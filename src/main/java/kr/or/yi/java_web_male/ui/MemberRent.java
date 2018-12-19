@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import kr.or.yi.java_web_male.dto.Member;
 import java.awt.Dimension;
+import java.text.SimpleDateFormat;
 
 public class MemberRent extends JPanel {
 	private JTable table;
@@ -40,7 +41,7 @@ public class MemberRent extends JPanel {
 				));
 	}
 	private Object[] getCoulum() {
-		return new String[] {"회원번호","이름","제목","대여날짜","반납일","반납예정일"};
+		return new String[] {"회원번호","이름","제목","대여날짜","반납예정일"};
 	}
 	private Object[][] getdatas() {
 		Object[][] datas = new Object[list.size()][];
@@ -50,11 +51,13 @@ public class MemberRent extends JPanel {
 		return datas;
 	}
 	private Object[] getRow(Member member) {
+		SimpleDateFormat date= new SimpleDateFormat("yyyy/MM/dd");
+		
 		return new Object[] {member.getMemberNo(),
 				 member.getKorName(),
 				 member.getBook().getTitle(),
-				 member.getBookRentallInfo().getRentalDate(),
-				 member.getBookRentallInfo().getReturnDate(),
-				 member.getBookRentallInfo().getReturnSchedule()};
+				 date.format(member.getBookRentallInfo().getRentalDate()),
+				 date.format( member.getBookRentallInfo().getReturnSchedule())
+				 };
 	}
 }
