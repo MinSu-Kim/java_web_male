@@ -204,7 +204,7 @@ drop view bestsaler;
 
 select *, count(bc) as ranking 
 from bestsaler 
-where rental_date REGEXP'2018-1'
+where rental_date REGEXP'2018-1' and bc IN(11100000,00000000,00001)
 group by bc limit 0,10;
 
 SELECT rental_no, rental_date, return_date, return_schedule, member_no, book_code
