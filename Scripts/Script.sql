@@ -214,5 +214,6 @@ where book_code regexp '^[0][0-9]+$' ;
 
 
 select * from member_rental_info;
-
+select * from overdue;
+insert into overdue values(3,0,0,0);
 
