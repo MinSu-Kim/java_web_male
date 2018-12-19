@@ -19,6 +19,7 @@ public class MemberSearchResult extends JPanel {
 	private JTable table;
 	private List<Member> list;
 	private Member members;
+	private JScrollPane scrollPane;
 	
 	public void setLists(List<Member> list) {
 		this.list = list;
@@ -30,7 +31,7 @@ public class MemberSearchResult extends JPanel {
 	public MemberSearchResult() {
 		setLayout(new BorderLayout(0, 0));
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable();
@@ -54,7 +55,7 @@ public class MemberSearchResult extends JPanel {
 	      }
 
 	   }//클릭시 수정 불가하게 만들기
-	 
+ 
 	public void loadData() {
 		table.setModel(new MyTableModel(
 				getdatas(),
@@ -110,6 +111,10 @@ public class MemberSearchResult extends JPanel {
 	public JTable getTable() {
 		return table;
 
+	}
+
+	public JScrollPane getScrollPane() {
+		return scrollPane;
 	}
 
 

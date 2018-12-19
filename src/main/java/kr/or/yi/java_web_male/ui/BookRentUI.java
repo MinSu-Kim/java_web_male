@@ -19,6 +19,9 @@ import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -32,6 +35,8 @@ public class BookRentUI extends JFrame {
 	private JButton btnBookSearch;
 	private BookRentalInfoMapper bookRentalInfoMapper;
 	private BookRentalInfo bookRentalInfo;
+	private Book book;
+	private InOutUI inOutUI;
 
 	/**
 	 * Launch the application.
@@ -59,6 +64,7 @@ public class BookRentUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	int noCnt = 0;
 	public BookRentUI() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -142,12 +148,26 @@ public class BookRentUI extends JFrame {
 
 		JPanel container2 = new JPanel();
 		contentPane.add(container2, BorderLayout.SOUTH);
-
+		
 		JButton btnRent = new JButton("대여");
 		btnRent.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
-				BookRentalInfo bookRentalInfo = new BookRentalInfo();
 				
+				Date rentalDate = new Date();
+				/*Book bCode = textBookCode.getText();*/
+				/*Book book = new Book();*/
+				
+				
+				BookRentalInfo bookRentalInfo = new BookRentalInfo();
+				bookRentalInfo.setRentalNo(noCnt);
+				bookRentalInfo.setRentalDate(rentalDate);
+				bookRentalInfo.setReturnDate(null);
+				bookRentalInfo.setReturnSchedule(rentalDate);
+				/*bookRentalInfo.setBookCode();*/
+				textMemberNo.getText();
+				int bookRentalInfo1 = bookRentalInfoMapper.insertBookRentalInfo(bookRentalInfo);
+				noCnt++;
 			}
 		});
 		container2.add(btnRent);
@@ -161,6 +181,9 @@ public class BookRentUI extends JFrame {
 	public void setMemberNo(Member member) {
 		this.textMemberNo.setText(member.getMemberNo());
 		textMemberNo.requestFocus();
+	}
+	public void setInOutUI(InOutUI inOutUI) {
+		this.inOutUI = inOutUI;
 	}
 
 }
