@@ -212,7 +212,9 @@ FROM proj_library.book_rental_info
 where book_code regexp '^[0][0-9]+$' ;
 
 
-
+select * from `member`;
 select * from member_rental_info;
-
+select * from overdue;
+delete from overdue where member_no = '123';
+insert into overdue values(123,0,0,0);
 

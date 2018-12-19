@@ -8,17 +8,23 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.java_web_male.dao.BookRentalInfoMapper;
+import kr.or.yi.java_web_male.dao.BookRentalInfoMapperImpl;
 import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.service.LibraryUIService;
 
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import java.awt.CardLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -31,7 +37,11 @@ public class BookRentUI extends JFrame {
 	private JTextField textMemberNo;
 	private JButton btnBookSearch;
 	private BookRentalInfoMapper bookRentalInfoMapper;
+	private BookRentalInfoMapperImpl bookRentalInfoMapperImpl;
 	private BookRentalInfo bookRentalInfo;
+	private Book book;
+	private InOutUI inOutUI;
+	private LibraryUIService service;
 
 	/**
 	 * Launch the application.
@@ -59,7 +69,9 @@ public class BookRentUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	int noCnt = 5;
 	public BookRentUI() {
+		service = new LibraryUIService();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 486, 347);
@@ -142,12 +154,32 @@ public class BookRentUI extends JFrame {
 
 		JPanel container2 = new JPanel();
 		contentPane.add(container2, BorderLayout.SOUTH);
-
+		
 		JButton btnRent = new JButton("대여");
 		btnRent.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
-				BookRentalInfo bookRentalInfo = new BookRentalInfo();
 				
+				Date rentalDate = new Date();
+				
+				Book book = new Book();
+				book.setBookCode(textBookCode.getText());
+				
+				Member member = new Member();
+				member.setMemberNo(textMemberNo.getText());
+				
+				BookRentalInfo bookRentalInfo = new BookRentalInfo();
+				bookRentalInfo.setRentalNo(noCnt);
+				bookRentalInfo.setRentalDate(rentalDate);
+				bookRentalInfo.setReturnDate(null);
+				bookRentalInfo.setReturnSchedule(rentalDate);
+				bookRentalInfo.setBookCode(book);
+				bookRentalInfo.setMemberNo(member);
+				
+				
+				int bookRentalInfo1 = service.insertBookRentalInfo(bookRentalInfo);
+				noCnt++;
+				JOptionPane.showMessageDialog(null, "대여에 성공하셨습니다. 반납일자를 잘 지켜주세요.");
 			}
 		});
 		container2.add(btnRent);
@@ -161,6 +193,9 @@ public class BookRentUI extends JFrame {
 	public void setMemberNo(Member member) {
 		this.textMemberNo.setText(member.getMemberNo());
 		textMemberNo.requestFocus();
+	}
+	public void setInOutUI(InOutUI inOutUI) {
+		this.inOutUI = inOutUI;
 	}
 
 }

@@ -1,6 +1,7 @@
 package kr.or.yi.java_web_male.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.PopupMenu;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
+import java.awt.FlowLayout;
 
 public class MemberSearchUI extends JFrame {
 
@@ -49,6 +51,8 @@ public class MemberSearchUI extends JFrame {
 	private Overdue overdue;
 	private OverdueMapper overdueMapper;
 	private MemberRent memberRent;
+	private JPanel pContent;
+	private JPanel p_rent;
 
 	/**
 	 * Launch the application.
@@ -76,7 +80,7 @@ public class MemberSearchUI extends JFrame {
 		memberDetailUI = new MemberSearchDetail();
 		memberRent = new MemberRent();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 476, 303);
+		setBounds(100, 100, 630, 338);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -95,39 +99,12 @@ public class MemberSearchUI extends JFrame {
 		textField = new JTextField();
 		textField.setColumns(10);
 		Searchpanel.add(textField);
-
-
+	
 		Slist = new MemberSearchResult();
-		Slist.getTable().addMouseListener(new MouseAdapter() {
 
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(e.getClickCount()==2) {
-					/*JOptionPane.showMessageDialog(null, "2번클릭");*/
-					Member member = Slist.selectedItem();
-					/*Overdue의 memberNo(String형태)의 값이 member(Member형태)인 rentalAuthority의 값이 false면 실행 안되도록 설정*/
-					String mNo = String.valueOf(member);
-					Overdue overdue = new Overdue();
-					overdue.setMemberNo(mNo);
-					Overdue overdue1 = overdueMapper.selectOverdueByMemberNo(overdue);
-					if(overdue1.isRentalAuthority() == true) {
-						JOptionPane.showMessageDialog(null, "대여 가능한 회원입니다.");
-						bookRentUI.setMemberNo(member);
-						MemberSearchUI.this.dispose();
-					}else{
-						JOptionPane.showMessageDialog(null, "대여 가능한 회원입니다.");
-					}
-						
-						
-					
-					
-				}
-			}
-			
-		});
 		contentPane.add(Slist, BorderLayout.CENTER);
 		Slist.setPopupMenu(getPopupMenu());
-
+		
 		JButton button = new JButton("검색");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -149,66 +126,75 @@ public class MemberSearchUI extends JFrame {
 				}
 
 			}
-
-			private void searchNo() {
-				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("memberNo", textField.getText());
-				Member member = service.searchMemberNo(map);
-				List<Member> list = new ArrayList<>();
-				list.add(member);
-				Slist.setLists(list);
-				Slist.loadData();
-			}
-
-			private void searchName() {
-				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("korName", textField.getText());
-				List<Member> member = service.searchMemberName(map);
-				List<Member> list = new ArrayList<>();
-				list.addAll(member);
-				Slist.setLists(list);
-				Slist.loadData();
-				Slist.setEnabled(false);
-
-			}
-
-			private void searchPhone() {
-				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("phone", textField.getText());
-				Member member = service.searchMemberPhone(map);
-				List<Member> list = new ArrayList<>();
-				list.add(member);
-				Slist.setLists(list);
-				Slist.loadData();
-			}
 		});// end of action
 		Searchpanel.add(button);
-
-		pContent = new JPanel();
-		contentPane.add(pContent, BorderLayout.WEST);
-		pContent.setLayout(new GridLayout(0, 1, 0, 0));
-
-		Slist = new MemberSearchResult();
-		Slist.setEnabled(false);
-		pContent.add(Slist);
 		Slist.getTable().addMouseListener(new MouseAdapter() {
-
+			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
-					 JOptionPane.showMessageDialog(null, "2번클릭"); 
+				if(e.getClickCount()==2) {
+					JOptionPane.showMessageDialog(null, "2번클릭");
 					Member member = Slist.selectedItem();
-
-					bookRentUI.setMemberNo(member);
-					MemberSearchUI.this.dispose();
-
+					/*Overdue의 memberNo(String형태)의 값이 member(Member형태)인 rentalAuthority의 값이 false면 실행 안되도록 설정*/
+					String mNo = String.valueOf(member);
+					Overdue overdue = new Overdue();
+					overdue.setMemberNo(mNo);
+					Overdue overdue1 = overdueMapper.selectOverdueByMemberNo(overdue);
+					if(overdue1.isRentalAuthority() == true) {
+						JOptionPane.showMessageDialog(null, "대여 가능한 회원입니다.");
+						bookRentUI.setMemberNo(member);
+						MemberSearchUI.this.dispose();
+					}else{
+						JOptionPane.showMessageDialog(null, "대여 불가능한 회원입니다.");
+						return;
+					}
+						
+						
+					
+					
 				}
 			}
-
+			
 		});
 		Slist.setPopupMenu(getPopupMenu());
+		
+				pContent = new JPanel();
+				Slist.add(pContent, BorderLayout.SOUTH);
+				pContent.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+				
+				p_rent = new JPanel();
+				pContent.add(p_rent);
+	}
+	private void searchNo() {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("memberNo", textField.getText());
+		Member member = service.searchMemberNo(map);
+		List<Member> list = new ArrayList<>();
+		list.add(member);
+		Slist.setLists(list);
+		Slist.loadData();
 	}
 
+	private void searchName() {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("korName", textField.getText());
+		List<Member> member = service.searchMemberName(map);
+		List<Member> list = new ArrayList<>();
+		list.addAll(member);
+		Slist.setLists(list);
+		Slist.loadData();
+
+	}
+
+	private void searchPhone() {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("phone", textField.getText());
+		Member member = service.searchMemberPhone(map);
+		List<Member> list = new ArrayList<>();
+		list.add(member);
+		Slist.setLists(list);
+		Slist.loadData();
+	}
 	private JPopupMenu getPopupMenu() {
 		JPopupMenu popupMenu = new JPopupMenu();
 
@@ -231,7 +217,7 @@ public class MemberSearchUI extends JFrame {
 				memberDetailUI.setVisible(true);
 			} else {
 				do_showMemberRent(e);				
-				MemberSearchUI.this.revalidate();//화면을 새로추가해줌
+				MemberSearchUI.this.revalidate();///화면을 새로추가해줌
 				JOptionPane.showMessageDialog(null, e.getActionCommand());
 			}
 
@@ -243,21 +229,22 @@ public class MemberSearchUI extends JFrame {
 		}
 
 		private void do_showMemberRent(ActionEvent e) {
+
 			Member mem = Slist.getSelectedMember();
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("memberNo", String.valueOf(mem));
 			List<Member> list = service.searchMembernoRent(map);
 			MemberRent p = new MemberRent();
-			pContent.add(p);
+			if( p_rent.getComponents().length == 1) {
+				p_rent.remove(0);
+			}
+			p_rent.add(p);
 			p.setLists(list);
 			p.loadData();
-			
 		}
 
 	};
-
-	
-	private JPanel pContent;public void setBookRentUI(BookRentUI bookRentUI) {
+	public void setBookRentUI(BookRentUI bookRentUI) {
 		this.bookRentUI = bookRentUI;
 	}
 
