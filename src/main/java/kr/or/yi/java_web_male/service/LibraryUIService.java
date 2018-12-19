@@ -86,5 +86,8 @@ public class LibraryUIService {
 	public List<BookRentalInfo> selectBookRentalInfoByBookCode(Book book) {
 		return bookRentalInfoMapper.selectBookRentalInfoByBookCode(book);
 	}
+	public int insertBookRentalInfo(BookRentalInfo bookRentalInfo) {
+		return bookRentalInfoMapper.insertBookRentalInfo(bookRentalInfo);
+	}
 
 }

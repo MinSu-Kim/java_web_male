@@ -204,7 +204,7 @@ drop view bestsaler;
 
 select *, count(bc) as ranking 
 from bestsaler 
-where rental_date REGEXP'2018-1'
+where rental_date REGEXP'2018-1' and bc IN(11100000,00000000,00001)
 group by bc limit 0,10;
 
 SELECT rental_no, rental_date, return_date, return_schedule, member_no, book_code
@@ -212,7 +212,9 @@ FROM proj_library.book_rental_info
 where book_code regexp '^[0][0-9]+$' ;
 
 
-
+select * from `member`;
 select * from member_rental_info;
-
+select * from overdue;
+delete from overdue where member_no = '123';
+insert into overdue values(123,0,0,0);
 

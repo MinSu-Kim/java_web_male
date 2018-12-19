@@ -10,6 +10,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import kr.or.yi.java_web_male.dto.Member;
+import java.awt.Dimension;
 
 public class MemberRent extends JPanel {
 	private JTable table;
@@ -22,6 +23,7 @@ public class MemberRent extends JPanel {
 	 * Create the panel.
 	 */
 	public MemberRent() {
+		setPreferredSize(new Dimension(600, 100));
 		setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();

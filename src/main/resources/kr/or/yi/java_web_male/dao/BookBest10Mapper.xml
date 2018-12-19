@@ -19,6 +19,9 @@
 			<if test="cateSNo != null">
 				AND cate_s_no =#{cateSNo}
 			</if>
+			<if test="bookCode != null">
+				and bc IN(#{bookCode})
+			</if>
 		</where>
 	</sql>
 	<resultMap type="BookBest10" id="BookBest10">
@@ -32,9 +35,10 @@
 		<result property="cateMNo.mCode" column="cate_m_no"/>
 		<result property="cateSNo.sCode" column="cate_s_no"/>
 	</resultMap>
-	<select id="selectBookBest10ByBookRentInfo" resultMap="BookBest10" parameterType="BookBest10">
+	<select id="selectBookBest10ByMap" resultMap="BookBest10" parameterType="BookBest10">
 		<include refid="selectSql" />
 		<include refid="where"/>
 		group by bc limit 0,10
 	</select>
+	
 </mapper>

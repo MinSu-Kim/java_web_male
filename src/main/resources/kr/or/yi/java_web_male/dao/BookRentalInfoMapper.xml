@@ -63,7 +63,7 @@
 		<include refid="selectSqlkjy"/>
 		<include refid="whereBookCodeSql"/>
 	</select>
-	
+
 	<resultMap type="BookRentalInfo" id="selectBookRentalMemberInfo">
 		<result property="bookCode.bookCode" column="book_code" />
 		<result property="bookCode.title" column="title" />

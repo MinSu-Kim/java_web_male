@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import kr.or.yi.java_web_male.dto.Book;
@@ -18,6 +19,7 @@ public class MemberSearchResult extends JPanel {
 	private JTable table;
 	private List<Member> list;
 	private Member members;
+	private JScrollPane scrollPane;
 	
 	public void setLists(List<Member> list) {
 		this.list = list;
@@ -29,27 +31,47 @@ public class MemberSearchResult extends JPanel {
 	public MemberSearchResult() {
 		setLayout(new BorderLayout(0, 0));
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 	}
+
+/*	public boolean isCellEditable(int row, int column) {
+		return false;
+	}*/
+	 class MyTableModel extends DefaultTableModel {
+
+	      public MyTableModel(Object[][] data, Object[] columnNames) {
+	         super(data, columnNames);
+	      }
+
+	      @Override
+	      public boolean isCellEditable(int row, int column) {
+	         return false;
+	      }
+
+	   }//클릭시 수정 불가하게 만들기
+ 
 	public void loadData() {
-		table.setModel(new DefaultTableModel(
+		table.setModel(new MyTableModel(
 				getdatas(),
 				getCoulum()
 				));
+		
 	}
 	private Object[] getCoulum() {
 		return new String[] {"회원번호","이름","생년월일","전화번호"};
 	}
-
+	
 	private Object[][] getdatas() {
 		Object[][] datas = new Object[list.size()][];
 		for(int i=0; i<list.size(); i++) {
 			datas[i]=getRow(list.get(i));
+			
 		}
 		return datas;
 	}
@@ -89,6 +111,10 @@ public class MemberSearchResult extends JPanel {
 	public JTable getTable() {
 		return table;
 
+	}
+
+	public JScrollPane getScrollPane() {
+		return scrollPane;
 	}
 
 
