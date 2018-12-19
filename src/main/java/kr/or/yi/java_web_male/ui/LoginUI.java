@@ -21,7 +21,7 @@ import kr.or.yi.java_web_male.dao.MemberMapperImpl;
 import kr.or.yi.java_web_male.dto.Member;
 
 @SuppressWarnings("serial")
-public class LoginUI extends JFrame {
+public class LoginUI extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField tfMemberNo;
@@ -36,6 +36,7 @@ public class LoginUI extends JFrame {
 
 	// 서비스 만들기
 	private MemberMapper memberMapper;
+	private JButton btnLogin;
 
 	public static final Member getLogin() {
 		return loginMember;
@@ -102,13 +103,15 @@ public class LoginUI extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(new BorderLayout(10, 10));
 
-		JButton btnLogin = new JButton("로그인");
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				do_btnLogin_actionPerformed(e);
-			}
-		});
+		btnLogin = new JButton("로그인");
+		btnLogin.addActionListener(this);
 		panel_1.add(btnLogin);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnLogin) {
+			do_btnLogin_actionPerformed(e);
+		}
 	}
 
 	protected void do_btnLogin_actionPerformed(ActionEvent arg0) {
@@ -153,5 +156,4 @@ public class LoginUI extends JFrame {
 		tfMemberNo.setText("");
 		tfPassword.setText("");
 	}
-
 }
