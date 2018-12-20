@@ -25,34 +25,18 @@ public class PostUI extends JFrame {
 	private JTextField textPostCode;
 	private JTextField textAddress;
 	private JTextField textDetailAddress;
-
+	private MemberRegisterUI memberRegisterUI;
+	private PostListPanel pList;
+	private Post doro;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		// 룩앤필 변경
-				try {
-					UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
-				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-						| UnsupportedLookAndFeelException e1) {
-					e1.printStackTrace();
-				}
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PostUI frame = new PostUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
 	public PostUI() {
+		pList = new PostListPanel();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 479, 312);
 		contentPane = new JPanel();
@@ -157,15 +141,25 @@ public class PostUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null,String.format("%s%s,%s",textPostCode.getText(), textAddress.getText(),textDetailAddress.getText()));
 				
+				memberRegisterUI.setAddress(String.format("%s%s,%s",textPostCode.getText(), textAddress.getText(),textDetailAddress.getText()));
+				dispose();
 			}
 		});
 		BtnButtonPanel.add(BtnOk);
 	}
 
-	
+
+
+	public void setMemberRegisterUI(MemberRegisterUI memberRegisterUI) {
+		this.memberRegisterUI = memberRegisterUI;
+	}
+
+
+
 	public void setAddress(Post post) {
-		this.textPostCode.setText(post.getZipcode());
-		this.textAddress.setText(post.toString());
+		textPostCode.setText(post.getZipcode());
+		textAddress.setText(post.toString());
 		textAddress.requestFocus();
 	}
+
 }
