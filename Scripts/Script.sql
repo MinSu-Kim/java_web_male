@@ -205,7 +205,7 @@ drop view bestsaler;
 
 select *, count(bc) as ranking 
 from bestsaler 
-where rental_date REGEXP'2018-1' and bc IN(11100000,00000000,00001)
+where rental_date regexp '2018-1' and bc IN('11100000','00000000','00001')
 group by bc limit 0,10;
 
 SELECT rental_no, rental_date, return_date, return_schedule, member_no, book_code
@@ -218,4 +218,22 @@ select * from member_rental_info;
 select * from overdue;
 delete from overdue where member_no = '123';
 insert into overdue values(123,0,0,0);
+
+INSERT INTO proj_library.book_rental_info
+(rental_date, return_date, return_schedule, member_no, book_code)
+VALUES('2018-11-10', '2018-11-10', '2018-11-10', 123, '0000000001');
+
+
+create view bestMember as select substring(m.jumin,8,1) as sex,m.member_no as member_no, m.kor_name, m.admin,rental_date
+FROM book_rental_info i join `member` m where i.member_no=m.member_no;
+
+drop view bestMember;
+
+select *, count(member_no) as ranking 
+from bestmember
+where rental_date regexp '2018-' and member_no IN('123') and admin =0
+group by member_no limit 0,10;
+
+
+
 

@@ -13,19 +13,13 @@ import kr.or.yi.java_web_male.dto.BookRentalInfo;
 
 
 public class BestUIService {
-	/*private BookRentalInfoMapper bookRentalInfoMapper;*/
 	private BookBest10Mapper best10Mapper;
 
 	public BestUIService() {
-		/*bookRentalInfoMapper = BookRentalInfoMapperImpl.getInstance();*/
+	
 		best10Mapper = BookBest10MapperImpl.getInstance();
 	}	
-	/*public List<BookRentalInfo> selectBookRentalInfoByAll() {
-		return bookRentalInfoMapper.selectBookRentalInfoByAll();
-	}
-	public List<BookRentalInfo> selectBookRentalInfoByBookCode(Book book) {
-		return bookRentalInfoMapper.selectBookRentalInfoByBookCode(book);
-	}*/
+	
 	public List<BookBest10> selectBookBest10ByMap(Map<String, Object> map) {
 		return best10Mapper.selectBookBest10ByMap(map);
 	}
