@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.yi.java_web_male.dao.BookBest10Mapper">
 	<sql id="selectSql">
-		SELECT bc, title, author, pub_name, rental_date, cate_b_no, cate_m_no, cate_s_no,count(bc) as ranking 
+		SELECT bc, title, author, pub_name, rental_date, cate_b_no,
+		cate_m_no, cate_s_no,count(bc) as ranking
 		FROM bestsaler
 	</sql>
 	<sql id="where">
@@ -19,26 +20,32 @@
 			<if test="cateSNo != null">
 				AND cate_s_no =#{cateSNo}
 			</if>
-			<if test="bookCode != null">
-				and bc IN(#{bookCode})
+			<if test="bookCodes != null">
+				and bc IN
+				<foreach item="bookCode" index="index" collection="bookCodes"
+					open="(" separator="," close=")">
+					#{bookCode}
+				</foreach>
 			</if>
+
 		</where>
 	</sql>
 	<resultMap type="BookBest10" id="BookBest10">
-		<result property="bookCode.bookCode" column="bc"/>
-		<result property="title.title" column="title"/>
-		<result property="author.author" column="author"/>
-		<result property="pubName.pubName" column="pub_name"/>
-		<result property="ranking" column="ranking"/>
+		<result property="bookCode.bookCode" column="bc" />
+		<result property="title.title" column="title" />
+		<result property="author.author" column="author" />
+		<result property="pubName.pubName" column="pub_name" />
+		<result property="ranking" column="ranking" />
 		<!-- <result property="rentalDate" column="rental_date"/> -->
-		<result property="cateBNo.bCode" column="cate_b_no"/>
-		<result property="cateMNo.mCode" column="cate_m_no"/>
-		<result property="cateSNo.sCode" column="cate_s_no"/>
+		<result property="cateBNo.bCode" column="cate_b_no" />
+		<result property="cateMNo.mCode" column="cate_m_no" />
+		<result property="cateSNo.sCode" column="cate_s_no" />
 	</resultMap>
-	<select id="selectBookBest10ByMap" resultMap="BookBest10" parameterType="BookBest10">
+	<select id="selectBookBest10ByMap" resultMap="BookBest10"
+		parameterType="BookBest10">
 		<include refid="selectSql" />
-		<include refid="where"/>
+		<include refid="where" />
 		group by bc limit 0,10
 	</select>
-	
+
 </mapper>

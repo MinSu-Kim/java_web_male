@@ -30,6 +30,7 @@ public class PanelBarChart extends JFXPanel implements InitScene{
 	private List<BookBest10> Best10BookListsLast;
 	private String now = "이번달";
 	private String last = "저번달";
+	private String title = "이번달 Best10!";
 	
 	
 	@Override
@@ -46,7 +47,7 @@ public class PanelBarChart extends JFXPanel implements InitScene{
 		yAxis.setLabel("대여 횟수");
 
 		barChart = new BarChart<>(xAxis, yAxis);
-		barChart.setTitle("이번달 Best10!");
+		barChart.setTitle(title);
 		
 		barChart.setPrefSize(600, 370);
 		barChart.setData(getChartData());
@@ -56,7 +57,7 @@ public class PanelBarChart extends JFXPanel implements InitScene{
 		return scene;
 	}
 	
-	public void deleteAllData() {
+	/*public void deleteAllData() {
 		barChart.getData().clear();
 	}
 	
@@ -85,14 +86,10 @@ public class PanelBarChart extends JFXPanel implements InitScene{
 			}
 		}
 	}
-	
-	/*public void addChartData(Student std) {
-		barChart.getData().add(getChartData(std));
-	}*/
-	
+		
 	public void addAllChartData() {
 		barChart.setData(getChartData());
-	}
+	}*/
 	
 	public XYChart.Series<String, Number> getChartDataNow(List<BookBest10> list, String day) {
 		XYChart.Series<String, Number> dataSeries = new Series<String, Number>();
@@ -108,7 +105,10 @@ public class PanelBarChart extends JFXPanel implements InitScene{
 		ObservableList<XYChart.Series<String, Number>> list = FXCollections.observableArrayList();
 
 		list.add(getChartDataNow(best10BookLists,now));
-		list.add(getChartDataNow(Best10BookListsLast,last));
+		if(Best10BookListsLast.size() != 0) {
+			list.add(getChartDataNow(Best10BookListsLast,last));
+		}
+		
 			
 		
 		return list;
@@ -125,6 +125,11 @@ public class PanelBarChart extends JFXPanel implements InitScene{
 		last = string;
 		
 	}
+	public void setTitle(String title) {
+		this.title = title;
+		
+	}
+
 	
 
 }
