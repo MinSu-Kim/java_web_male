@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -142,9 +143,17 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		year = "";
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
+		
 		year = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1);
+		if(((cal.get(Calendar.MONTH)+1+"").trim()).length()==1) {
+			year = cal.get(Calendar.YEAR) + "-0" + (cal.get(Calendar.MONTH) + 1);
+		}
 		map.put("rentalDate", year);
 		Best10BookLists = bestService.selectBookBest10ByMap(map);
+		List<String> bookCodes = new ArrayList<>();
+		for (BookBest10 best10 : Best10BookLists) {
+			bookCodes.add(best10.getBookCode().getBookCode());
+		}
 
 		DefaultComboBoxModel<String> MDatemodel = new DefaultComboBoxModel<>(KindsDatestrArr);
 
@@ -277,8 +286,12 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		
 		Platform.runLater(() -> {pBarChart.setChartDataThis(Best10BookLists,now);});
 		
-		last = (cal.get(Calendar.MONTH) + "월").trim();
+		last = ("("+cal.get(Calendar.YEAR) + "년)"+cal.get(Calendar.MONTH) + "월").trim();
 		year = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH));
+		if(((cal.get(Calendar.MONTH)+1+"").trim()).length()==1) {
+			year = cal.get(Calendar.YEAR) + "-0" + (cal.get(Calendar.MONTH));
+		}
+		map.put("bookCodes", bookCodes);
 		map.put("rentalDate", year);		
 		best10BookListsLast = bestService.selectBookBest10ByMap(map);
 		
@@ -628,43 +641,62 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		String lastYear = "";
 		Date date;
 		Calendar cal = Calendar.getInstance();
-		Map<String, Object> now = new HashMap<String, Object>();
-		Map<String, Object> last = new HashMap<String, Object>();
+		Map<String, Object> nowMap = new HashMap<String, Object>();
+		Map<String, Object> lastMap = new HashMap<String, Object>();
 		if (bspinnerYear.isEnabled()) {
 			date = (Date) bspinnerYear.getValue();
 			cal.setTime(date);
 			year = cal.get(Calendar.YEAR) + "-";
 			lastYear = year;
 			title = cal.get(Calendar.YEAR) + "년";
-			now.put("rentalDate", year);
-			last.put("rentalDate", lastYear);
-			if(BCBKindsDate.getSelectedItem()=="년별") {				
-				lastYear = (cal.get(Calendar.YEAR)-1) + "-";
-				last.put("rentalDate", year);
+			nowMap.put("rentalDate", year);
+			lastMap.put("rentalDate", lastYear);
+			if(BCBKindsDate.getSelectedItem()=="년별") {						
+				lastYear = (Integer.parseInt((cal.get(Calendar.YEAR))+"")-1)+"-";
+				lastMap.put("rentalDate", lastYear);
 			}
 			if(BCBKindsDate.getSelectedItem()=="월별") {
-				/*if(Integer.parseInt((cal.get(Calendar.MONTH)+1) +"")==1) {
-					lastYear = lastYear + "12";
-				}else {
-					lastYear = lastYear + (cal.get(Calendar.MONTH));
+				date = (Date) bspinnerMonth.getValue();
+				cal.setTime(date);
+				if(Integer.parseInt((cal.get(Calendar.MONTH)+1) +"")==1) {
+					date = (Date) bspinnerYear.getValue();
+					cal.setTime(date);
+					lastYear = (Integer.parseInt((cal.get(Calendar.YEAR))+"")-1)+"-";
 				}
-				last.put("rentalDate", lastYear);*/
+				
 			}
+			
+			now = year;
+			
+			last = lastYear;
 		}
 		if (bspinnerMonth.isEnabled()) {
 			date = (Date) bspinnerMonth.getValue();
 			cal.setTime(date);
-			year = year + (cal.get(Calendar.MONTH) + 1);
+						
+			if(((cal.get(Calendar.MONTH)+1+"").trim()).length()==1) {
+				year = year +"0"+ (cal.get(Calendar.MONTH)+1);				
+			}else {
+				year = year + (cal.get(Calendar.MONTH) + 1);
+			}
 			title = title + (cal.get(Calendar.MONTH) + 1) + "월 ";
-			now.put("rentalDate", year);
+			nowMap.put("rentalDate", year);
 			if(BCBKindsDate.getSelectedItem()=="월별") {
 				if(Integer.parseInt((cal.get(Calendar.MONTH)+1) +"")==1) {
-					lastYear = lastYear + "12";
+					lastYear = lastYear + "12";					
 				}else {
-					lastYear = lastYear + (cal.get(Calendar.MONTH));
+					
+					if(((cal.get(Calendar.MONTH)+"").trim()).length()==1) {
+						lastYear = lastYear + "0" + (cal.get(Calendar.MONTH));
+					}else {
+						lastYear = lastYear + (cal.get(Calendar.MONTH));
+					}
 				}
-				last.put("rentalDate", lastYear);
+				lastMap.put("rentalDate", lastYear);
 			}
+			now = year;
+			last = lastYear;
+			
 		}
 		if (BCBKindsCate.getSelectedItem().equals("장르별")) {
 			try {
@@ -682,35 +714,46 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		if (bookCateBview) {
 			String b = (bookCateB.getbCode() + "").trim();
 			title = title + " " + bookCateB.getbName();
-			now.put("cateBNo", b);
-			last.put("cateBNo", b);
+			nowMap.put("cateBNo", b);
 		}
 		if (bookCateMview) {
 			String m = (bookCateM.getmCode() + "").trim();
 			title = title + ">" + bookCateM.getmName() + "";
-			now.put("cateMNo", m);
-			last.put("cateMNo", m);
+			nowMap.put("cateMNo", m);
 		}
 		if (bookCateSview) {
 			String s = (bookCateS.getsCode() + "").trim();
 			title = title + ">" + bookCateS.getsName() + "";
-			now.put("cateSNo", s);
-			last.put("cateSNo", s);
+			nowMap.put("cateSNo", s);
 		}
-		Best10BookLists = bestService.selectBookBest10ByMap(now);
-		StringBuilder bc= new StringBuilder();
-		int i=0;
-		for(i=0; i<Best10BookLists.size()-1; i++) {
-			bc.append(Best10BookLists.get(i).getBookCode().getBookCode());
-			bc.append(",");
-		}
-		bc.append(Best10BookLists.get(i).getBookCode().getBookCode());
-		JOptionPane.showMessageDialog(null, bc);
-		last.put("bookCode", bc);
+		Best10BookLists = bestService.selectBookBest10ByMap(nowMap);
 		
-		best10BookListsLast = bestService.selectBookBest10ByMap(last);
-
+		List<String> bookCodes = new ArrayList<>();
+		for(int i=0; i<Best10BookLists.size(); i++) {		
+			bookCodes.add(Best10BookLists.get(i).getBookCode().getBookCode());						
+		}
+		lastMap.put("bookCodes", bookCodes);
+		
+		try {
+			best10BookListsLast = bestService.selectBookBest10ByMap(lastMap);
+		} catch (Exception e2) {
+			JOptionPane.showMessageDialog(null,"기록이없습니다.");
+			lastMap.remove("bookCodes");
+			best10BookListsLast = bestService.selectBookBest10ByMap(lastMap);
+		}
+		
+		if(BCBKindsDate.getSelectedItem()=="전체") {			
+			now = "전체";
+		}else {
+			Platform.runLater(() -> {pBarChart.setChartDataLast(best10BookListsLast,last);});
+		}
 		title = title + "Best10";
+		pBarChart.setTitle(title);
+		Platform.runLater(() -> {pBarChart.setChartDataThis(Best10BookLists,now);});		
+		
+		Platform.runLater(() -> initFX(pBarChart));
+		
+		
 		titledBorder = new TitledBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), title,
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelForBTable.setBorder(titledBorder);
