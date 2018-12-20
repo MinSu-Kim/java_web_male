@@ -38,8 +38,10 @@ public class MemberUIService {
 	public List<Member>  searchMembernoRent(Map<String, String> map) {
 		return dao.searchMembernoRent(map);
 	}
-
-
+	public int insertMember(Member member) {
+		return dao.insertMember(member);
+	}
+	
 
 
 }

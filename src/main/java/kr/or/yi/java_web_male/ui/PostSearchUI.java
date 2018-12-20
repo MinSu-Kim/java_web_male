@@ -30,7 +30,8 @@ public class PostSearchUI extends JFrame {
 	private JComboBox BoxSido;
 	private Post doro;
 	private PostUI postUI;
-
+	
+	
 	public PostSearchUI() {
 		setResizable(false);
 		service = new PostUIService();

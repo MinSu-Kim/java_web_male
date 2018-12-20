@@ -6,12 +6,19 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.dto.Post;
+import kr.or.yi.java_web_male.service.MemberUIService;
+
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
@@ -21,22 +28,27 @@ import javax.swing.JComboBox;
 import java.awt.Component;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JPasswordField;
+import javax.swing.BoxLayout;
+import java.awt.Font;
 
 public class MemberRegisterUI extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_8;
-	private JTextField textField_10;
-	private JTextField textField_7;
-	private JTextField textField_9;
-	private JPasswordField passwordField;
-	private JPasswordField passwordField_1;
-
+	private JTextField tFmemberNo;
+	private JTextField tfKor;
+	private JTextField tfEng;
+	private JTextField tfTel;
+	private JTextField tFJu;
+	private JTextField tfUni;
+	private JPasswordField pass1;
+	private JPasswordField pass2;
+	private JTextField tfEmail;
+	private JTextField tfEmail_2;
+	private JTextField tfAdd;
+	private PostUI postui;
+	private MemberUIService service;
+	private JCheckBox chckadmin;
+	private PostSearchUI postsearch;
 	/**
 	 * Launch the application.
 	 */
@@ -57,190 +69,263 @@ public class MemberRegisterUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MemberRegisterUI() {
+		
+		service = new MemberUIService();
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 734, 543);
+		setBounds(100, 100, 689, 543);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(0, 2, 0, 0));
+		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBounds(5, 5, 454, 494);
 		contentPane.add(panel);
 		panel.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JPanel panel_4 = new JPanel();
-		panel.add(panel_4);
-		panel_4.setLayout(new GridLayout(0, 2, 0, 0));
+		JPanel panel_no = new JPanel();
+		panel.add(panel_no);
+		panel_no.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel lblNewLabel_1 = new JLabel("회원번호");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_4.add(lblNewLabel_1);
+		JLabel lblmemberNo = new JLabel("회원번호");
+		lblmemberNo.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_no.add(lblmemberNo);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		panel_4.add(textField);
-		textField.setColumns(10);
+		tFmemberNo = new JTextField();
+		panel_no.add(tFmemberNo);
+		tFmemberNo.setColumns(10);
 		
-		JPanel panel_5 = new JPanel();
-		panel.add(panel_5);
-		panel_5.setLayout(new GridLayout(0, 3, 0, 0));
+		JPanel panel_pass = new JPanel();
+		panel.add(panel_pass);
+		panel_pass.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel lblNewLabel_2 = new JLabel("비밀번호");
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		panel_5.add(lblNewLabel_2);
+		JPanel panel_p = new JPanel();
+		panel_pass.add(panel_p);
+		panel_p.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		passwordField = new JPasswordField();
-		panel_5.add(passwordField);
+		JLabel lblpassword = new JLabel("비밀번호");
+		lblpassword.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_p.add(lblpassword);
 		
-		JPanel panel_12 = new JPanel();
-		panel_5.add(panel_12);
+		JLabel lblconfirm = new JLabel("비밀번호 확인");
+		lblconfirm.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_p.add(lblconfirm);
 		
-		JLabel lblNewLabel_3 = new JLabel("비밀번호 확인");
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
-		panel_5.add(lblNewLabel_3);
+		JPanel panel_p2 = new JPanel();
+		panel_pass.add(panel_p2);
+		panel_p2.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		passwordField_1 = new JPasswordField();
-		panel_5.add(passwordField_1);
+		pass1 = new JPasswordField();
+		panel_p2.add(pass1);
 		
-		JPanel panel_16 = new JPanel();
-		panel_5.add(panel_16);
+		JPanel panel_p3 = new JPanel();
+		panel_p2.add(panel_p3);
 		
-		JPanel panel_6 = new JPanel();
-		panel.add(panel_6);
-		panel_6.setLayout(new GridLayout(0, 2, 0, 0));
+		pass2 = new JPasswordField();
+		panel_p2.add(pass2);
 		
-		JLabel lblNewLabel_4 = new JLabel("한글이름");
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_6.add(lblNewLabel_4);
+		JPanel panel_confirm = new JPanel();
+		panel_p2.add(panel_confirm);
 		
-		textField_3 = new JTextField();
-		panel_6.add(textField_3);
-		textField_3.setColumns(10);
+		JPanel panel_kor = new JPanel();
+		panel.add(panel_kor);
+		panel_kor.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JPanel panel_7 = new JPanel();
-		panel.add(panel_7);
-		panel_7.setLayout(new GridLayout(0, 2, 0, 0));
+		JLabel lblKor = new JLabel("한글이름");
+		lblKor.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_kor.add(lblKor);
 		
-		JLabel lblNewLabel_5 = new JLabel("영어이름");
-		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_7.add(lblNewLabel_5);
+		tfKor = new JTextField();
+		panel_kor.add(tfKor);
+		tfKor.setColumns(10);
 		
-		textField_4 = new JTextField();
-		panel_7.add(textField_4);
-		textField_4.setColumns(10);
+		JPanel panel_Eng = new JPanel();
+		panel.add(panel_Eng);
+		panel_Eng.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JPanel panel_8 = new JPanel();
-		panel.add(panel_8);
-		panel_8.setLayout(new GridLayout(0, 2, 0, 0));
+		JLabel lblEng = new JLabel("영어이름");
+		lblEng.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Eng.add(lblEng);
 		
-		JLabel lblNewLabel_6 = new JLabel("전화번호");
-		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_8.add(lblNewLabel_6);
+		tfEng = new JTextField();
+		panel_Eng.add(tfEng);
+		tfEng.setColumns(10);
 		
-		textField_5 = new JTextField();
-		panel_8.add(textField_5);
-		textField_5.setColumns(10);
+		JPanel panel_Tel = new JPanel();
+		panel.add(panel_Tel);
+		panel_Tel.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JPanel panel_9 = new JPanel();
-		panel.add(panel_9);
-		panel_9.setLayout(new GridLayout(0, 2, 0, 0));
+		JLabel lblTel = new JLabel("전화번호");
+		lblTel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Tel.add(lblTel);
 		
-		JLabel lblNewLabel_7 = new JLabel("주민등록번호");
-		lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_9.add(lblNewLabel_7);
+		tfTel = new JTextField();
+		panel_Tel.add(tfTel);
+		tfTel.setColumns(10);
 		
-		textField_6 = new JTextField();
-		panel_9.add(textField_6);
-		textField_6.setColumns(10);
+		JPanel panel_Ju = new JPanel();
+		panel.add(panel_Ju);
+		panel_Ju.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JPanel panel_10 = new JPanel();
-		panel.add(panel_10);
-		panel_10.setLayout(new GridLayout(0, 4, 0, 0));
+		JLabel lblJu = new JLabel("주민등록번호");
+		lblJu.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Ju.add(lblJu);
 		
-		JLabel lblNewLabel_8 = new JLabel("이메일");
-		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_10.add(lblNewLabel_8);
+		tFJu = new JTextField();
+		panel_Ju.add(tFJu);
+		tFJu.setColumns(10);
 		
-		textField_7 = new JTextField();
-		panel_10.add(textField_7);
-		textField_7.setColumns(10);
+		JPanel panel_Email = new JPanel();
+		panel.add(panel_Email);
+		panel_Email.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		textField_9 = new JTextField();
-		panel_10.add(textField_9);
-		textField_9.setColumns(10);
+		JLabel lblEmail = new JLabel("이메일");
+		lblEmail.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Email.add(lblEmail);
+		
+		JPanel panel_19 = new JPanel();
+		panel_Email.add(panel_19);
+		panel_19.setLayout(new BoxLayout(panel_19, BoxLayout.X_AXIS));
+		
+		tfEmail = new JTextField();
+		panel_19.add(tfEmail);
+		tfEmail.setColumns(10);
+		
+		JLabel lblNewLabel_12 = new JLabel("@");
+		panel_19.add(lblNewLabel_12);
+		
+		tfEmail_2 = new JTextField();
+		panel_19.add(tfEmail_2);
+		tfEmail_2.setColumns(10);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"선택하세요", "@naver.com", "@google.com", "@daum.com", "직접입력"}));
-		panel_10.add(comboBox);
+		comboBox.setFont(new Font("굴림", Font.PLAIN, 10));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"선택해주세요", "naver.com", "google.com", "daum.com", "직접입력"}));
+		panel_19.add(comboBox);
 		
-		JPanel panel_11 = new JPanel();
-		panel.add(panel_11);
-		panel_11.setLayout(new GridLayout(0, 3, 0, 0));
+		JPanel panel_Add = new JPanel();
+		panel.add(panel_Add);
+		panel_Add.setLayout(null);
 		
-		JLabel lblNewLabel_9 = new JLabel("주소");
-		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_11.add(lblNewLabel_9);
+		JPanel panel_21 = new JPanel();
+		panel_21.setBounds(0, 0, 227, 49);
+		panel_Add.add(panel_21);
+		panel_21.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		textField_8 = new JTextField();
-		panel_11.add(textField_8);
-		textField_8.setColumns(10);
+		JLabel lblAdd = new JLabel("우편번호 검색");
+		lblAdd.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_21.add(lblAdd);
 		
-		JButton btnNewButton_2 = new JButton("검색하기");
-		panel_11.add(btnNewButton_2);
+		JPanel panel_20 = new JPanel();
+		panel_20.setBounds(227, 0, 227, 49);
+		panel_Add.add(panel_20);
+		panel_20.setLayout(null);
 		
-		JPanel panel_13 = new JPanel();
-		panel.add(panel_13);
-		panel_13.setLayout(new GridLayout(0, 2, 0, 0));
+		tfAdd = new JTextField();
+		tfAdd.setBounds(0, 0, 142, 49);
+		panel_20.add(tfAdd);
+		tfAdd.setColumns(10);
 		
-		JLabel lblNewLabel_10 = new JLabel("사용자");
-		lblNewLabel_10.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_13.add(lblNewLabel_10);
+		JButton btnSearch = new JButton("검색");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PostUI post = new PostUI();
+				post.setMemberRegisterUI(MemberRegisterUI.this);
+				post.setVisible(true);
+			}
+		});
+		btnSearch.setBounds(141, 0, 85, 49);
+		panel_20.add(btnSearch);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("관리자");
-		chckbxNewCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_13.add(chckbxNewCheckBox);
+		JPanel panel_Admin = new JPanel();
+		panel.add(panel_Admin);
+		panel_Admin.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JPanel panel_15 = new JPanel();
-		panel_13.add(panel_15);
+		JLabel lblAdmin_1 = new JLabel("관리자");
+		lblAdmin_1.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Admin.add(lblAdmin_1);
 		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("회원");
-		chckbxNewCheckBox_1.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_13.add(chckbxNewCheckBox_1);
+		chckadmin = new JCheckBox("관리");
+		chckadmin.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Admin.add(chckadmin);
 		
-		JPanel panel_14 = new JPanel();
-		panel.add(panel_14);
-		panel_14.setLayout(new GridLayout(0, 2, 0, 0));
+		JPanel panel_Uni = new JPanel();
+		panel.add(panel_Uni);
+		panel_Uni.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel lblNewLabel_11 = new JLabel("특이사항");
-		lblNewLabel_11.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_14.add(lblNewLabel_11);
+		JLabel lblUni = new JLabel("특이사항");
+		lblUni.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_Uni.add(lblUni);
 		
-		textField_10 = new JTextField();
-		panel_14.add(textField_10);
-		textField_10.setColumns(10);
+		tfUni = new JTextField();
+		panel_Uni.add(tfUni);
+		tfUni.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(459, 5, 454, 494);
 		contentPane.add(panel_1);
-		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
 		
 		JPanel panel_2 = new JPanel();
 		panel_1.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblNewLabel = new JLabel("");
-		panel_2.add(lblNewLabel);
-		
 		JPanel panel_3 = new JPanel();
-		panel_2.add(panel_3, BorderLayout.SOUTH);
+		panel_2.add(panel_3);
+		panel_3.setLayout(null);
 		
-		JButton btnNewButton = new JButton("추가");
-		panel_3.add(btnNewButton);
+		JButton btnAdd_1 = new JButton("가입");
+		btnAdd_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Member member = getMember();
+				service.insertMember(member);
+				JOptionPane.showMessageDialog(null, "회원이 되신걸 축하드립니다.");
+			}
+		});
+		btnAdd_1.setBounds(23, 440, 70, 23);
+		btnAdd_1.setVerticalAlignment(SwingConstants.BOTTOM);
+		panel_3.add(btnAdd_1);
 		
-		JButton btnNewButton_1 = new JButton("취소");
-		panel_3.add(btnNewButton_1);
+		JButton btnCancel = new JButton("취소");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnCancel.setBounds(108, 440, 70, 23);
+		panel_3.add(btnCancel);
 		
-		JButton btnNewButton_3 = new JButton("사진추가");
-		panel_2.add(btnNewButton_3, BorderLayout.NORTH);
+		JButton btnImg = new JButton("사진추가");
+		btnImg.setBounds(23, 287, 155, 23);
+		panel_3.add(btnImg);
+		
+		JLabel lblImg = new JLabel("New label");
+		lblImg.setBounds(76, 106, 57, 15);
+		panel_3.add(lblImg);
+	}
+/*	public void setAddresses(Post post) {
+		this.tfAdd.setText(post.getZipcode());
+		this.tfAdd.setText(post.toString());
+		tfAdd.requestFocus();
+	}*/
+	private Member getMember() {
+		String memberid = tFmemberNo.getText().trim();
+		String password = new String(pass1.getPassword()).trim();
+		String korname = tfKor.getText().trim();
+		String engname = tfEng.getText().trim();
+		String tel = tfTel.getText().trim();
+		String jumin = tFJu.getText().trim();
+		String email = tfEmail.getText().trim();
+		String address = tfAdd.getText().trim();
+		boolean admin = chckadmin.isValid();
+		String uni = tfUni.getText().trim();
+		
+		return new Member(memberid, password, korname, engname, tel, jumin, email,address,admin,uni); 
 	}
 
-}
+	public void setAddress(String addr) {
+		this.tfAdd.setText(addr);
+	}
+	
+}//end of class
