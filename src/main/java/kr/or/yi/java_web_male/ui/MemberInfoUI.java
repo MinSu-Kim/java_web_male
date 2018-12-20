@@ -4,8 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -52,6 +52,9 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		initComponent();
 
 		System.out.println("다른 클래스에서 호출" + LoginUI.getLogin());
+		lists = bookRentalInfoMapper.selectBookRentalMemberInfo(LoginUI.getLogin());
+		System.out.println(lists);
+
 	}
 
 	private void initComponent() {
@@ -165,13 +168,6 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pButton.add(btnSearch);
 
 		getMemberInfo(LoginUI.getLogin());
-		Member member = LoginUI.getLogin();
-		System.out.println("테스트중 : " + member);
-		System.out.println(lists);
-		List<BookRentalInfo> bookRentalInfo = bookRentalInfoMapper.selectBookRentalInfoByAll();
-		System.out.println("확인 : " + bookRentalInfo);
-		System.out.println(bookRentalInfo.get(0).getMemberNo());
-		
 	}
 
 	private void loadDatas() {
@@ -179,16 +175,25 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	private Object[][] getDatas() {
-		/*Object[][] datas = new Object[lists.size()][];
+		Member member = LoginUI.getLogin();
+		lists = bookRentalInfoMapper.selectBookRentalMemberInfo(member);
+		Object[][] datas = new Object[lists.size()][];
 		for (int i = 0; i < lists.size(); i++) {
 			datas[i] = getMemberRentalInfo(lists.get(i));
 		}
-		return datas;*/
-		return null;
+		return datas;
 	}
 
 	private Object[] getMemberRentalInfo(BookRentalInfo bookRentalInfo) {
-		return null;
+		SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
+		String bookCode = bookRentalInfo.getBookCode().getBookCode();
+		String title = bookRentalInfo.getBookCode().getTitle();
+		String publisher = bookRentalInfo.getPublisher().getPubName();
+		String author = bookRentalInfo.getBookCode().getAuthor();
+		Date rentalDate = bookRentalInfo.getRentalDate();
+		Date returnSchedule = bookRentalInfo.getReturnSchedule();
+		return new Object[] { bookCode, title, publisher, author, date.format(rentalDate),
+				date.format(returnSchedule) };
 	}
 
 	private String[] getColumnNames() {

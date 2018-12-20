@@ -68,6 +68,7 @@ SELECT *
 from member;
 
 insert into `member` values("3","gfkrtkf", "서동준", "kiggay","01022306796","921012","tjehdxo2002@","비밀","하핫",1,"하말없음");
+insert into member values("1","king","노예1","slave1","010-2343-4533","201012","slave@naever.com","비밀","히히",0,"저는 노예입니다.");
 select kor_name, phone, jumin
 from `member` where kor_name="개동준";
 
@@ -79,7 +80,7 @@ call search_jumin("921012");
 call search_membername("서동준");
 call search_memberno("3");
 call search_phone("010-4354-2435");
-call search_membernoRent("2");
+call search_membernoRent("3");
 select kor_name, m.member_no, title, rental_date, return_date, return_schedule
 from member m join book_rental_info r on m.member_no = r.member_no
 	join book b on b.book_code =  r.book_code
@@ -129,7 +130,7 @@ IGNORE 1 lines
 set zipcode=@zipcode, sido=@sido, sigungu=@sigungu, eupmyeon=@eupmyeon, doro=@doro, building1=@building1, building2=@building2
 
 /*post 서동준꺼*/
-LOAD data LOCAL INFILE 'D:/workspace-newproject/java_web_male/DataFiles/대구광역시.txt' INTO table post
+LOAD data LOCAL INFILE 'D:/workspace-project/java_web_male/DataFiles/대구광역시.txt' INTO table post
 character set 'euckr'
 fields TERMINATED by '|'
 IGNORE 1 lines

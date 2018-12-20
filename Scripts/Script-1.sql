@@ -16,3 +16,15 @@ insert into member values
 ('L00001', 'asdf', '이천희', 'lch', '010-1234-5678', '123456-1234567', 'asdf@naver.com', '대구광역시 달서구', '이미지 경로', 2,'없음'),
 ('L00002', 'asdf', '이차니', 'lch', '010-1234-5678', '123456-1234567', 'asdf@naver.com', '대구광역시 달서구', '이미지 경로', 1,'없음'),
 ('L00003', 'asdf', '이쩌늬', 'lch', '010-1234-5678', '123456-1234567', 'asdf@naver.com', '대구광역시 달서구', '이미지 경로', 2,'없음');
+
+insert into book values
+('1230012505', 125, 'asdf', 'asdf', 'asdf', 1111, false, null, 1, 2, 3, null);
+
+select * from book;
+select * from book_rental_info;
+
+select b.book_code, b.title, p.pub_name, b.author, bri.rental_date, bri.return_schedule
+from book_rental_info as bri
+join book as b on b.book_code = bri.book_code
+join publisher as p on p.pub_no = b.pub_no
+where member_no = 2;
