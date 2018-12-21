@@ -58,4 +58,15 @@ public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 		}
 	}
 
+	@Override
+	public int nextCode() {
+		 try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+	         return sqlSession.selectOne(namespace + ".nextCode");
+	      }
+	}
+
+	
+
+	
+
 }

@@ -74,6 +74,7 @@ public class MemberMapperTest {
 		member.setPhoto("김예쁨");
 		member.setAdmin(true);
 		member.setUniqueness("내가 고자라닛");
+		
 		int res = dao.updateMember(member);
 		Assert.assertSame(1, res);
 	}

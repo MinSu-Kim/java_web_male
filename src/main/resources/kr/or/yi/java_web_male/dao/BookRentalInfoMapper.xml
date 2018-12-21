@@ -78,4 +78,10 @@
 		<include refid="whereBookCodeSql"/>
 	</select>
 	
+	
+	
+   <select id="nextCode" resultType="java.lang.Integer">
+      select count(*)+1 from book_rental_info;
+   </select>
+	
 </mapper>

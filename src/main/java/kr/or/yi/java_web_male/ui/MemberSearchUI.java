@@ -133,7 +133,7 @@ public class MemberSearchUI extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(e.getClickCount()==2) {
-					JOptionPane.showMessageDialog(null, "2번클릭");
+					/*JOptionPane.showMessageDialog(null, "2번클릭");*/
 					Member member = Slist.selectedItem();
 					/*Overdue의 memberNo(String형태)의 값이 member(Member형태)인 rentalAuthority의 값이 false면 실행 안되도록 설정*/
 					String mNo = String.valueOf(member);
