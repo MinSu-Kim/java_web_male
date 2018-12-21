@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.yi.java_web_male.dao.MemberBest10Mapper">
+	<sql id="selectSql">
+		SELECT sex, member_no, kor_name, admin, rental_date,cate_b_no, cate_m_no, cate_s_no, count(member_no) as ranking
+		FROM proj_library.bestmember
+	</sql>
+	<sql id="where">
+		<where>
+			<if test="rentalDate != null">
+				rental_date REGEXP#{rentalDate}
+			</if>
+			<if test="cateBNo != null">
+				AND cate_b_no =#{cateBNo}
+			</if>
+			<if test="cateMNo != null">
+				AND cate_m_no =#{cateMNo}
+			</if>
+			<if test="cateSNo != null">
+				AND cate_s_no =#{cateSNo}
+			</if>
+			<if test="memberNos != null">
+				and member_no IN
+				<foreach item="memberNo" index="index" collection="memberNos"
+					open="(" separator="," close=")">
+					#{memberNo}
+				</foreach>
+			</if>
+		</where>
+	</sql>
+	<resultMap type="MemberBest10" id="MemberBest10">
+		<result property="sex" column="sex"/>
+		<result property="memberNo.memberNo" column="member_no"/>
+		<result property="name.korName" column="kor_name"/>
+		<result property="admin.admin" column="admin"/>
+		<result property="rentalDate.rentalDate" column="rental_date"/>
+		<result property="cateBNo.bCode" column="cate_b_no" />
+		<result property="cateMNo.mCode" column="cate_m_no" />
+		<result property="cateSNo.sCode" column="cate_s_no" />
+		<result property="ranking" column="ranking"/>
+	</resultMap>
+	<select id="selectMemberBest10ByMap" resultMap="MemberBest10">
+		<include refid="selectSql"/>
+		<include refid="where"/>
+		group by member_no limit 0,10
+	</select>
+</mapper>

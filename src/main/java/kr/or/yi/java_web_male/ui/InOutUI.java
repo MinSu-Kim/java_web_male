@@ -44,6 +44,7 @@ public class InOutUI extends JFrame {
 	 * Create the frame.
 	 */
 	public InOutUI() {
+		setTitle("출납 관리");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 195);
 		contentPane = new JPanel();

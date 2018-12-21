@@ -21,8 +21,8 @@ import kr.or.yi.java_web_male.dto.BookBest10;
 import kr.or.yi.java_web_male.dto.Student;
 
 @SuppressWarnings("serial")
-public class PanelBarChart extends JFXPanel implements InitScene{
-	public PanelBarChart() {
+public class BookBest10PanelBarChart extends JFXPanel implements InitScene{
+	public BookBest10PanelBarChart() {
 	}
 
 	private BarChart<String, Number> barChart;
@@ -30,7 +30,7 @@ public class PanelBarChart extends JFXPanel implements InitScene{
 	private List<BookBest10> Best10BookListsLast;
 	private String now = "이번달";
 	private String last = "저번달";
-	private String title = "이번달 Best10!";
+	private String title = "이번달 Book Best10!";
 	
 	
 	@Override

@@ -198,7 +198,7 @@ where o.member_no='123';
 
 
 
-create view bestsaler as select left(i.book_code,8) as bc, b.title, b.author ,p.pub_name,i.rental_date,b.cate_b_no,b.cate_m_no,b.cate_s_no
+create view bestsaler as select left(i.book_code,8) as bc, b.title, b.author ,p.pub_name,left(i.rental_date,7)as rental_date,b.cate_b_no,b.cate_m_no,b.cate_s_no
 FROM book_rental_info i join book b on i.book_code=b.book_code join publisher p on b.pub_no=p.pub_no;
 show create view bestsaler;
 drop view bestsaler;
@@ -207,6 +207,7 @@ select *, count(bc) as ranking
 from bestsaler 
 where rental_date regexp '2018-1' and bc IN('11100000','00000000','00001')
 group by bc limit 0,10;
+
 
 SELECT rental_no, rental_date, return_date, return_schedule, member_no, book_code
 FROM proj_library.book_rental_info
@@ -224,14 +225,16 @@ INSERT INTO proj_library.book_rental_info
 VALUES('2018-11-10', '2018-11-10', '2018-11-10', 123, '0000000001');
 
 
-create view bestMember as select substring(m.jumin,8,1) as sex,m.member_no as member_no, m.kor_name, m.admin,rental_date
-FROM book_rental_info i join `member` m where i.member_no=m.member_no;
+create view bestMember as select substring(m.jumin,8,1) as sex,m.member_no as member_no, m.kor_name, m.admin, rental_date,b.cate_b_no,b.cate_m_no,b.cate_s_no
+FROM book_rental_info i join `member` m on i.member_no=m.member_no join book b on i.book_code=b.book_code;
+
+
 
 drop view bestMember;
 
 select *, count(member_no) as ranking 
 from bestmember
-where rental_date regexp '2018-' and member_no IN('123') and admin =0
+where rental_date regexp '2018-' and member_no like '12%' and admin =1
 group by member_no limit 0,10;
 
 

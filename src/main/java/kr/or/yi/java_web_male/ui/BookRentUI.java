@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
@@ -69,8 +70,8 @@ public class BookRentUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	int noCnt = 5;
 	public BookRentUI() {
+		setTitle("도서 대여");
 		service = new LibraryUIService();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -159,8 +160,16 @@ public class BookRentUI extends JFrame {
 		btnRent.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+				int nextRentalCode = service.nextCode();
+				
+				Date rentalsDate = new Date();
+				SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
+				sdfr.format(rentalsDate);
 				
 				Date rentalDate = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				sdf.format(rentalDate);
+				rentalDate.setDate(rentalDate.getDate()+7);
 				
 				Book book = new Book();
 				book.setBookCode(textBookCode.getText());
@@ -169,20 +178,41 @@ public class BookRentUI extends JFrame {
 				member.setMemberNo(textMemberNo.getText());
 				
 				BookRentalInfo bookRentalInfo = new BookRentalInfo();
-				bookRentalInfo.setRentalNo(noCnt);
-				bookRentalInfo.setRentalDate(rentalDate);
+				bookRentalInfo.setRentalNo(nextRentalCode);
+				bookRentalInfo.setRentalDate(rentalsDate);
 				bookRentalInfo.setReturnDate(null);
 				bookRentalInfo.setReturnSchedule(rentalDate);
 				bookRentalInfo.setBookCode(book);
 				bookRentalInfo.setMemberNo(member);
 				
-				
 				int bookRentalInfo1 = service.insertBookRentalInfo(bookRentalInfo);
-				noCnt++;
-				JOptionPane.showMessageDialog(null, "대여에 성공하셨습니다. 반납일자를 잘 지켜주세요.");
+				
+				
+				
+				 List<Book> book1 = service.selectbookbybookCode(book);
+				 JOptionPane.showMessageDialog(null, book1);
+				 
+				 JOptionPane.showMessageDialog(null, book);
+				 book.setRentalPossible(false);
+				 int updatePossible = service.updateBookPossible(book);
+				
+				 
+				/* Book possible = book1.get(6);
+				 JOptionPane.showMessageDialog(null, possible);*/
+				
+				
+				
+				
+				
+				JOptionPane.showMessageDialog(null, "대여에 성공하셨습니다. 반납일을 잘 지켜주세요.");
+				clearTf();
 			}
 		});
 		container2.add(btnRent);
+	}
+	private void clearTf() {
+		textBookCode.setText("");
+		textMemberNo.setText("");
 	}
 
 	public void setBookCode(Book book) {
