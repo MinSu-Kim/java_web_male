@@ -17,5 +17,7 @@ public interface BookMapper {
 	int updateBook(Book book);
 
 	List<Book> selectbookbyOther(Map<String, Object> map);
-
+	
+	int updateBookPossible (Book book);
+	
 }

@@ -27,7 +27,6 @@
 					#{bookCode}
 				</foreach>
 			</if>
-
 		</where>
 	</sql>
 	<resultMap type="BookBest10" id="BookBest10">
@@ -47,5 +46,13 @@
 		<include refid="where" />
 		group by bc limit 0,10
 	</select>
+	
+	<select id="selectBookByMap" resultMap="BookBest10"
+		parameterType="BookBest10">
+		<include refid="selectSql" />
+		<include refid="where" />
+		group by cate_b_no
+	</select>
+	
 
 </mapper>

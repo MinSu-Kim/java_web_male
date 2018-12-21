@@ -81,4 +81,10 @@
 		where member_no = #{memberNo};
 	</select>
 	
+	
+	
+   <select id="nextCode" resultType="java.lang.Integer">
+      select count(*)+1 from book_rental_info;
+   </select>
+	
 </mapper>

@@ -36,7 +36,11 @@ public class PostUI extends JFrame {
 	 * Create the frame.
 	 */
 	public PostUI() {
+
+		setTitle("상세 주소 입력");
+
 		pList = new PostListPanel();
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 479, 312);
 		contentPane = new JPanel();
@@ -136,7 +140,7 @@ public class PostUI extends JFrame {
 		BtnPanel.add(BtnButtonPanel);
 		BtnButtonPanel.setLayout(new GridLayout(1, 0, 0, 0));
 		
-		JButton BtnOk = new JButton("등록");
+		JButton BtnOk = new JButton("확인");
 		BtnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null,String.format("%s%s,%s",textPostCode.getText(), textAddress.getText(),textDetailAddress.getText()));

@@ -97,4 +97,10 @@
 		select max(book_no) from book
 	</select>
 
+
+	
+	<update id="updateBookPossible" parameterType="Book">
+		update book set rental_possible=#{rentalPossible}
+		WHERE book_code=#{bookCode}
+	</update>
 </mapper>

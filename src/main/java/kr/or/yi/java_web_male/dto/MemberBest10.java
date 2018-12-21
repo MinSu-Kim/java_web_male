@@ -3,14 +3,35 @@ package kr.or.yi.java_web_male.dto;
 public class MemberBest10 {
 	private String sex;
 	private Member memberNo;
-	private Member Name;
+	private Member name;
 	private Member admin;
 	private BookRentalInfo rentalDate;
 	private int ranking;
-	@Override
-	public String toString() {
-		return "MemberBest10 [sex=" + sex + ", memberNo=" + memberNo + ", Name=" + Name + ", admin=" + admin
-				+ ", rentalDate=" + rentalDate + ", ranking=" + ranking + "]";
+	private CategoryB cateBNo;
+	private CategoryM cateMNo;
+	private CategoryS cateSNo;
+	
+	
+	
+	
+	
+	public CategoryB getCateBNo() {
+		return cateBNo;
+	}
+	public void setCateBNo(CategoryB cateBNo) {
+		this.cateBNo = cateBNo;
+	}
+	public CategoryM getCateMNo() {
+		return cateMNo;
+	}
+	public void setCateMNo(CategoryM cateMNo) {
+		this.cateMNo = cateMNo;
+	}
+	public CategoryS getCateSNo() {
+		return cateSNo;
+	}
+	public void setCateSNo(CategoryS cateSNo) {
+		this.cateSNo = cateSNo;
 	}
 	public String getSex() {
 		return sex;
@@ -24,11 +45,12 @@ public class MemberBest10 {
 	public void setMemberNo(Member memberNo) {
 		this.memberNo = memberNo;
 	}
+	
 	public Member getName() {
-		return Name;
+		return name;
 	}
 	public void setName(Member name) {
-		Name = name;
+		this.name = name;
 	}
 	public Member getAdmin() {
 		return admin;
@@ -57,7 +79,7 @@ public class MemberBest10 {
 		super();
 		this.sex = sex;
 		this.memberNo = memberNo;
-		Name = name;
+		name = name;
 		this.admin = admin;
 		this.rentalDate = rentalDate;
 		this.ranking = ranking;

@@ -83,11 +83,23 @@ public class LibraryUIService {
 		return bookMapper.selectbookbyOther(map);
 	}
 	
+	public int updateBook(Book book) {
+		return bookMapper.updateBook(book);
+	}
+	
 	public List<BookRentalInfo> selectBookRentalInfoByBookCode(Book book) {
 		return bookRentalInfoMapper.selectBookRentalInfoByBookCode(book);
 	}
 	public int insertBookRentalInfo(BookRentalInfo bookRentalInfo) {
 		return bookRentalInfoMapper.insertBookRentalInfo(bookRentalInfo);
+	}
+	
+	public int nextCode() {
+		return bookRentalInfoMapper.nextCode();
+	}
+	
+	public int updateBookPossible (Book book) {
+		return bookMapper.updateBookPossible(book);
 	}
 
 }

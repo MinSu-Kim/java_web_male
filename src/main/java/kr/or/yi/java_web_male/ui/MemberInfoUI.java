@@ -45,6 +45,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private JTable table;
 	private List<BookRentalInfo> lists;
 	private BookRentalInfoMapper bookRentalInfoMapper;
+	private MemberDetailUI memberDetailUI;
 
 	public MemberInfoUI() {
 		bookRentalInfoMapper = BookRentalInfoMapperImpl.getInstance();
@@ -197,7 +198,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	private String[] getColumnNames() {
-		return new String[] { "도서코드", "도서명", "출판사", "저자", "대여일자", "반납일자" };
+		return new String[] { "도서코드", "도서명", "출판사", "저자", "대여일자", "반납기한" };
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -230,6 +231,10 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	// 상세정보
 	protected void do_btnDetail_actionPerformed(ActionEvent arg0) {
+		if (memberDetailUI == null) {
+			memberDetailUI = new MemberDetailUI();
+		}
+		memberDetailUI.setVisible(true);
 	}
 
 	// 로그인 객체에서 정보 가져오기
