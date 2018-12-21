@@ -7,14 +7,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import kr.or.yi.java_web_male.dao.MemberMapper;
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.dto.Post;
 import kr.or.yi.java_web_male.service.MemberUIService;
+import kr.or.yi.java_web_male.service.MyDocumentListener;
 
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.zip.CheckedInputStream;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -49,6 +54,9 @@ public class MemberRegisterUI extends JFrame {
 	private MemberUIService service;
 	private JCheckBox chckadmin;
 	private PostSearchUI postsearch;
+	private JTextField tfjuso;
+	private JTextField tfConfirm;
+	private JComboBox comboBox;
 	/**
 	 * Launch the application.
 	 */
@@ -71,6 +79,7 @@ public class MemberRegisterUI extends JFrame {
 	public MemberRegisterUI() {
 		
 		service = new MemberUIService();
+		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 689, 543);
@@ -125,8 +134,10 @@ public class MemberRegisterUI extends JFrame {
 		pass2 = new JPasswordField();
 		panel_p2.add(pass2);
 		
-		JPanel panel_confirm = new JPanel();
-		panel_p2.add(panel_confirm);
+		tfConfirm = new JTextField();
+		tfConfirm.setEditable(false);
+		panel_p2.add(tfConfirm);
+		tfConfirm.setColumns(10);
 		
 		JPanel panel_kor = new JPanel();
 		panel.add(panel_kor);
@@ -199,9 +210,14 @@ public class MemberRegisterUI extends JFrame {
 		panel_19.add(tfEmail_2);
 		tfEmail_2.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectEmail(e);
+			}
+		});
 		comboBox.setFont(new Font("굴림", Font.PLAIN, 10));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"선택해주세요", "naver.com", "google.com", "daum.com", "직접입력"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"선택해주세요", "naver.com", "google.com", "daum.net", "nate.com", "직접입력"}));
 		panel_19.add(comboBox);
 		
 		JPanel panel_Add = new JPanel();
@@ -238,6 +254,18 @@ public class MemberRegisterUI extends JFrame {
 		btnSearch.setBounds(141, 0, 85, 49);
 		panel_20.add(btnSearch);
 		
+		JPanel panel_4 = new JPanel();
+		panel.add(panel_4);
+		panel_4.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JLabel lbljuso = new JLabel("주소");
+		lbljuso.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_4.add(lbljuso);
+		
+		tfjuso = new JTextField();
+		panel_4.add(tfjuso);
+		tfjuso.setColumns(10);
+		
 		JPanel panel_Admin = new JPanel();
 		panel.add(panel_Admin);
 		panel_Admin.setLayout(new GridLayout(0, 2, 0, 0));
@@ -246,7 +274,7 @@ public class MemberRegisterUI extends JFrame {
 		lblAdmin_1.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_Admin.add(lblAdmin_1);
 		
-		chckadmin = new JCheckBox("관리");
+		chckadmin = new JCheckBox("관리");		
 		chckadmin.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_Admin.add(chckadmin);
 		
@@ -278,9 +306,9 @@ public class MemberRegisterUI extends JFrame {
 		JButton btnAdd_1 = new JButton("가입");
 		btnAdd_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Member member = getMember();
-				service.insertMember(member);
+				getMember();
 				JOptionPane.showMessageDialog(null, "회원이 되신걸 축하드립니다.");
+				
 			}
 		});
 		btnAdd_1.setBounds(23, 440, 70, 23);
@@ -303,29 +331,75 @@ public class MemberRegisterUI extends JFrame {
 		JLabel lblImg = new JLabel("New label");
 		lblImg.setBounds(76, 106, 57, 15);
 		panel_3.add(lblImg);
+		//비밀번호 중복 메서드
+		pass2.getDocument().addDocumentListener(new MyDocumentListener() {
+			
+			@Override
+			public void msg() {
+				
+				String pw1 = new String(pass1.getPassword());
+				String pw2 = new String(pass2.getPassword());
+				
+				if(pw1.equals(pw2)) {
+					tfConfirm.setText("비밀번호가 일치");
+				}else {
+					tfConfirm.setText("비밀번호가 불일치");
+				}
+				
+			}
+		});
 	}
-/*	public void setAddresses(Post post) {
-		this.tfAdd.setText(post.getZipcode());
-		this.tfAdd.setText(post.toString());
-		tfAdd.requestFocus();
-	}*/
-	private Member getMember() {
-		String memberid = tFmemberNo.getText().trim();
-		String password = new String(pass1.getPassword()).trim();
-		String korname = tfKor.getText().trim();
-		String engname = tfEng.getText().trim();
-		String tel = tfTel.getText().trim();
-		String jumin = tFJu.getText().trim();
-		String email = tfEmail.getText().trim();
-		String address = tfAdd.getText().trim();
-		boolean admin = chckadmin.isValid();
-		String uni = tfUni.getText().trim();
+	/*public void actionPerformed(ActionEvent e) {
+		selectEmail(e);
+	}	*/
+	private void getMember() {
+		Member member = new Member();
 		
-		return new Member(memberid, password, korname, engname, tel, jumin, email,address,admin,uni); 
+		member.setPassword(new String(pass1.getPassword()));
+		member.setKorName(tfKor.getText());
+		member.setEngName(tfEng.getText());
+		member.setPhone(tfTel.getText());
+		member.setJumin(tFJu.getText());
+		member.setEmail(tfEmail.getText());
+		member.setAddress(tfEmail.getText()+tfjuso.getText());
+		member.setAdmin(chckadmin.isSelected());
+		member.setUniqueness(tfUni.getText());
+		int i = 0;	
+		
+		String make = tfEng.getText().substring(0, 1);
+		JOptionPane.showMessageDialog(null, make);
+		member.setMemberNo(make);
+		if(service.selectMemberByNoList(member).equals(null)){
+			make = make + "0001";
+		}else {
+			JOptionPane.showMessageDialog(null, service.selectMemberByNoList(member).size());
+			i = service.selectMemberByNoList(member).size()+1;	
+			JOptionPane.showMessageDialog(null, i);
+		}
+		
+		String mn = String.format("%s%04d",make, i);
+		JOptionPane.showMessageDialog(null, mn);
+		member.setMemberNo(mn);
+		service.insertMember(member);
 	}
-
+	
+	protected void selectEmail(ActionEvent e) {
+		if(comboBox.getSelectedIndex()<5) {
+			tfEmail_2.setEditable(false);
+			tfEmail_2.setText((String)comboBox.getSelectedItem());
+		}else {
+			tfEmail_2.requestFocus();
+			tfEmail_2.setText("입력하세요");
+			tfEmail_2.setEditable(true);
+		}
+	} 
 	public void setAddress(String addr) {
 		this.tfAdd.setText(addr);
+	}
+
+
+	public void setTfjuso(String tfjuso) {
+		this.tfjuso.setText(tfjuso);
 	}
 	
 }//end of class

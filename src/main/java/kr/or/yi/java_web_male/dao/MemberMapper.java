@@ -23,7 +23,8 @@ public interface MemberMapper {
 	
 	List<Member> selectMemberByMemberNo();
 	
-
+	List<Member> selectMemberByNoList(Member member);
+	
 	//프로시저 해시맵
 //	List<Map<String, String>> searchMemberNo(Map<String, String> map);
 	Member searchMemberNo(Map<String, String> map);
