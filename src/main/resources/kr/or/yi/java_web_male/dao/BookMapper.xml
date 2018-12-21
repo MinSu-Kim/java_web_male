@@ -81,7 +81,7 @@
 	
 	<insert id="insertBook" parameterType="Book">
 		INSERT INTO proj_library.book (book_code, book_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no, pub_no)
-		VALUES(#{bookCode}, #{bookNo}, #{author}, #{translator}, #{title}, #{price}, #{rentalPossible}, #{image}, #{cateBNo.bCode}, #{cateMNo.mCode}, #{cateSNo.sCode}, #{pubNo.pubNo});
+		VALUES(#{bookCode}, #{bookNo}, #{author}, #{translator}, #{title}, #{price}, #{rentalPossible}, #{image}, #{cateSNo.sCode}, #{cateMNo.mCode}, #{cateBNo.bCode}, #{pubNo.pubNo});
 	</insert>
 	
 	<update id="updateBook" parameterType="Book">

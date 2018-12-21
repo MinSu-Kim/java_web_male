@@ -52,9 +52,9 @@ public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 	}
 
 	@Override
-	public List<BookRentalInfo> selectBookRentalInfoByMemberNo(Member member) {
+	public List<BookRentalInfo> selectBookRentalMemberInfo(Member member) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
-			return sqlSession.selectList(namespace + ".selectBookRentalInfoByBookCode", member);
+			return sqlSession.selectList(namespace + ".selectBookByMemberNo", member);
 		}
 	}
 
@@ -64,6 +64,14 @@ public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 	         return sqlSession.selectOne(namespace + ".nextCode");
 	      }
 	}
+
+	@Override
+	public List<BookRentalInfo> selectBookRentalInfoByMemberNo(Member member) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 	
 

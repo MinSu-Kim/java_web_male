@@ -24,9 +24,18 @@ public class BookBest10MapperImpl implements BookBest10Mapper {
 	@Override
 	public List<BookBest10> selectBookBest10ByMap(Map<String, Object> map) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
-			return sqlSession.selectList(namespace + ".selectBookBest10ByBookRentInfo", map);
+			return sqlSession.selectList(namespace + ".selectBookBest10ByMap", map);
 		}
 	}
+
+	@Override
+	public List<BookBest10> selectBookByMap(Map<String, Object> map) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectList(namespace + ".selectBookByMap", map);
+		}
+	}
+
+	
 
 	
 
