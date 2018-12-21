@@ -198,7 +198,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	private String[] getColumnNames() {
-		return new String[] { "도서코드", "도서명", "출판사", "저자", "대여일자", "반납일자" };
+		return new String[] { "도서코드", "도서명", "출판사", "저자", "대여일자", "반납기한" };
 	}
 
 	public void actionPerformed(ActionEvent e) {
