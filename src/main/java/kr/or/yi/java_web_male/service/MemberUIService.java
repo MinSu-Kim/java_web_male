@@ -42,6 +42,9 @@ public class MemberUIService {
 		return dao.insertMember(member);
 	}
 	
+	public List<Member> selectMemberByNoList(Member member) {
+		return dao.selectMemberByNoList(member);
+	}
 
 
 }

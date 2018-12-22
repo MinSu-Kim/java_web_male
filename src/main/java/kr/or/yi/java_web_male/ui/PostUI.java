@@ -145,7 +145,9 @@ public class PostUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null,String.format("%s%s,%s",textPostCode.getText(), textAddress.getText(),textDetailAddress.getText()));
 				
-				memberRegisterUI.setAddress(String.format("%s%s,%s",textPostCode.getText(), textAddress.getText(),textDetailAddress.getText()));
+				memberRegisterUI.setAddress(String.format("%s,%s",textPostCode.getText(), textAddress.getText()));
+			/*	memberRegisterUI.setAddress(String.format("%s%s,%s",textPostCode.getText(), textAddress.getText(),textDetailAddress.getText()));*/
+				memberRegisterUI.setTfjuso(textDetailAddress.getText());
 				dispose();
 			}
 		});

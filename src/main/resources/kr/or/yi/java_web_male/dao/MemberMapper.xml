@@ -12,7 +12,7 @@
 	<sql id="whereSql">
 		<where>
 			<if test="memberNo != null">
-				member_no = #{memberNo};
+				member_no REGEXP #{memberNo};
 			</if>
 		</where>
 	</sql>
@@ -95,4 +95,12 @@
 	<select id="searchMembernoRent" statementType="CALLABLE" parameterType="hashmap" resultMap="MemberResultPro">
 		{call search_membernoRent(#{memberNo, mode = IN, jdbcType=CHAR})}
 	</select>
+	
+	<select id="selectMemberByNoList" parameterType="Member" resultType="Member">
+		<include refid="selectSql"/>
+		<include refid="whereSql"/>
+	</select>
+	
+	
+	
 </mapper>
