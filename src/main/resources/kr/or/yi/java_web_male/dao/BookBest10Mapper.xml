@@ -8,7 +8,7 @@
 	</sql>
 	<sql id="where">
 		<where>
-			<if test="c != null">
+			<if test="rentalDate != null">
 				rental_date REGEXP#{rentalDate}
 			</if>
 			<if test="cateBNo != null">
