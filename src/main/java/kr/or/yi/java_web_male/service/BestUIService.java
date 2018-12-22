@@ -34,6 +34,10 @@ public class BestUIService {
 	public List<BookBest10> selectBookByMap(Map<String, Object> map) {
 		return best10Mapper.selectBookByMap(map);
 	}
+
+	public List<BookBest10> selectBookByMapForeSum(Map<String, Object> map) {
+		return best10Mapper.selectBookByMapForeSum(map);
+	}
 	
 	
 }

@@ -1046,9 +1046,12 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 			cal.setTime(date);			
 			year = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1);
 			map.put("date", year);
-			/*double sum = bestService.*//////////////////////////////////////////////////////////////////////////////
-			
+			List<BookBest10> list = bestService.selectBookByMapForeSum(map);
+					
 			panelPieChartbest10 = new PanelPieChartbest10();
+			
+			panelPieChartbest10.setList(list);
+			
 			panel_10.remove(pLineChart);
 			/*pLineChart.remove();*/		
 			panel_10.add(panelPieChartbest10, BorderLayout.CENTER);

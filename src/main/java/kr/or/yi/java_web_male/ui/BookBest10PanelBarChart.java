@@ -95,7 +95,7 @@ public class BookBest10PanelBarChart extends JFXPanel implements InitScene{
 		XYChart.Series<String, Number> dataSeries = new Series<String, Number>();
 		dataSeries.setName(day);
 		for (BookBest10 best10 : list) {
-			dataSeries.getData().add(new XYChart.Data<>(best10.getTitle().getTitle(), best10.getRanking()));
+			dataSeries.getData().add(new XYChart.Data<>(best10.getTitle().getTitle()+"("+best10.getBookCode().getBookCode()+")", best10.getRanking()));
 		}
 				
 		return dataSeries;
@@ -105,6 +105,7 @@ public class BookBest10PanelBarChart extends JFXPanel implements InitScene{
 		ObservableList<XYChart.Series<String, Number>> list = FXCollections.observableArrayList();
 
 		list.add(getChartDataNow(best10BookLists,now));
+		
 		if(Best10BookListsLast.size() != 0) {
 			list.add(getChartDataNow(Best10BookListsLast,last));
 		}
@@ -116,12 +117,14 @@ public class BookBest10PanelBarChart extends JFXPanel implements InitScene{
 
 	public void setChartDataThis(List<BookBest10> best10BookLists,String string) {
 		this.best10BookLists = best10BookLists;
+		
 		now = string;
 
 	}
 
 	public void setChartDataLast(List<BookBest10> Best10BookListsLast,String string) {
 		this.Best10BookListsLast = Best10BookListsLast;
+		
 		last = string;
 		
 	}
