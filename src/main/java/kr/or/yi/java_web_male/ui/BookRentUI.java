@@ -156,6 +156,7 @@ public class BookRentUI extends JFrame {
 		JPanel container2 = new JPanel();
 		contentPane.add(container2, BorderLayout.SOUTH);
 		
+		/*-------------------------------------------대여버튼 기능-------------------------------------------*/
 		JButton btnRent = new JButton("대여");
 		btnRent.addActionListener(new ActionListener() {
 			
@@ -196,9 +197,6 @@ public class BookRentUI extends JFrame {
 				 book.setRentalPossible(false);
 				 int updatePossible = service.updateBookPossible(book);
 				
-				 
-				/* Book possible = book1.get(6);
-				 JOptionPane.showMessageDialog(null, possible);*/
 				
 				
 				
@@ -208,8 +206,12 @@ public class BookRentUI extends JFrame {
 				clearTf();
 			}
 		});
+		
+		/*------------------------------------------대여버튼 기능 끝---------------------------------------------*/
+		
 		container2.add(btnRent);
 	}
+	
 	private void clearTf() {
 		textBookCode.setText("");
 		textMemberNo.setText("");
