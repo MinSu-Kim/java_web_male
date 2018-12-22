@@ -24,6 +24,7 @@ public class CatePanelLineChartBest extends JFXPanel implements InitScene{
 	private LineChart<String, Number> lineChart;
 	private CategoryAxis xAxis;
 	private List<BookBest10> best10BookLists;
+	private List<List<BookBest10>> listlists;
 	
 	@Override
 	public Scene createScene() {
@@ -41,7 +42,7 @@ public class CatePanelLineChartBest extends JFXPanel implements InitScene{
 		lineChart = new LineChart<>(xAxis, yAxis);
 		lineChart.setPrefSize(600, 350);
 		lineChart.setData(getChartData());
-		lineChart.setTitle("카태고리별 대여량");
+		lineChart.setTitle("카태고리별 대여량(6개월단위)");
 		lineChart.setLegendVisible(true);	// 범례 표시 유무
 		lineChart.setLegendSide(Side.BOTTOM);// 범례 위치
 
@@ -53,31 +54,27 @@ public class CatePanelLineChartBest extends JFXPanel implements InitScene{
 	private ObservableList<XYChart.Series<String, Number>> getChartData() {
 		ObservableList<XYChart.Series<String, Number>> list = FXCollections.observableArrayList();
 		
-		for (BookBest10 best10 : best10BookLists) {
-			list.add(getChartData(best10));
+		for (List<BookBest10> best10s : listlists) {
+			list.add(getChartData(best10s));
 		}
-		Student std01 = new Student("S001", "현빈", 90, 80, 80);
-		Student std02 = new Student("S002", "박신혜", 50, 60, 95);
-				
-		
-		list.add(getChartData(std02));
 		
 		return list;
 	}
 	
-	public XYChart.Series<String, Number> getChartData(BookBest10 best10) {
+	public XYChart.Series<String, Number> getChartData(List<BookBest10> best10s) {
 		XYChart.Series<String, Number> dataSeries = new Series<String, Number>();
-		dataSeries.setName(std.getStdName());
-		dataSeries.getData().add(new XYChart.Data<>("사전", std.getKorScore()));
-		dataSeries.getData().add(new XYChart.Data<>("중간", std.getEngScore()));
-		dataSeries.getData().add(new XYChart.Data<>("기말", std.getMathScore()));
+		for(BookBest10 best10 : best10s) {
+			dataSeries.setName(best10.getCateBNo().getbName());
+			dataSeries.getData().add(new XYChart.Data<>(best10.getRentalDate(), best10.getRanking()));
+		}
+				
 		return dataSeries;
 	}
 	
-	public void addChartData(Student std) {
+	/*public void addChartData(Student std) {
 		lineChart.getData().add(getChartData(std));
 	}
-
+*/
 	public void addAllChartData() {
 		lineChart.setData(getChartData());
 	}
@@ -123,8 +120,8 @@ public class CatePanelLineChartBest extends JFXPanel implements InitScene{
 		}
 	}*/
 
-	public void setList(List<BookBest10> best10s) {
-		this.best10BookLists =best10s;
+	public void setList(List<List<BookBest10>> listlists) {
+		this.listlists =listlists;
 		
 	}
 

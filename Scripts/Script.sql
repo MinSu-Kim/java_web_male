@@ -198,8 +198,8 @@ where o.member_no='123';
 
 
 
-create view bestsaler as select left(i.book_code,8) as bc, b.title, b.author ,p.pub_name,left(i.rental_date,7)as rental_date,b.cate_b_no,b.cate_m_no,b.cate_s_no
-FROM book_rental_info i join book b on i.book_code=b.book_code join publisher p on b.pub_no=p.pub_no;
+create view bestsaler as select left(i.book_code,8) as bc, b.title, b.author ,p.pub_name,left(i.rental_date,7)as rental_date,b.cate_b_no,b.cate_m_no,b.cate_s_no,c.cate_b_name
+FROM book_rental_info i join book b on i.book_code=b.book_code join publisher p on b.pub_no=p.pub_no join category_b  c on b.cate_b_no= c.cate_b_no;
 show create view bestsaler;
 drop view bestsaler;
 
@@ -209,7 +209,8 @@ where rental_date regexp '2018-1' and bc IN('11100000','00000000','00001')
 group by bc limit 0,10;
 
 
-SELECT rental_no, rental_date, return_date, return_schedule, member_no, book_code
+SELECT rental_no, 
+, return_date, return_schedule, member_no, book_code
 FROM proj_library.book_rental_info
 where book_code regexp '^[0][0-9]+$' ;
 

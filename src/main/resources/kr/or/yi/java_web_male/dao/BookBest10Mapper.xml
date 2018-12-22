@@ -8,7 +8,7 @@
 	</sql>
 	<sql id="where">
 		<where>
-			<if test="rentalDate != null">
+			<if test="c != null">
 				rental_date REGEXP#{rentalDate}
 			</if>
 			<if test="cateBNo != null">
@@ -27,6 +27,13 @@
 					#{bookCode}
 				</foreach>
 			</if>
+			<if test="days != null">
+				and rental_date IN
+				<foreach item="day" index="index" collection="days"
+					open="(" separator="," close=")">
+					#{day}
+				</foreach>
+			</if>
 		</where>
 	</sql>
 	<resultMap type="BookBest10" id="BookBest10">
@@ -39,6 +46,7 @@
 		<result property="cateBNo.bCode" column="cate_b_no" />
 		<result property="cateMNo.mCode" column="cate_m_no" />
 		<result property="cateSNo.sCode" column="cate_s_no" />
+		<result property="cateBNo.bName" column="cate_b_name" />
 	</resultMap>
 	<select id="selectBookBest10ByMap" resultMap="BookBest10"
 		parameterType="BookBest10">
@@ -47,11 +55,15 @@
 		group by bc limit 0,10
 	</select>
 	
+	<sql id="selectSqlForeline">
+	 	select cate_b_no,count(rental_date) as ranking,cate_b_name,rental_date
+	 	FROM bestsaler
+	</sql>
 	<select id="selectBookByMap" resultMap="BookBest10"
 		parameterType="BookBest10">
-		<include refid="selectSql" />
+		<include refid="selectSqlForeline" />
 		<include refid="where" />
-		group by cate_b_no
+		group by rental_date
 	</select>
 	
 

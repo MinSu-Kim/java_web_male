@@ -104,6 +104,10 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 	private List<MemberBest10> best10MemberListsLast;
 	private List<MemberBest10> best10MemberListsNow;
 	private CatePanelLineChartBest pLineChart;
+	private PanelPieChartbest10 panelPieChartbest10;
+	private JButton btnChangegraph;
+	private JPanel panel_10;
+	private List<List<BookBest10>> listlists;
 
 	/**
 	 * Launch the application.
@@ -404,7 +408,6 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		
 		Date Memberdate = new Date();
 		year = "";
-		Calendar Membercal = Calendar.getInstance();
 		cal.setTime(Memberdate);
 		
 		year = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1);
@@ -449,7 +452,7 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		Platform.runLater(() -> initFX(panelForMTable));
 		
 		
-		JPanel panel_10 = new JPanel();
+		panel_10 = new JPanel();
 		contentPane.add(panel_10);
 		panel_10.setLayout(new BorderLayout(0, 0));
 		
@@ -457,38 +460,42 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		Calendar cal2 = Calendar.getInstance();
 		Map<String, Object> mapForCateChart = new HashMap<String, Object>();
 		List<String> days = new ArrayList<>();
-		List<String> cates = new ArrayList<>();
+		listlists = new ArrayList<>();
+		List<BookBest10> best10s = new ArrayList<>();
+		String rentalDate = "";
+		/*List<String> cates = new ArrayList<>();*/
 		Date whennow = new Date();
 		cal2.setTime(whennow);
 		for (int i = 0; i < 6; i++) {
 			
 			if(((cal2.get(Calendar.MONTH)-i+"").trim()).length()==1) {
-				days.add(cal2.get(Calendar.YEAR) + "-0" + (cal2.get(Calendar.MONTH) + 1 - i));
+				days.add( (cal2.get(Calendar.YEAR) + "-0" + (cal2.get(Calendar.MONTH) + 1 - i)));
+				/*rentalDate = (cal2.get(Calendar.YEAR) + "-0" + (cal2.get(Calendar.MONTH) + 1 - i));*/
 			}else {
-				days.add(cal2.get(Calendar.YEAR) + "-" + (cal2.get(Calendar.MONTH) + 1 - i));
+				days.add((cal2.get(Calendar.YEAR) + "-" + (cal2.get(Calendar.MONTH) + 1 - i)));
 			}
 		}
-		for(int i = 0; i < 10; i++) {
-			cates.add((i+"").trim());
+		for(int i = 0 ; i <10 ; i++ ) {
+			mapForCateChart.put("cateBNo",i);
+			mapForCateChart.put("days", days);
+			best10s = bestService.selectBookByMap(mapForCateChart);
+			listlists.add(best10s);
 		}
-		
-		List<BookBest10> best10s = bestService.selectBookByMap(MemberMap);
-		
-		
 		
 		
 		pLineChart = new CatePanelLineChartBest();
 		
 		
-		Platform.runLater(() -> {pLineChart.setList(best10s);}); /////////////////////////
 		
+		Platform.runLater(() -> {pLineChart.setList(listlists);}); 	
 		
 		panel_10.add(pLineChart, BorderLayout.CENTER);
 		
 		JPanel panel_4 = new JPanel();
 		panel_10.add(panel_4, BorderLayout.SOUTH);
 		
-		JButton btnChangegraph = new JButton("파이그래프보기");
+		btnChangegraph = new JButton("파이그래프보기");
+		btnChangegraph.addActionListener(this);
 		panel_4.add(btnChangegraph);
 		
 		Platform.runLater(() -> initFX(pLineChart));
@@ -707,6 +714,9 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnChangegraph) {
+			do_btnChangegraph_actionPerformed(e);
+		}
 		if (e.getSource() == btnmember) {
 			do_btnmember_actionPerformed(e);
 		}
@@ -1024,4 +1034,38 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		return popupMenu;
 	}
 
+	protected void do_btnChangegraph_actionPerformed(ActionEvent e) {
+		if(btnChangegraph.getText().equals("라인그래프보기")==false) {
+			btnChangegraph.setText("라인그래프보기");
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			Date date = new Date();
+			year = "";
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);			
+			year = cal.get(Calendar.YEAR) + "-" + (cal.get(Calendar.MONTH) + 1);
+			map.put("date", year);
+			/*double sum = bestService.*//////////////////////////////////////////////////////////////////////////////
+			
+			panelPieChartbest10 = new PanelPieChartbest10();
+			panel_10.remove(pLineChart);
+			/*pLineChart.remove();*/		
+			panel_10.add(panelPieChartbest10, BorderLayout.CENTER);
+			Platform.runLater(() -> initFX(panelPieChartbest10));
+		}else {
+			btnChangegraph.setText("파이그래프보기");
+			pLineChart = new CatePanelLineChartBest();
+			panel_10.remove(panelPieChartbest10);
+			Platform.runLater(() -> {pLineChart.setList(listlists);});			
+			panel_10.add(pLineChart, BorderLayout.CENTER);
+			Platform.runLater(() -> initFX(pLineChart));
+		}
+		/*panelPieChartbest10 = new PanelPieChartbest10();
+		panel_10.remove(pLineChart);*/
+		/*pLineChart.remove();*/
+		
+		/*panel_10.add(panelPieChartbest10, BorderLayout.CENTER);
+		Platform.runLater(() -> initFX(panelPieChartbest10));*/
+	}
 }
