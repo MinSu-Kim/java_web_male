@@ -12,11 +12,11 @@
 	<sql id="whereSql">
 		<where>
 			<if test="memberNo != null">
-				member_no REGEXP #{memberNo};
+				member_no = #{memberNo};
 			</if>
 		</where>
 	</sql>
-
+	
 	<!-- 검색 sql -->
 	<select id="selectMemberbyNo" parameterType="Member" resultType="Member">
 		<include refid="selectSql"></include>
