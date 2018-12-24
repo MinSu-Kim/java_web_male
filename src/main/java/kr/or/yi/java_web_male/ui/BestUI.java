@@ -46,6 +46,8 @@ import kr.or.yi.java_web_male.dto.MemberBest10;
 import kr.or.yi.java_web_male.service.BestUIService;
 import kr.or.yi.java_web_male.service.LibraryUIService;
 import javax.swing.border.EtchedBorder;
+import javax.swing.JTextField;
+import javax.swing.BoxLayout;
 
 public class BestUI extends JFrame implements ItemListener, ActionListener {
 
@@ -452,11 +454,6 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		Platform.runLater(() -> initFX(panelForMTable));
 		
 		
-		panel_10 = new JPanel();
-		contentPane.add(panel_10);
-		panel_10.setLayout(new BorderLayout(0, 0));
-		
-		
 		Calendar cal2 = Calendar.getInstance();
 		Map<String, Object> mapForCateChart = new HashMap<String, Object>();
 		List<String> days = new ArrayList<>();
@@ -483,11 +480,16 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		}
 		
 		
+		
+		Platform.runLater(() -> {pLineChart.setList(listlists);});
+		
+		
+		panel_10 = new JPanel();
+		contentPane.add(panel_10);
+		panel_10.setLayout(new BorderLayout(0, 0));
+		
+		
 		pLineChart = new CatePanelLineChartBest();
-		
-		
-		
-		Platform.runLater(() -> {pLineChart.setList(listlists);}); 	
 		
 		panel_10.add(pLineChart, BorderLayout.CENTER);
 		
@@ -549,6 +551,8 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 				bCBCateM.setEnabled(false);
 				bCBCateS.setModel(nullModel);
 				bCBCateS.setEnabled(false);
+				bookCateMview = false;
+				bookCateSview = false;
 			}
 			return;
 		}
@@ -789,11 +793,14 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 			}
 			now = year;
 			last = lastYear;
-			
 		}
 		if (BCBKindsCate.getSelectedItem().equals("장르별")) {
 			try {
 				if (bookCateB.getbName().equals("")) {
+					JOptionPane.showMessageDialog(null, "장르를선택해주세요");
+					return;
+				}
+				if (bookCateBview == false) {
 					JOptionPane.showMessageDialog(null, "장르를선택해주세요");
 					return;
 				}
@@ -804,11 +811,16 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 
 		}
 
-		if (bookCateBview) {
+		if (bCBCateB.isEnabled()) {
+			if (bookCateB.getbName().equals("")) {
+				JOptionPane.showMessageDialog(null, "장르를선택해주세요");
+				return;
+			}
 			String b = (bookCateB.getbCode() + "").trim();
 			title = title + " " + bookCateB.getbName();
 			nowMap.put("cateBNo", b);
 			lastMap.put("cateBNo", b);
+			
 		}
 		if (bookCateMview) {
 			String m = (bookCateM.getmCode() + "").trim();
@@ -925,6 +937,10 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		if (mCBKindsCate.getSelectedItem().equals("장르별")) {
 			try {
 				if (memCateB.getbName().equals("")) {
+					JOptionPane.showMessageDialog(null, "장르를선택해주세요");
+					return;
+				}
+				if (memCateBview == false) {
 					JOptionPane.showMessageDialog(null, "장르를선택해주세요");
 					return;
 				}

@@ -5,7 +5,12 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -42,6 +47,8 @@ public class LoginUI extends JFrame implements ActionListener {
 	private JButton btnSignUp;
 	private JButton btnFind;
 	private JButton btnSearch;
+	private JButton btnNewButton;
+	private String imgPath;
 
 	public static final Member getLogin() {
 		return loginMember;
@@ -79,6 +86,12 @@ public class LoginUI extends JFrame implements ActionListener {
 	}
 
 	private void initComponent() {
+		imgPath = System.getProperty("user.dir") + "\\images\\";
+		
+		setContentPane(new JLabel(new ImageIcon(imgPath +"7.jpg")));
+		pack();
+        setVisible(true);
+		
 		setTitle("로그인");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 259);
@@ -128,9 +141,16 @@ public class LoginUI extends JFrame implements ActionListener {
 		btnSearch = new JButton("도서검색");
 		btnSearch.addActionListener(this);
 		panel_1.add(btnSearch);
+		
+		btnNewButton = new JButton("Best");
+		btnNewButton.addActionListener(this);
+		panel_1.add(btnNewButton);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton) {
+			do_btnNewButton_actionPerformed(e);
+		}
 		if (e.getSource() == btnSearch) {
 			do_btnSearch_actionPerformed(e);
 		}
@@ -193,6 +213,13 @@ public class LoginUI extends JFrame implements ActionListener {
 	}
 
 	protected void do_btnSearch_actionPerformed(ActionEvent e) {
+		bookSearchUI = new BookSearchUI();
 		bookSearchUI.setVisible(true);
+		bookSearchUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
+	protected void do_btnNewButton_actionPerformed(ActionEvent e) {
+		BestUI bestUI = new BestUI();
+		bestUI.setVisible(true);
+		bestUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 }

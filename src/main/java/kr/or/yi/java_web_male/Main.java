@@ -3,6 +3,7 @@ package kr.or.yi.java_web_male;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+
 public class Main {
 	public static void main(String[] args) {
 		// 룩앤필 변경
