@@ -109,6 +109,24 @@
 		<include refid="whereRegEXP"></include>
 	</select>
 	
+	<sql id="whereNameAndPhone">
+		<where>
+			<if test="korName != null">
+				kor_name = #{korName};
+			</if>
+			<if test="phone != null">
+				AND phone =#{phone}
+			</if>
+			<if test="memberNo != null">
+				member_no = #{memberNo};
+			</if>
+		</where>
+	</sql>
+	
+	<select id="searchIdAndPw" resultMap="MemberResult">
+		<include refid="selectSql"/>
+		<include refid="whereNameAndPhone"/>
+	</select>
 	
 	
 </mapper>

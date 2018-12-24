@@ -117,4 +117,11 @@ public class MemberMapperImpl implements MemberMapper {
 			return sqlSession.selectList(namespace + ".selectMemberByNoList", member);
 		}
 	}
+	@Override
+	public Member searchIdAndPw(Map<String, Object> map) {
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();){
+			return sqlSession.selectOne(namespace + ".searchIdAndPw", map);
+		}
+	}
+	
 }
