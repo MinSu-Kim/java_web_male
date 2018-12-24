@@ -44,6 +44,7 @@ import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
 import kr.or.yi.java_web_male.dto.CategoryS;
+import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.dto.Publisher;
 import kr.or.yi.java_web_male.service.LibraryUIService;
 import javax.swing.JTabbedPane;
@@ -99,6 +100,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	private LoginUI loginUI;
 	private JButton btnlogin;
 	private JTabbedPane tabbedPane;
+	private final Member member = loginUI.getLogin();
 
 	/**
 	 * Launch the application.
@@ -127,6 +129,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public BookSearchUI() {
+		
 		setTitle("도서검색");
 		setResizable(false);
 		service = new LibraryUIService();
@@ -603,11 +606,12 @@ public class BookSearchUI extends JFrame implements ActionListener {
 		Showmore.addActionListener(this);
 		popupMenu.add(Showmore);
 
-		if (true /* Login.loginInfo.getAdmin() */) {
-			JMenuItem bookRentInfo = new JMenuItem("도서대여 정보");
-			bookRentInfo.addActionListener(this);
-			popupMenu.add(bookRentInfo);
-
+		JMenuItem bookRentInfo = new JMenuItem("도서대여 정보");
+		bookRentInfo.addActionListener(this);
+		popupMenu.add(bookRentInfo);
+		if (member==null) {			
+			
+		} else if(member.isAdmin()) {
 			JMenuItem upDate = new JMenuItem("수정");
 			upDate.addActionListener(this);
 			popupMenu.add(upDate);
@@ -619,7 +623,6 @@ public class BookSearchUI extends JFrame implements ActionListener {
 			JMenuItem add = new JMenuItem("추가");
 			add.addActionListener(this);
 			popupMenu.add(add);
-
 		}
 		return popupMenu;
 	}
@@ -637,6 +640,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 			do_ShowBookrentInfo_actionPerformed(e);
 
 		}
+		
 		if (e.getActionCommand().equals("수정")) {
 			JOptionPane.showMessageDialog(null, "수정");
 		}
@@ -645,7 +649,9 @@ public class BookSearchUI extends JFrame implements ActionListener {
 		}
 		if (e.getActionCommand().equals("추가")) {
 			JOptionPane.showMessageDialog(null, "추가");
+			
 		}
+		
 
 	}
 
