@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -17,7 +18,7 @@ import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.ui.LoginUI;
 
 @SuppressWarnings("serial")
-public class MemberModUI extends JFrame {
+public class MemberModUI extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField tfPassword;
@@ -36,6 +37,7 @@ public class MemberModUI extends JFrame {
 	private MemberInfoUI memberInfoUI;
 	// 서비스 만들기
 	private MemberMapper memberMapper;
+	private JButton btnChange;
 
 	public MemberModUI() {
 		memberMapper = MemberMapperImpl.getInstance();
@@ -139,12 +141,8 @@ public class MemberModUI extends JFrame {
 		tfAddress.setColumns(10);
 		contentPane.add(tfAddress);
 
-		JButton btnChange = new JButton("변경");
-		btnChange.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				do_btnChange_actionPerformed(e);
-			}
-		});
+		btnChange = new JButton("변경");
+		btnChange.addActionListener(this);
 		contentPane.add(btnChange);
 
 		JButton btnCancel = new JButton("취소");
@@ -154,18 +152,10 @@ public class MemberModUI extends JFrame {
 
 	}
 
-	public void getMemberInfo(Member member) {
-		tfMemberNo.setText(member.getMemberNo());
-		tfJumin.setText(member.getJumin());
-		tfEmail.setText(member.getEmail());
-		tfPhone.setText(member.getPhone());
-		tfAddress.setText(member.getAddress());
-		tfKorName.setText(member.getKorName());
-		tfEngName.setText(member.getEngName());
-		tfMemberNo.setEditable(false);
-		tfJumin.setEditable(false);
-		tfMemberNo.setEditable(false);
-		tfMemberNo.setEditable(false);
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnChange) {
+			do_btnChange_actionPerformed(e);
+		}
 	}
 
 	protected void do_btnChange_actionPerformed(ActionEvent arg0) {
@@ -181,7 +171,15 @@ public class MemberModUI extends JFrame {
 		editMember.setUniqueness(LoginUI.getLogin().getUniqueness());
 		editMember.setJumin(LoginUI.getLogin().getJumin());
 
-		System.out.println(editMember);
+		if (LoginUI.getLogin().getPassword().equals(tfPassword.getText().trim())) {
+			if (tfNewPassword.getText().trim().equals(tfNewPasswordCheck.getText().trim())
+					&& !tfNewPassword.getText().trim().equals(null)
+					&& !tfNewPasswordCheck.getText().trim().equals(null)) {
+				editMember.setPassword(tfNewPassword.getText().trim());
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
+		}
 
 		memberMapper.updateMember(editMember);
 
@@ -193,6 +191,20 @@ public class MemberModUI extends JFrame {
 		}
 
 		memberInfoUI.setVisible(true);
+	}
+
+	public void getMemberInfo(Member member) {
+		tfMemberNo.setText(member.getMemberNo());
+		tfJumin.setText(member.getJumin());
+		tfEmail.setText(member.getEmail());
+		tfPhone.setText(member.getPhone());
+		tfAddress.setText(member.getAddress());
+		tfKorName.setText(member.getKorName());
+		tfEngName.setText(member.getEngName());
+		tfMemberNo.setEditable(false);
+		tfJumin.setEditable(false);
+		tfMemberNo.setEditable(false);
+		tfMemberNo.setEditable(false);
 	}
 
 }
