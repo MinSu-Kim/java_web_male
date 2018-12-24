@@ -1,5 +1,10 @@
 package kr.or.yi.java_web_male.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JOptionPane;
+
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,11 +15,13 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
 import kr.or.yi.java_web_male.InitScene;
+import kr.or.yi.java_web_male.dto.BookBest10;
 
 @SuppressWarnings("serial")
 public class PanelPieChartbest10 extends JFXPanel implements InitScene{
 
 	private PieChart pieChart;
+	private List<BookBest10> bookList;
 	
 	@Override
 	public Scene createScene() {
@@ -45,11 +52,21 @@ public class PanelPieChartbest10 extends JFXPanel implements InitScene{
 	
 	private ObservableList<Data> getChartData() {
 		ObservableList<Data> list = FXCollections.observableArrayList();
-		Data chart = new PieChart.Data("java", 17);
-		chart.setName("aa");
-		chart.setPieValue(20);
+		double sum = 0;
+		List<Data> data = new ArrayList<>();
+		for (BookBest10 best10 : bookList) {
+			Data chart = new PieChart.Data("java", 17);
+			chart.setName(best10.getCateBNo().getbName());			
+			chart.setPieValue(best10.getRanking());
+			data.add(chart);
+			sum = sum + chart.getPieValue();
+		}
 		
-		list.addAll(chart, new PieChart.Data("JavaFx", 31), new PieChart.Data("Swing", 10));
+		for (Data dat : data) {
+			dat.setPieValue(dat.getPieValue()/sum*100);
+			list.addAll(dat);
+		}
+		
 		return list;
 	}
 
@@ -90,5 +107,10 @@ public class PanelPieChartbest10 extends JFXPanel implements InitScene{
 	
 	public void deleteAllData() {
 		pieChart.getData().clear();
+	}
+
+	public void setList(List<BookBest10> list) {
+		this.bookList = list;
+		
 	}
 }

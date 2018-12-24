@@ -11,6 +11,8 @@ public interface BookBest10Mapper {
 	List<BookBest10> selectBookBest10ByMap(Map<String, Object> map);
 	
 	List<BookBest10> selectBookByMap(Map<String, Object> map);
+
+	List<BookBest10> selectBookByMapForeSum(Map<String, Object> map);
 	
 	
 }

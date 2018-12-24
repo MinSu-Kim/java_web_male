@@ -35,6 +35,13 @@ public class BookBest10MapperImpl implements BookBest10Mapper {
 		}
 	}
 
+	@Override
+	public List<BookBest10> selectBookByMapForeSum(Map<String, Object> map) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectList(namespace + ".selectBookByMapForeSum", map);
+		}
+	}
+
 	
 
 	

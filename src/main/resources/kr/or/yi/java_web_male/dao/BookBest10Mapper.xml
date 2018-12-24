@@ -65,6 +65,11 @@
 		<include refid="where" />
 		group by rental_date
 	</select>
-	
+	<select id="selectBookByMapForeSum" resultMap="BookBest10">
+		select rental_date,cate_b_name,count(cate_b_no)as ranking
+	 	FROM bestsaler
+	 	<include refid="where"/>
+	 	group by cate_b_no
+	</select>
 
 </mapper>
