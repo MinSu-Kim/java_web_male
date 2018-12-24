@@ -35,8 +35,9 @@ import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
 import kr.or.yi.java_web_male.dto.CategoryS;
+import kr.or.yi.java_web_male.dto.Publisher;
 
-public class BookInsertUI extends JFrame {
+public class BookInsertUI extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField tfBookCode;
@@ -64,6 +65,9 @@ public class BookInsertUI extends JFrame {
 
 	private BookMapper bookMapper;
 	private PublisherMapper publisherMapper;
+	private JButton btnImage;
+	private JButton btnCancel;
+	private JButton btnInsert;
 
 	/**
 	 * Launch the application.
@@ -122,6 +126,13 @@ public class BookInsertUI extends JFrame {
 		JPanel panel_4 = new JPanel();
 		panel.add(panel_4);
 		panel_4.setLayout(new GridLayout(0, 1, 10, 10));
+
+		JPanel panel_6 = new JPanel();
+		panel_4.add(panel_6);
+
+		btnImage = new JButton("사진 변경");
+		btnImage.addActionListener(this);
+		panel_4.add(btnImage);
 
 		JPanel panel_2 = new JPanel();
 		contentPane.add(panel_2);
@@ -224,71 +235,95 @@ public class BookInsertUI extends JFrame {
 		contentPane.add(panel_5);
 		panel_5.setLayout(new GridLayout(0, 2, 10, 10));
 
-		JButton btnInsert = new JButton("추가");
-		btnInsert.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Book book = new Book();
-
-				book.setPubNo(null);
-				book.setTitle(tfTitle.getText());
-				book.setAuthor(tfAuthor.getText());
-				book.setAuthor(tfAuthor.getText());
-				book.setTranslator(tfTrans.getText());
-				book.setPrice(Integer.parseInt(tfPrice.getText().trim()));
-				book.setCateBNo(cateB);
-				book.setCateMNo(cateM);
-				book.setCateSNo(cateS);
-
-				Map<String, Object> map = new HashMap<>();
-
-				map.put("title", book.getTitle());
-
-				map.put("author", book.getAuthor());
-				map.put("translator", book.getTranslator());
-				map.put("cate_b_no", book.getCateBNo().getbCode());
-				map.put("cate_m_no", book.getCateMNo());
-				map.put("cate_s_no", book.getCateSNo());
-
-				int i = 0, j = 0, max = 0;
-
-				if (!bookMapper.selectbookbyOther(map).equals(null)) {
-					if (bookMapper.selectbookbyOther(map).size() > 0) {
-						i = bookMapper.selectbookbyOther(map).get(0).getBookNo();
-						j = bookMapper.selectbookbyOther(map).size() + 1;
-					} else {
-						for (int k = 0; k < bookMapper.selectBookByAll().size(); k++) {
-							if (max < bookMapper.selectBookByAll().get(k).getBookNo()) {
-								max = bookMapper.selectBookByAll().get(k).getBookNo();
-							}
-						}
-						i = max + 1;
-						j = 1;
-					}
-				}
-
-				String cn = cateB.getbCode() + "" + cateM.getmCode() + "" + cateS.getsCode() + "";
-				String bc = String.format("%s%05d%02d", cn, i, j);
-
-				tfBookCode.setText(bc);
-
-				book.setBookCode(bc);
-				book.setBookNo(i);
-
-				int result = JOptionPane.showConfirmDialog(null, bc, "확인", JOptionPane.YES_NO_OPTION);
-				if (result == JOptionPane.CLOSED_OPTION) {
-
-				} else if (result == JOptionPane.YES_OPTION) {
-					System.out.println(book);
-					bookMapper.insertBook(book);
-				} else {
-
-				}
-
-			}
-		});
+		btnInsert = new JButton("추가");
+		btnInsert.addActionListener(this);
 		panel_5.add(btnInsert);
 
-		JButton btnCancel = new JButton("취소");
+		btnCancel = new JButton("취소");
+		btnCancel.addActionListener(this);
 		panel_5.add(btnCancel);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnInsert) {
+			do_btnInsert_actionPerformed(e);
+		}
+		if (e.getSource() == btnCancel) {
+			do_btnCancel_actionPerformed(e);
+		}
+		if (e.getSource() == btnImage) {
+			do_btnImage_actionPerformed(e);
+		}
+	}
+
+	protected void do_btnInsert_actionPerformed(ActionEvent e) {
+		Book book = new Book();
+		Publisher publisher = new Publisher();
+		Map<String, Object> map = new HashMap<>();
+		int i = 0, j = 0, max = 0;
+		String pubNo = String.format("P%04d", i);
+
+		publisher.setPubName(tfPub.getText().trim());
+
+		if (!publisherMapper.selectPublisherByName(publisher).equals(null)) {
+			pubNo = publisherMapper.selectPublisherByName(publisher).getPubNo();
+		} else {
+			i = publisherMapper.selectPublisherByAll().size() + 1;
+		}
+
+		publisher.setPubNo(pubNo);
+		book.setPubNo(publisher);
+		book.setTitle(tfTitle.getText());
+		book.setAuthor(tfAuthor.getText());
+		book.setAuthor(tfAuthor.getText());
+		book.setTranslator(tfTrans.getText());
+		book.setPrice(Integer.parseInt(tfPrice.getText().trim()));
+		book.setCateBNo(cateB);
+		book.setCateMNo(cateM);
+		book.setCateSNo(cateS);
+
+		map.put("title", book.getTitle());
+		map.put("author", book.getAuthor());
+		map.put("translator", book.getTranslator());
+		map.put("cate_b_no", book.getCateBNo().getbCode());
+		map.put("cate_m_no", book.getCateMNo());
+		map.put("cate_s_no", book.getCateSNo());
+
+		if (!bookMapper.selectbookbyOther(map).equals(null)) {
+			if (bookMapper.selectbookbyOther(map).size() > 0) {
+				i = bookMapper.selectbookbyOther(map).get(0).getBookNo();
+				j = bookMapper.selectbookbyOther(map).size() + 1;
+			} else {
+				for (int k = 0; k < bookMapper.selectBookByAll().size(); k++) {
+					if (max < bookMapper.selectBookByAll().get(k).getBookNo()) {
+						max = bookMapper.selectBookByAll().get(k).getBookNo();
+					}
+				}
+				i = max + 1;
+				j = 1;
+			}
+		}
+
+		String cn = cateB.getbCode() + "" + cateM.getmCode() + "" + cateS.getsCode() + "";
+		String bc = String.format("%s%05d%02d", cn, i, j);
+
+		tfBookCode.setText(bc);
+		book.setBookCode(bc);
+		book.setBookNo(i);
+
+		int result = JOptionPane.showConfirmDialog(null, bc, "확인", JOptionPane.YES_NO_OPTION);
+		if (result == JOptionPane.CLOSED_OPTION) {
+
+		} else if (result == JOptionPane.YES_OPTION) {
+			bookMapper.insertBook(book);
+		} else {
+			JOptionPane.showMessageDialog(null, "");
+		}
+	}
+
+	protected void do_btnCancel_actionPerformed(ActionEvent e) {
+	}
+
+	protected void do_btnImage_actionPerformed(ActionEvent e) {
 	}
 }

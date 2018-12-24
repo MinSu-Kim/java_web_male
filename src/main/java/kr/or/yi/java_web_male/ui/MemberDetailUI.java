@@ -41,7 +41,6 @@ public class MemberDetailUI extends JFrame {
 		bookRentalInfoMapper = BookRentalInfoMapperImpl.getInstance();
 		lists = bookRentalInfoMapper.selectBookRentalMemberInfo(LoginUI.getLogin());
 		initComponents();
-		initComponents();
 	}
 
 	private void initComponents() {
