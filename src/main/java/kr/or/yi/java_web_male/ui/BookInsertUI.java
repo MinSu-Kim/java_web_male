@@ -14,12 +14,14 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import kr.or.yi.java_web_male.dao.BookMapper;
 import kr.or.yi.java_web_male.dao.BookMapperImpl;
@@ -325,5 +327,18 @@ public class BookInsertUI extends JFrame implements ActionListener {
 	}
 
 	protected void do_btnImage_actionPerformed(ActionEvent e) {
+		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF", "jpg", "gif");
+		chooser.setFileFilter(filter);
+		
+		int ret = chooser.showOpenDialog(null);
+		
+		if (ret == JFileChooser.APPROVE_OPTION) {
+			String pathName = chooser.getSelectedFile().getPath();
+			String fileName = chooser.getSelectedFile().getName();
+			
+			System.out.println(pathName);
+			System.out.println(fileName);
+		}
 	}
 }
