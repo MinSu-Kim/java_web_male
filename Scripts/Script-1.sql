@@ -27,8 +27,14 @@ select b.book_code, b.title, p.pub_name, b.author, bri.rental_date, bri.return_s
 from book_rental_info as bri
 join book as b on b.book_code = bri.book_code
 join publisher as p on p.pub_no = b.pub_no
-where member_no = 2;
+where member_no = 'L00001';
+
+select * from book_rental_info where member_no = 'L00001';
 
 INSERT INTO book_rental_info values
 (1, '2018-12-24', '2019-01-01', null, 'L00001', '1110000301'),
-(2, '2018-12-24', '2019-01-04', null, 'L00001', 1110000201);
+(2, '2018-12-24', '2019-01-04', null, 'L00001', '1110000201');
+
+insert into publisher values
+('P001', '호우출판'),
+('P002', '오라클');

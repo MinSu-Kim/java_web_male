@@ -10,17 +10,21 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
 import kr.or.yi.java_web_male.InitScene;
+import kr.or.yi.java_web_male.dao.BookRentalInfoMapper;
+import kr.or.yi.java_web_male.dao.BookRentalInfoMapperImpl;
 
 @SuppressWarnings("serial")
 public class PanelPieChart extends JFXPanel implements InitScene{
 
 	private PieChart pieChart;
+	private BookRentalInfoMapper bookRentalInfoMapper;
 	
 	@Override
 	public Scene createScene() {
 		Group root = new Group();
 		Scene scene = new Scene(root);
 		root.setAutoSizeChildren(true);
+		bookRentalInfoMapper = BookRentalInfoMapperImpl.getInstance();
 		
 		pieChart = new PieChart();
 		pieChart.setPrefSize(500, 250);
@@ -32,7 +36,6 @@ public class PanelPieChart extends JFXPanel implements InitScene{
 		pieChart.setClockwise(true); 		// 시계방향 배치여부
 		pieChart.setLabelsVisible(true);	// 레이블 표시여부
 		
-				
 //		pieChart.getData().forEach(data -> data.nameProperty().bind(Bindings.concat(data.getName(), " ", data.pieValueProperty(), " %")));
 		for(Data d : pieChart.getData()) {
 			d.nameProperty().bind(Bindings.concat(d.getName(), " ", d.pieValueProperty(), " %"));
@@ -45,7 +48,6 @@ public class PanelPieChart extends JFXPanel implements InitScene{
 	
 	private ObservableList<Data> getChartData() {
 		ObservableList<Data> list = FXCollections.observableArrayList();
-		list.addAll(new PieChart.Data("java", 17), new PieChart.Data("JavaFx", 31), new PieChart.Data("Swing", 10));
 		return list;
 	}
 

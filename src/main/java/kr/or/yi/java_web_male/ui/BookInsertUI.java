@@ -263,6 +263,8 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		Publisher publisher = new Publisher();
 		Map<String, Object> map = new HashMap<>();
 		int i = 0, j = 0, max = 0;
+
+		/* 출판사 추가 수정 */
 		String pubNo = String.format("P%04d", i);
 
 		publisher.setPubName(tfPub.getText().trim());
@@ -330,13 +332,13 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF", "jpg", "gif");
 		chooser.setFileFilter(filter);
-		
+
 		int ret = chooser.showOpenDialog(null);
-		
+
 		if (ret == JFileChooser.APPROVE_OPTION) {
 			String pathName = chooser.getSelectedFile().getPath();
 			String fileName = chooser.getSelectedFile().getName();
-			
+
 			System.out.println(pathName);
 			System.out.println(fileName);
 		}
