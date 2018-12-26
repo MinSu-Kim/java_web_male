@@ -11,7 +11,7 @@
 	<sql id="whereSql">
 		<where>
 			<if test="bookCode != null">
-				book_code REGEXP#{bookCode}
+				book_code REGEXP #{bookCode}
 			</if>
 		</where>
 	</sql>

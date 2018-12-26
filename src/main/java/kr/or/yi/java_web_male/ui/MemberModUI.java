@@ -5,11 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import kr.or.yi.java_web_male.dao.MemberMapper;
 import kr.or.yi.java_web_male.dao.MemberMapperImpl;
@@ -17,7 +20,7 @@ import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.ui.LoginUI;
 
 @SuppressWarnings("serial")
-public class MemberModUI extends JFrame {
+public class MemberModUI extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField tfPassword;
@@ -36,6 +39,8 @@ public class MemberModUI extends JFrame {
 	private MemberInfoUI memberInfoUI;
 	// 서비스 만들기
 	private MemberMapper memberMapper;
+	private JButton btnChange;
+	private JButton btnPhoto;
 
 	public MemberModUI() {
 		memberMapper = MemberMapperImpl.getInstance();
@@ -65,7 +70,8 @@ public class MemberModUI extends JFrame {
 		JPanel pPhoto = new JPanel();
 		contentPane.add(pPhoto);
 
-		JButton btnPhoto = new JButton("사진 변경하기");
+		btnPhoto = new JButton("사진 변경하기");
+		btnPhoto.addActionListener(this);
 		pPhoto.add(btnPhoto);
 
 		JLabel lblPassword = new JLabel("현재 비밀번호 확인");
@@ -139,12 +145,8 @@ public class MemberModUI extends JFrame {
 		tfAddress.setColumns(10);
 		contentPane.add(tfAddress);
 
-		JButton btnChange = new JButton("변경");
-		btnChange.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				do_btnChange_actionPerformed(e);
-			}
-		});
+		btnChange = new JButton("변경");
+		btnChange.addActionListener(this);
 		contentPane.add(btnChange);
 
 		JButton btnCancel = new JButton("취소");
@@ -152,6 +154,46 @@ public class MemberModUI extends JFrame {
 
 		getMemberInfo(LoginUI.getLogin());
 
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnPhoto) {
+			do_btnPhoto_actionPerformed(e);
+		}
+		if (e.getSource() == btnChange) {
+			do_btnChange_actionPerformed(e);
+		}
+	}
+
+	protected void do_btnChange_actionPerformed(ActionEvent arg0) {
+		Member editMember = new Member();
+
+		editMember.setMemberNo(LoginUI.getLogin().getMemberNo());
+		editMember.setPassword(LoginUI.getLogin().getPassword());
+		editMember.setKorName(tfKorName.getText());
+		editMember.setEngName(tfEngName.getText());
+		editMember.setPhone(tfPhone.getText());
+		editMember.setEmail(tfEmail.getText());
+		editMember.setAddress(tfAddress.getText());
+		editMember.setUniqueness(LoginUI.getLogin().getUniqueness());
+		editMember.setJumin(LoginUI.getLogin().getJumin());
+
+		if (LoginUI.getLogin().getPassword().equals(tfPassword.getText().trim())) {
+			if (tfNewPassword.getText().trim().equals(tfNewPasswordCheck.getText().trim())) {
+				editMember.setPassword(tfNewPassword.getText().trim());
+			}
+		}
+
+		memberMapper.updateMember(editMember);
+
+		Member member = memberMapper.selectMemberByNo(editMember.getMemberNo());
+
+		if (memberInfoUI == null) {
+			memberInfoUI = new MemberInfoUI();
+			memberInfoUI.getMemberInfo(member);
+		}
+
+		memberInfoUI.setVisible(true);
 	}
 
 	public void getMemberInfo(Member member) {
@@ -168,31 +210,19 @@ public class MemberModUI extends JFrame {
 		tfMemberNo.setEditable(false);
 	}
 
-	protected void do_btnChange_actionPerformed(ActionEvent arg0) {
-		Member editMember = new Member();
+	protected void do_btnPhoto_actionPerformed(ActionEvent e) {
+		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF", "jpg", "gif");
+		chooser.setFileFilter(filter);
 
-		editMember.setMemberNo(LoginUI.getLogin().getMemberNo());
-		editMember.setPassword(LoginUI.getLogin().getPassword());
-		editMember.setKorName(tfKorName.getText());
-		editMember.setEngName(tfEngName.getText());
-		editMember.setPhone(tfPhone.getText());
-		editMember.setEmail(tfEmail.getText());
-		editMember.setAddress(tfAddress.getText());
-		editMember.setUniqueness(LoginUI.getLogin().getUniqueness());
-		editMember.setJumin(LoginUI.getLogin().getJumin());
+		int ret = chooser.showOpenDialog(null);
 
-		System.out.println(editMember);
+		if (ret == JFileChooser.APPROVE_OPTION) {
+			String pathName = chooser.getSelectedFile().getPath();
+			String fileName = chooser.getSelectedFile().getName();
 
-		memberMapper.updateMember(editMember);
-
-		Member member = memberMapper.selectMemberByNo(editMember.getMemberNo());
-
-		if (memberInfoUI == null) {
-			memberInfoUI = new MemberInfoUI();
-			memberInfoUI.getMemberInfo(member);
+			System.out.println(pathName);
+			System.out.println(fileName);
 		}
-
-		memberInfoUI.setVisible(true);
 	}
-
 }

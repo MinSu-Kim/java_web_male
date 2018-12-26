@@ -12,11 +12,19 @@
 	<sql id="whereSql">
 		<where>
 			<if test="memberNo != null">
+				member_no = #{memberNo};
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="whereRegEXP">
+		<where>
+			<if test="memberNo != null">
 				member_no REGEXP #{memberNo};
 			</if>
 		</where>
 	</sql>
-
+	
 	<!-- 검색 sql -->
 	<select id="selectMemberbyNo" parameterType="Member" resultType="Member">
 		<include refid="selectSql"></include>
@@ -98,9 +106,27 @@
 	
 	<select id="selectMemberByNoList" parameterType="Member" resultType="Member">
 		<include refid="selectSql"/>
-		<include refid="whereSql"/>
+		<include refid="whereRegEXP"></include>
 	</select>
 	
+	<sql id="whereNameAndPhone">
+		<where>
+			<if test="korName != null">
+				kor_name = #{korName};
+			</if>
+			<if test="phone != null">
+				AND phone =#{phone}
+			</if>
+			<if test="memberNo != null">
+				member_no = #{memberNo};
+			</if>
+		</where>
+	</sql>
+	
+	<select id="searchIdAndPw" resultMap="MemberResult">
+		<include refid="selectSql"/>
+		<include refid="whereNameAndPhone"/>
+	</select>
 	
 	
 </mapper>

@@ -36,7 +36,7 @@ public interface MemberMapper {
 	//대여된 책 확인하기 해쉬맵
 	List<Member> searchMembernoRent(Map<String, String> map);
 	
-	
+	Member searchIdAndPw(Map<String, Object> map);
 	
 	
 }
