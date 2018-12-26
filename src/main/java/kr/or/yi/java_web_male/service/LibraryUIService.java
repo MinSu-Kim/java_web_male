@@ -94,6 +94,10 @@ public class LibraryUIService {
 		return bookRentalInfoMapper.insertBookRentalInfo(bookRentalInfo);
 	}
 	
+	public BookRentalInfo selectRentalNoByBookCode (BookRentalInfo bookRentalInfo) {
+		return bookRentalInfoMapper.selectRentalNoByBookCode(bookRentalInfo);
+	}
+	
 	public int nextCode() {
 		return bookRentalInfoMapper.nextCode();
 	}

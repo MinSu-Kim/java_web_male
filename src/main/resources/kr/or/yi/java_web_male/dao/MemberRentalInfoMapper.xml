@@ -36,6 +36,7 @@
 		<result property="grade" column="grade"/>
 	</resultMap>
 	
+	
 	<!-- <resultMap id="MemberResult" type="Member">
 		<id property="memberNo" column="member_no" />
 		<result property="password" column="password" />

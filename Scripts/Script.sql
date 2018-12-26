@@ -255,3 +255,6 @@ select * from overdue;
 
 select * from book;
 
+select rental_no FROM proj_library.book_rental_info
+   		where book_code='00001';
+

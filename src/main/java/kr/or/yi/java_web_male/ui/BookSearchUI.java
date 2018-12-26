@@ -579,7 +579,6 @@ public class BookSearchUI extends JFrame implements ActionListener {
 					Book book = tablePanel2.selectedItem();
 					if(book.isRentalPossible() == true) {
 						JOptionPane.showMessageDialog(null, "대여 가능한 책입니다.");
-						
 						bookRentUI.setBookCode(book);
 						BookSearchUI.this.dispose();
 					}else {

@@ -20,5 +20,6 @@ public interface BookRentalInfoMapper {
 	int nextCode();
 
 	List<BookRentalInfo> selectBookRentalMemberInfo(Member member);
-
+	
+	BookRentalInfo selectRentalNoByBookCode (BookRentalInfo bookRentalInfo);
 }
