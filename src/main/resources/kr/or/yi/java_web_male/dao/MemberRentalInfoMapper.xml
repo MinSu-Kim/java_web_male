@@ -21,6 +21,21 @@
 		<result property="total" column="total"/>
 	</resultMap>
 	
+	<resultMap type="MemberRentalInfo" id="NowTotalResult">
+	<id property="memberNo" column="member_no" />
+	<result property="nowTotal" column="now_total"/>
+	</resultMap>
+	
+	<resultMap type="MemberRentalInfo" id="TotalResult">
+	<id property="memberNo" column="member_no" />
+	<result property="total" column="total"/>
+	</resultMap>
+	
+	<resultMap type="MemberRentalInfo" id="GradeResult">
+		<id property="memberNo" column="member_no"/>
+		<result property="grade" column="grade"/>
+	</resultMap>
+	
 	<!-- <resultMap id="MemberResult" type="Member">
 		<id property="memberNo" column="member_no" />
 		<result property="password" column="password" />
@@ -47,8 +62,33 @@
 	<insert id="insertMemberRentalInfo" parameterType="MemberRentalInfo">
 		insert into proj_library.member_rental_info (member_no, grade, now_total, total)
 		values (#{memberNo}, #{grade}, #{nowTotal}, #{total})
-		
 	</insert>
+	
+	<update id="updateMemberRentalInfo" parameterType="MemberRentalInfo">
+		update proj_library.member_rental_info set now_total=now_total-1,total=total+1
+		where member_no=#{memberNo}
+	</update>
+	
+	<update id="updateMemberRentalInfoGrade" parameterType="MemberRentalInfo">
+		update proj_library.member_rental_info set grade=grade+1
+		where member_no=#{memberNo}
+	</update>
+	
+	<select id="selectMemberNowTotalByCode" parameterType="MemberRentalInfo" resultMap="NowTotalResult">
+		select now_total from Member_rental_info
+		where member_no=#{memberNo}
+	</select>
+	
+	<select id="selectMemberTotalByCode" parameterType="MemberRentalInfo" resultMap="TotalResult">
+		select total from Member_rental_info
+		where member_no=#{memberNo}
+	</select>
+	
+	<select id="selectMemberGradeByCode" parameterType="MemberRentalInfo" resultMap="GradeResult">
+		select grade from Member_rental_info
+		where member_no=#{memberNo}
+	</select>
+	
 
 
 

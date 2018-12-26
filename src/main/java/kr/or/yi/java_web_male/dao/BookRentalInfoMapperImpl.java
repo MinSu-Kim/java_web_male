@@ -67,14 +67,8 @@ public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 
 	@Override
 	public List<BookRentalInfo> selectBookRentalInfoByMemberNo(Member member) {
-		// TODO Auto-generated method stub
-		return null;
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectList(namespace + ".selectBookByMemberNo", member);
+		}
 	}
-
-	
-
-	
-
-	
-
 }

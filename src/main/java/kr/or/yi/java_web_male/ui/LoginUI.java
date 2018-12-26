@@ -81,6 +81,7 @@ public class LoginUI extends JFrame implements ActionListener {
 
 	public LoginUI() {
 		memberMapper = MemberMapperImpl.getInstance();
+		loginMember = null;
 		initComponent();
 	}
 

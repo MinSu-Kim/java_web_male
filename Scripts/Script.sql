@@ -11,7 +11,7 @@ insert into category_s values('0','7','1','아시아 신문,저널리즘 등');
 insert into category_s values('1','1','4','공간');
 insert into publisher values('P001','영남인제교육원');
 
-insert into book_rental_info values(1,'2018-12-10','2018-12-17',null,'2','1110000009');
+insert into book_rental_info values(5,'2018-12-10','2018-12-17',null,'2','0000000001');
 insert into book_rental_info values(6,'2018-12-11','2018-12-17',null,'3','0000000002');
 ---- 프로시저 생성하기 -----
 delimiter $$
@@ -92,7 +92,7 @@ from member;
 
 INSERT INTO proj_library.book
 (book_code, book_no, pub_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no)
-VALUES('1110000009', 0, 'P001', '김재영', '김재영', '자바의 정석', 40000, true, null, 0, 0, 1);
+VALUES('1110000005', 0, 'P001', '김재영', '김재영', '자바의 정석', 40000, true, null, 0, 0, 0);
 
 insert into proj_library.book
 (book_code, book_no, pub_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no)
@@ -116,7 +116,7 @@ select * from `member`;
 
 insert into `member` values("1","asdf", "이천희", "lch","01022306796","921012","tjehdxo2002@","비밀","하핫",0,"하말없음");
 
-select * from book WHERE book_code = '0000000001';
+select * from book WHERE book_code REGEXP '00001';
 
 
 
@@ -198,8 +198,8 @@ where o.member_no='123';
 
 
 
-create view bestsaler as select left(i.book_code,8) as bc, b.title, b.author ,p.pub_name,left(i.rental_date,7)as rental_date,b.cate_b_no,b.cate_m_no,b.cate_s_no,c.cate_b_name
-FROM book_rental_info i join book b on i.book_code=b.book_code join publisher p on b.pub_no=p.pub_no join category_b  c on b.cate_b_no= c.cate_b_no;
+create view bestsaler as select left(i.book_code,8) as bc, b.title, b.author ,p.pub_name,left(i.rental_date,7)as rental_date,b.cate_b_no,b.cate_m_no,b.cate_s_no
+FROM book_rental_info i join book b on i.book_code=b.book_code join publisher p on b.pub_no=p.pub_no;
 show create view bestsaler;
 drop view bestsaler;
 
@@ -209,8 +209,7 @@ where rental_date regexp '2018-1' and bc IN('11100000','00000000','00001')
 group by bc limit 0,10;
 
 
-SELECT rental_no, 
-, return_date, return_schedule, member_no, book_code
+SELECT rental_no, rental_date, return_date, return_schedule, member_no, book_code
 FROM proj_library.book_rental_info
 where book_code regexp '^[0][0-9]+$' ;
 
@@ -239,5 +238,20 @@ where rental_date regexp '2018-' and member_no like '12%' and admin =1
 group by member_no limit 0,10;
 
 
+insert into member_rental_info values ('2',1,3,0);
+insert into member_rental_info values ('123',1,3,0);
 
+select total from Member_rental_info
+		where member_no='2';
+	
+	
+	update Member_rental_info set total = total+1 where member_no='2';
+
+select * from book_rental_info;
+
+select * from member_rental_info;
+
+select * from overdue;
+
+select * from book;
 

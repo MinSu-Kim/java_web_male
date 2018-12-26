@@ -6,12 +6,18 @@ import java.util.Map;
 
 import kr.or.yi.java_web_male.dao.MemberMapper;
 import kr.or.yi.java_web_male.dao.MemberMapperImpl;
+import kr.or.yi.java_web_male.dao.MemberRentalInfoMapper;
+import kr.or.yi.java_web_male.dao.MemberRentalInfoMapperImpl;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.dto.MemberRentalInfo;
 
 public class MemberUIService {
 
 	private MemberMapper dao =  MemberMapperImpl.getInstance();
-
+	
+	private MemberRentalInfoMapper dao1 = MemberRentalInfoMapperImpl.getInstance();
+	
+	
 	public List<Member> selectMemberByAll(){
 		return dao.selectMemberByAll();
 	}
@@ -45,6 +51,24 @@ public class MemberUIService {
 	public List<Member> selectMemberByNoList(Member member) {
 		return dao.selectMemberByNoList(member);
 	}
-
-
+	
+	public int updateMemberRentalInfo(MemberRentalInfo memberRentalInfo) {
+		return dao1.updateMemberRentalInfo(memberRentalInfo);
+	}
+	
+	public int updateMemberRentalInfoGrade(MemberRentalInfo memberRentalInfo) {
+		return dao1.updateMemberRentalInfoGrade(memberRentalInfo);
+	}
+	
+	public MemberRentalInfo selectMemberNowTotalByCode(MemberRentalInfo memberRentalInfo) {
+		return dao1.selectMemberNowTotalByCode(memberRentalInfo);
+	}
+	
+	public MemberRentalInfo selectMemberTotalByCode(MemberRentalInfo memberRentalInfo) {
+		return dao1.selectMemberTotalByCode(memberRentalInfo);
+	}
+	
+	public MemberRentalInfo selectMemberGradeByCode(MemberRentalInfo memberRentalInfo) {
+		return dao1.selectMemberGradeByCode(memberRentalInfo);
+	}
 }
