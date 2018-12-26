@@ -39,4 +39,13 @@ public class PublisherMapperImpl implements PublisherMapper {
 		}
 	}
 
+	@Override
+	public int insertPublisher(Publisher publisher) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			int res = sqlSession.insert(namespace + ".insertPublisher", publisher);
+			sqlSession.commit();
+			return res;
+		}
+	}
+
 }

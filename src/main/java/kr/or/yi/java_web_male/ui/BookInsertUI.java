@@ -70,6 +70,9 @@ public class BookInsertUI extends JFrame implements ActionListener {
 	private JButton btnImage;
 	private JButton btnCancel;
 	private JButton btnInsert;
+	
+	private String pathName;
+	private String fileName;
 
 	/**
 	 * Launch the application.
@@ -264,18 +267,21 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		Map<String, Object> map = new HashMap<>();
 		int i = 0, j = 0, max = 0;
 
-		/* 출판사 추가 수정 */
-		String pubNo = String.format("P%04d", i);
+		String pubNo = "";
 
 		publisher.setPubName(tfPub.getText().trim());
-
-		if (!publisherMapper.selectPublisherByName(publisher).equals(null)) {
+		
+		if (publisherMapper.selectPublisherByName(publisher) != null) {
 			pubNo = publisherMapper.selectPublisherByName(publisher).getPubNo();
+			publisher.setPubNo(pubNo);
 		} else {
 			i = publisherMapper.selectPublisherByAll().size() + 1;
+			pubNo = String.format("P%04d", i);
+			publisher.setPubNo(pubNo);
+			System.out.println(publisher.getPubNo());
+			publisherMapper.insertPublisher(publisher);
 		}
-
-		publisher.setPubNo(pubNo);
+		
 		book.setPubNo(publisher);
 		book.setTitle(tfTitle.getText());
 		book.setAuthor(tfAuthor.getText());
@@ -292,8 +298,9 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		map.put("cate_b_no", book.getCateBNo().getbCode());
 		map.put("cate_m_no", book.getCateMNo());
 		map.put("cate_s_no", book.getCateSNo());
+		map.put("pubNo", book.getPubNo());
 
-		if (!bookMapper.selectbookbyOther(map).equals(null)) {
+		if (bookMapper.selectbookbyOther(map) != null) {
 			if (bookMapper.selectbookbyOther(map).size() > 0) {
 				i = bookMapper.selectbookbyOther(map).get(0).getBookNo();
 				j = bookMapper.selectbookbyOther(map).size() + 1;
@@ -336,11 +343,8 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		int ret = chooser.showOpenDialog(null);
 
 		if (ret == JFileChooser.APPROVE_OPTION) {
-			String pathName = chooser.getSelectedFile().getPath();
-			String fileName = chooser.getSelectedFile().getName();
-
-			System.out.println(pathName);
-			System.out.println(fileName);
+			pathName = chooser.getSelectedFile().getPath();
+			fileName = chooser.getSelectedFile().getName();
 		}
 	}
 }

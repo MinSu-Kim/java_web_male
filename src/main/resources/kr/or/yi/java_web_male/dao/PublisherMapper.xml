@@ -34,4 +34,9 @@
 		<include refid="selectSql"/>
 		<include refid="wherepubName"/>
 	</select>
+	
+	<insert id="insertPublisher" parameterType="Publisher">
+		INSERT INTO proj_library.publisher (pub_no, pub_name)
+		VALUES (#{pubNo}, #{pubName});
+	</insert>
 </mapper>
