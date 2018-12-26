@@ -97,6 +97,8 @@ public class MemberDetailUI extends JFrame {
 			datas[i] = getMemberRentalInfo(lists.get(i));
 		}
 		return datas;
+		
+		
 	}
 
 	private Object[] getMemberRentalInfo(BookRentalInfo bookRentalInfo) {

@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -73,6 +74,8 @@ public class BookInsertUI extends JFrame implements ActionListener {
 	
 	private String pathName;
 	private String fileName;
+	private JLabel lblImage;
+	private String imgPath;
 
 	/**
 	 * Launch the application.
@@ -99,6 +102,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		sMapper = CategorySMapperImpl.getInstance();
 		bookMapper = BookMapperImpl.getInstance();
 		publisherMapper = PublisherMapperImpl.getInstance();
+		imgPath = System.getProperty("user.dir") + "\\images\\";	
 
 		initComponents();
 	}
@@ -132,11 +136,11 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		panel.add(panel_4);
 		panel_4.setLayout(new GridLayout(0, 1, 10, 10));
 
-		JPanel panel_6 = new JPanel();
-		panel_4.add(panel_6);
-
-		btnImage = new JButton("사진 변경");
+		btnImage = new JButton("사진 추가");
 		btnImage.addActionListener(this);
+		
+		lblImage = new JLabel("사진 추가");
+		panel_4.add(lblImage);
 		panel_4.add(btnImage);
 
 		JPanel panel_2 = new JPanel();
@@ -291,6 +295,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		book.setCateBNo(cateB);
 		book.setCateMNo(cateM);
 		book.setCateSNo(cateS);
+		book.setImage(fileName);
 
 		map.put("title", book.getTitle());
 		map.put("author", book.getAuthor());
@@ -345,6 +350,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		if (ret == JFileChooser.APPROVE_OPTION) {
 			pathName = chooser.getSelectedFile().getPath();
 			fileName = chooser.getSelectedFile().getName();
+			lblImage.setIcon(new ImageIcon(imgPath + fileName));
 		}
 	}
 }
