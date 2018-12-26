@@ -215,14 +215,15 @@ public class MemberSearchDetail extends JFrame {
 		
 		JPanel panel_12 = new JPanel();
 		panel_2.add(panel_12, BorderLayout.CENTER);
-		panel_12.setLayout(new BorderLayout(0, 0));
+		panel_12.setLayout(null);
 		
 		labelImg = new JLabel("");
+		labelImg.setBounds(39, 21, 250, 322);
 		panel_12.add(labelImg);
-		labelImg.setIcon(new ImageIcon(imgPath + "bbak3.jpg"));
 		
 		JPanel panel_1 = new JPanel();
-		panel_12.add(panel_1, BorderLayout.SOUTH);
+		panel_1.setBounds(0, 391, 312, 33);
+		panel_12.add(panel_1);
 		
 		JButton btnUpdate = new JButton("수정");
 		btnUpdate.addActionListener(new ActionListener() {
@@ -251,7 +252,8 @@ public class MemberSearchDetail extends JFrame {
 		textEmail.setText(member.getEmail());
 		textAddress.setText(member.getAddress());
 		textAdmin.setText(((member.isAdmin())+"").trim());
-		textUni.setText(member.getUniqueness());	
+		textUni.setText(member.getUniqueness());
+		labelImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 	}
 	private Member getList() {
 		String Mno = textMemberNo.getText().trim();

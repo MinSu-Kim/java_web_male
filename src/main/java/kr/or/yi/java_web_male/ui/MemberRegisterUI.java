@@ -48,8 +48,6 @@ public class MemberRegisterUI extends JFrame {
 	private JTextField tFmemberNo;
 	private JTextField tfKor;
 	private JTextField tfEng;
-	private JTextField tfTel;
-	private JTextField tFJu;
 	private JTextField tfUni;
 	private JPasswordField pass1;
 	private JPasswordField pass2;
@@ -65,6 +63,13 @@ public class MemberRegisterUI extends JFrame {
 	private JTextField tfConfirm;
 	private JComboBox comboBox;
 	private JLabel lblImg;
+	private JTextField tftel1;
+	private JTextField tftel2;
+	private JTextField tftel3;
+	private JTextField tfju1;
+	private JTextField tfju2;
+	private String pathName;
+	private String fileName;
 	/**
 	 * Launch the application.
 	 */
@@ -179,9 +184,27 @@ public class MemberRegisterUI extends JFrame {
 		lblTel.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_Tel.add(lblTel);
 		
-		tfTel = new JTextField();
-		panel_Tel.add(tfTel);
-		tfTel.setColumns(10);
+		JPanel panel_5 = new JPanel();
+		panel_Tel.add(panel_5);
+		panel_5.setLayout(new BoxLayout(panel_5, BoxLayout.X_AXIS));
+		
+		tftel1 = new JTextField();
+		panel_5.add(tftel1);
+		tftel1.setColumns(10);
+		
+		JLabel label = new JLabel("-");
+		panel_5.add(label);
+		
+		tftel2 = new JTextField();
+		panel_5.add(tftel2);
+		tftel2.setColumns(10);
+		
+		JLabel label_1 = new JLabel("-");
+		panel_5.add(label_1);
+		
+		tftel3 = new JTextField();
+		panel_5.add(tftel3);
+		tftel3.setColumns(10);
 		
 		JPanel panel_Ju = new JPanel();
 		panel.add(panel_Ju);
@@ -191,9 +214,20 @@ public class MemberRegisterUI extends JFrame {
 		lblJu.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_Ju.add(lblJu);
 		
-		tFJu = new JTextField();
-		panel_Ju.add(tFJu);
-		tFJu.setColumns(10);
+		JPanel panel_6 = new JPanel();
+		panel_Ju.add(panel_6);
+		panel_6.setLayout(new BoxLayout(panel_6, BoxLayout.X_AXIS));
+		
+		tfju1 = new JTextField();
+		panel_6.add(tfju1);
+		tfju1.setColumns(10);
+		
+		JLabel label_2 = new JLabel("-");
+		panel_6.add(label_2);
+		
+		tfju2 = new JTextField();
+		panel_6.add(tfju2);
+		tfju2.setColumns(10);
 		
 		JPanel panel_Email = new JPanel();
 		panel.add(panel_Email);
@@ -341,8 +375,7 @@ public class MemberRegisterUI extends JFrame {
 		
 		JButton btnImg = new JButton("사진추가");
 		btnImg.addActionListener(new ActionListener() {
-			private String pathName;
-			private String fileName;
+		
 
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
@@ -358,7 +391,6 @@ public class MemberRegisterUI extends JFrame {
 					System.out.println(fileName);
 					lblImg.setIcon(new ImageIcon(imgPath + fileName));
 				}
-//				lblImg.setIcon(new ImageIcon(imgPath + fileName));
 			}
 		});
 		btnImg.setBounds(23, 287, 155, 23);
@@ -366,7 +398,7 @@ public class MemberRegisterUI extends JFrame {
 		
 		lblImg = new JLabel("사진을추가해주세요");
 		lblImg.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImg.setBounds(23, 37, 155, 195);
+		lblImg.setBounds(23, 10, 155, 267);
 		panel_3.add(lblImg);
 		//비밀번호 중복 메서드
 		pass2.getDocument().addDocumentListener(new MyDocumentListener() {
@@ -395,12 +427,13 @@ public class MemberRegisterUI extends JFrame {
 		member.setPassword(new String(pass1.getPassword()).trim());
 		member.setKorName(tfKor.getText().trim());
 		member.setEngName(tfEng.getText().trim());
-		member.setPhone(tfTel.getText().trim());
-		member.setJumin(tFJu.getText().trim());
-		member.setEmail(tfEmail.getText().trim());
+		member.setPhone(tftel1.getText().trim()+"-"+tftel2.getText().trim()+"-"+tftel3.getText().trim());
+		member.setJumin(tfju1.getText().trim()+"-"+tfju2.getText().trim());
+		member.setEmail(tfEmail.getText().trim()+"@"+tfEmail_2.getText().trim());
 		member.setAddress(tfEmail.getText().trim()+tfjuso.getText().trim());
 		member.setAdmin(chckadmin.isSelected());
 		member.setUniqueness(tfUni.getText().trim());
+		member.setPhoto(fileName);
 		int i = 0;	
 		
 		String make = tfEng.getText().substring(0, 1);
@@ -416,6 +449,7 @@ public class MemberRegisterUI extends JFrame {
 		JOptionPane.showMessageDialog(null, mn);
 		member.setMemberNo(mn);
 		service.insertMember(member);
+		
 	}
 	private void check() throws Exception {
 		if(tfKor.getText().equals("")) {
@@ -436,8 +470,8 @@ public class MemberRegisterUI extends JFrame {
 			pass2.requestFocus();
 			throw new Exception("Password를 입력해주세요");
 		}
-		if(tFJu.equals("")) {
-			tFJu.requestFocus();
+		if(tfju1.equals("")) {
+			tfju1.requestFocus();
 			throw new Exception("주민등록 번호를 입력해주세요");
 		}
 		if(tfEmail.equals("")) {
@@ -475,5 +509,4 @@ public class MemberRegisterUI extends JFrame {
 	public void setTfjuso(String tfjuso) {
 		this.tfjuso.setText(tfjuso);
 	}
-	
 }//end of class
