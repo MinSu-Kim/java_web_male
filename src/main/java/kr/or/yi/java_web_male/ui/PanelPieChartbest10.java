@@ -16,9 +16,12 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.chart.PieChart.Data;
 import kr.or.yi.java_web_male.InitScene;
 import kr.or.yi.java_web_male.dto.BookBest10;
+import javax.swing.JLabel;
 
 @SuppressWarnings("serial")
 public class PanelPieChartbest10 extends JFXPanel implements InitScene{
+	public PanelPieChartbest10() {
+	}
 
 	private PieChart pieChart;
 	private List<BookBest10> bookList;
@@ -32,7 +35,7 @@ public class PanelPieChartbest10 extends JFXPanel implements InitScene{
 		pieChart = new PieChart();
 		pieChart.setPrefSize(600, 350);
 		pieChart.setData(getChartData());
-		pieChart.setTitle("Pie Chart");
+		pieChart.setTitle("이번달장르별 대여량");
 		pieChart.setLegendVisible(true);	// 범례 표시 유무
 		pieChart.setLegendSide(Side.BOTTOM);// 범례 위치
 		pieChart.setLabelLineLength(30);	// 원의 둘레 가장자리와 라벨간의 거리 지정
@@ -55,15 +58,16 @@ public class PanelPieChartbest10 extends JFXPanel implements InitScene{
 		double sum = 0;
 		List<Data> data = new ArrayList<>();
 		for (BookBest10 best10 : bookList) {
-			Data chart = new PieChart.Data("java", 17);
-			chart.setName(best10.getCateBNo().getbName());			
+			Data chart = new PieChart.Data("",0);
+			chart.setName(best10.getCateBNo().getbName()+"("+ best10.getRanking() +"회)");			
 			chart.setPieValue(best10.getRanking());
 			data.add(chart);
 			sum = sum + chart.getPieValue();
 		}
 		
 		for (Data dat : data) {
-			dat.setPieValue(dat.getPieValue()/sum*100);
+			
+			dat.setPieValue(Math.round((dat.getPieValue()/sum*100)*100)/100.0);
 			list.addAll(dat);
 		}
 		
