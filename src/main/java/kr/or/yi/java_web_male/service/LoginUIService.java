@@ -17,4 +17,9 @@ public class LoginUIService {
 	public Member selectBookByMapForeSum(Map<String, Object> map) {
 		return memberMapper.searchIdAndPw(map);
 	}
+	
+	public int changePW(Map<String, Object> map) {
+		return memberMapper.changePW(map);
+	}
+	
 }

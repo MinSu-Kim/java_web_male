@@ -4,7 +4,8 @@
 
 	<!-- 셀렉트구문 sql -->
 	<sql id="selectSql">
-		select member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness
+		select member_no, password, kor_name, eng_name, phone,
+		jumin, email, address, photo, admin, uniqueness
 		from member
 	</sql>
 
@@ -16,7 +17,7 @@
 			</if>
 		</where>
 	</sql>
-	
+
 	<sql id="whereRegEXP">
 		<where>
 			<if test="memberNo != null">
@@ -24,9 +25,10 @@
 			</if>
 		</where>
 	</sql>
-	
+
 	<!-- 검색 sql -->
-	<select id="selectMemberbyNo" parameterType="Member" resultType="Member">
+	<select id="selectMemberbyNo" parameterType="Member"
+		resultType="Member">
 		<include refid="selectSql"></include>
 		<include refid="whereSql"></include>
 	</select>
@@ -44,21 +46,27 @@
 		<result property="admin" column="admin" />
 		<result property="uniqueness" column="uniqueness" />
 	</resultMap>
-	
+
 	<resultMap id="MemberResultPro" type="Member">
-		<id property="memberNo" column="member_no"/>
-		<result property="korName" column="kor_name"/>
-		<result property="book.title" column="title"/>
-		<result property="bookRentallInfo.rentalDate" column="rental_date"/>
-		<result property="bookRentallInfo.returnDate" column="return_date"/>
-		<result property="bookRentallInfo.returnSchedule" column="return_schedule"/>
+		<id property="memberNo" column="member_no" />
+		<result property="korName" column="kor_name" />
+		<result property="book.title" column="title" />
+		<result property="bookRentallInfo.rentalDate"
+			column="rental_date" />
+		<result property="bookRentallInfo.returnDate"
+			column="return_date" />
+		<result property="bookRentallInfo.returnSchedule"
+			column="return_schedule" />
 	</resultMap>
-	<select id="selectMemberByNoToString" parameterType="String" resultMap="MemberResult">
-		select member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness
+	<select id="selectMemberByNoToString" parameterType="String"
+		resultMap="MemberResult">
+		select member_no, password, kor_name, eng_name, phone,
+		jumin, email, address, photo, admin, uniqueness
 		from member
-		where member_no=#{param1}
+		where
+		member_no=#{param1}
 	</select>
-	
+
 	<!-- 모든 리스트 검색 -->
 	<select id="selectMemberByAll" resultType="Member">
 		<include refid="selectSql"></include>
@@ -67,8 +75,11 @@
 	<!-- 추가 sql 구문 -->
 	<select id="insertMember" parameterType="Member">
 		insert into
-		Member(member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness)
-		values(#{memberNo}, #{password}, #{korName}, #{engName}, #{phone}, #{jumin}, #{email}, #{address}, #{photo}, #{admin}, #{uniqueness})
+		Member(member_no, password, kor_name, eng_name, phone, jumin, email,
+		address, photo, admin, uniqueness)
+		values(#{memberNo}, #{password},
+		#{korName}, #{engName}, #{phone}, #{jumin}, #{email}, #{address},
+		#{photo}, #{admin}, #{uniqueness})
 	</select>
 
 	<!-- 수정 구문 -->
@@ -88,45 +99,59 @@
 		member_no=#{memberNo}
 	</select>
 	<!-- 회원번호로 검색하기 -->
-	<select id="searchMemberNo" statementType="CALLABLE" parameterType="hashmap" resultMap="MemberResultPro">
-		{call search_memberno(#{memberNo, mode = IN, jdbcType=CHAR})}
+	<select id="searchMemberNo" statementType="CALLABLE"
+		parameterType="hashmap" resultMap="MemberResultPro">
+		{call search_memberno(#{memberNo,
+		mode = IN, jdbcType=CHAR})}
 	</select>
 	<!-- 이름으로 검색하기 -->
-	<select id="searchMemberName" statementType="CALLABLE" parameterType="hashmap" resultMap="MemberResultPro">
-		{call search_memberName(#{korName, mode = IN, jdbcType=CHAR})}
+	<select id="searchMemberName" statementType="CALLABLE"
+		parameterType="hashmap" resultMap="MemberResultPro">
+		{call search_memberName(#{korName,
+		mode = IN, jdbcType=CHAR})}
 	</select>
 	<!-- 전화번호로 검색하기 -->
-	<select id="searchMemberPhone" statementType="CALLABLE" parameterType="hashmap" resultMap="MemberResultPro">
-		{call search_phone(#{phone, mode = IN, jdbcType=CHAR})}
+	<select id="searchMemberPhone" statementType="CALLABLE"
+		parameterType="hashmap" resultMap="MemberResultPro">
+		{call search_phone(#{phone, mode =
+		IN, jdbcType=CHAR})}
 	</select>
-	<!--  회원번호로 대여 책 검색하기 -->
-	<select id="searchMembernoRent" statementType="CALLABLE" parameterType="hashmap" resultMap="MemberResultPro">
-		{call search_membernoRent(#{memberNo, mode = IN, jdbcType=CHAR})}
+	<!-- 회원번호로 대여 책 검색하기 -->
+	<select id="searchMembernoRent" statementType="CALLABLE"
+		parameterType="hashmap" resultMap="MemberResultPro">
+		{call
+		search_membernoRent(#{memberNo, mode = IN, jdbcType=CHAR})}
 	</select>
-	
-	<select id="selectMemberByNoList" parameterType="Member" resultType="Member">
-		<include refid="selectSql"/>
+
+	<select id="selectMemberByNoList" parameterType="Member"
+		resultType="Member">
+		<include refid="selectSql" />
 		<include refid="whereRegEXP"></include>
 	</select>
-	
+
 	<sql id="whereNameAndPhone">
 		<where>
 			<if test="korName != null">
-				kor_name = #{korName};
+				kor_name = #{korName}
 			</if>
 			<if test="phone != null">
 				AND phone =#{phone}
 			</if>
 			<if test="memberNo != null">
-				member_no = #{memberNo};
+				and member_no = #{memberNo}
 			</if>
 		</where>
 	</sql>
-	
+
 	<select id="searchIdAndPw" resultMap="MemberResult">
-		<include refid="selectSql"/>
-		<include refid="whereNameAndPhone"/>
+		<include refid="selectSql" />
+		<include refid="whereNameAndPhone" />
 	</select>
-	
-	
+	<update id="changePW">
+		UPDATE proj_library.`member`
+		SET password= #{password}
+		WHERE member_no= #{memberNo}
+	</update>
+
+
 </mapper>

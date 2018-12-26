@@ -22,6 +22,8 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.zip.CheckedInputStream;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
@@ -62,14 +64,18 @@ public class MemberRegisterUI extends JFrame {
 	private JTextField tfjuso;
 	private JTextField tfConfirm;
 	private JComboBox comboBox;
+	private JComboBox<String> TelBox;
 	private JLabel lblImg;
-	private JTextField tftel1;
 	private JTextField tftel2;
 	private JTextField tftel3;
 	private JTextField tfju1;
 	private JTextField tfju2;
 	private String pathName;
 	private String fileName;
+	private JTextField tfpass;
+	private static String adminpassword = "45685";
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -86,11 +92,13 @@ public class MemberRegisterUI extends JFrame {
 		});
 	}
 
+	public static void setAdminpassword(String adminpassword1) {
+		adminpassword = adminpassword1;
+	}
 	/**
 	 * Create the frame.
 	 */
 	public MemberRegisterUI() {
-		
 		service = new MemberUIService();
 		imgPath = System.getProperty("user.dir") + "\\images\\";		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -141,8 +149,10 @@ public class MemberRegisterUI extends JFrame {
 		pass1 = new JPasswordField();
 		panel_p2.add(pass1);
 		
-		JPanel panel_p3 = new JPanel();
-		panel_p2.add(panel_p3);
+		tfpass = new JTextField();
+		tfpass.setEditable(false);
+		panel_p2.add(tfpass);
+		tfpass.setColumns(10);
 		
 		pass2 = new JPasswordField();
 		panel_p2.add(pass2);
@@ -188,9 +198,9 @@ public class MemberRegisterUI extends JFrame {
 		panel_Tel.add(panel_5);
 		panel_5.setLayout(new BoxLayout(panel_5, BoxLayout.X_AXIS));
 		
-		tftel1 = new JTextField();
-		panel_5.add(tftel1);
-		tftel1.setColumns(10);
+		TelBox = new JComboBox();
+		TelBox.setModel(new DefaultComboBoxModel(new String[] {"010", "011", "016", "017"}));
+		panel_5.add(TelBox);
 		
 		JLabel label = new JLabel("-");
 		panel_5.add(label);
@@ -317,6 +327,17 @@ public class MemberRegisterUI extends JFrame {
 		panel_Admin.add(lblAdmin_1);
 		
 		chckadmin = new JCheckBox("관리");		
+		chckadmin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String admin = JOptionPane.showInputDialog("관리번호를 입력해주세요");				
+				if(admin.equals(adminpassword)) {
+					chckadmin.setSelected(true);
+					return;
+				}else
+					JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
+					chckadmin.setSelected(false);
+			}
+		});
 		chckadmin.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_Admin.add(chckadmin);
 		
@@ -350,14 +371,16 @@ public class MemberRegisterUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					check();
+					getMember();
+					JOptionPane.showMessageDialog(null, "회원이 되신걸 축하드립니다.");
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				} catch(Exception e2) {
 					JOptionPane.showMessageDialog(null, e2.getMessage());
 					e2.printStackTrace();
+					
 				}
-				getMember();
-				JOptionPane.showMessageDialog(null, "회원이 되신걸 축하드립니다.");				
+								
 			}
 		});
 		btnAdd_1.setBounds(23, 440, 70, 23);
@@ -408,26 +431,28 @@ public class MemberRegisterUI extends JFrame {
 				
 				String pw1 = new String(pass1.getPassword());
 				String pw2 = new String(pass2.getPassword());
-				
+				String pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,}$";
+				Matcher matcher = Pattern.compile(pwPattern).matcher(pw1);
 				if(pw1.equals(pw2)) {
 					tfConfirm.setText("비밀번호가 일치");
 				}else {
 					tfConfirm.setText("비밀번호가 불일치");
 				}
-				
+				if(!matcher.matches()) {
+					tfpass.setText("영문숫자 불일치.");
+				}else {
+					tfpass.setText("영문숫자 일치.");
+				}
 			}
 		});
 	}
-	/*public void actionPerformed(ActionEvent e) {
-		selectEmail(e);
-	}	*/
 	private void getMember() {
 		Member member = new Member();
 		
 		member.setPassword(new String(pass1.getPassword()).trim());
 		member.setKorName(tfKor.getText().trim());
 		member.setEngName(tfEng.getText().trim());
-		member.setPhone(tftel1.getText().trim()+"-"+tftel2.getText().trim()+"-"+tftel3.getText().trim());
+		member.setPhone((String)TelBox.getSelectedItem() + "-"+ tftel2.getText().trim()+"-"+tftel3.getText().trim());
 		member.setJumin(tfju1.getText().trim()+"-"+tfju2.getText().trim());
 		member.setEmail(tfEmail.getText().trim()+"@"+tfEmail_2.getText().trim());
 		member.setAddress(tfEmail.getText().trim()+tfjuso.getText().trim());
@@ -441,27 +466,38 @@ public class MemberRegisterUI extends JFrame {
 		if(service.selectMemberByNoList(member).equals(null)){
 			make = make + "0001";
 		}else {
-			i = service.selectMemberByNoList(member).size()+1;	
-			JOptionPane.showMessageDialog(null, i);
-		}
+			i = service.selectMemberByNoList(member).size()+1;
 		
+		}
+			
 		String mn = String.format("%s%04d",make, i);
+		mn = mn.toUpperCase();
 		JOptionPane.showMessageDialog(null, mn);
 		member.setMemberNo(mn);
 		service.insertMember(member);
 		
 	}
 	private void check() throws Exception {
-		if(tfKor.getText().equals("")) {
+		if(tfKor.getText().trim().equals("")) {
 			tfKor.requestFocus();
 			throw new Exception("한글 이름을 입력해주세요.");
 		}
-		if(tfEng.getText().equals("")) {
+		if(tfEng.getText().trim().equals("")) {
 			tfEng.requestFocus();
 			throw new Exception("영어 이름을 입력해주세요");
 		}
+		if(tftel2.getText().trim().equals("")) {
+			tftel2.requestFocus();
+			throw new Exception("전화번호 중앙자리를!");
+		}
+		if(tftel3.getText().trim().equals("")) {
+			tftel3.requestFocus();
+			throw new Exception("전화번호 뒷자리을 입력해주세요");
+		}
 		String pw1 = new String(pass1.getPassword());
 		String pw2 = new String(pass2.getPassword());
+		String pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,}$";
+		Matcher matcher = Pattern.compile(pwPattern).matcher(pw1);
 		if(pw1.equals("")) {
 			pass1.requestFocus();
 			throw new Exception("Password를 입력해주세요");
@@ -470,23 +506,35 @@ public class MemberRegisterUI extends JFrame {
 			pass2.requestFocus();
 			throw new Exception("Password를 입력해주세요");
 		}
-		if(tfju1.equals("")) {
-			tfju1.requestFocus();
-			throw new Exception("주민등록 번호를 입력해주세요");
+		if(!pw2.equals(pw1)) {
+			pass1.requestFocus();
+			throw new Exception("Password가 일치하지않아 가입할수 없습니다.");
 		}
-		if(tfEmail.equals("")) {
+		if(!matcher.matches()) {
+			pass1.requestFocus();
+			throw new Exception("Password양식에 맞지않아 가입할수 없습니다.");
+		}
+		if(tfju1.getText().trim().equals("")) {
+			tfju1.requestFocus();
+			throw new Exception("주민등록 번호를  앞자리를 입력해주세요");
+		}
+		if(tfju2.getText().trim().equals("")) {
+			tfju2.requestFocus();
+			throw new Exception("주민등록 번호 뒷자리를 입력해주세요");
+		}
+		if(tfEmail.getText().trim().equals("")) {
 			tfEmail.requestFocus();
 			throw new Exception("이메일을 입력해주세요");
 		}
-		if(tfEmail_2.equals("")) {
+		if(tfEmail_2.getText().trim().equals("")) {
 			tfEmail_2.requestFocus();
 			throw new Exception("홈페이지를 입력해주세요");
 		}
-		if(tfAdd.equals("")) {
+		if(tfAdd.getText().trim().equals("")) {
 			tfAdd.requestFocus();
 			throw new Exception("주소를 입력해주세요");
 		}
-		if(tfjuso.equals("")) {
+		if(tfjuso.getText().trim().equals("")) {
 			tfjuso.requestFocus();
 			throw new Exception("주소를 입력해주세요");
 		}

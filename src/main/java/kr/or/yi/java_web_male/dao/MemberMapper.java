@@ -38,5 +38,7 @@ public interface MemberMapper {
 	
 	Member searchIdAndPw(Map<String, Object> map);
 	
+	int changePW(Map<String, Object> map);
+	
 	
 }
