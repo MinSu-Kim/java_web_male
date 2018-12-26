@@ -56,6 +56,10 @@ public class MemberUIService {
 		return dao1.updateMemberRentalInfo(memberRentalInfo);
 	}
 	
+	public int updateMemberRentalInfoGrade(MemberRentalInfo memberRentalInfo) {
+		return dao1.updateMemberRentalInfoGrade(memberRentalInfo);
+	}
+	
 	public MemberRentalInfo selectMemberNowTotalByCode(MemberRentalInfo memberRentalInfo) {
 		return dao1.selectMemberNowTotalByCode(memberRentalInfo);
 	}
@@ -63,5 +67,8 @@ public class MemberUIService {
 	public MemberRentalInfo selectMemberTotalByCode(MemberRentalInfo memberRentalInfo) {
 		return dao1.selectMemberTotalByCode(memberRentalInfo);
 	}
-
+	
+	public MemberRentalInfo selectMemberGradeByCode(MemberRentalInfo memberRentalInfo) {
+		return dao1.selectMemberGradeByCode(memberRentalInfo);
+	}
 }

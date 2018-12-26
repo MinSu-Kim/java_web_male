@@ -128,9 +128,11 @@ CREATE TABLE proj_library.member_rental_info (
 	member_no VARCHAR(50) NOT NULL COMMENT '회원번호', -- 회원번호
 	grade     INT(1)      NULL     COMMENT '등급', -- 등급
 	now_total INT(1)      NULL     COMMENT '대여가능권수', -- 대여가능권수
-	total     INT(1)      NULL     COMMENT '총대여권수' -- 총대여권수
+	total     INT(4)      NULL     COMMENT '총대여권수' -- 총대여권수
 )
 COMMENT '회원대여정보';
+
+drop table proj_library.member_rental_info;
 
 -- 회원대여정보
 ALTER TABLE proj_library.member_rental_info

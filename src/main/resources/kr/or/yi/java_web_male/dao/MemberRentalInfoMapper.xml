@@ -31,6 +31,11 @@
 	<result property="total" column="total"/>
 	</resultMap>
 	
+	<resultMap type="MemberRentalInfo" id="GradeResult">
+		<id property="memberNo" column="member_no"/>
+		<result property="grade" column="grade"/>
+	</resultMap>
+	
 	<!-- <resultMap id="MemberResult" type="Member">
 		<id property="memberNo" column="member_no" />
 		<result property="password" column="password" />
@@ -60,7 +65,12 @@
 	</insert>
 	
 	<update id="updateMemberRentalInfo" parameterType="MemberRentalInfo">
-		update memberRentalInfo set now_total=now_total-1,total=total+1
+		update proj_library.member_rental_info set now_total=now_total-1,total=total+1
+		where member_no=#{memberNo}
+	</update>
+	
+	<update id="updateMemberRentalInfoGrade" parameterType="MemberRentalInfo">
+		update proj_library.member_rental_info set grade=grade+1
 		where member_no=#{memberNo}
 	</update>
 	
@@ -73,6 +83,12 @@
 		select total from Member_rental_info
 		where member_no=#{memberNo}
 	</select>
+	
+	<select id="selectMemberGradeByCode" parameterType="MemberRentalInfo" resultMap="GradeResult">
+		select grade from Member_rental_info
+		where member_no=#{memberNo}
+	</select>
+	
 
 
 

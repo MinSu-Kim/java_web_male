@@ -238,8 +238,20 @@ where rental_date regexp '2018-' and member_no like '12%' and admin =1
 group by member_no limit 0,10;
 
 
+insert into member_rental_info values ('2',1,3,0);
+insert into member_rental_info values ('123',1,3,0);
+
 select total from Member_rental_info
 		where member_no='2';
 	
+	
 	update Member_rental_info set total = total+1 where member_no='2';
+
+select * from book_rental_info;
+
+select * from member_rental_info;
+
+select * from overdue;
+
+select * from book;
 

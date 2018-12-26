@@ -77,6 +77,7 @@ public class BookRentUI extends JFrame {
 	public BookRentUI() {
 		setTitle("도서 대여");
 		service = new LibraryUIService();
+		memberUIService = new  MemberUIService();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 486, 347);
@@ -187,6 +188,23 @@ public class BookRentUI extends JFrame {
 				Member member = new Member();
 				member.setMemberNo(textMemberNo.getText());
 				
+				//Member memberNo => memberRentalInfo memberNo로 형변환
+				 String mNo = String.valueOf(member);
+				 
+				 
+				
+				 MemberRentalInfo memberRentalInfo = new MemberRentalInfo();
+				 memberRentalInfo.setMemberNo(mNo);
+				 
+				 //대여가능권수가 0미만일때 대여불가
+				 MemberRentalInfo searchNowTotal = memberUIService.selectMemberNowTotalByCode(memberRentalInfo);
+				 if(searchNowTotal.getNowTotal() < 0 ) {
+					 JOptionPane.showMessageDialog(null, "대여가능한 권수를 초과하였습니다.");
+					 return ;
+				 }
+				 
+				 
+				
 				/*------------------insert BookRentalInfo 대여정보 추가-----------------*/
 				BookRentalInfo bookRentalInfo = new BookRentalInfo();
 				bookRentalInfo.setRentalNo(nextRentalCode);
@@ -203,26 +221,24 @@ public class BookRentUI extends JFrame {
 				 book.setRentalPossible(false);
 				 int updatePossible = service.updateBookPossible(book);
 				 
-				//Member memberNo => memberRentalInfo memberNo로 형변환
-				 String mNo = String.valueOf(member);
+				//회원대여정보의 대여가능권수-1, 총대여권수+1 변경
+				 int updateRentalInfo = memberUIService.updateMemberRentalInfo(memberRentalInfo);
 				 
-				 
-				
-				 
-				 //
-				 MemberRentalInfo memberService = memberUIService.selectMemberNowTotalByCode(mNo);
-				 
-				 //회원대여정보의 대여가능권수-1, 총대여권수+1 변경
-				 MemberRentalInfo memberRentalInfo = new MemberRentalInfo();
-				 memberRentalInfo.setMemberNo(mNo);
-				 memberRentalInfo.setNowTotal();
-				 
-				 /*String mNo = String.valueOf(member);
-					Overdue overdue = new Overdue();
-					overdue.setMemberNo(mNo);*/
-				
-				
-				
+				 //등급변경
+				 MemberRentalInfo searchTotal = memberUIService.selectMemberTotalByCode(memberRentalInfo);
+				 if(searchTotal.getTotal() == 100) {
+					 memberUIService.updateMemberRentalInfoGrade(memberRentalInfo);
+					 JOptionPane.showMessageDialog(null, "등급이 []로 변경되었습니다.");
+				 }else if(searchTotal.getTotal() == 500) {
+					 memberUIService.updateMemberRentalInfoGrade(memberRentalInfo);
+					 JOptionPane.showMessageDialog(null, "등급이 []로 변경되었습니다.");
+				 }else if(searchTotal.getTotal() == 1000) {
+					 memberUIService.updateMemberRentalInfoGrade(memberRentalInfo);
+					 JOptionPane.showMessageDialog(null, "등급이 []로 변경되었습니다.");
+				 }else if(searchTotal.getTotal() == 5000) {
+					 memberUIService.updateMemberRentalInfoGrade(memberRentalInfo);
+					 JOptionPane.showMessageDialog(null, "등급이 []로 변경되었습니다.");
+				 }
 				
 				JOptionPane.showMessageDialog(null, "대여에 성공하셨습니다. 반납일을 잘 지켜주세요.");
 				//텍스트필드 비우기
