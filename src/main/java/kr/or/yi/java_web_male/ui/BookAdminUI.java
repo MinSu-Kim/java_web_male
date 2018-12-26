@@ -12,9 +12,13 @@ import java.awt.event.ActionEvent;
 import java.awt.GridLayout;
 import javax.swing.JTable;
 
-public class BookAdminUI extends JFrame {
+public class BookAdminUI extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
+	private JButton btnNewButton;
+	private JButton btnNewButton_3;
+	private JButton btnNewButton_1;
+	private JButton btnNewButton_2;
 
 	/**
 	 * Launch the application.
@@ -47,17 +51,21 @@ public class BookAdminUI extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.EAST);
 		
-		JButton btnNewButton = new JButton("도서추가");
+		btnNewButton = new JButton("도서추가");
+		btnNewButton.addActionListener(this);
 		panel.setLayout(new GridLayout(0, 1, 10, 10));
 		panel.add(btnNewButton);
 		
-		JButton btnNewButton_3 = new JButton("도서수정/삭제");
+		btnNewButton_3 = new JButton("도서검색");
+		btnNewButton_3.addActionListener(this);
 		panel.add(btnNewButton_3);
 		
-		JButton btnNewButton_1 = new JButton("회원관리");
+		btnNewButton_1 = new JButton("회원관리");
+		btnNewButton_1.addActionListener(this);
 		panel.add(btnNewButton_1);
 		
-		JButton btnNewButton_2 = new JButton("출납관리");
+		btnNewButton_2 = new JButton("출납관리");
+		btnNewButton_2.addActionListener(this);
 		panel.add(btnNewButton_2);
 		
 		JPanel panel_1 = new JPanel();
@@ -65,4 +73,26 @@ public class BookAdminUI extends JFrame {
 		panel_1.setLayout(new GridLayout(0, 1, 10, 10));
 	}
 
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == btnNewButton_2) {
+			do_btnNewButton_2_actionPerformed(arg0);
+		}
+		if (arg0.getSource() == btnNewButton_1) {
+			do_btnNewButton_1_actionPerformed(arg0);
+		}
+		if (arg0.getSource() == btnNewButton_3) {
+			do_btnNewButton_3_actionPerformed(arg0);
+		}
+		if (arg0.getSource() == btnNewButton) {
+			do_btnNewButton_actionPerformed(arg0);
+		}
+	}
+	protected void do_btnNewButton_actionPerformed(ActionEvent arg0) {
+	}
+	protected void do_btnNewButton_3_actionPerformed(ActionEvent arg0) {
+	}
+	protected void do_btnNewButton_1_actionPerformed(ActionEvent arg0) {
+	}
+	protected void do_btnNewButton_2_actionPerformed(ActionEvent arg0) {
+	}
 }

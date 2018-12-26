@@ -56,6 +56,7 @@ public class PanelPieChart extends JFXPanel implements InitScene {
 	private ObservableList<Data> getChartData() {
 		ObservableList<Data> list = FXCollections.observableArrayList();
 		lists = bookRentalInfoMapper.selectBookRentalMemberInfo(LoginUI.getLogin());
+		System.out.println(lists);
 		list.addAll(new PieChart.Data(b.getbName(), 10),
 				new PieChart.Data("1", 31),
 				new PieChart.Data("2", 10),

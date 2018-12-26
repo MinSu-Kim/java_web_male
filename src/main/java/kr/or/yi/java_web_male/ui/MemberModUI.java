@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -41,16 +42,24 @@ public class MemberModUI extends JFrame implements ActionListener {
 	private MemberMapper memberMapper;
 	private JButton btnChange;
 	private JButton btnPhoto;
+	
+	private String pathName;
+	private String fileName;
+	private JLabel lblPhoto;
+	private String imgPath;
+	
+	
 
 	public MemberModUI() {
 		memberMapper = MemberMapperImpl.getInstance();
+		imgPath = System.getProperty("user.dir") + "\\images\\";
 		initComponents();
 	}
 
 	private void initComponents() {
 		setTitle("회원정보 변경");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 509);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -72,6 +81,10 @@ public class MemberModUI extends JFrame implements ActionListener {
 
 		btnPhoto = new JButton("사진 변경하기");
 		btnPhoto.addActionListener(this);
+		pPhoto.setLayout(new GridLayout(0, 1, 10, 10));
+		
+		lblPhoto = new JLabel("New label");
+		pPhoto.add(lblPhoto);
 		pPhoto.add(btnPhoto);
 
 		JLabel lblPassword = new JLabel("현재 비밀번호 확인");
@@ -167,21 +180,26 @@ public class MemberModUI extends JFrame implements ActionListener {
 
 	protected void do_btnChange_actionPerformed(ActionEvent arg0) {
 		Member editMember = new Member();
-
-		editMember.setMemberNo(LoginUI.getLogin().getMemberNo());
-		editMember.setPassword(LoginUI.getLogin().getPassword());
-		editMember.setKorName(tfKorName.getText());
-		editMember.setEngName(tfEngName.getText());
-		editMember.setPhone(tfPhone.getText());
-		editMember.setEmail(tfEmail.getText());
-		editMember.setAddress(tfAddress.getText());
-		editMember.setUniqueness(LoginUI.getLogin().getUniqueness());
-		editMember.setJumin(LoginUI.getLogin().getJumin());
-
+		
 		if (LoginUI.getLogin().getPassword().equals(tfPassword.getText().trim())) {
+
+			editMember.setMemberNo(LoginUI.getLogin().getMemberNo());
+			editMember.setPassword(LoginUI.getLogin().getPassword());
+			editMember.setKorName(tfKorName.getText());
+			editMember.setEngName(tfEngName.getText());
+			editMember.setPhone(tfPhone.getText());
+			editMember.setEmail(tfEmail.getText());
+			editMember.setAddress(tfAddress.getText());
+			editMember.setUniqueness(LoginUI.getLogin().getUniqueness());
+			editMember.setJumin(LoginUI.getLogin().getJumin());
+
 			if (tfNewPassword.getText().trim().equals(tfNewPasswordCheck.getText().trim())) {
 				editMember.setPassword(tfNewPassword.getText().trim());
+			} else if (!tfNewPassword.getText().trim().equals(tfNewPasswordCheck.getText().trim())) {
+				JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.");
 			}
+		} else {
+			JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
 		}
 
 		memberMapper.updateMember(editMember);
@@ -218,11 +236,9 @@ public class MemberModUI extends JFrame implements ActionListener {
 		int ret = chooser.showOpenDialog(null);
 
 		if (ret == JFileChooser.APPROVE_OPTION) {
-			String pathName = chooser.getSelectedFile().getPath();
-			String fileName = chooser.getSelectedFile().getName();
-
-			System.out.println(pathName);
-			System.out.println(fileName);
+			pathName = chooser.getSelectedFile().getPath();
+			fileName = chooser.getSelectedFile().getName();
+			lblPhoto.setIcon(new ImageIcon(imgPath + fileName));
 		}
 	}
 }
