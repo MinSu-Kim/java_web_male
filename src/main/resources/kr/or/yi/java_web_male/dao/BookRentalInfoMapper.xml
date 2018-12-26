@@ -86,5 +86,15 @@
    <select id="nextCode" resultType="java.lang.Integer">
       select count(*)+1 from book_rental_info;
    </select>
+   
+   <resultMap type="BookRentalInfo" id="selectRentalNoByBookCodeResult">
+   		<id property="rentalNo" column="retal_no"></id>
+   		<result property="bookCode.bookCode" column="book_code"/>
+   </resultMap>
+   
+   <select id="selectRentalNoByBookCode" parameterType="BookRentalInfo" resultMap="selectRentalNoByBookCodeResult">
+   		select rental_no FROM proj_library.book_rental_info
+   		where book_code=${bookCode}
+   </select>
 	
 </mapper>
