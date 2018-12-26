@@ -12,4 +12,10 @@ public interface MemberRentalInfoMapper {
 	MemberRentalInfo selectMemberRentalInfoByCode(MemberRentalInfo memberRentalInfo);
 	
 	int insertMemberRentalInfo(MemberRentalInfo memberRentalInfo);
+	
+	int updateMemberRentalInfo(MemberRentalInfo memberRentalInfo);
+	
+	MemberRentalInfo selectMemberNowTotalByCode(MemberRentalInfo memberRentalInfo);
+	
+	MemberRentalInfo selectMemberTotalByCode(MemberRentalInfo memberRentalInfo);
 }

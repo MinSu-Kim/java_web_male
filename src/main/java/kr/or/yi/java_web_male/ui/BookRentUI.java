@@ -12,7 +12,10 @@ import kr.or.yi.java_web_male.dao.BookRentalInfoMapperImpl;
 import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.dto.MemberRentalInfo;
+import kr.or.yi.java_web_male.dto.Overdue;
 import kr.or.yi.java_web_male.service.LibraryUIService;
+import kr.or.yi.java_web_male.service.MemberUIService;
 
 import java.awt.GridLayout;
 import javax.swing.JLabel;
@@ -43,6 +46,7 @@ public class BookRentUI extends JFrame {
 	private Book book;
 	private InOutUI inOutUI;
 	private LibraryUIService service;
+	private MemberUIService memberUIService;
 
 	/**
 	 * Launch the application.
@@ -161,23 +165,29 @@ public class BookRentUI extends JFrame {
 		btnRent.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+				//rental_no
 				int nextRentalCode = service.nextCode();
 				
+				//rental_Date
 				Date rentalsDate = new Date();
 				SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
 				sdfr.format(rentalsDate);
 				
+				//return_schedule
 				Date rentalDate = new Date();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				sdf.format(rentalDate);
 				rentalDate.setDate(rentalDate.getDate()+7);
 				
+				//book_code
 				Book book = new Book();
 				book.setBookCode(textBookCode.getText());
 				
+				//member_no
 				Member member = new Member();
 				member.setMemberNo(textMemberNo.getText());
 				
+				/*------------------insert BookRentalInfo 대여정보 추가-----------------*/
 				BookRentalInfo bookRentalInfo = new BookRentalInfo();
 				bookRentalInfo.setRentalNo(nextRentalCode);
 				bookRentalInfo.setRentalDate(rentalsDate);
@@ -187,22 +197,35 @@ public class BookRentUI extends JFrame {
 				bookRentalInfo.setMemberNo(member);
 				
 				int bookRentalInfo1 = service.insertBookRentalInfo(bookRentalInfo);
-				
-				
-				
-				 List<Book> book1 = service.selectbookbybookCode(book);
-				 JOptionPane.showMessageDialog(null, book1);
+				/*-------------------------------------------------------------------*/
 				 
-				 JOptionPane.showMessageDialog(null, book);
+				 //대여한 책의 대여가능여부 변경
 				 book.setRentalPossible(false);
 				 int updatePossible = service.updateBookPossible(book);
+				 
+				//Member memberNo => memberRentalInfo memberNo로 형변환
+				 String mNo = String.valueOf(member);
+				 
+				 
 				
-				
+				 
+				 //
+				 MemberRentalInfo memberService = memberUIService.selectMemberNowTotalByCode(mNo);
+				 
+				 //회원대여정보의 대여가능권수-1, 총대여권수+1 변경
+				 MemberRentalInfo memberRentalInfo = new MemberRentalInfo();
+				 memberRentalInfo.setMemberNo(mNo);
+				 memberRentalInfo.setNowTotal();
+				 
+				 /*String mNo = String.valueOf(member);
+					Overdue overdue = new Overdue();
+					overdue.setMemberNo(mNo);*/
 				
 				
 				
 				
 				JOptionPane.showMessageDialog(null, "대여에 성공하셨습니다. 반납일을 잘 지켜주세요.");
+				//텍스트필드 비우기
 				clearTf();
 			}
 		});
