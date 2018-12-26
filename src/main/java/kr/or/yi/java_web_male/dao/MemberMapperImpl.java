@@ -123,5 +123,13 @@ public class MemberMapperImpl implements MemberMapper {
 			return sqlSession.selectOne(namespace + ".searchIdAndPw", map);
 		}
 	}
+	@Override
+	public int changePW(Map<String, Object> map) {
+		try (SqlSession sqlSesion = MyBatisSqlSessionFactory.openSession();) {
+			int res = sqlSesion.update(namespace + ".changePW", map);
+			sqlSesion.commit();
+			return res;
+		}
+	}
 	
 }
