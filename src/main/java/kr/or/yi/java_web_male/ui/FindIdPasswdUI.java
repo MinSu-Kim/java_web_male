@@ -203,26 +203,37 @@ public class FindIdPasswdUI extends JFrame implements ActionListener, MouseListe
 	}
 
 	protected void do_rdbtnPassword_actionPerformed(ActionEvent e) throws AddressException, MessagingException {
-		/*
-		 * final String host = "smtp.naver.com"; final String username = "rlawpdud301";
-		 * final String password = "dnlqh4517!"; int port=465; String recipient =
-		 * "psw2701@naver.com"; String subject = "메일테스트"; String body =
-		 * username+"님으로 부터 메일을 받았습니다."; Properties props = System.getProperties();
-		 * props.put("mail.smtp.host", host); props.put("mail.smtp.port", port);
-		 * props.put("mail.smtp.auth", "true"); props.put("mail.smtp.ssl.enable",
-		 * "true"); props.put("mail.smtp.ssl.trust", host); Session session =
-		 * Session.getDefaultInstance(props, new javax.mail.Authenticator() { String
-		 * un=username; String pw=password; protected javax.mail.PasswordAuthentication
-		 * getPasswordAuthentication() { return new
-		 * javax.mail.PasswordAuthentication(un, pw); } }); session.setDebug(true);
-		 * 
-		 * Message mimeMessage = new MimeMessage(session); //MimeMessage 생성
-		 * mimeMessage.setFrom(new InternetAddress("psw2701@naver.com"));
-		 * mimeMessage.setRecipient(Message.RecipientType.TO, new
-		 * InternetAddress(recipient)); //수신자셋팅 //.TO 외에 .CC(참조) .BCC(숨은참조) 도 있음
-		 * mimeMessage.setSubject(subject); //제목셋팅 mimeMessage.setText(body); //내용셋팅
-		 * Transport.send(mimeMessage);
-		 */
+
+		/*final String host = "smtp.gmail.com";
+		final String username = "rlawpdud301";
+		final String password = "dnlqh1220";
+		int port = 587;
+		String recipient = "rlawpdud301@naver.com";
+		String subject = "메일테스트";
+		String body = username + "님으로 부터 메일을 받았습니다.";
+		Properties props = System.getProperties();
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", port);
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.ssl.enable", "true");
+		props.put("mail.smtp.ssl.trust", host);
+		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
+			String un = username;
+			String pw = password;
+
+			protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+				return new javax.mail.PasswordAuthentication(un, pw);
+			}
+		});
+		session.setDebug(true);
+		Message mimeMessage = new MimeMessage(session); // MimeMessage 생성
+		mimeMessage.setFrom(new InternetAddress("rlawpdud301@gmail.com"));
+		mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient)); // 수신자셋팅 //.TO 외에 .CC(참조)
+																							// .BCC(숨은참조) 도 있음
+		mimeMessage.setSubject(subject); // 제목셋팅 mimeMessage.setText(body); //내용셋팅
+		Transport.send(mimeMessage);*/
+		
+
 		lblNamerage.setText("");
 		lblphonrage.setText("");
 		lblNewLabel.setText("아이디(회원번호)");
@@ -235,7 +246,7 @@ public class FindIdPasswdUI extends JFrame implements ActionListener, MouseListe
 	}
 
 	protected void do_btnNewButton_actionPerformed(ActionEvent e) {
-		if(comboBox.getSelectedIndex()==0) {
+		if (comboBox.getSelectedIndex() == 0) {
 			JOptionPane.showMessageDialog(null, "전화번호를 선택해주세요");
 			return;
 		}
@@ -264,14 +275,15 @@ public class FindIdPasswdUI extends JFrame implements ActionListener, MouseListe
 				lblNamerage.setText("이름 형식이 몰바르지않습니다.");
 				return;
 			}
-			
+
 		}
 
 		String phoneM = "^[0-9]{3,4}$";
 		String phoneL = "^[0-9]{4}$";
 		if (Pattern.matches(phoneM, textPhonM.getText().trim())) {
 			if (Pattern.matches(phoneL, textPhonL.getText().trim())) {
-				String phone = (comboBox.getSelectedItem()+"").trim()+"-"+textPhonM.getText().trim()+"-"+textPhonL.getText().trim();
+				String phone = (comboBox.getSelectedItem() + "").trim() + "-" + textPhonM.getText().trim() + "-"
+						+ textPhonL.getText().trim();
 				map.put("phone", phone);
 			} else {
 				lblphonrage.setText("전화번호 형식이 몰바르지않습니다.");
@@ -281,52 +293,57 @@ public class FindIdPasswdUI extends JFrame implements ActionListener, MouseListe
 			lblphonrage.setText("전화번호 형식이 몰바르지않습니다.");
 			return;
 		}
-		
+
 		Member member = loginUIService.selectBookByMapForeSum(map);
 		if (lblNewLabel.getText().equals("아이디(회원번호)")) {
-			if (member==null) {
+			if (member == null) {
 				JOptionPane.showMessageDialog(null, "아이디, 전화번호를 확인해주세요");
-			}else {
+			} else {
 				String pass = "";
-				for(int i = 0; i<4 ; i++) {
+				for (int i = 0; i < 4; i++) {
 					double random = Math.random();
-					int num = (int)(random * 26)+65;
-					String a = ((char)num+"").trim();
-					pass = pass + a;				
+					int num = (int) (random * 26) + 65;
+					String a = ((char) num + "").trim();
+					pass = pass + a;
 				}
-				for(int i = 0; i<5 ; i++) {
+				for (int i = 0; i < 5; i++) {
 					double random = Math.random();
-					int num = (int)(random * 10);
-					String a = (num+"").trim();
-					pass = pass + a;				
-				}			
+					int num = (int) (random * 10);
+					String a = (num + "").trim();
+					pass = pass + a;
+				}
 				JOptionPane.showMessageDialog(null, pass);
 				Map<String, Object> mappass = new HashMap<String, Object>();
 				mappass.put("password", pass);
 				mappass.put("memberNo", member.getMemberNo());
-				int res =loginUIService.changePW(mappass);
-				if (res==1) {
-					JOptionPane.showMessageDialog(null, "임시비밀번호가 가입하실때기입하신 이메일로 발송되었습니다."); 
-				}else {
+				int res = loginUIService.changePW(mappass);
+				if (res == 1) {
+					
+					String from = "rlawpdud301";
+			        String passWd = "비번";
+			        String[] to = { member.getEmail() }; // 보낼 메일 목록
+			        String subject = "Java send mail example";  // 메일 제목
+			        String body = "고객님의 임시 비밀번호는"+pass+"입니다 로그인하여 비밀번호를 변경해주세요 ";       // 메일 내용
+
+			        sendFromGMail(from, passWd, to, subject, body);
+					JOptionPane.showMessageDialog(null, "임시비밀번호가 가입하실때기입하신 이메일로 발송되었습니다.");
+				} else {
 					JOptionPane.showMessageDialog(null, "정상처리도지못하였습니다.관리자문의 바랍니다.");
 				}
-				
+
 			}
-			
-			
-			
-			
-		}else {
-			if (member==null) {
+
+		} else {
+			if (member == null) {
 				JOptionPane.showMessageDialog(null, "이름, 전화번호를 확인해주세요");
-			}else {
-				JOptionPane.showMessageDialog(null, "회원님의 회원번호는 "+member.getMemberNo()+" 입니다.");
+			} else {
+				JOptionPane.showMessageDialog(null, "회원님의 회원번호는 " + member.getMemberNo() + " 입니다.");
 				textname.setText("");
 				comboBox.setSelectedIndex(0);
 				textPhonM.setText("");
 				textPhonL.setText("");
 			}
-			
+
 		}
 
 	}
@@ -353,11 +370,12 @@ public class FindIdPasswdUI extends JFrame implements ActionListener, MouseListe
 	}
 
 	protected void do_textPhonM_mouseClicked(MouseEvent e) {
-		
+
 		lblphonrage.setText("");
 		/* textname.setText(""); */
 		textPhonM.hasFocus();
 	}
+
 	protected void do_textPhonL_mouseClicked(MouseEvent e) {
 		lblphonrage.setText("");
 		/* textname.setText(""); */
@@ -387,6 +405,61 @@ public class FindIdPasswdUI extends JFrame implements ActionListener, MouseListe
 		// TODO Auto-generated method stub
 
 	}
-
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+    private static void sendFromGMail(String from, String pass, String[] to, String subject, String body) {
+        Properties props = System.getProperties();
+        String host = "smtp.gmail.com";
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.user", from);
+        props.put("mail.smtp.password", pass);
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+
+        Session session = Session.getDefaultInstance(props);
+        MimeMessage message = new MimeMessage(session);
+        JOptionPane.showConfirmDialog(null, message);
+
+        try {
+            message.setFrom(new InternetAddress(from));
+            InternetAddress[] toAddress = new InternetAddress[to.length];
+
+            // To get the array of addresses
+            for( int i = 0; i < to.length; i++ ) {
+                toAddress[i] = new InternetAddress(to[i]);
+            }
+
+            for( int i = 0; i < toAddress.length; i++) {
+                message.addRecipient(Message.RecipientType.TO, toAddress[i]);
+            }
+
+            message.setSubject(subject);
+            message.setText(body);
+            Transport transport = session.getTransport("smtp");
+            transport.connect(host, from, pass);
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+        }
+        catch (AddressException ae) {
+            ae.printStackTrace();
+        }
+        catch (MessagingException me) {
+            me.printStackTrace();
+        }
+    }
+
 }
