@@ -147,20 +147,27 @@ public class MemberRegisterUI extends JFrame {
 		
 		JPanel panel_p2 = new JPanel();
 		panel_pass.add(panel_p2);
-		panel_p2.setLayout(new GridLayout(0, 2, 0, 0));
+		panel_p2.setLayout(null);
 		
 		pass1 = new JPasswordField();
+		pass1.setBounds(0, 0, 90, 22);
 		panel_p2.add(pass1);
 		
 		tfpass = new JTextField();
+		tfpass.setFont(new Font("굴림", Font.PLAIN, 10));
+		tfpass.setBounds(89, 0, 137, 22);
 		tfpass.setEditable(false);
+		tfpass.setText("8자이상+특수문자,문자,숫자");
 		panel_p2.add(tfpass);
 		tfpass.setColumns(10);
 		
 		pass2 = new JPasswordField();
+		pass2.setBounds(0, 22, 90, 22);
 		panel_p2.add(pass2);
 		
 		tfConfirm = new JTextField();
+		tfConfirm.setFont(new Font("굴림", Font.PLAIN, 10));
+		tfConfirm.setBounds(89, 22, 137, 22);
 		tfConfirm.setEditable(false);
 		panel_p2.add(tfConfirm);
 		tfConfirm.setColumns(10);
@@ -447,6 +454,7 @@ public class MemberRegisterUI extends JFrame {
 				}
 				if(!matcher.matches()) {
 					tfpass.setText("영문숫자 불일치.");
+					tfpass.setFont(new Font("굴림", Font.PLAIN, 12));
 				}else {
 					tfpass.setText("영문숫자 일치.");
 				}

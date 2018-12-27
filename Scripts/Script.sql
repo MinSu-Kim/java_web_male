@@ -19,7 +19,7 @@ CREATE PROCEDURE `proj_library`.`search_membername`(in korname char(50))
 begin
 	select kor_name, member_no, phone, jumin
 	from member
-	where kor_name= korname;
+	where kor_name regexp korname;
 end $$
 delimiter ;
 ------ search_membernoRent ------
@@ -29,7 +29,7 @@ begin
 	select kor_name, member_no, title, rental_date, return_date, return_schedule
 	from member m join book_rental_info r on m.member_no = r.member_no
 	join book b on b.book_code =  r.book_code
-	where m.member_no= memberno;
+	where m.member_no regexp memberno;
 END	
 delimiter ;
 --------- search_phone ------------
@@ -38,7 +38,7 @@ CREATE PROCEDURE `proj_library`.`search_phone`(in phonenum char(30))
 begin
 	select kor_name, member_no, phone, jumin
 	from member
-	where phone= phonenum;
+	where phone regexp phonenum;
 END
 delimiter ;
 ------- search_memberno--------
@@ -48,9 +48,21 @@ CREATE DEFINER=`user_library`@`localhost` PROCEDURE `proj_library`.`search_membe
 begin
 	select kor_name, member_no, jumin, phone
 	from `member`
-	where member_no= memberno;
+	where member_no regexp memberno;
 END$$
 DELIMITER ;
+
+DELIMITER $$
+$$
+CREATE DEFINER=`user_library`@`localhost` PROCEDURE `proj_library`.`search_test`(in memberno char(50))
+begin
+	select kor_name, member_no, jumin, phone
+	from `member`
+	where member_no regexp memberno;
+END$$
+DELIMITER ;
+
+call search_test("T");
 
 SELECT *
 from book_rental_info;

@@ -87,9 +87,9 @@ public class MemberMapperImpl implements MemberMapper {
 	}
 
 	@Override
-	public Member searchMemberNo(Map<String, String> map) {
+	public List<Member> searchMemberNo(Map<String, String> map) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
-			return sqlSession.selectOne(namespace + ".searchMemberNo", map);
+			return sqlSession.selectList(namespace + ".searchMemberNo", map);
 		}
 	}
 
@@ -100,9 +100,9 @@ public class MemberMapperImpl implements MemberMapper {
 		}
 	}
 	@Override
-	public Member searchMemberPhone(Map<String, String> map) {
+	public List<Member> searchMemberPhone(Map<String, String> map) {
 		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();){
-			return sqlSession.selectOne(namespace + ".searchMemberPhone", map);
+			return sqlSession.selectList(namespace + ".searchMemberPhone", map);
 		}
 	}
 
