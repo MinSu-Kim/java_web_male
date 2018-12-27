@@ -85,7 +85,7 @@
 	<!-- 수정 구문 -->
 	<select id="updateMember" parameterType="Member">
 		update Member set
-		password=#{password}, kor_name=#{korName}, eng_name=#{engName},
+		PASSWORD(#{password}), kor_name=#{korName}, eng_name=#{engName},
 		phone=#{phone}, jumin=#{jumin}, email=#{email}, address=#{address},
 		photo=#{photo}, admin=#{admin}, uniqueness=#{uniqueness}
 		where

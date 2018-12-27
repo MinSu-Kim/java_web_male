@@ -87,11 +87,11 @@ public class LoginUI extends JFrame implements ActionListener {
 
 	private void initComponent() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
-		
-		setContentPane(new JLabel(new ImageIcon(imgPath +"7.jpg")));
+
+		setContentPane(new JLabel(new ImageIcon(imgPath + "7.jpg")));
 		pack();
-        setVisible(true);
-		
+		setVisible(true);
+
 		setTitle("로그인");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 259);
@@ -141,7 +141,7 @@ public class LoginUI extends JFrame implements ActionListener {
 		btnSearch = new JButton("도서검색");
 		btnSearch.addActionListener(this);
 		panel_1.add(btnSearch);
-		
+
 		btnNewButton = new JButton("Best");
 		btnNewButton.addActionListener(this);
 		panel_1.add(btnNewButton);
@@ -217,6 +217,7 @@ public class LoginUI extends JFrame implements ActionListener {
 		bookSearchUI.setVisible(true);
 		bookSearchUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
+
 	protected void do_btnNewButton_actionPerformed(ActionEvent e) {
 		BestUI bestUI = new BestUI();
 		bestUI.setVisible(true);

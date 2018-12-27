@@ -46,6 +46,8 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private List<BookRentalInfo> lists;
 	private BookRentalInfoMapper bookRentalInfoMapper;
 	private MemberDetailUI memberDetailUI;
+	private JButton btnLogout;
+	private JButton btnBest10;
 
 	public MemberInfoUI() {
 		bookRentalInfoMapper = BookRentalInfoMapperImpl.getInstance();
@@ -61,7 +63,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private void initComponent() {
 		setTitle("내 정보");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 400);
+		setBounds(100, 100, 550, 590);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -154,7 +156,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 		JPanel pButton = new JPanel();
 		contentPane.add(pButton, BorderLayout.SOUTH);
-		pButton.setLayout(new GridLayout(0, 3, 10, 10));
+		pButton.setLayout(new GridLayout(0, 5, 10, 10));
 
 		btnMod = new JButton("회원정보수정");
 		btnMod.addActionListener(this);
@@ -167,6 +169,14 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		btnDetail.addActionListener(this);
 		pButton.add(btnDetail);
 		pButton.add(btnSearch);
+
+		btnBest10 = new JButton("Best 10");
+		btnBest10.addActionListener(this);
+		pButton.add(btnBest10);
+
+		btnLogout = new JButton("로그아웃");
+		btnLogout.addActionListener(this);
+		pButton.add(btnLogout);
 
 		getMemberInfo(LoginUI.getLogin());
 	}
@@ -202,6 +212,12 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnBest10) {
+			do_btnBest10_actionPerformed(e);
+		}
+		if (e.getSource() == btnLogout) {
+			do_btnLogout_actionPerformed(e);
+		}
 		if (e.getSource() == btnDetail) {
 			do_btnDetail_actionPerformed(e);
 		}
@@ -256,4 +272,9 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfAddress.setEditable(false);
 	}
 
+	protected void do_btnLogout_actionPerformed(ActionEvent e) {
+	}
+
+	protected void do_btnBest10_actionPerformed(ActionEvent e) {
+	}
 }
