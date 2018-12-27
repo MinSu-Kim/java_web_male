@@ -39,6 +39,7 @@ import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
 import kr.or.yi.java_web_male.dto.CategoryS;
 import kr.or.yi.java_web_male.dto.Publisher;
+import kr.or.yi.java_web_male.service.BookInsertService;
 
 public class BookInsertUI extends JFrame implements ActionListener {
 
@@ -49,61 +50,27 @@ public class BookInsertUI extends JFrame implements ActionListener {
 	private JTextField tfTrans;
 	private JTextField tfPub;
 	private JTextField tfPrice;
-
-	private CategoryBMapper bMapper;
-	private CategoryMMapper mMapper;
-	private CategorySMapper sMapper;
-
-	private DefaultComboBoxModel<CategoryB> modelB;
-	private DefaultComboBoxModel<CategoryM> modelM;
-	private DefaultComboBoxModel<CategoryS> modelS;
-
 	private JComboBox comboCateB;
 	private JComboBox comboCateM;
 	private JComboBox comboCateS;
-
-	private CategoryB cateB;
-	private CategoryM cateM;
-	private CategoryS cateS;
-
-	private BookMapper bookMapper;
-	private PublisherMapper publisherMapper;
 	private JButton btnImage;
 	private JButton btnCancel;
 	private JButton btnInsert;
-	
+	private JLabel lblImage;
+	private DefaultComboBoxModel<CategoryB> modelB;
+	private DefaultComboBoxModel<CategoryM> modelM;
+	private DefaultComboBoxModel<CategoryS> modelS;
+	private CategoryB cateB;
+	private CategoryM cateM;
+	private CategoryS cateS;
 	private String pathName;
 	private String fileName;
-	private JLabel lblImage;
 	private String imgPath;
+	private BookInsertService service;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					BookInsertUI frame = new BookInsertUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public BookInsertUI() {
-		bMapper = CategoryBMapperImpl.getInstance();
-		mMapper = CategoryMMapperImpl.getInstance();
-		sMapper = CategorySMapperImpl.getInstance();
-		bookMapper = BookMapperImpl.getInstance();
-		publisherMapper = PublisherMapperImpl.getInstance();
-		imgPath = System.getProperty("user.dir") + "\\images\\";	
-
+		imgPath = System.getProperty("user.dir") + "\\images\\";
+		service = new BookInsertService();
 		initComponents();
 	}
 
@@ -138,7 +105,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 
 		btnImage = new JButton("사진 추가");
 		btnImage.addActionListener(this);
-		
+
 		lblImage = new JLabel("사진 추가");
 		panel_4.add(lblImage);
 		panel_4.add(btnImage);
@@ -150,7 +117,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		JLabel lblNewLabel_3 = new JLabel("도서 분류");
 		panel_2.add(lblNewLabel_3);
 
-		List<CategoryB> bList = bMapper.selectCategoryBByAll();
+		List<CategoryB> bList = service.selectCategoryBByAll();
 
 		modelB = new DefaultComboBoxModel<>(new Vector<>(bList));
 		comboCateB = new JComboBox(modelB);
@@ -159,7 +126,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				cateB = (CategoryB) comboCateB.getSelectedItem();
-				List<CategoryM> mList = mMapper.selectCategoryMByBNo(cateB);
+				List<CategoryM> mList = service.selectCategoryMByBNo(cateB);
 				modelM = new DefaultComboBoxModel<>(new Vector<>(mList));
 				comboCateM.removeAll();
 				comboCateM.setModel(modelM);
@@ -169,7 +136,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		});
 		panel_2.add(comboCateB);
 
-		List<CategoryM> mList = mMapper.selectCategoryMByAll();
+		List<CategoryM> mList = service.selectCategoryMByAll();
 		modelM = new DefaultComboBoxModel<>(new Vector<>(mList));
 		comboCateM = new JComboBox(modelM);
 		comboCateM.addItemListener(new ItemListener() {
@@ -177,7 +144,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				cateM = (CategoryM) comboCateM.getSelectedItem();
-				List<CategoryS> sList = sMapper.selectCategorySByBNoMno(cateM);
+				List<CategoryS> sList = service.selectCategorySByBNoMno(cateM);
 				System.out.println(sList);
 				modelS = new DefaultComboBoxModel<>(new Vector<>(sList));
 				comboCateS.removeAll();
@@ -188,7 +155,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		comboCateM.setEnabled(false);
 		panel_2.add(comboCateM);
 
-		List<CategoryS> sList = sMapper.selectCategorySByAll();
+		List<CategoryS> sList = service.selectCategorySByAll();
 		modelS = new DefaultComboBoxModel<>(new Vector<>(sList));
 		comboCateS = new JComboBox(modelS);
 		comboCateS.addItemListener(new ItemListener() {
@@ -270,20 +237,20 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		Publisher publisher = new Publisher();
 		Map<String, Object> map = new HashMap<>();
 		int i = 0, j = 0, max = 0;
-
 		String pubNo = "";
 
 		publisher.setPubName(tfPub.getText().trim());
-		
-		if (publisherMapper.selectPublisherByName(publisher) != null) {
-			pubNo = publisherMapper.selectPublisherByName(publisher).getPubNo();
+
+		if (service.selectPublisherByName(publisher) != null) {
+			pubNo = service.selectPublisherByName(publisher).getPubNo();
 			publisher.setPubNo(pubNo);
 		} else {
-			i = publisherMapper.selectPublisherByAll().size() + 1;
+			i = service.selectPublisherByAll().size() + 1;
 			pubNo = String.format("P%04d", i);
 			publisher.setPubNo(pubNo);
-			publisherMapper.insertPublisher(publisher);
+			service.insertPublisher(publisher);
 		}
+
 		book.setPubNo(publisher);
 		book.setTitle(tfTitle.getText());
 		book.setAuthor(tfAuthor.getText());
@@ -303,14 +270,14 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		map.put("cate_s_no", book.getCateSNo().getsCode());
 		map.put("pubNo", book.getPubNo().getPubNo());
 
-		if (bookMapper.selectbookbyOther(map) != null) {
-			if (bookMapper.selectbookbyOther(map).size() > 0) {
-				i = bookMapper.selectbookbyOther(map).get(0).getBookNo();
-				j = bookMapper.selectbookbyOther(map).size() + 1;
+		if (service.selectbookbyOther(map) != null) {
+			if (service.selectbookbyOther(map).size() > 0) {
+				i = service.selectbookbyOther(map).get(0).getBookNo();
+				j = service.selectbookbyOther(map).size() + 1;
 			} else {
-				for (int k = 0; k < bookMapper.selectBookByAll().size(); k++) {
-					if (max < bookMapper.selectBookByAll().get(k).getBookNo()) {
-						max = bookMapper.selectBookByAll().get(k).getBookNo();
+				for (int k = 0; k < service.selectBookByAll().size(); k++) {
+					if (max < service.selectBookByAll().get(k).getBookNo()) {
+						max = service.selectBookByAll().get(k).getBookNo();
 					}
 				}
 				i = max + 1;
@@ -329,7 +296,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		if (result == JOptionPane.CLOSED_OPTION) {
 
 		} else if (result == JOptionPane.YES_OPTION) {
-			bookMapper.insertBook(book);
+			service.insertBook(book);
 		} else {
 			JOptionPane.showMessageDialog(null, "");
 		}

@@ -18,6 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import kr.or.yi.java_web_male.dao.MemberMapper;
 import kr.or.yi.java_web_male.dao.MemberMapperImpl;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.service.MemberModService;
 import kr.or.yi.java_web_male.ui.LoginUI;
 
 @SuppressWarnings("serial")
@@ -34,25 +35,19 @@ public class MemberModUI extends JFrame implements ActionListener {
 	private JTextField tfJumin;
 	private JTextField tfEmail;
 	private JTextField tfAddress;
-
-	private Member memberInfo;
-
-	private MemberInfoUI memberInfoUI;
-	// 서비스 만들기
-	private MemberMapper memberMapper;
-	private JButton btnChange;
+	private JLabel lblPhoto;
 	private JButton btnPhoto;
-	
+	private JButton btnChange;
+	private Member memberInfo;
+	private MemberInfoUI memberInfoUI;
 	private String pathName;
 	private String fileName;
-	private JLabel lblPhoto;
 	private String imgPath;
-	
-	
+	private MemberModService service;
 
 	public MemberModUI() {
-		memberMapper = MemberMapperImpl.getInstance();
 		imgPath = System.getProperty("user.dir") + "\\images\\";
+		service = new MemberModService();
 		initComponents();
 	}
 
@@ -82,7 +77,7 @@ public class MemberModUI extends JFrame implements ActionListener {
 		btnPhoto = new JButton("사진 변경하기");
 		btnPhoto.addActionListener(this);
 		pPhoto.setLayout(new GridLayout(0, 1, 10, 10));
-		
+
 		lblPhoto = new JLabel("New label");
 		pPhoto.add(lblPhoto);
 		pPhoto.add(btnPhoto);
@@ -180,7 +175,7 @@ public class MemberModUI extends JFrame implements ActionListener {
 
 	protected void do_btnChange_actionPerformed(ActionEvent arg0) {
 		Member editMember = new Member();
-		
+
 		if (LoginUI.getLogin().getPassword().equals(tfPassword.getText().trim())) {
 
 			editMember.setMemberNo(LoginUI.getLogin().getMemberNo());
@@ -202,9 +197,9 @@ public class MemberModUI extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
 		}
 
-		memberMapper.updateMember(editMember);
+		service.updateMember(editMember);
 
-		Member member = memberMapper.selectMemberByNo(editMember.getMemberNo());
+		Member member = service.selectMemberByNo(editMember.getMemberNo());
 
 		if (memberInfoUI == null) {
 			memberInfoUI = new MemberInfoUI();

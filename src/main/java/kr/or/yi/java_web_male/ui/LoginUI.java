@@ -1,15 +1,10 @@
 package kr.or.yi.java_web_male.ui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,35 +15,29 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
-
-import kr.or.yi.java_web_male.dao.MemberMapper;
-import kr.or.yi.java_web_male.dao.MemberMapperImpl;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.service.LoginService;
 
 @SuppressWarnings("serial")
 public class LoginUI extends JFrame implements ActionListener {
 
+	private static Member loginMember;
 	private JPanel contentPane;
 	private JTextField tfMemberNo;
 	private JTextField tfPassword;
 	private JLabel lblMemberNo;
 	private JLabel lblPassword;
-
-	// ui 몽음
-	private AdminMainUI adminMainUI;
-	private MemberInfoUI memberInfoUI;
-	private BookSearchUI bookSearchUI;
-	private static Member loginMember;
-
-	// 서비스 만들기
-	private MemberMapper memberMapper;
-	private JButton btnLogin;
 	private JPanel panel_2;
+	private JButton btnLogin;
 	private JButton btnSignUp;
 	private JButton btnFind;
 	private JButton btnSearch;
 	private JButton btnNewButton;
+	private AdminMainUI adminMainUI;
+	private MemberInfoUI memberInfoUI;
+	private BookSearchUI bookSearchUI;
 	private String imgPath;
+	private LoginService service;
 
 	public static final Member getLogin() {
 		return loginMember;
@@ -80,8 +69,7 @@ public class LoginUI extends JFrame implements ActionListener {
 	}
 
 	public LoginUI() {
-		memberMapper = MemberMapperImpl.getInstance();
-		loginMember = null;
+		service = new LoginService();
 		initComponent();
 	}
 
@@ -168,7 +156,7 @@ public class LoginUI extends JFrame implements ActionListener {
 	protected void do_btnLogin_actionPerformed(ActionEvent arg0) {
 		String id = tfMemberNo.getText().trim();
 		String pw = tfPassword.getText().trim();
-		Member member = memberMapper.selectMemberByNo(id);
+		Member member = service.selectMemberByNo(id);
 
 		try {
 			if (member != null) {

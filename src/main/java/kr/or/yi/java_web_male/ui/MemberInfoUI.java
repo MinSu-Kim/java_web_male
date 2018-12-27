@@ -14,11 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
-import kr.or.yi.java_web_male.dao.BookRentalInfoMapper;
-import kr.or.yi.java_web_male.dao.BookRentalInfoMapperImpl;
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.service.MemberInfoService;
 import kr.or.yi.java_web_male.ui.LoginUI;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -33,31 +31,27 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private JTextField tfJumin;
 	private JTextField tfKorName;
 	private JTextField tfAddress;
-
-	private BookSearchUI bookSearchUI;
-	private MemberModUI memberModUI;
-	private JButton btnMod;
-	private JButton btnSearch;
-	private JButton btnDetail;
 	private JTextField tfEngName;
 	private JTextField tfEmail;
-	private String imgPath;
 	private JTable table;
-	private List<BookRentalInfo> lists;
-	private BookRentalInfoMapper bookRentalInfoMapper;
-	private MemberDetailUI memberDetailUI;
+	private JButton btnMod;
+	private JButton btnDetail;
+	private JButton btnSearch;
 	private JButton btnLogout;
 	private JButton btnBest10;
+	private LoginUI loginUI;
+	private MemberInfoUI memberInfoUI;
+	private MemberModUI memberModUI;
+	private MemberDetailUI memberDetailUI;
+	private BookSearchUI bookSearchUI;
+	private List<BookRentalInfo> lists;
+	private String imgPath;
+	private MemberInfoService service;
 
 	public MemberInfoUI() {
-		bookRentalInfoMapper = BookRentalInfoMapperImpl.getInstance();
 		imgPath = System.getProperty("user.dir") + "\\images\\";
+		service = new MemberInfoService();
 		initComponent();
-
-		System.out.println("다른 클래스에서 호출" + LoginUI.getLogin());
-		lists = bookRentalInfoMapper.selectBookRentalMemberInfo(LoginUI.getLogin());
-		System.out.println(lists);
-
 	}
 
 	private void initComponent() {
@@ -187,7 +181,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	private Object[][] getDatas() {
 		Member member = LoginUI.getLogin();
-		lists = bookRentalInfoMapper.selectBookRentalMemberInfo(member);
+		lists = service.selectBookRentalMemberInfo(member);
 		Object[][] datas = new Object[lists.size()][];
 		for (int i = 0; i < lists.size(); i++) {
 			datas[i] = getMemberRentalInfo(lists.get(i));
@@ -273,6 +267,16 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	protected void do_btnLogout_actionPerformed(ActionEvent e) {
+		LoginUI.memberLogOut();
+		if (memberInfoUI == null) {
+			memberInfoUI = new MemberInfoUI();
+		}
+		memberInfoUI.setVisible(false);
+
+		if (loginUI == null) {
+			loginUI = new LoginUI();
+		}
+		loginUI.setVisible(true);
 	}
 
 	protected void do_btnBest10_actionPerformed(ActionEvent e) {
