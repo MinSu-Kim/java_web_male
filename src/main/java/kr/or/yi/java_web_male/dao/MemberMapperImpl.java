@@ -81,8 +81,9 @@ public class MemberMapperImpl implements MemberMapper {
 
 	@Override
 	public List<Member> selectMemberByMemberNo() {
-		// TODO Auto-generated method stub
-		return null;
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectList(namespace + ".selectMemberByAll");
+		}
 	}
 
 	@Override

@@ -79,8 +79,8 @@ public class MemberSearchResult extends JPanel {
 	private Object[] getRow(Member member) {
 		return new Object[] {member.getMemberNo(),
 							 member.getKorName(),
-							 member.getJumin(),
-							 member.getPhone()};
+							 member.getJumin().substring(0, 7)+"*******",
+							 member.getPhone().substring(0, 9)+"****"};
 	}
 	public Member selectedItem() {
 		int selectedIndex = table.getSelectedRow();

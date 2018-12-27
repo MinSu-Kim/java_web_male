@@ -68,9 +68,22 @@ SELECT *
 from member;
 
 insert into `member` values("3","gfkrtkf", "서동준", "kiggay","01022306796","921012","tjehdxo2002@","비밀","하핫",1,"하말없음");
-insert into member values("1","king","노예1","slave1","010-2343-4533","201012","slave@naever.com","비밀","히히",0,"저는 노예입니다.");
+
+insert into member values("10",password("king"),"노예1","slave1","010-2343-4533", concat(left('201012-1685651', 8),password(right('201012-1685651', 6)) ),"slave@naever.com","비밀","히히",0,"저는 노예입니다.");
+
 select kor_name, phone, jumin
 from `member` where kor_name="개동준";
+
+
+select '201012-1685651', left('201012-1685651', 6), password(right('201012-1685651', 7)), concat(left('201012-1685651', 6), '-',password(right('201012-1685651', 7)) );
+
+
+select jumin
+from member;
+
+select password, password('king')
+from `member`
+where member_no = 'K0001';
 
 call search_memberno("2");
 call search_membername("김동준");
@@ -258,3 +271,8 @@ select * from book;
 select rental_no FROM proj_library.book_rental_info
    		where book_code='00001';
 
+select member_no, password, kor_name, eng_name, phone,
+		replace(jumin,regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1)
+             ,substr(replace(regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1),'-'),1,7)||'******') jumin, email, address, photo, admin, uniqueness
+		from member;
+		
