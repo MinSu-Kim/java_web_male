@@ -71,4 +71,7 @@ public class MemberUIService {
 	public MemberRentalInfo selectMemberGradeByCode(MemberRentalInfo memberRentalInfo) {
 		return dao1.selectMemberGradeByCode(memberRentalInfo);
 	}
+	public List<Member> selectMemberByMemberNo(){
+		return dao.selectMemberByMemberNo();
+	}
 }

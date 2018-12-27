@@ -77,8 +77,8 @@
 		insert into
 		Member(member_no, password, kor_name, eng_name, phone, jumin, email,
 		address, photo, admin, uniqueness)
-		values(#{memberNo}, #{password},
-		#{korName}, #{engName}, #{phone}, #{jumin}, #{email}, #{address},
+		values(#{memberNo}, PASSWORD(#{password}),
+		#{korName}, #{engName}, #{phone}, concat(left(#{jumin},8),password(right(#{jumin},6))), #{email}, #{address},
 		#{photo}, #{admin}, #{uniqueness})
 	</select>
 
