@@ -10,6 +10,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.FlowLayout;
 
 @SuppressWarnings("serial")
 public class AdminMainUI extends JFrame implements ActionListener {
@@ -24,6 +25,9 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	private BookSearchUI bookSearchUI;
 	private MemberSearchUI memberSearchUI;
 	private InOutUI inOutUI;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JButton btnLogout;
 
 	public AdminMainUI() {
 		initComponents();
@@ -32,30 +36,45 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	private void initComponents() {
 		setTitle("관리자");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 150);
+		setBounds(100, 100, 450, 200);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(0, 4, 10, 10));
-
-		btnBookInsert = new JButton("도서 추가");
-		btnBookInsert.addActionListener(this);
-		contentPane.add(btnBookInsert);
-
-		btnBookSearch = new JButton("도서 검색");
-		btnBookSearch.addActionListener(this);
-		contentPane.add(btnBookSearch);
-
-		btnMemberAdmin = new JButton("회원 관리");
-		btnMemberAdmin.addActionListener(this);
-		contentPane.add(btnMemberAdmin);
-
-		btnRentalAdmin = new JButton("출납 관리");
-		btnRentalAdmin.addActionListener(this);
-		contentPane.add(btnRentalAdmin);
+		contentPane.setLayout(new GridLayout(0, 1, 10, 10));
+		
+		panel = new JPanel();
+		contentPane.add(panel);
+				panel.setLayout(new GridLayout(0, 4, 10, 10));
+		
+				btnBookInsert = new JButton("도서 추가");
+				panel.add(btnBookInsert);
+				
+						btnBookSearch = new JButton("도서 검색");
+						panel.add(btnBookSearch);
+						
+								btnMemberAdmin = new JButton("회원 관리");
+								panel.add(btnMemberAdmin);
+								
+										btnRentalAdmin = new JButton("출납 관리");
+										panel.add(btnRentalAdmin);
+										
+										panel_1 = new JPanel();
+										FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
+										contentPane.add(panel_1);
+										
+										btnLogout = new JButton("로그아웃");
+										btnLogout.addActionListener(this);
+										panel_1.add(btnLogout);
+										btnRentalAdmin.addActionListener(this);
+								btnMemberAdmin.addActionListener(this);
+						btnBookSearch.addActionListener(this);
+				btnBookInsert.addActionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnLogout) {
+			do_btnLogout_actionPerformed(e);
+		}
 		if (e.getSource() == btnRentalAdmin) {
 			do_btnRentalAdmin_actionPerformed(e);
 		}
@@ -96,5 +115,7 @@ public class AdminMainUI extends JFrame implements ActionListener {
 			inOutUI = new InOutUI();
 		}
 		inOutUI.setVisible(true);
+	}
+	protected void do_btnLogout_actionPerformed(ActionEvent e) {
 	}
 }
