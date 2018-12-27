@@ -38,3 +38,16 @@ INSERT INTO book_rental_info values
 insert into publisher values
 ('P001', '호우출판'),
 ('P002', '오라클');
+
+select c.cate_b_name
+from book_rental_info as bri
+join book as b on b.book_code = bri.book_code
+JOIN category_b as c on b.cate_b_no = c.cate_b_no
+where member_no = 2;
+
+select count(b.cate_b_no)
+from book_rental_info as bri
+join book as b on b.book_code = bri.book_code
+where member_no = 2 and b.cate_b_no = '0';
+
+select * from publisher;

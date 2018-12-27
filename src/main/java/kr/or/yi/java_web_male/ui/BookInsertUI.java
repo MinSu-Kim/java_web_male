@@ -282,10 +282,8 @@ public class BookInsertUI extends JFrame implements ActionListener {
 			i = publisherMapper.selectPublisherByAll().size() + 1;
 			pubNo = String.format("P%04d", i);
 			publisher.setPubNo(pubNo);
-			System.out.println(publisher.getPubNo());
 			publisherMapper.insertPublisher(publisher);
 		}
-		
 		book.setPubNo(publisher);
 		book.setTitle(tfTitle.getText());
 		book.setAuthor(tfAuthor.getText());
@@ -301,9 +299,9 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		map.put("author", book.getAuthor());
 		map.put("translator", book.getTranslator());
 		map.put("cate_b_no", book.getCateBNo().getbCode());
-		map.put("cate_m_no", book.getCateMNo());
-		map.put("cate_s_no", book.getCateSNo());
-		map.put("pubNo", book.getPubNo());
+		map.put("cate_m_no", book.getCateMNo().getmCode());
+		map.put("cate_s_no", book.getCateSNo().getsCode());
+		map.put("pubNo", book.getPubNo().getPubNo());
 
 		if (bookMapper.selectbookbyOther(map) != null) {
 			if (bookMapper.selectbookbyOther(map).size() > 0) {
