@@ -8,14 +8,19 @@ import kr.or.yi.java_web_male.dao.MemberMapper;
 import kr.or.yi.java_web_male.dao.MemberMapperImpl;
 import kr.or.yi.java_web_male.dao.MemberRentalInfoMapper;
 import kr.or.yi.java_web_male.dao.MemberRentalInfoMapperImpl;
+import kr.or.yi.java_web_male.dao.OverdueMapper;
+import kr.or.yi.java_web_male.dao.OverdueMapperImpl;
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.dto.MemberRentalInfo;
+import kr.or.yi.java_web_male.dto.Overdue;
 
 public class MemberUIService {
 
 	private MemberMapper dao =  MemberMapperImpl.getInstance();
 	
 	private MemberRentalInfoMapper dao1 = MemberRentalInfoMapperImpl.getInstance();
+	
+	private OverdueMapper dao2 = OverdueMapperImpl.getInstance();
 	
 	
 	public List<Member> selectMemberByAll(){
@@ -59,6 +64,10 @@ public class MemberUIService {
 		return dao1.updateMemberRentalInfo(memberRentalInfo);
 	}
 	
+	public int updateMemberRentalInfo2(MemberRentalInfo memberRentalInfo) {
+		return dao1.updateMemberRentalInfo2(memberRentalInfo);
+	}
+	
 	public int updateMemberRentalInfoGrade(MemberRentalInfo memberRentalInfo) {
 		return dao1.updateMemberRentalInfoGrade(memberRentalInfo);
 	}
@@ -74,6 +83,20 @@ public class MemberUIService {
 	public MemberRentalInfo selectMemberGradeByCode(MemberRentalInfo memberRentalInfo) {
 		return dao1.selectMemberGradeByCode(memberRentalInfo);
 	}
+
+	
+	public Overdue selectOverdueByCode(Overdue overdue) {
+		return dao2.selectOverdueByCode(overdue);
+	}
+	
+	public int updateCount(Overdue overdue) {
+		return dao2.updateCount(overdue);
+	}
+	
+	public int updateStopDate(Overdue overdue) {
+		return dao2.updateStopDate(overdue);
+	}
+
 	public List<Member> selectMemberByMemberNo(){
 		return dao.selectMemberByMemberNo();
 	}

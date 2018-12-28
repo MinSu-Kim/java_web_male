@@ -241,6 +241,9 @@ public class MemberSearchDetail extends JFrame {
 			}
 		});
 		panel_1.add(btnCancel);
+		
+		JButton btnNewButton = new JButton("삭제");
+		panel_1.add(btnNewButton);
 	}
 	public void setLists(Member member) {
 		textMemberNo.setText(member.getMemberNo());
@@ -274,5 +277,4 @@ public class MemberSearchDetail extends JFrame {
 		System.out.println(editMem);
 		JOptionPane.showMessageDialog(null, "수정되었습니다.");
 	}
-
 }

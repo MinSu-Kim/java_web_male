@@ -78,9 +78,16 @@ public class LibraryUIService {
 	public List<Book> selectbookbybookCode(Book book) {
 		return bookMapper.selectbookbybookCode(book);
 	}
+	public Book selectbookbybookCodeOne(Book book) {
+		return bookMapper.selectBookBybookCodeOne(book);
+	}
 
 	public List<Book> selectbookbyOther(Map<String, Object> map) {
 		return bookMapper.selectbookbyOther(map);
+	}
+	
+	public int deleteBook(Map<String, Object> map) {
+		return bookMapper.deleteBook(map);
 	}
 	
 	public int updateBook(Book book) {
@@ -104,6 +111,10 @@ public class LibraryUIService {
 	
 	public int updateBookPossible (Book book) {
 		return bookMapper.updateBookPossible(book);
+	}
+	
+	public int updateReturnDate (BookRentalInfo bookRentalInfo) {
+		return bookRentalInfoMapper.updateReturnDate(bookRentalInfo);
 	}
 
 }

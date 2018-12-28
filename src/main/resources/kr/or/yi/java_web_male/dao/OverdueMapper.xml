@@ -59,4 +59,16 @@
 		insert into proj_library.overdue (member_no, stop_date, overdue_count, rental_authority)
 		values (#{memberNo}, #{stopDate}, #{overdueCount}, #{rentalAuthority})
 	</insert>
+	
+	<update id="updateStopDate" parameterType="Overdue">
+		update proj_library.overdue 
+		set stop_date=#{stopDate}
+		where member_no=#{memberNo}
+	</update>
+	
+	<update id="updateCount" parameterType="Overdue">
+		update proj_library.overdue 
+		set overdue_count=#{overdueCount}, rental_authority=#{rentalAuthority}
+		where member_no=#{memberNo}
+	</update>
 </mapper>
