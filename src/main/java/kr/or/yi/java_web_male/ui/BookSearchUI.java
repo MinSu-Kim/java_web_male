@@ -92,7 +92,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	private JButton btnLogin;
 	private String log;
 	private BookRentUI bookRentUI;
-	private boolean searchwhat =true;
+	private boolean searchwhat = true;
 
 	private Book selectedBook;
 	private BookDetailUI bookDetailUI;
@@ -129,12 +129,12 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public BookSearchUI() {
-		
+
 		setTitle("도서검색");
 		setResizable(false);
 		service = new LibraryUIService();
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 878, 1002);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -574,20 +574,20 @@ public class BookSearchUI extends JFrame implements ActionListener {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(e.getClickCount()==2) {
-					/*JOptionPane.showMessageDialog(null, "2번클릭");*/
+				if (e.getClickCount() == 2) {
+					/* JOptionPane.showMessageDialog(null, "2번클릭"); */
 					Book book = tablePanel2.selectedItem();
-					if(book.isRentalPossible() == true) {
+					if (book.isRentalPossible() == true) {
 						JOptionPane.showMessageDialog(null, "대여 가능한 책입니다.");
 						bookRentUI.setBookCode(book);
 						BookSearchUI.this.dispose();
-					}else {
+					} else {
 						JOptionPane.showMessageDialog(null, "대여 불가능한 책입니다.");
 					}
-					
+
 				}
 			}
-			
+
 		});
 		JPanel panelForTable_1 = new JPanel();
 		panelForTable_1.setLayout(new BorderLayout());
@@ -608,9 +608,9 @@ public class BookSearchUI extends JFrame implements ActionListener {
 		JMenuItem bookRentInfo = new JMenuItem("도서대여 정보");
 		bookRentInfo.addActionListener(this);
 		popupMenu.add(bookRentInfo);
-		if (member==null) {			
-			
-		} else if(member.isAdmin()) {
+		if (member == null) {
+
+		} else if (member.isAdmin()) {
 			JMenuItem upDate = new JMenuItem("수정");
 			upDate.addActionListener(this);
 			popupMenu.add(upDate);
@@ -639,7 +639,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 			do_ShowBookrentInfo_actionPerformed(e);
 
 		}
-		
+
 		if (e.getActionCommand().equals("수정")) {
 			JOptionPane.showMessageDialog(null, "수정");
 		}
@@ -648,9 +648,8 @@ public class BookSearchUI extends JFrame implements ActionListener {
 		}
 		if (e.getActionCommand().equals("추가")) {
 			JOptionPane.showMessageDialog(null, "추가");
-			
+
 		}
-		
 
 	}
 
@@ -699,9 +698,8 @@ public class BookSearchUI extends JFrame implements ActionListener {
 
 	public void setBookRentUI(BookRentUI bookRentUI) {
 		this.bookRentUI = bookRentUI;
-		
-	}
 
+	}
 
 	private void do_Showmore_actionPerformed(ActionEvent e) {
 		try {
@@ -762,7 +760,5 @@ public class BookSearchUI extends JFrame implements ActionListener {
 			loginUI.setVisible(true);
 		}
 	}
-	
-	
 
 }

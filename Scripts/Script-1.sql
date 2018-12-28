@@ -51,3 +51,9 @@ join book as b on b.book_code = bri.book_code
 where member_no = 2 and b.cate_b_no = '0';
 
 select * from publisher;
+
+select * from `member`;
+
+select *
+from member
+where member_no = 'L0001' and password = '*5FEFDAF71624A2DAA56E303A03AC7A428C6A6652';

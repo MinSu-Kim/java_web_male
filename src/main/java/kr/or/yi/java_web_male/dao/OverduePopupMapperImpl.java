@@ -37,4 +37,11 @@ public class OverduePopupMapperImpl implements OverduePopupMapper {
 		
 	}
 
+	@Override
+	public int selectDate() {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectOne(namespace + ".selectDate");
+		}
+	}
+
 }

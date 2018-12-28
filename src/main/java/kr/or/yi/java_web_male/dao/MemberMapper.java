@@ -40,5 +40,5 @@ public interface MemberMapper {
 	
 	int changePW(Map<String, Object> map);
 	
-	
+	Member loginCheck(Map<String, Object> map);
 }

@@ -22,5 +22,9 @@
 		UPDATE proj_library.`day`
 		SET daty=(NOW());
 	</update>
+	<select id="selectDate" resultType="int">
+		select datediff(daty, now())
+		from day
+	</select>
 
 </mapper>
