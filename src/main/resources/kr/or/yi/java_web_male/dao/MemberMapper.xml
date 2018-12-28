@@ -178,6 +178,6 @@
 		from member
 		where member_no = #{memberNo} and password = password(#{password});
 	</select>
->>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
+
 
 </mapper>

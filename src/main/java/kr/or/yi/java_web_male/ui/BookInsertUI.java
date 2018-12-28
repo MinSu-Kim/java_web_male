@@ -295,10 +295,11 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		book.setAuthor(tfAuthor.getText());
 		book.setTranslator(tfTrans.getText());
 		book.setPrice(Integer.parseInt(tfPrice.getText().trim()));
+		book.setRentalPossible(true);
+		book.setImage(fileName);
 		book.setCateBNo(cateB);
 		book.setCateMNo(cateM);
 		book.setCateSNo(cateS);
-		book.setImage(fileName);
 		System.out.println(book);
 
 		map.put("title", book.getTitle());
@@ -330,7 +331,6 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		tfBookCode.setText(bc);
 		book.setBookCode(bc);
 		book.setBookNo(i);
-		System.out.println(book);
 
 		int result = JOptionPane.showConfirmDialog(null, bc, "확인", JOptionPane.YES_NO_OPTION);
 		if (result == JOptionPane.CLOSED_OPTION) {
