@@ -132,7 +132,7 @@ CREATE TABLE proj_library.member_rental_info (
 )
 COMMENT '회원대여정보';
 
-drop table proj_library.member_rental_info;
+
 
 -- 회원대여정보
 ALTER TABLE proj_library.member_rental_info
@@ -223,7 +223,7 @@ ALTER TABLE proj_library.book_rental_info
 		)
 		REFERENCES proj_library.book ( -- 책
 			book_code -- 도서번호
-		),
+		)ON UPDATE CASCADE,
 	ADD INDEX FK_Book_TO_book_rent_info (
 		book_code -- 도서번호
 	);

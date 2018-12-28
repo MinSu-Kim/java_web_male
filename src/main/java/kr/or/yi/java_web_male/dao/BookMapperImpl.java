@@ -75,4 +75,20 @@ public class BookMapperImpl implements BookMapper {
 		}
 	}
 
+	@Override
+	public int deleteBook(Map<String, Object> map) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			int res = sqlSession.update(namespace + ".deleteBook", map);
+			sqlSession.commit();
+			return res;
+		}
+	}
+
+	@Override
+	public Book selectBookBybookCodeOne(Book book) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectOne(namespace + ".selectBookBybookCodeOne",book);
+		}
+	}
+
 }

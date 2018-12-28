@@ -71,11 +71,13 @@ public class BookInsertUI extends JFrame implements ActionListener {
 	private JButton btnImage;
 	private JButton btnCancel;
 	private JButton btnInsert;
-	
+
 	private String pathName;
 	private String fileName;
 	private JLabel lblImage;
 	private String imgPath;
+	private Book selectedBook;
+	private String pubName;
 
 	/**
 	 * Launch the application.
@@ -102,7 +104,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		sMapper = CategorySMapperImpl.getInstance();
 		bookMapper = BookMapperImpl.getInstance();
 		publisherMapper = PublisherMapperImpl.getInstance();
-		imgPath = System.getProperty("user.dir") + "\\images\\";	
+		imgPath = System.getProperty("user.dir") + "\\images\\";
 
 		initComponents();
 	}
@@ -138,7 +140,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 
 		btnImage = new JButton("사진 추가");
 		btnImage.addActionListener(this);
-		
+
 		lblImage = new JLabel("사진 추가");
 		panel_4.add(lblImage);
 		panel_4.add(btnImage);
@@ -274,7 +276,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		String pubNo = "";
 
 		publisher.setPubName(tfPub.getText().trim());
-		
+
 		if (publisherMapper.selectPublisherByName(publisher) != null) {
 			pubNo = publisherMapper.selectPublisherByName(publisher).getPubNo();
 			publisher.setPubNo(pubNo);
@@ -285,7 +287,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 			System.out.println(publisher.getPubNo());
 			publisherMapper.insertPublisher(publisher);
 		}
-		
+
 		book.setPubNo(publisher);
 		book.setTitle(tfTitle.getText());
 		book.setAuthor(tfAuthor.getText());
@@ -301,9 +303,9 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		map.put("author", book.getAuthor());
 		map.put("translator", book.getTranslator());
 		map.put("cate_b_no", book.getCateBNo().getbCode());
-		map.put("cate_m_no", book.getCateMNo());
-		map.put("cate_s_no", book.getCateSNo());
-		map.put("pubNo", book.getPubNo());
+		map.put("cate_m_no", book.getCateMNo().getmCode());
+		map.put("cate_s_no", book.getCateSNo().getsCode());
+		map.put("pubNo", book.getPubNo().getPubNo());
 
 		if (bookMapper.selectbookbyOther(map) != null) {
 			if (bookMapper.selectbookbyOther(map).size() > 0) {
@@ -352,5 +354,43 @@ public class BookInsertUI extends JFrame implements ActionListener {
 			fileName = chooser.getSelectedFile().getName();
 			lblImage.setIcon(new ImageIcon(imgPath + fileName));
 		}
+	}
+
+	public void setBookInfo(Book selectedBook, String PubName) {
+		this.selectedBook = selectedBook;
+		this.pathName = PubName;
+		JOptionPane.showMessageDialog(null, PubName);
+
+	}
+
+	public void loadTable() {
+		tfBookCode.setText(selectedBook.getBookCode());
+		comboCateB.setSelectedIndex(selectedBook.getCateBNo().getbCode());
+		
+		cateB = (CategoryB) comboCateB.getSelectedItem();
+		List<CategoryM> mList = mMapper.selectCategoryMByBNo(cateB);
+		modelM = new DefaultComboBoxModel<>(new Vector<>(mList));
+		comboCateM.removeAll();
+		comboCateM.setModel(modelM);
+		comboCateM.setEnabled(true);
+		
+		comboCateM.setSelectedIndex(selectedBook.getCateMNo().getmCode());
+		comboCateS.setSelectedIndex(selectedBook.getCateSNo().getsCode());
+		tfTitle.setText(selectedBook.getTitle());
+		tfPub.setText(pathName);
+		lblImage.setText("");
+		if(selectedBook.getImage()==null||selectedBook.getImage().trim().equals("")) {
+			lblImage.setIcon(new ImageIcon(imgPath + "book1.jpg"));
+		}else {
+			lblImage.setIcon(new ImageIcon(imgPath + selectedBook.getImage()));
+		}
+		JOptionPane.showMessageDialog(null, selectedBook.getImage());
+		tfAuthor.setText(selectedBook.getAuthor());
+		tfTrans.setText(selectedBook.getTranslator());
+		tfPrice.setText((selectedBook.getPrice() + "").trim());
+		btnInsert.setText("수정");
+		btnCancel.setText("되돌리기");
+		btnImage.setText("사진 수정");
+
 	}
 }

@@ -3,7 +3,8 @@
 <mapper namespace="kr.or.yi.java_web_male.dao.BookMapper">
 
 	<sql id="selectSql">
-		SELECT book_code, book_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no, pub_no
+		SELECT book_code, book_no, author, translator, title,
+		price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no, pub_no
 		FROM proj_library.book
 
 	</sql>
@@ -13,12 +14,16 @@
 			<if test="bookCode != null">
 				book_code REGEXP #{bookCode}
 			</if>
+			<if test="bookCode != null">
+				and left(book_code, 1) != 'D'
+			</if>
 		</where>
 	</sql>
 	<sql id="whereOtherSql">
 		<where>
+			left(book_code, 1) != 'D'
 			<if test="pubNo != null">
-				pub_no=#{pubNo}
+				and pub_no=#{pubNo}
 			</if>
 			<if test="cateBNo != null">
 				and cate_b_no =#{cateBNo}
@@ -28,7 +33,7 @@
 			</if>
 			<if test="cateSNo != null">
 				AND cate_s_no=#{cateSNo}
-			</if>			
+			</if>
 			<if test="author != null">
 				AND author=#{author}
 			</if>
@@ -40,65 +45,96 @@
 			</if>
 		</where>
 	</sql>
-	
+
 	<select id="selectBookByAll" parameterType="Book"
 		resultType="Book">
 		<include refid="selectSql" />
 	</select>
-	
+
 	<!-- updateSql -->
 	<sql id="updateSql">
-		update book set book_no=#{bookNo}, author=#{writter}, translator=#{translator}, title=#{title}, price=#{priece}, rental_possible=#{rentable}, image=#{image}, cate_s_no=#{categorynoS.categorynoS}, cate_m_no=#{categorynoM.categorynoM}, cate_b_no=#{categorynoB.categorynoB}, pub_no=#{publisherNo.publisherNo}
+		update book set book_no=#{bookNo}, author=#{writter},
+		translator=#{translator}, title=#{title}, price=#{priece},
+		rental_possible=#{rentable}, image=#{image},
+		cate_s_no=#{categorynoS.categorynoS},
+		cate_m_no=#{categorynoM.categorynoM},
+		cate_b_no=#{categorynoB.categorynoB},
+		pub_no=#{publisherNo.publisherNo}
 		WHERE book_code=#{bookCode};
-	</sql>	
-	
+	</sql>
+
 	<resultMap type="Book" id="Booktyepinsert">
-		<id property="bookCode" column="book_code"/>
-		<result property="bookNo" column="book_no"/>
-		<result property="pubNo.pubNo" column="pub_no"/>
-		<result property="author" column="author"/>
-		<result property="translator" column="translator"/>
-		<result property="title" column="title"/>
-		<result property="image" column="image"/>
-		<result property="price" column="price"/>
+		<id property="bookCode" column="book_code" />
+		<result property="bookNo" column="book_no" />
+		<result property="pubNo.pubNo" column="pub_no" />
+		<result property="author" column="author" />
+		<result property="translator" column="translator" />
+		<result property="title" column="title" />
+		<result property="image" column="image" />
+		<result property="price" column="price" />
 		<!-- <result property="rentalPossible" column="rental_possible"/> -->
-		<result property="cateBNo.bCode" column="cate_b_no"/>
-		<result property="cateMNo.mCode" column="cate_m_no"/>
-		<result property="cateSNo.sCode" column="cate_s_no"/>		
+		<result property="cateBNo.bCode" column="cate_b_no" />
+		<result property="cateMNo.mCode" column="cate_m_no" />
+		<result property="cateSNo.sCode" column="cate_s_no" />
 	</resultMap>
-	
+
 	<select id="selectbookbybookCode" parameterType="Book"
 		resultMap="Booktyepinsert">
 		<include refid="selectSql" />
 		<include refid="whereSql" />
 	</select>
-	
-	<select id="selectbookbyOther"  parameterType="hashmap"
+
+	<select id="selectbookbyOther" parameterType="hashmap"
 		resultMap="Booktyepinsert">
 		<include refid="selectSql" />
 		<include refid="whereOtherSql" />
 	</select>
-	
+
 	<insert id="insertBook" parameterType="Book">
-		INSERT INTO proj_library.book (book_code, book_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no, pub_no)
-		VALUES(#{bookCode}, #{bookNo}, #{author}, #{translator}, #{title}, #{price}, #{rentalPossible}, #{image}, #{cateSNo.sCode}, #{cateMNo.mCode}, #{cateBNo.bCode}, #{pubNo.pubNo});
+		INSERT INTO
+		proj_library.book (book_code, book_no, author, translator, title,
+		price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no,
+		pub_no)
+		VALUES(#{bookCode}, #{bookNo}, #{author}, #{translator},
+		#{title}, #{price}, #{rentalPossible}, #{image}, #{cateSNo.sCode},
+		#{cateMNo.mCode}, #{cateBNo.bCode}, #{pubNo.pubNo});
 	</insert>
-	
+
 	<update id="updateBook" parameterType="Book">
 		<include refid="updateSql" />
 	</update>
-	
-	<select id="selectBookByBookNo" parameterType="Book" resultMap="Booktyepinsert">
+
+	<select id="selectBookByBookNo" parameterType="Book"
+		resultMap="Booktyepinsert">
 		<include refid="selectSql" />
 		where book_no = #{bookNo}
 	</select>
-	
-	<select id="selectBookByBookNoToMax" parameterType="Book" resultType="Book">
+
+	<select id="selectBookByBookNoToMax" parameterType="Book"
+		resultType="Book">
 		select max(book_no) from book
 	</select>
 
 	<update id="updateBookPossible" parameterType="Book">
-		update book set rental_possible=#{rentalPossible}
+		update book set
+		rental_possible=#{rentalPossible}
 		WHERE book_code=#{bookCode}
 	</update>
+
+	<update id="deleteBook" parameterType="Book">
+		UPDATE proj_library.book
+		SET book_code=#{newBookCode}
+		WHERE book_code=#{bookCode};
+	</update>
+
+	<select id="selectBookBybookCodeOne" parameterType="Book"
+		resultMap="Booktyepinsert">
+		<include refid="selectSql" />
+		WHERE book_code=#{bookCode};
+	</select>
+
+
+
+
+
 </mapper>
