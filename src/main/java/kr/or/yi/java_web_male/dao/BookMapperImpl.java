@@ -91,4 +91,10 @@ public class BookMapperImpl implements BookMapper {
 		}
 	}
 
+	@Override
+	public int updateBookMap(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

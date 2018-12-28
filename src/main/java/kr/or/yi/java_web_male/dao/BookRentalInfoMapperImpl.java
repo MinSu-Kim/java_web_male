@@ -1,11 +1,13 @@
 package kr.or.yi.java_web_male.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
 import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
+import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.jdbc.MyBatisSqlSessionFactory;
 
@@ -60,9 +62,9 @@ public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 
 	@Override
 	public int nextCode() {
-		 try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
-	         return sqlSession.selectOne(namespace + ".nextCode");
-	      }
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectOne(namespace + ".nextCode");
+		}
 	}
 
 	@Override
@@ -76,6 +78,13 @@ public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 	public BookRentalInfo selectRentalNoByBookCode(BookRentalInfo bookRentalInfo) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
 			return sqlSession.selectOne(namespace + ".selectRentalNoByBookCode", bookRentalInfo);
+		}
+	}
+
+	@Override
+	public List<BookRentalInfo> selectRentalBookInfoByCategoryB(Member member) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectList(namespace + ".selectRentalBookInfoByCategoryB", member);
 		}
 	}
 }

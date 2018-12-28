@@ -16,6 +16,8 @@ import kr.or.yi.java_web_male.service.MemberUIService;
 import kr.or.yi.java_web_male.service.MyDocumentListener;
 
 import java.awt.GridLayout;
+import java.awt.List;
+
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
@@ -43,6 +45,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
 import javax.swing.BoxLayout;
 import java.awt.Font;
+import java.awt.Dimension;
 
 public class MemberRegisterUI extends JFrame {
 
@@ -69,11 +72,11 @@ public class MemberRegisterUI extends JFrame {
 	private JTextField tftel2;
 	private JTextField tftel3;
 	private JTextField tfju1;
-	private JTextField tfju2;
 	private String pathName;
 	private String fileName;
 	private JTextField tfpass;
 	private static String adminpassword = "45685";
+	private JPasswordField tfju2;
 	
 	
 	/**
@@ -144,20 +147,27 @@ public class MemberRegisterUI extends JFrame {
 		
 		JPanel panel_p2 = new JPanel();
 		panel_pass.add(panel_p2);
-		panel_p2.setLayout(new GridLayout(0, 2, 0, 0));
+		panel_p2.setLayout(null);
 		
 		pass1 = new JPasswordField();
+		pass1.setBounds(0, 0, 90, 22);
 		panel_p2.add(pass1);
 		
 		tfpass = new JTextField();
+		tfpass.setFont(new Font("굴림", Font.PLAIN, 10));
+		tfpass.setBounds(89, 0, 137, 22);
 		tfpass.setEditable(false);
+		tfpass.setText("8자이상+특수문자,문자,숫자");
 		panel_p2.add(tfpass);
 		tfpass.setColumns(10);
 		
 		pass2 = new JPasswordField();
+		pass2.setBounds(0, 22, 90, 22);
 		panel_p2.add(pass2);
 		
 		tfConfirm = new JTextField();
+		tfConfirm.setFont(new Font("굴림", Font.PLAIN, 10));
+		tfConfirm.setBounds(89, 22, 137, 22);
 		tfConfirm.setEditable(false);
 		panel_p2.add(tfConfirm);
 		tfConfirm.setColumns(10);
@@ -226,18 +236,22 @@ public class MemberRegisterUI extends JFrame {
 		
 		JPanel panel_6 = new JPanel();
 		panel_Ju.add(panel_6);
-		panel_6.setLayout(new BoxLayout(panel_6, BoxLayout.X_AXIS));
+		panel_6.setLayout(null);
 		
 		tfju1 = new JTextField();
+		tfju1.setBounds(0, 0, 109, 44);
 		panel_6.add(tfju1);
 		tfju1.setColumns(10);
 		
 		JLabel label_2 = new JLabel("-");
+		label_2.setHorizontalAlignment(SwingConstants.CENTER);
+		label_2.setBounds(102, 14, 22, 15);
 		panel_6.add(label_2);
 		
-		tfju2 = new JTextField();
+		tfju2 = new JPasswordField();
+		tfju2.setBounds(117, 0, 109, 44);
+		tfju2.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panel_6.add(tfju2);
-		tfju2.setColumns(10);
 		
 		JPanel panel_Email = new JPanel();
 		panel.add(panel_Email);
@@ -440,6 +454,7 @@ public class MemberRegisterUI extends JFrame {
 				}
 				if(!matcher.matches()) {
 					tfpass.setText("영문숫자 불일치.");
+					tfpass.setFont(new Font("굴림", Font.PLAIN, 12));
 				}else {
 					tfpass.setText("영문숫자 일치.");
 				}
@@ -448,14 +463,13 @@ public class MemberRegisterUI extends JFrame {
 	}
 	private void getMember() {
 		Member member = new Member();
-		
 		member.setPassword(new String(pass1.getPassword()).trim());
 		member.setKorName(tfKor.getText().trim());
 		member.setEngName(tfEng.getText().trim());
 		member.setPhone((String)TelBox.getSelectedItem() + "-"+ tftel2.getText().trim()+"-"+tftel3.getText().trim());
 		member.setJumin(tfju1.getText().trim()+"-"+tfju2.getText().trim());
 		member.setEmail(tfEmail.getText().trim()+"@"+tfEmail_2.getText().trim());
-		member.setAddress(tfEmail.getText().trim()+tfjuso.getText().trim());
+		member.setAddress(tfAdd.getText().trim()+tfjuso.getText().trim());
 		member.setAdmin(chckadmin.isSelected());
 		member.setUniqueness(tfUni.getText().trim());
 		member.setPhoto(fileName);
@@ -467,7 +481,7 @@ public class MemberRegisterUI extends JFrame {
 			make = make + "0001";
 		}else {
 			i = service.selectMemberByNoList(member).size()+1;
-		
+			tFmemberNo.setText(make);
 		}
 			
 		String mn = String.format("%s%04d",make, i);
@@ -476,7 +490,10 @@ public class MemberRegisterUI extends JFrame {
 		member.setMemberNo(mn);
 		service.insertMember(member);
 		
+		
+		
 	}
+	@SuppressWarnings("unlikely-arg-type")
 	private void check() throws Exception {
 		if(tfKor.getText().trim().equals("")) {
 			tfKor.requestFocus();
@@ -496,6 +513,7 @@ public class MemberRegisterUI extends JFrame {
 		}
 		String pw1 = new String(pass1.getPassword());
 		String pw2 = new String(pass2.getPassword());
+		String ju2 = new String(tfju2.getPassword());
 		String pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,}$";
 		Matcher matcher = Pattern.compile(pwPattern).matcher(pw1);
 		if(pw1.equals("")) {
@@ -538,6 +556,11 @@ public class MemberRegisterUI extends JFrame {
 			tfjuso.requestFocus();
 			throw new Exception("주소를 입력해주세요");
 		}
+			Member member = new Member();
+		if(ju2.equals(service.selectMemberByNoList(member))) {
+			tfju2.requestFocus();
+			throw new Exception("주민등록번호가 중복되어 가입할수없습니다.");
+		}
 	}
 	protected void selectEmail(ActionEvent e) {
 		if(comboBox.getSelectedIndex()<5) {
@@ -548,7 +571,8 @@ public class MemberRegisterUI extends JFrame {
 			tfEmail_2.setText("입력하세요");
 			tfEmail_2.setEditable(true);
 		}
-	} 
+	}
+
 	public void setAddress(String addr) {
 		this.tfAdd.setText(addr);
 	}

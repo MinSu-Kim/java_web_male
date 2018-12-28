@@ -244,11 +244,11 @@ public class MemberSearchDetail extends JFrame {
 	}
 	public void setLists(Member member) {
 		textMemberNo.setText(member.getMemberNo());
-		textPass.setText(member.getPassword());
+		textPass.setText(member.getPassword().substring(0,0)+"**********");
 		textKor.setText(member.getKorName());
 		textEng.setText(member.getEngName());
 		textPhone.setText(member.getPhone());
-		textJumin.setText(member.getJumin());
+		textJumin.setText(member.getJumin().substring(0,7)+"*******");
 		textEmail.setText(member.getEmail());
 		textAddress.setText(member.getAddress());
 		textAdmin.setText(((member.isAdmin())+"").trim());

@@ -79,7 +79,7 @@ public class MemberSearchResult extends JPanel {
 	private Object[] getRow(Member member) {
 		return new Object[] {member.getMemberNo(),
 							 member.getKorName(),
-							 member.getJumin(),
+							 member.getJumin().substring(0, 7)+"*******",
 							 member.getPhone()};
 	}
 	public Member selectedItem() {
