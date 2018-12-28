@@ -36,6 +36,7 @@ public class LoginUI extends JFrame implements ActionListener {
 	private AdminMainUI adminMainUI;
 	private MemberInfoUI memberInfoUI;
 	private BookSearchUI bookSearchUI;
+	private OverduePopUpUI overduePopUpUI;
 	private String imgPath;
 	private LoginService service;
 
@@ -163,9 +164,12 @@ public class LoginUI extends JFrame implements ActionListener {
 					loginMember = member;
 					if (member.isAdmin() == true) {
 						if (adminMainUI == null) {
-							adminMainUI = new AdminMainUI();
+							overduePopUpUI = new OverduePopUpUI();
+							adminMainUI = new AdminMainUI();						
 						}
+						
 						adminMainUI.setVisible(true);
+						overduePopUpUI.setVisible(true);
 					} else {
 						if (memberInfoUI == null) {
 							memberInfoUI = new MemberInfoUI();
