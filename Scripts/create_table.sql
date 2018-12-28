@@ -224,6 +224,7 @@ ALTER TABLE proj_library.book_rental_info
 		REFERENCES proj_library.book ( -- 책
 			book_code -- 도서번호
 		)ON UPDATE CASCADE,
+		
 	ADD INDEX FK_Book_TO_book_rent_info (
 		book_code -- 도서번호
 	);
