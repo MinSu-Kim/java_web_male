@@ -149,7 +149,7 @@
 	</select>
 	<update id="changePW">
 		UPDATE proj_library.`member`
-		SET password= #{password}
+		SET password=password(#{password})
 		WHERE member_no= #{memberNo}
 	</update>
 

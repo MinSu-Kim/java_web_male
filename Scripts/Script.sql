@@ -11,6 +11,9 @@ insert into category_s values('0','7','1','아시아 신문,저널리즘 등');
 insert into category_s values('1','1','4','공간');
 insert into publisher values('P001','영남인제교육원');
 
+
+
+
 insert into book_rental_info values(5,'2018-12-10','2018-12-17',null,'2','0000000001');
 insert into book_rental_info values(6,'2018-12-11','2018-12-17',null,'3','0000000002');
 ---- 프로시저 생성하기 -----
@@ -121,7 +124,7 @@ VALUES('1110000005', 0, 'P001', '김재영', '김재영', '자바의 정석', 40
 
 insert into proj_library.book
 (book_code, book_no, pub_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no)
-values('0000000002', 0, 'P001', '서동준','서동준', 'web개발', 20000,true, null, 0, 0 ,0);
+values('0000000001', 0, 'P001', '서동준','서동준', 'web개발', 20000,true, null, 0, 0 ,0);
 
 SELECT * FROM book;
 select * from book_rental_info;
@@ -278,13 +281,20 @@ select * from member_rental_info;
 
 select * from overdue;
 
-select * from book;
+select * from book
+where left(book_code, 1) != 'D'
 
 select rental_no FROM proj_library.book_rental_info
    		where book_code='00001';
 
+<<<<<<< HEAD
+UPDATE proj_library.book
+		SET book_code='D0000000001'
+		WHERE book_code='0000000001';
+=======
 select member_no, password, kor_name, eng_name, phone,
 		replace(jumin,regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1)
              ,substr(replace(regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1),'-'),1,7)||'******') jumin, email, address, photo, admin, uniqueness
 		from member;
 		
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
