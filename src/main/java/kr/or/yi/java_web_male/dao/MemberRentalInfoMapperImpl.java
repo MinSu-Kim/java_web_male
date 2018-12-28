@@ -49,6 +49,14 @@ public class MemberRentalInfoMapperImpl implements MemberRentalInfoMapper {
 		}
 	}
 	@Override
+	public int updateMemberRentalInfo2(MemberRentalInfo memberRentalInfo) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			int res = sqlSession.update(namespace + ".updateMemberRentalInfo2", memberRentalInfo);
+			sqlSession.commit();
+			return res;
+		}
+	}
+	@Override
 	public MemberRentalInfo selectMemberNowTotalByCode(MemberRentalInfo memberRentalInfo) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
 			return sqlSession.selectOne(namespace + ".selectMemberNowTotalByCode", memberRentalInfo);
@@ -74,6 +82,7 @@ public class MemberRentalInfoMapperImpl implements MemberRentalInfoMapper {
 			return sqlSession.selectOne(namespace + ".selectMemberGradeByCode", memberRentalInfo);
 		}
 	}
+	
 	
 
 }

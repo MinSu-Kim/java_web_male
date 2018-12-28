@@ -45,5 +45,5 @@ public interface MemberMapper {
 
 	List<Member> selectMemberByNojumin(Member member);
 	
-	
+	Member loginCheck(Map<String, Object> map);
 }

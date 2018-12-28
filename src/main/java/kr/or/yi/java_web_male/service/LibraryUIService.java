@@ -112,5 +112,9 @@ public class LibraryUIService {
 	public int updateBookPossible (Book book) {
 		return bookMapper.updateBookPossible(book);
 	}
+	
+	public int updateReturnDate (BookRentalInfo bookRentalInfo) {
+		return bookRentalInfoMapper.updateReturnDate(bookRentalInfo);
+	}
 
 }

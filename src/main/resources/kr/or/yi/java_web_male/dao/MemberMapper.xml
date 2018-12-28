@@ -165,10 +165,19 @@
 		SET password=password(#{password})
 		WHERE member_no= #{memberNo}
 	</update>
+
 	<update id="deleteMemberNo" parameterType="Member">
 	 		UPDATE member
 	 		set Member_no = #{newMemberNo}, password = #{password}
 	 		where member_no = #{memberNo}
 	</update>
+
+
+	<select id="loginCheck" resultMap="MemberResult">
+		select member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness
+		from member
+		where member_no = #{memberNo} and password = password(#{password});
+	</select>
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
 
 </mapper>

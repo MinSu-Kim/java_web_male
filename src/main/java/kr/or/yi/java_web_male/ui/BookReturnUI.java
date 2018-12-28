@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
+import kr.or.yi.java_web_male.dto.MemberRentalInfo;
+import kr.or.yi.java_web_male.dto.Overdue;
 import kr.or.yi.java_web_male.service.LibraryUIService;
 import kr.or.yi.java_web_male.service.MemberUIService;
 
@@ -22,6 +24,9 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
 
@@ -63,6 +68,7 @@ public class BookReturnUI extends JFrame {
 	public BookReturnUI() {
 		setTitle("도서 반납");
 		service = new LibraryUIService();
+		memberUIService = new MemberUIService();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 361);
 		contentPane = new JPanel();
@@ -104,14 +110,76 @@ public class BookReturnUI extends JFrame {
 				Book book = new Book();
 				book.setBookCode(textBookCode.getText());
 				
-				String bookcode = String.valueOf(book);
-				Book books = new Book();
-				books.setBookCode(bookcode);
+				//book_code로 rental_no찾기
 				BookRentalInfo BookRentalInfo = new BookRentalInfo();
-				BookRentalInfo.setBookCode(books);
+				BookRentalInfo.setBookCode(book);
 				
 				BookRentalInfo BookRentalNo = service.selectRentalNoByBookCode(BookRentalInfo);
-				JOptionPane.showMessageDialog(null, BookRentalNo);
+				
+				
+				int no = BookRentalNo.getRentalNo();
+				
+				Date returndate = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				sdf.format(returndate);
+				
+				
+				
+				//rental_no로 return_date 수정
+				BookRentalInfo bookRentalInfo = new BookRentalInfo();
+				bookRentalInfo.setRentalNo(no);
+				bookRentalInfo.setReturnDate(returndate);
+				
+				
+				JOptionPane.showMessageDialog(null, bookRentalInfo.getRentalNo() );
+				JOptionPane.showMessageDialog(null, bookRentalInfo.getReturnDate() );
+				int returnUpdate = service.updateReturnDate(bookRentalInfo);
+				JOptionPane.showMessageDialog(null, "완료" );
+				
+				//대여가능권수 +1
+				String mNo = String.valueOf(BookRentalNo.getMemberNo());
+				
+				MemberRentalInfo memberRentalInfo = new MemberRentalInfo();
+				memberRentalInfo.setMemberNo(mNo);
+				
+				int updateNowTotal = memberUIService.updateMemberRentalInfo2(memberRentalInfo);
+				
+				Date returnDate = BookRentalNo.getReturnDate();
+				Date returnSchedule = BookRentalNo.getReturnSchedule();
+				
+				/*long a = (returnDate.getTime()-returnSchedule.getTime());
+				
+				JOptionPane.showMessageDialog(null, a);*/
+				
+				Calendar cal = Calendar.getInstance ( );
+				// 오늘로 설정.
+				cal.setTime ( returnDate );  
+				Calendar cal2 = Calendar.getInstance ( );
+				// 기준일로 설정. month의 경우 해당월수-1을 해줍니다.
+				cal2.setTime ( returnSchedule );  
+				
+				int count = 0;
+				while ( !cal2.after ( cal ) ) {
+				count++;
+				//다음날로 바뀜
+				cal2.add ( Calendar.DATE, 1 );  
+				System.out.println ( cal2.get ( Calendar.YEAR ) + "년 " + ( cal2.get ( Calendar.MONTH ) + 1 ) + "월 " + cal2.get ( Calendar.DATE ) + "일" );
+				}
+				System.out.println ( "기준일로부터 " + count + "일이 지났습니다." );
+
+
+				
+				/*Overdue overdue = new Overdue();
+				overdue.setMemberNo(mNo);*/
+				
+				
+				
+				/*overdue.setRentalAuthority(false);
+				
+				int updateCount = memberUIService.updateCount(overdue);*/
+				
+				
+				
 			}
 		});
 		panel_3.add(btnNewButton);

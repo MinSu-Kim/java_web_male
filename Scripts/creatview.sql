@@ -6,6 +6,19 @@ FROM book_rental_info i join book b on i.book_code=b.book_code join publisher p 
 show create view bestsaler;
 drop view bestsaler;
 
+create view OverduePopup as select m.kor_name,b.title, r.rental_date,r.return_schedule,m.phone,r.return_date,DATEDIFF(NOW(),return_schedule) as overday
+from book_rental_info r join `member` m on r.member_no=m.member_no join book b on r.book_code=b.book_code
+where NOW()>return_schedule
+and return_date is null 
+group by kor_name;
+
+
+drop view OverduePopup;
+
+SELECT kor_name, title, rental_date, return_schedule, phone, return_date, overday
+FROM proj_library.overduepopup;
+
+
 ---- 프로시저 생성하기 -----
 delimiter $$
 CREATE PROCEDURE `proj_library`.`search_membername`(in korname char(50))

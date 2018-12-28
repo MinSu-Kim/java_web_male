@@ -50,12 +50,13 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	public MemberInfoUI() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
+		loginUI = new LoginUI();
 		service = new MemberInfoService();
 		initComponent();
 	}
 
 	private void initComponent() {
-		setTitle("내 정보");
+		setTitle("[사용자] " + LoginUI.getLogin().getKorName() + "님 환영합니다.");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 590);
 		contentPane = new JPanel();
@@ -268,14 +269,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	protected void do_btnLogout_actionPerformed(ActionEvent e) {
 		LoginUI.memberLogOut();
-		if (memberInfoUI == null) {
-			memberInfoUI = new MemberInfoUI();
-		}
-		memberInfoUI.setVisible(false);
-
-		if (loginUI == null) {
-			loginUI = new LoginUI();
-		}
+		this.setVisible(false);
 		loginUI.setVisible(true);
 	}
 

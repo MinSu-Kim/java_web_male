@@ -11,11 +11,14 @@ insert into category_s values('0','7','1','아시아 신문,저널리즘 등');
 insert into category_s values('1','1','4','공간');
 insert into publisher values('P001','영남인제교육원');
 
+INSERT INTO proj_library.book_rental_info
+(rental_date, return_date, return_schedule, member_no, book_code)
+VALUES('', '', '', '', '');
 
 
 
-insert into book_rental_info values(5,'2018-12-10','2018-12-17',null,'2','0000000001');
-insert into book_rental_info values(6,'2018-12-11','2018-12-17',null,'3','0000000002');
+insert into book_rental_info values(1,'2018-12-10',null,'2018-12-17','J0011','0000000001');
+insert into book_rental_info values(6,'2018-12-11','2018-12-17',null,'J0011','0000000003');
 ---- 프로시저 생성하기 -----
 delimiter $$
 CREATE PROCEDURE `proj_library`.`search_membername`(in korname char(50))
@@ -284,6 +287,11 @@ where left(book_code, 1) != 'D'
 
 select rental_no FROM proj_library.book_rental_info
    		where book_code='00001';
+
+   	
+   	
+   	
+
 
 <<<<<<< HEAD
 UPDATE proj_library.book
