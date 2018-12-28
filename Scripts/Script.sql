@@ -11,11 +11,14 @@ insert into category_s values('0','7','1','아시아 신문,저널리즘 등');
 insert into category_s values('1','1','4','공간');
 insert into publisher values('P001','영남인제교육원');
 
+INSERT INTO proj_library.book_rental_info
+(rental_date, return_date, return_schedule, member_no, book_code)
+VALUES('', '', '', '', '');
 
 
 
-insert into book_rental_info values(5,'2018-12-10','2018-12-17',null,'2','0000000001');
-insert into book_rental_info values(6,'2018-12-11','2018-12-17',null,'3','0000000002');
+insert into book_rental_info values(1,'2018-12-10',null,'2018-12-17','J0011','0000000001');
+insert into book_rental_info values(6,'2018-12-11','2018-12-17',null,'J0011','0000000003');
 ---- 프로시저 생성하기 -----
 delimiter $$
 CREATE PROCEDURE `proj_library`.`search_membername`(in korname char(50))
@@ -82,7 +85,7 @@ values (7,'2018-12-10',null,'2018-12-17' ,'2','1110000005');
 SELECT *
 from member;
 
-insert into `member` values("3","gfkrtkf", "서동준", "kiggay","01022306796","921012","tjehdxo2002@","비밀","하핫",1,"하말없음");
+insert into `member` values("3","gfkrtkf", "서동준", "kiggay","01022306796","921012-1647545","tjehdxo2002@","비밀","하핫",1,"하말없음");
 
 insert into member values("10",password("king"),"노예1","slave1","010-2343-4533", concat(left('201012-1685651', 8),password(right('201012-1685651', 6)) ),"slave@naever.com","비밀","히히",0,"저는 노예입니다.");
 
@@ -94,11 +97,12 @@ select '201012-1685651', left('201012-1685651', 6), password(right('201012-16856
 
 
 select jumin
-from member;
+from member
+where member_no = 'S0002';
 
-select password, password('king')
+select jumin, jumin('921012-1685616')
 from `member`
-where member_no = 'K0001';
+where member_no = 's0002';
 
 call search_memberno("2");
 call search_membername("김동준");
@@ -114,9 +118,6 @@ from member m join book_rental_info r on m.member_no = r.member_no
 	join book b on b.book_code =  r.book_code
 	where kor_name="김동준";
 
-
-select member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, memo
-from member;
 
 INSERT INTO proj_library.book
 (book_code, book_no, pub_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no)

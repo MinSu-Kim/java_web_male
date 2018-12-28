@@ -185,6 +185,10 @@ CREATE TABLE proj_library.post (
 )
 COMMENT '우편번호';
 
+create table day (
+	daty date null
+);
+
 -- 책
 ALTER TABLE proj_library.book
 	ADD CONSTRAINT FK_category_s_TO_Book -- FK_category_s_TO_Book
@@ -226,6 +230,7 @@ ALTER TABLE proj_library.book_rental_info
 		REFERENCES proj_library.book ( -- 책
 			book_code -- 도서번호
 		)ON UPDATE CASCADE,
+		
 	ADD INDEX FK_Book_TO_book_rent_info (
 		book_code -- 도서번호
 	);
@@ -238,7 +243,7 @@ ALTER TABLE proj_library.book_rental_info
 		)
 		REFERENCES proj_library.member ( -- 회원
 			member_no -- 회원번호
-		),
+		)ON UPDATE CASCADE,
 	ADD INDEX FK_member_TO_book_rent_info (
 		member_no -- 회원번호
 	);
@@ -280,7 +285,7 @@ ALTER TABLE proj_library.member_rental_info
 		)
 		REFERENCES proj_library.member ( -- 회원
 			member_no -- 회원번호
-		);
+		)ON UPDATE CASCADE;
 
 -- 연체정보
 ALTER TABLE proj_library.overdue
@@ -290,7 +295,7 @@ ALTER TABLE proj_library.overdue
 		)
 		REFERENCES proj_library.member ( -- 회원
 			member_no -- 회원번호
-		);
+		)ON UPDATE CASCADE;
 		
 CREATE USER 'user_library'@'%';
 ALTER USER 'user_library'@'%'

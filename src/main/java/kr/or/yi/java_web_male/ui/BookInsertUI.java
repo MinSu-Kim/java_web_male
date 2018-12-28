@@ -56,7 +56,6 @@ public class BookInsertUI extends JFrame implements ActionListener {
 	private JButton btnImage;
 	private JButton btnCancel;
 	private JButton btnInsert;
-
 	private JLabel lblImage;
 	private DefaultComboBoxModel<CategoryB> modelB;
 	private DefaultComboBoxModel<CategoryM> modelM;
@@ -64,30 +63,26 @@ public class BookInsertUI extends JFrame implements ActionListener {
 	private CategoryB cateB;
 	private CategoryM cateM;
 	private CategoryS cateS;
-
+	private CategoryB b;
+	private CategoryM m;
+	private CategoryS s;
+	private boolean cateBview;
+	private boolean cateMview;
+	private boolean cateSview;
 	private String pathName;
 	private String fileName;
 	private String imgPath;
-
-	private Book selectedBook;
-	private String pubName;
-
 	private BookInsertService service;
 
-
 	public BookInsertUI() {
-
-
-
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 		service = new BookInsertService();
-
 		initComponents();
 	}
 
 	private void initComponents() {
 		setTitle("도서 추가");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 611);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -128,39 +123,66 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		JLabel lblNewLabel_3 = new JLabel("도서 분류");
 		panel_2.add(lblNewLabel_3);
 
-		List<CategoryB> bList = service.selectCategoryBByAll();
-
-		modelB = new DefaultComboBoxModel<>(new Vector<>(bList));
+		List<CategoryB> blist = service.selectCategoryBByAll();
+		b = new CategoryB();
+		b.setbName("");
+		blist.add(0, b);
+		modelB = new DefaultComboBoxModel<>(new Vector<>(blist));
 		comboCateB = new JComboBox(modelB);
+		comboCateB.setSelectedItem(b);
 		comboCateB.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
+				if (comboCateB.getSelectedItem().equals(b)) {
+					cateBview = false;
+					if (m != null) {
+						modelM = new DefaultComboBoxModel<>(new Vector<>());
+						comboCateB.setModel(modelM);
+						comboCateB.setEnabled(false);
+						comboCateB.setEnabled(false);
+					}
+					return;
+				}
 				cateB = (CategoryB) comboCateB.getSelectedItem();
+				cateBview = true;
 				List<CategoryM> mList = service.selectCategoryMByBNo(cateB);
+				m = new CategoryM();
+				m.setmName("");
+				mList.add(0, m);
 				modelM = new DefaultComboBoxModel<>(new Vector<>(mList));
-				comboCateM.removeAll();
 				comboCateM.setModel(modelM);
+				comboCateM.setSelectedItem(m);
 				comboCateM.setEnabled(true);
 				comboCateS.setEnabled(false);
 			}
 		});
 		panel_2.add(comboCateB);
-
-		List<CategoryM> mList = service.selectCategoryMByAll();
-		modelM = new DefaultComboBoxModel<>(new Vector<>(mList));
-		comboCateM = new JComboBox(modelM);
+		
+		comboCateM = new JComboBox();
 		comboCateM.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
+				if (comboCateM.getSelectedItem().equals(m)) {
+					cateMview = false;
+					if (s != null) {
+						modelS = new DefaultComboBoxModel<>(new Vector<>());
+						comboCateS.setModel(modelS);
+						comboCateS.setEnabled(false);
+					}
+					return;
+				}
 				cateM = (CategoryM) comboCateM.getSelectedItem();
-				List<CategoryS> sList = service.selectCategorySByBNoMno(cateM);
-				System.out.println(sList);
-				modelS = new DefaultComboBoxModel<>(new Vector<>(sList));
-				comboCateS.removeAll();
+				List<CategoryS> slist = service.selectCategorySByBNoMno(cateM);
+				s = new CategoryS();
+				s.setsName("");
+				slist.add(0, s);
+				modelS = new DefaultComboBoxModel<>(new Vector<>(slist));
 				comboCateS.setModel(modelS);
+				comboCateM.setSelectedItem(s);
 				comboCateS.setEnabled(true);
+				cateMview = true;
 			}
 		});
 		comboCateM.setEnabled(false);
@@ -168,12 +190,17 @@ public class BookInsertUI extends JFrame implements ActionListener {
 
 		List<CategoryS> sList = service.selectCategorySByAll();
 		modelS = new DefaultComboBoxModel<>(new Vector<>(sList));
-		comboCateS = new JComboBox(modelS);
+		comboCateS = new JComboBox();
 		comboCateS.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged(ItemEvent e) {
+				if (comboCateS.getSelectedItem().equals(s)) {
+					cateSview = false;
+					return;
+				}
 				cateS = (CategoryS) comboCateS.getSelectedItem();
+				cateSview = true;
 			}
 		});
 		comboCateS.setEnabled(false);
@@ -252,10 +279,8 @@ public class BookInsertUI extends JFrame implements ActionListener {
 
 		publisher.setPubName(tfPub.getText().trim());
 
-
 		if (service.selectPublisherByName(publisher) != null) {
 			pubNo = service.selectPublisherByName(publisher).getPubNo();
-
 			publisher.setPubNo(pubNo);
 		} else {
 			i = service.selectPublisherByAll().size() + 1;
@@ -270,10 +295,12 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		book.setAuthor(tfAuthor.getText());
 		book.setTranslator(tfTrans.getText());
 		book.setPrice(Integer.parseInt(tfPrice.getText().trim()));
+		book.setRentalPossible(true);
+		book.setImage(fileName);
 		book.setCateBNo(cateB);
 		book.setCateMNo(cateM);
 		book.setCateSNo(cateS);
-		book.setImage(fileName);
+		System.out.println(book);
 
 		map.put("title", book.getTitle());
 		map.put("author", book.getAuthor());
@@ -330,37 +357,5 @@ public class BookInsertUI extends JFrame implements ActionListener {
 			fileName = chooser.getSelectedFile().getName();
 			lblImage.setIcon(new ImageIcon(imgPath + fileName));
 		}
-	}
-
-	public void setBookInfo(Book selectedBook, String PubName) {
-		this.selectedBook = selectedBook;
-		this.pathName = PubName;
-		JOptionPane.showMessageDialog(null, PubName);
-
-	}
-
-	public void loadTable() {
-		tfBookCode.setText(selectedBook.getBookCode());
-		comboCateB.setSelectedIndex(selectedBook.getCateBNo().getbCode());
-		
-		
-		comboCateM.setSelectedIndex(selectedBook.getCateMNo().getmCode());
-		comboCateS.setSelectedIndex(selectedBook.getCateSNo().getsCode());
-		tfTitle.setText(selectedBook.getTitle());
-		tfPub.setText(pathName);
-		lblImage.setText("");
-		if(selectedBook.getImage()==null||selectedBook.getImage().trim().equals("")) {
-			lblImage.setIcon(new ImageIcon(imgPath + "book1.jpg"));
-		}else {
-			lblImage.setIcon(new ImageIcon(imgPath + selectedBook.getImage()));
-		}
-		JOptionPane.showMessageDialog(null, selectedBook.getImage());
-		tfAuthor.setText(selectedBook.getAuthor());
-		tfTrans.setText(selectedBook.getTranslator());
-		tfPrice.setText((selectedBook.getPrice() + "").trim());
-		btnInsert.setText("수정");
-		btnCancel.setText("되돌리기");
-		btnImage.setText("사진 수정");
-
 	}
 }

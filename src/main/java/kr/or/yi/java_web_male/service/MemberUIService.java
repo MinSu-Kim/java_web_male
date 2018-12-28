@@ -59,7 +59,9 @@ public class MemberUIService {
 	public List<Member> selectMemberByNoList(Member member) {
 		return dao.selectMemberByNoList(member);
 	}
-	
+	public List<Member> selectMemberByNojumin(Member member){
+		return dao.selectMemberByNojumin(member);
+	}
 	public int updateMemberRentalInfo(MemberRentalInfo memberRentalInfo) {
 		return dao1.updateMemberRentalInfo(memberRentalInfo);
 	}
@@ -107,5 +109,8 @@ public class MemberUIService {
 
 	public List<Member> selectMemberByMemberNo(){
 		return dao.selectMemberByMemberNo();
+	}
+	public int deleteMemberNo(Map<String, Object> map){
+		return dao.deleteMemberNo(map);
 	}
 }
