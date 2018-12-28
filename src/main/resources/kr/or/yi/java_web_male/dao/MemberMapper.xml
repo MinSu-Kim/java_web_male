@@ -13,7 +13,14 @@
 	<sql id="whereSql">
 		<where>
 			<if test="memberNo != null">
-				member_no = #{memberNo};
+				member_no = #{memberNo}
+			</if>
+		</where>
+	</sql>
+	<sql id="whereSqljumin">
+		<where>
+			<if test="jumin != null">
+				jumin = concat(left(#{jumin},8),password(right(#{jumin},6)))
 			</if>
 		</where>
 	</sql>
@@ -128,7 +135,13 @@
 		<include refid="selectSql" />
 		<include refid="whereRegEXP"></include>
 	</select>
-
+	
+	<select id="selectMemberByNojumin" parameterType="Member"
+		resultType="Member">
+		<include refid="selectSql" />
+		<include refid="whereSqljumin"></include>
+	</select>
+	
 	<sql id="whereNameAndPhone">
 		<where>
 			<if test="korName != null">
@@ -153,10 +166,18 @@
 		WHERE member_no= #{memberNo}
 	</update>
 
+	<update id="deleteMemberNo" parameterType="Member">
+	 		UPDATE member
+	 		set Member_no = #{newMemberNo}, password = #{password}
+	 		where member_no = #{memberNo}
+	</update>
+
+
 	<select id="loginCheck" resultMap="MemberResult">
 		select member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness
 		from member
 		where member_no = #{memberNo} and password = password(#{password});
 	</select>
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
 
 </mapper>

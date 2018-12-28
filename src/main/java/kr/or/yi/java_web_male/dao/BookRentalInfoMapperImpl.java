@@ -82,7 +82,6 @@ public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 	}
 
 	@Override
-
 	public int updateReturnDate(BookRentalInfo bookRentalInfo) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
 			int res = sqlSession.update(namespace + ".updateReturnDate", bookRentalInfo);

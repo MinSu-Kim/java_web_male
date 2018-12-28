@@ -12,6 +12,9 @@ import javax.swing.table.DefaultTableModel;
 import kr.or.yi.java_web_male.dto.Member;
 import java.awt.Dimension;
 import java.text.SimpleDateFormat;
+import javax.swing.border.TitledBorder;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class MemberRent extends JPanel {
 	private JTable table;
@@ -24,6 +27,7 @@ public class MemberRent extends JPanel {
 	 * Create the panel.
 	 */
 	public MemberRent() {
+		setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "대여정보보기", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		setPreferredSize(new Dimension(600, 100));
 		setLayout(new BorderLayout(0, 0));
 		
@@ -41,7 +45,7 @@ public class MemberRent extends JPanel {
 				));
 	}
 	private Object[] getCoulum() {
-		return new String[] {"회원번호","이름","제목","대여날짜","반납예정일"};
+		return new String[] {"책번호","책제목","대여날짜","반납예정일"};
 	}
 	private Object[][] getdatas() {
 		Object[][] datas = new Object[list.size()][];
@@ -53,8 +57,8 @@ public class MemberRent extends JPanel {
 	private Object[] getRow(Member member) {
 		SimpleDateFormat date= new SimpleDateFormat("yyyy/MM/dd");
 		
-		return new Object[] {member.getMemberNo(),
-				 member.getKorName(),
+		return new Object[] {
+				 member.getBook().getBookNo(),
 				 member.getBook().getTitle(),
 				 date.format(member.getBookRentallInfo().getRentalDate()),
 				 date.format( member.getBookRentallInfo().getReturnSchedule())

@@ -18,12 +18,15 @@ public interface MemberMapper {
 	int deleteMember(int id);
 
 	int deleteMember(String id);
-
+	
+	int deleteMemberNo(Map<String, Object> map);
+	
 	Member selectMemberByNo(String member);
 	
 	List<Member> selectMemberByMemberNo();
 	
 	List<Member> selectMemberByNoList(Member member);
+	
 	
 	//프로시저 해시맵
 //	List<Map<String, String>> searchMemberNo(Map<String, String> map);
@@ -39,6 +42,8 @@ public interface MemberMapper {
 	Member searchIdAndPw(Map<String, Object> map);
 	
 	int changePW(Map<String, Object> map);
+
+	List<Member> selectMemberByNojumin(Member member);
 	
 	Member loginCheck(Map<String, Object> map);
 }
