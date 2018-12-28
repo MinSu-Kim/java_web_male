@@ -27,13 +27,16 @@ public class MemberUIService {
 		return dao.selectMemberByAll();
 	}
 
-	public Member searchMemberNo(Map<String, String> map) {
+	/*public Member searchMemberNo(Map<String, String> map) {
+		return dao.searchMemberNo(map);
+	}*/
+	public List<Member> searchMemberNo(Map<String, String> map) {
 		return dao.searchMemberNo(map);
 	}
 	public List<Member> searchMemberName(Map<String, String> map) {
 		return dao.searchMemberName(map);
 	}
-	public Member searchMemberPhone(Map<String, String> map) {
+	public List<Member> searchMemberPhone(Map<String, String> map) {
 		return dao.searchMemberPhone(map);
 	}
 
@@ -80,6 +83,7 @@ public class MemberUIService {
 	public MemberRentalInfo selectMemberGradeByCode(MemberRentalInfo memberRentalInfo) {
 		return dao1.selectMemberGradeByCode(memberRentalInfo);
 	}
+
 	
 	public Overdue selectOverdueByCode(Overdue overdue) {
 		return dao2.selectOverdueByCode(overdue);
@@ -92,5 +96,8 @@ public class MemberUIService {
 	public int updateStopDate(Overdue overdue) {
 		return dao2.updateStopDate(overdue);
 	}
-	
+
+	public List<Member> selectMemberByMemberNo(){
+		return dao.selectMemberByMemberNo();
+	}
 }

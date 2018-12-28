@@ -170,9 +170,9 @@ public class MemberSearchUI extends JFrame {
 	private void searchNo() {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("memberNo", textField.getText());
-		Member member = service.searchMemberNo(map);
+		List<Member> member = service.searchMemberNo(map);
 		List<Member> list = new ArrayList<>();
-		list.add(member);
+		list.addAll(member);
 		Slist.setLists(list);
 		Slist.loadData();
 	}
@@ -191,9 +191,9 @@ public class MemberSearchUI extends JFrame {
 	private void searchPhone() {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("phone", textField.getText());
-		Member member = service.searchMemberPhone(map);
+		List<Member> member = service.searchMemberPhone(map);
 		List<Member> list = new ArrayList<>();
-		list.add(member);
+		list.addAll(member);
 		Slist.setLists(list);
 		Slist.loadData();
 	}

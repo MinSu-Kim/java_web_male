@@ -1,6 +1,7 @@
 package kr.or.yi.java_web_male.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
@@ -20,8 +21,10 @@ public interface BookRentalInfoMapper {
 	int nextCode();
 
 	List<BookRentalInfo> selectBookRentalMemberInfo(Member member);
-	
-	BookRentalInfo selectRentalNoByBookCode (BookRentalInfo bookRentalInfo);
-	
+
+	BookRentalInfo selectRentalNoByBookCode(BookRentalInfo bookRentalInfo);
+
 	int updateReturnDate(BookRentalInfo bookRentalInfo);
+
+	List<BookRentalInfo> selectRentalBookInfoByCategoryB(Member member);
 }

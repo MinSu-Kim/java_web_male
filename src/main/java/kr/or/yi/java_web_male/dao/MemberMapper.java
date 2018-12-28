@@ -27,12 +27,12 @@ public interface MemberMapper {
 	
 	//프로시저 해시맵
 //	List<Map<String, String>> searchMemberNo(Map<String, String> map);
-	Member searchMemberNo(Map<String, String> map);
+	List<Member> searchMemberNo(Map<String, String> map);
 
 	/*Member searchMemberName(Map<String, String> map);*/
 	List<Member> searchMemberName(Map<String, String> map);
 	
-	Member searchMemberPhone(Map<String, String>map);
+	List<Member> searchMemberPhone(Map<String, String>map);
 	//대여된 책 확인하기 해쉬맵
 	List<Member> searchMembernoRent(Map<String, String> map);
 	
