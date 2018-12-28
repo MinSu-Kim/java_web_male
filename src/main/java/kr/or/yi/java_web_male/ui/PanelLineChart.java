@@ -48,14 +48,7 @@ public class PanelLineChart extends JFXPanel implements InitScene {
 
 	private ObservableList<XYChart.Series<String, Number>> getChartData() {
 		ObservableList<XYChart.Series<String, Number>> list = FXCollections.observableArrayList();
-
-		
-		Student std01 = new Student("S001", "현빈", 90, 80, 80);
-		Student std02 = new Student("S002", "박신혜", 50, 60, 95);
-
-		list.add(getChartData(std01));
-		list.add(getChartData(std02));
-
+//		list.add(getChartData());
 		return list;
 	}
 
