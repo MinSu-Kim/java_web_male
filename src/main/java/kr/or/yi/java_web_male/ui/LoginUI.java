@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.service.LoginService;
+import kr.or.yi.java_web_male.service.LoginUIService;
 
 @SuppressWarnings("serial")
 public class LoginUI extends JFrame implements ActionListener {
@@ -40,10 +42,15 @@ public class LoginUI extends JFrame implements ActionListener {
 	private AdminMainUI adminMainUI;
 	private MemberInfoUI memberInfoUI;
 	private BookSearchUI bookSearchUI;
+
+	private OverduePopUpUI overduePopUpUI;
+
 	private MemberRegisterUI memberRegisterUI;
 	private FindIdPasswdUI findIdPasswdUI;
+
 	private String imgPath;
 	private LoginService service;
+	private LoginUIService serviceUI;
 
 	public static final Member getLogin() {
 		return loginMember;
@@ -76,6 +83,7 @@ public class LoginUI extends JFrame implements ActionListener {
 
 	public LoginUI() {
 		service = new LoginService();
+		serviceUI = new LoginUIService();
 		initComponent();
 	}
 
@@ -87,7 +95,7 @@ public class LoginUI extends JFrame implements ActionListener {
 
 		setTitle("로그인");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 536, 135);
+		setBounds(100, 100, 536, 275);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -166,12 +174,20 @@ public class LoginUI extends JFrame implements ActionListener {
 
 		try {
 			if (member != null) {
+
 				loginMember = member;
 				if (member.isAdmin() == true) {
 					if (adminMainUI == null) {
+						
+						JOptionPane.showMessageDialog(null, serviceUI.selectDate());
+						if(serviceUI.selectDate() != 0) {
+							overduePopUpUI = new OverduePopUpUI();
+						}
 						adminMainUI = new AdminMainUI();
+
 					}
 					adminMainUI.setVisible(true);
+					overduePopUpUI.setVisible(true);
 				} else {
 					if (memberInfoUI == null) {
 						memberInfoUI = new MemberInfoUI();

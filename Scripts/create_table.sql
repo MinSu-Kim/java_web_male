@@ -183,6 +183,10 @@ CREATE TABLE proj_library.post (
 )
 COMMENT '우편번호';
 
+create table day (
+	daty date null
+);
+
 -- 책
 ALTER TABLE proj_library.book
 	ADD CONSTRAINT FK_category_s_TO_Book -- FK_category_s_TO_Book
