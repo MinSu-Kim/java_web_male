@@ -56,7 +56,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	private void initComponent() {
-		setTitle("내 정보");
+		setTitle("[사용자] " + LoginUI.getLogin().getKorName() + "님 환영합니다.");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 550, 590);
 		contentPane = new JPanel();

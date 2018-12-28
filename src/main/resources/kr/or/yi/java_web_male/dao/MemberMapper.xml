@@ -153,5 +153,10 @@
 		WHERE member_no= #{memberNo}
 	</update>
 
+	<select id="loginCheck" resultMap="MemberResult">
+		select member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness
+		from member
+		where member_no = #{memberNo} and password = password(#{password});
+	</select>
 
 </mapper>

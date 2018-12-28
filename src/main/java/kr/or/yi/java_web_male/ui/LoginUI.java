@@ -4,17 +4,21 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
+
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.service.LoginService;
 
@@ -36,6 +40,8 @@ public class LoginUI extends JFrame implements ActionListener {
 	private AdminMainUI adminMainUI;
 	private MemberInfoUI memberInfoUI;
 	private BookSearchUI bookSearchUI;
+	private MemberRegisterUI memberRegisterUI;
+	private FindIdPasswdUI findIdPasswdUI;
 	private String imgPath;
 	private LoginService service;
 
@@ -153,31 +159,29 @@ public class LoginUI extends JFrame implements ActionListener {
 	}
 
 	protected void do_btnLogin_actionPerformed(ActionEvent arg0) {
-		String id = tfMemberNo.getText().trim();
-		String pw = tfPassword.getText().trim();
-		Member member = service.selectMemberByNo(id);
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberNo", tfMemberNo.getText().trim());
+		map.put("password", tfPassword.getText().trim());
+		Member member = service.loginCheck(map);
 
 		try {
 			if (member != null) {
-				if (member.getPassword().equals(pw)) {
-					loginMember = member;
-					if (member.isAdmin() == true) {
-						if (adminMainUI == null) {
-							adminMainUI = new AdminMainUI();
-						}
-						adminMainUI.setVisible(true);
-					} else {
-						if (memberInfoUI == null) {
-							memberInfoUI = new MemberInfoUI();
-						}
-						memberInfoUI.setVisible(true);
+				loginMember = member;
+				if (member.isAdmin() == true) {
+					if (adminMainUI == null) {
+						adminMainUI = new AdminMainUI();
 					}
-					dispose();
+					adminMainUI.setVisible(true);
 				} else {
-					failLogin();
+					if (memberInfoUI == null) {
+						memberInfoUI = new MemberInfoUI();
+					}
+					memberInfoUI.setVisible(true);
 				}
+				dispose();
 			} else {
 				failLogin();
+				JOptionPane.showMessageDialog(null, "로그인 실패");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -195,9 +199,13 @@ public class LoginUI extends JFrame implements ActionListener {
 	}
 
 	protected void do_btnSignUp_actionPerformed(ActionEvent e) {
+		memberRegisterUI = new MemberRegisterUI();
+		memberRegisterUI.setVisible(true);
 	}
 
 	protected void do_btnFind_actionPerformed(ActionEvent e) {
+		findIdPasswdUI = new FindIdPasswdUI();
+		findIdPasswdUI.setVisible(true);
 	}
 
 	protected void do_btnSearch_actionPerformed(ActionEvent e) {

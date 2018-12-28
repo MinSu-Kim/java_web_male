@@ -104,7 +104,7 @@ public class MemberRegisterUI extends JFrame {
 	public MemberRegisterUI() {
 		service = new MemberUIService();
 		imgPath = System.getProperty("user.dir") + "\\images\\";		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 689, 543);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

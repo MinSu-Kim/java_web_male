@@ -132,5 +132,11 @@ public class MemberMapperImpl implements MemberMapper {
 			return res;
 		}
 	}
+	@Override
+	public Member loginCheck(Map<String, Object> map) {
+		try (SqlSession sqlSesion = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSesion.selectOne(namespace + ".loginCheck", map);
+		}
+	}
 	
 }

@@ -20,6 +20,7 @@ import kr.or.yi.java_web_male.dao.MemberMapperImpl;
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.service.MemberModService;
 import kr.or.yi.java_web_male.ui.LoginUI;
+import javax.swing.BoxLayout;
 
 @SuppressWarnings("serial")
 public class MemberModUI extends JFrame implements ActionListener {
@@ -44,6 +45,7 @@ public class MemberModUI extends JFrame implements ActionListener {
 	private String fileName;
 	private String imgPath;
 	private MemberModService service;
+	private JButton btnCancel;
 
 	public MemberModUI() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
@@ -53,7 +55,7 @@ public class MemberModUI extends JFrame implements ActionListener {
 
 	private void initComponents() {
 		setTitle("회원정보 변경");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 509);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -157,7 +159,8 @@ public class MemberModUI extends JFrame implements ActionListener {
 		btnChange.addActionListener(this);
 		contentPane.add(btnChange);
 
-		JButton btnCancel = new JButton("취소");
+		btnCancel = new JButton("취소");
+		btnCancel.addActionListener(this);
 		contentPane.add(btnCancel);
 
 		getMemberInfo(LoginUI.getLogin());
@@ -165,6 +168,9 @@ public class MemberModUI extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCancel) {
+			do_btnCancel_actionPerformed(e);
+		}
 		if (e.getSource() == btnPhoto) {
 			do_btnPhoto_actionPerformed(e);
 		}
@@ -235,5 +241,8 @@ public class MemberModUI extends JFrame implements ActionListener {
 			fileName = chooser.getSelectedFile().getName();
 			lblPhoto.setIcon(new ImageIcon(imgPath + fileName));
 		}
+	}
+	protected void do_btnCancel_actionPerformed(ActionEvent e) {
+		this.setVisible(false);
 	}
 }
