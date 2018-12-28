@@ -87,7 +87,7 @@ public class LoginUI extends JFrame implements ActionListener {
 
 		setTitle("로그인");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 259);
+		setBounds(100, 100, 536, 135);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
