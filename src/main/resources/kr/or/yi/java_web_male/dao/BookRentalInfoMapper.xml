@@ -96,6 +96,11 @@
    		where book_code=#{bookCode.bookCode}
    </select>
    
+   <select id="selectRentalNoByBookCode_returnDateNull" parameterType="BookRentalInfo" resultMap="selectRentalNoByBookCodeResult">
+   		select rental_no, member_no, return_date, return_schedule, rental_date FROM proj_library.book_rental_info
+   		where book_code=#{bookCode.bookCode} and return_date is null
+   </select>
+   
    <update id="updateReturnDate" parameterType="BookRentalInfo">
    		UPDATE proj_library.book_rental_info
    		SET return_date=#{returnDate}

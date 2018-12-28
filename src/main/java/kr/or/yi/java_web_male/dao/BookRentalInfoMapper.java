@@ -27,4 +27,6 @@ public interface BookRentalInfoMapper {
 	int updateReturnDate(BookRentalInfo bookRentalInfo);
 
 	List<BookRentalInfo> selectRentalBookInfoByCategoryB(Member member);
+	
+	BookRentalInfo selectRentalNoByBookCode_returnDateNull(BookRentalInfo bookRentalInfo);
 }

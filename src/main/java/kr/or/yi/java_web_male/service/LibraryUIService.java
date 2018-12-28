@@ -116,5 +116,9 @@ public class LibraryUIService {
 	public int updateReturnDate (BookRentalInfo bookRentalInfo) {
 		return bookRentalInfoMapper.updateReturnDate(bookRentalInfo);
 	}
-
+	
+	public BookRentalInfo selectRentalNoByBookCode_returnDateNull (BookRentalInfo bookRentalInfo) {
+		return bookRentalInfoMapper.selectRentalNoByBookCode_returnDateNull(bookRentalInfo);
+	}
+	
 }

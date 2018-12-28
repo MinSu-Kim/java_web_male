@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,7 +17,11 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.dto.MemberRentalInfo;
+import kr.or.yi.java_web_male.dto.Overdue;
+import kr.or.yi.java_web_male.service.LibraryUIService;
 import kr.or.yi.java_web_male.service.LoginService;
+import kr.or.yi.java_web_male.service.MemberUIService;
 
 @SuppressWarnings("serial")
 public class LoginUI extends JFrame implements ActionListener {
@@ -38,6 +43,8 @@ public class LoginUI extends JFrame implements ActionListener {
 	private BookSearchUI bookSearchUI;
 	private String imgPath;
 	private LoginService service;
+	private MemberUIService memberUIService;
+	private LibraryUIService libraryUIService;
 
 	public static final Member getLogin() {
 		return loginMember;
@@ -183,6 +190,27 @@ public class LoginUI extends JFrame implements ActionListener {
 			e.printStackTrace();
 			failLogin();
 		}
+		
+		/*--------------------------정지일수 업데이트-----------------------------*/
+		
+		
+		Member member1 = new Member();
+		member1.setMemberNo(tfMemberNo.getText());
+		
+		String mNo = String.valueOf(member1);
+		
+		Overdue overdue = new Overdue();
+		overdue.setMemberNo(mNo);
+		
+		Overdue selectOverdue = memberUIService.selectOverdueByCode(overdue);
+		
+		Date overdueDate = selectOverdue.getOverdueDate();
+		
+		
+		
+		
+		
+		
 	}
 
 	private void failLogin() {

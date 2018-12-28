@@ -97,4 +97,11 @@ public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 
 		}
 	}
+
+	@Override
+	public BookRentalInfo selectRentalNoByBookCode_returnDateNull(BookRentalInfo bookRentalInfo) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectOne(namespace + ".selectRentalNoByBookCode_returnDateNull", bookRentalInfo);
+		}
+	}
 }

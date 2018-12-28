@@ -114,7 +114,7 @@ public class BookReturnUI extends JFrame {
 				BookRentalInfo BookRentalInfo = new BookRentalInfo();
 				BookRentalInfo.setBookCode(book);
 				
-				BookRentalInfo BookRentalNo = service.selectRentalNoByBookCode(BookRentalInfo);
+				BookRentalInfo BookRentalNo = service.selectRentalNoByBookCode_returnDateNull(BookRentalInfo);
 				
 				
 				int no = BookRentalNo.getRentalNo();
@@ -131,10 +131,8 @@ public class BookReturnUI extends JFrame {
 				bookRentalInfo.setReturnDate(returndate);
 				
 				
-				JOptionPane.showMessageDialog(null, bookRentalInfo.getRentalNo() );
-				JOptionPane.showMessageDialog(null, bookRentalInfo.getReturnDate() );
+				
 				int returnUpdate = service.updateReturnDate(bookRentalInfo);
-				JOptionPane.showMessageDialog(null, "완료" );
 				
 				//대여가능권수 +1
 				String mNo = String.valueOf(BookRentalNo.getMemberNo());
@@ -144,40 +142,71 @@ public class BookReturnUI extends JFrame {
 				
 				int updateNowTotal = memberUIService.updateMemberRentalInfo2(memberRentalInfo);
 				
-				Date returnDate = BookRentalNo.getReturnDate();
+				
+				//대여한 책의 대여가능여부 변경
+				 book.setRentalPossible(true);
+				 int updatePossible = service.updateBookPossible(book);
+				
+				Date returnDate = bookRentalInfo.getReturnDate();
 				Date returnSchedule = BookRentalNo.getReturnSchedule();
 				
-				/*long a = (returnDate.getTime()-returnSchedule.getTime());
-				
-				JOptionPane.showMessageDialog(null, a);*/
-				
+				//정지일수 계산
+				Date date = new Date();
 				Calendar cal = Calendar.getInstance ( );
-				// 오늘로 설정.
-				cal.setTime ( returnDate );  
+				// 최신날짜
+				cal.setTime ( date );
+				
 				Calendar cal2 = Calendar.getInstance ( );
-				// 기준일로 설정. month의 경우 해당월수-1을 해줍니다.
+				// 과거날짜
 				cal2.setTime ( returnSchedule );  
 				
 				int count = 0;
 				while ( !cal2.after ( cal ) ) {
 				count++;
 				//다음날로 바뀜
-				cal2.add ( Calendar.DATE, 1 );  
+				cal2.add ( Calendar.DATE, 1 );   
 				System.out.println ( cal2.get ( Calendar.YEAR ) + "년 " + ( cal2.get ( Calendar.MONTH ) + 1 ) + "월 " + cal2.get ( Calendar.DATE ) + "일" );
 				}
-				System.out.println ( "기준일로부터 " + count + "일이 지났습니다." );
+				System.out.println ( "연체일은 " + count + "일 입니다." );
+				
+				
+				
+				
+				
+				
+				Overdue overdue = new Overdue();
+				overdue.setMemberNo(mNo);
+				
+				Overdue stopdate = memberUIService.selectOverdueByCode(overdue);
+				overdue.setStopDate(stopdate.getStopDate()+count);
+				overdue.setOverdueCount(stopdate.getOverdueCount()+count);
+				
+				
 
-
+				//연체 종료일 계산
+				Date today = new Date();
+				Calendar cal3 = Calendar.getInstance ( );
+				cal3.setTime(today);
+				cal3.add ( Calendar.DATE, stopdate.getStopDate()+count ); 
+				JOptionPane.showMessageDialog(null, cal3);
+				System.out.println( cal3.get ( Calendar.YEAR ) + "년 " + ( cal3.get ( Calendar.MONTH ) + 1 ) + "월 " + cal3.get ( Calendar.DATE ) + "일" );
+			
+			
+				Date d = new Date(cal3.getTimeInMillis());
 				
-				/*Overdue overdue = new Overdue();
-				overdue.setMemberNo(mNo);*/
+				overdue.setOverdueDate(d);
 				
+				int updateCount = memberUIService.updateCount(overdue);
+				int updateDate = memberUIService.updateStopDate(overdue);
+				int updateOverdueDate = memberUIService.updateOverdueDate(overdue);
 				
+				//정지일수가 1일이라도 있으면 대여권한 박탈
+				if(overdue.getStopDate() > 0 || overdue.getOverdueCount() > 100) {
+					overdue.setRentalAuthority(false);
+				}
 				
-				/*overdue.setRentalAuthority(false);
-				
-				int updateCount = memberUIService.updateCount(overdue);*/
-				
+				int updateAuthority = memberUIService.updateAuthority(overdue);
+				JOptionPane.showMessageDialog(null, "반납완료"+count+"일 연체되셨습니다.");
 				
 				
 			}

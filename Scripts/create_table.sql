@@ -146,10 +146,12 @@ CREATE TABLE proj_library.overdue (
 	member_no        VARCHAR(50) NOT NULL COMMENT '회원번호', -- 회원번호
 	stop_date        INT(11)     NULL     COMMENT '정지일수', -- 정지일수
 	overdue_count    INT(11)     NULL     COMMENT '연체횟수', -- 연체횟수
-	rental_authority TINYINT(1)  NULL     COMMENT '대여권한' -- 대여권한
+	rental_authority TINYINT(1)  NULL     COMMENT '대여권한', -- 대여권한
+	overdue_date     Date		 null     COMMENT '연체날짜'  -- 연체날짜
 )
 COMMENT '연체정보';
 
+drop table proj_library.overdue;
 -- 연체정보
 ALTER TABLE proj_library.overdue
 	ADD CONSTRAINT

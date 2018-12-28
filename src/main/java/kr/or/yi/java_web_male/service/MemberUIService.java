@@ -96,6 +96,14 @@ public class MemberUIService {
 	public int updateStopDate(Overdue overdue) {
 		return dao2.updateStopDate(overdue);
 	}
+	
+	public int updateAuthority(Overdue overdue) {
+		return dao2.updateAuthority(overdue);
+	}
+	
+	public int updateOverdueDate(Overdue overdue) {
+		return dao2.updateOverdueDate(overdue);
+	}
 
 	public List<Member> selectMemberByMemberNo(){
 		return dao.selectMemberByMemberNo();

@@ -246,7 +246,8 @@ select * from `member`;
 select * from member_rental_info;
 select * from overdue;
 delete from overdue where member_no = '123';
-insert into overdue values(123,0,0,0);
+insert into overdue values(123,0,0,0,null);
+insert into overdue values(2,0,0,0,null);
 
 INSERT INTO proj_library.book_rental_info
 (rental_date, return_date, return_schedule, member_no, book_code)
@@ -281,6 +282,8 @@ select * from member_rental_info;
 
 select * from overdue;
 
+select * from book;
+
 select * from book
 where left(book_code, 1) != 'D'
 
@@ -288,11 +291,12 @@ select rental_no FROM proj_library.book_rental_info
    		where book_code='00001';
 
    	
+   	select rental_no, member_no, return_date, return_schedule, rental_date FROM proj_library.book_rental_info
+   		where book_code='00001' and return_date is null;
    	
-   	
+select member_no, stop_date, overdue_count, rental_authority, overdue_date from overdue
+where member_no='2';
 
-
-<<<<<<< HEAD
 UPDATE proj_library.book
 		SET book_code='D0000000001'
 		WHERE book_code='0000000001';
@@ -302,4 +306,3 @@ select member_no, password, kor_name, eng_name, phone,
              ,substr(replace(regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1),'-'),1,7)||'******') jumin, email, address, photo, admin, uniqueness
 		from member;
 		
->>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
