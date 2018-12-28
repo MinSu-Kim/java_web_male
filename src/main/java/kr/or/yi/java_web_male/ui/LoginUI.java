@@ -32,7 +32,7 @@ public class LoginUI extends JFrame implements ActionListener {
 	private JButton btnSignUp;
 	private JButton btnFind;
 	private JButton btnSearch;
-	private JButton btnNewButton;
+	private JButton btnBest;
 	private AdminMainUI adminMainUI;
 	private MemberInfoUI memberInfoUI;
 	private BookSearchUI bookSearchUI;
@@ -76,9 +76,8 @@ public class LoginUI extends JFrame implements ActionListener {
 	private void initComponent() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 
-		setContentPane(new JLabel(new ImageIcon(imgPath + "7.jpg")));
+//		setContentPane(new JLabel(new ImageIcon(imgPath + "7.jpg")));
 		pack();
-		setVisible(true);
 
 		setTitle("로그인");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -116,7 +115,7 @@ public class LoginUI extends JFrame implements ActionListener {
 
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1);
-		panel_1.setLayout(new GridLayout(0, 3, 10, 10));
+		panel_1.setLayout(new GridLayout(0, 4, 10, 10));
 
 		btnSignUp = new JButton("회원가입");
 		btnSignUp.addActionListener(this);
@@ -130,14 +129,14 @@ public class LoginUI extends JFrame implements ActionListener {
 		btnSearch.addActionListener(this);
 		panel_1.add(btnSearch);
 
-		btnNewButton = new JButton("Best");
-		btnNewButton.addActionListener(this);
-		panel_1.add(btnNewButton);
+		btnBest = new JButton("Best");
+		btnBest.addActionListener(this);
+		panel_1.add(btnBest);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNewButton) {
-			do_btnNewButton_actionPerformed(e);
+		if (e.getSource() == btnBest) {
+			do_btnBest_actionPerformed(e);
 		}
 		if (e.getSource() == btnSearch) {
 			do_btnSearch_actionPerformed(e);
@@ -173,6 +172,7 @@ public class LoginUI extends JFrame implements ActionListener {
 						}
 						memberInfoUI.setVisible(true);
 					}
+					dispose();
 				} else {
 					failLogin();
 				}
@@ -206,7 +206,7 @@ public class LoginUI extends JFrame implements ActionListener {
 		bookSearchUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
-	protected void do_btnNewButton_actionPerformed(ActionEvent e) {
+	protected void do_btnBest_actionPerformed(ActionEvent e) {
 		BestUI bestUI = new BestUI();
 		bestUI.setVisible(true);
 		bestUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

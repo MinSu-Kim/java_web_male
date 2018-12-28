@@ -50,6 +50,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	public MemberInfoUI() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
+		loginUI = new LoginUI();
 		service = new MemberInfoService();
 		initComponent();
 	}
@@ -268,14 +269,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	protected void do_btnLogout_actionPerformed(ActionEvent e) {
 		LoginUI.memberLogOut();
-		if (memberInfoUI == null) {
-			memberInfoUI = new MemberInfoUI();
-		}
-		memberInfoUI.setVisible(false);
-
-		if (loginUI == null) {
-			loginUI = new LoginUI();
-		}
+		this.setVisible(false);
 		loginUI.setVisible(true);
 	}
 
