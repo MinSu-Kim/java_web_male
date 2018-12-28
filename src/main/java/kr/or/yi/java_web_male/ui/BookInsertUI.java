@@ -56,6 +56,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 	private JButton btnImage;
 	private JButton btnCancel;
 	private JButton btnInsert;
+
 	private JLabel lblImage;
 	private DefaultComboBoxModel<CategoryB> modelB;
 	private DefaultComboBoxModel<CategoryM> modelM;
@@ -63,14 +64,24 @@ public class BookInsertUI extends JFrame implements ActionListener {
 	private CategoryB cateB;
 	private CategoryM cateM;
 	private CategoryS cateS;
+
 	private String pathName;
 	private String fileName;
 	private String imgPath;
+
+	private Book selectedBook;
+	private String pubName;
+
 	private BookInsertService service;
 
+
 	public BookInsertUI() {
+
+
+
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 		service = new BookInsertService();
+
 		initComponents();
 	}
 
@@ -241,8 +252,10 @@ public class BookInsertUI extends JFrame implements ActionListener {
 
 		publisher.setPubName(tfPub.getText().trim());
 
+
 		if (service.selectPublisherByName(publisher) != null) {
 			pubNo = service.selectPublisherByName(publisher).getPubNo();
+
 			publisher.setPubNo(pubNo);
 		} else {
 			i = service.selectPublisherByAll().size() + 1;
@@ -317,5 +330,37 @@ public class BookInsertUI extends JFrame implements ActionListener {
 			fileName = chooser.getSelectedFile().getName();
 			lblImage.setIcon(new ImageIcon(imgPath + fileName));
 		}
+	}
+
+	public void setBookInfo(Book selectedBook, String PubName) {
+		this.selectedBook = selectedBook;
+		this.pathName = PubName;
+		JOptionPane.showMessageDialog(null, PubName);
+
+	}
+
+	public void loadTable() {
+		tfBookCode.setText(selectedBook.getBookCode());
+		comboCateB.setSelectedIndex(selectedBook.getCateBNo().getbCode());
+		
+		
+		comboCateM.setSelectedIndex(selectedBook.getCateMNo().getmCode());
+		comboCateS.setSelectedIndex(selectedBook.getCateSNo().getsCode());
+		tfTitle.setText(selectedBook.getTitle());
+		tfPub.setText(pathName);
+		lblImage.setText("");
+		if(selectedBook.getImage()==null||selectedBook.getImage().trim().equals("")) {
+			lblImage.setIcon(new ImageIcon(imgPath + "book1.jpg"));
+		}else {
+			lblImage.setIcon(new ImageIcon(imgPath + selectedBook.getImage()));
+		}
+		JOptionPane.showMessageDialog(null, selectedBook.getImage());
+		tfAuthor.setText(selectedBook.getAuthor());
+		tfTrans.setText(selectedBook.getTranslator());
+		tfPrice.setText((selectedBook.getPrice() + "").trim());
+		btnInsert.setText("수정");
+		btnCancel.setText("되돌리기");
+		btnImage.setText("사진 수정");
+
 	}
 }

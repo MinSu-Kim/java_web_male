@@ -20,4 +20,9 @@ public interface BookMapper {
 	
 	int updateBookPossible (Book book);
 	
+	int deleteBook(Map<String, Object> map);
+	
+	Book selectBookBybookCodeOne(Book book);
+
+	int updateBookMap(Map<String, Object> map);
 }
