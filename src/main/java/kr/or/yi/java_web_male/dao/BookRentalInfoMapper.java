@@ -22,8 +22,12 @@ public interface BookRentalInfoMapper {
 
 	List<BookRentalInfo> selectBookRentalMemberInfo(Member member);
 
+	int updateReturnDate(BookRentalInfo bookRentalInfo);
+	
 	BookRentalInfo selectRentalNoByBookCode(BookRentalInfo bookRentalInfo);
 
 	List<BookRentalInfo> selectRentalBookInfoByCategoryB(Member member);
+	
+	
 	
 }

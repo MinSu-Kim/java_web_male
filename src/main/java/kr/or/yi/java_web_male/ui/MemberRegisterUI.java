@@ -53,7 +53,6 @@ public class MemberRegisterUI extends JFrame {
 	private JTextField tFmemberNo;
 	private JTextField tfKor;
 	private JTextField tfEng;
-	private JTextField tfUni;
 	private JPasswordField pass1;
 	private JPasswordField pass2;
 	private JTextField tfEmail;
@@ -125,6 +124,8 @@ public class MemberRegisterUI extends JFrame {
 		panel_no.add(lblmemberNo);
 		
 		tFmemberNo = new JTextField();
+		tFmemberNo.setHorizontalAlignment(SwingConstants.CENTER);
+		tFmemberNo.setText("회원번호는 자동으로 부여됩니다.");
 		tFmemberNo.setEnabled(false);
 		panel_no.add(tFmemberNo);
 		tFmemberNo.setColumns(10);
@@ -355,18 +356,6 @@ public class MemberRegisterUI extends JFrame {
 		chckadmin.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_Admin.add(chckadmin);
 		
-		JPanel panel_Uni = new JPanel();
-		panel.add(panel_Uni);
-		panel_Uni.setLayout(new GridLayout(0, 2, 0, 0));
-		
-		JLabel lblUni = new JLabel("특이사항");
-		lblUni.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_Uni.add(lblUni);
-		
-		tfUni = new JTextField();
-		panel_Uni.add(tfUni);
-		tfUni.setColumns(10);
-		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(459, 5, 454, 494);
 		contentPane.add(panel_1);
@@ -387,6 +376,7 @@ public class MemberRegisterUI extends JFrame {
 					check();
 					getMember();
 					JOptionPane.showMessageDialog(null, "회원이 되신걸 축하드립니다.");
+				/*	dispose();*/
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				} catch(Exception e2) {
@@ -471,7 +461,6 @@ public class MemberRegisterUI extends JFrame {
 		member.setEmail(tfEmail.getText().trim()+"@"+tfEmail_2.getText().trim());
 		member.setAddress(tfAdd.getText().trim()+tfjuso.getText().trim());
 		member.setAdmin(chckadmin.isSelected());
-		member.setUniqueness(tfUni.getText().trim());
 		member.setPhoto(fileName);
 		int i = 0;	
 		
@@ -513,6 +502,7 @@ public class MemberRegisterUI extends JFrame {
 		}
 		String pw1 = new String(pass1.getPassword());
 		String pw2 = new String(pass2.getPassword());
+		String ju1 = new String(tfju1.getText());
 		String ju2 = new String(tfju2.getPassword());
 		String pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,}$";
 		Matcher matcher = Pattern.compile(pwPattern).matcher(pw1);
@@ -557,10 +547,14 @@ public class MemberRegisterUI extends JFrame {
 			throw new Exception("주소를 입력해주세요");
 		}
 			Member member = new Member();
-		if(ju2.equals(service.selectMemberByNoList(member))) {
+			member.setJumin(tfju1.getText()+"-"+new String(tfju2.getPassword()));		
+		if(service.selectMemberByNojumin(member).size() == 0) {
+			
+		}else {
 			tfju2.requestFocus();
-			throw new Exception("주민등록번호가 중복되어 가입할수없습니다.");
+			throw new Exception("이미 등록된 회원입니다.");
 		}
+		
 	}
 	protected void selectEmail(ActionEvent e) {
 		if(comboBox.getSelectedIndex()<5) {
