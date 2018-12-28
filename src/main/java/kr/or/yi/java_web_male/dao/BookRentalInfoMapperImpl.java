@@ -78,4 +78,13 @@ public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 			return sqlSession.selectOne(namespace + ".selectRentalNoByBookCode", bookRentalInfo);
 		}
 	}
+
+	@Override
+	public int updateReturnDate(BookRentalInfo bookRentalInfo) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			int res = sqlSession.update(namespace + ".updateReturnDate", bookRentalInfo);
+			sqlSession.commit();
+			return res;
+		}
+	}
 }

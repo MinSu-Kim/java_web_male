@@ -88,13 +88,43 @@
    </select>
    
    <resultMap type="BookRentalInfo" id="selectRentalNoByBookCodeResult">
-   		<id property="rentalNo" column="retal_no"></id>
+   		<result property="rentalNo" column="rental_no"/>
    		<result property="bookCode.bookCode" column="book_code"/>
+   		<result property="memberNo.memberNo" column="member_no"/>
    </resultMap>
    
    <select id="selectRentalNoByBookCode" parameterType="BookRentalInfo" resultMap="selectRentalNoByBookCodeResult">
-   		select rental_no FROM proj_library.book_rental_info
-   		where book_code=${bookCode}
+   		select rental_no, return_date, member_no, return_schedule, rental_date FROM proj_library.book_rental_info
+   		where book_code=#{bookCode.bookCode}
    </select>
+   
+   <update id="updateReturnDate" parameterType="BookRentalInfo">
+   		UPDATE proj_library.book_rental_info
+   		SET return_date=#{returnDate}
+   		WHERE rental_no=#{rentalNo} 		
+   </update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>

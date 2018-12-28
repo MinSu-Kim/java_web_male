@@ -70,6 +70,11 @@
 		where member_no=#{memberNo}
 	</update>
 	
+	<update id="updateMemberRentalInfo2" parameterType="MemberRentalInfo">
+		update proj_library.member_rental_info set now_total=now_total+1
+		where member_no=#{memberNo}
+	</update>
+	
 	<update id="updateMemberRentalInfoGrade" parameterType="MemberRentalInfo">
 		update proj_library.member_rental_info set grade=grade+1
 		where member_no=#{memberNo}
