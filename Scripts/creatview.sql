@@ -16,15 +16,15 @@ begin
 end $$
 delimiter ;
 ------ search_membernoRent ------
-delimiter $$
-CREATE PROCEDURE `proj_library`.`search_membernoRent`(in memberno char(50))
+DELIMITER $$
+CREATE DEFINER=`user_library`@`localhost` PROCEDURE `proj_library`.`search_membernoRent`(in memberno char(50))
 begin
-	select kor_name, member_no, title, rental_date, return_date, return_schedule
+	select b.book_code, title, rental_date, return_schedule
 	from member m join book_rental_info r on m.member_no = r.member_no
 	join book b on b.book_code =  r.book_code
 	where m.member_no regexp memberno;
-END	
-delimiter ;
+END$$
+DELIMITER ;
 --------- search_phone ------------
 delimiter $$
 CREATE PROCEDURE `proj_library`.`search_phone`(in phonenum char(30))

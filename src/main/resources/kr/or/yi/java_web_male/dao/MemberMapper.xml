@@ -13,7 +13,14 @@
 	<sql id="whereSql">
 		<where>
 			<if test="memberNo != null">
-				member_no = #{memberNo};
+				member_no = #{memberNo}
+			</if>
+		</where>
+	</sql>
+	<sql id="whereSqljumin">
+		<where>
+			<if test="jumin != null">
+				jumin = concat(left(#{jumin},8),password(right(#{jumin},6)))
 			</if>
 		</where>
 	</sql>
@@ -128,7 +135,13 @@
 		<include refid="selectSql" />
 		<include refid="whereRegEXP"></include>
 	</select>
-
+	
+	<select id="selectMemberByNojumin" parameterType="Member"
+		resultType="Member">
+		<include refid="selectSql" />
+		<include refid="whereSqljumin"></include>
+	</select>
+	
 	<sql id="whereNameAndPhone">
 		<where>
 			<if test="korName != null">
@@ -152,6 +165,10 @@
 		SET password=password(#{password})
 		WHERE member_no= #{memberNo}
 	</update>
-
+	<update id="deleteMemberNo" parameterType="Member">
+	 		UPDATE member
+	 		set Member_no = #{newMemberNo}, password = #{password}
+	 		where member_no = #{memberNo}
+	</update>
 
 </mapper>

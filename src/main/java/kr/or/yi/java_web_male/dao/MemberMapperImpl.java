@@ -132,5 +132,19 @@ public class MemberMapperImpl implements MemberMapper {
 			return res;
 		}
 	}
+	@Override
+	public int deleteMemberNo(Map<String, Object> map) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			int res = sqlSession.update(namespace + ".deleteMemberNo", map);
+			sqlSession.commit();
+			return res;
+		}
+	}
+	@Override
+	public List<Member> selectMemberByNojumin(Member member) {
+		try(SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();){
+			return sqlSession.selectList(namespace + ".selectMemberByNojumin", member);
+		}
+	}
 	
 }
