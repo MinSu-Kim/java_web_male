@@ -321,4 +321,4 @@ where Datediff(stop_end_date, now()) < 1;
 update overdue set stop_date = if(Datediff(stop_end_date, now())< 1, 0, Datediff(stop_end_date, now())) , rental_authority = if(Datediff(stop_end_date, now())< 1,   1, 0);
 
 
-
+select * from book_rental_info;
