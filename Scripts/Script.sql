@@ -258,3 +258,48 @@ select * from book;
 select rental_no FROM proj_library.book_rental_info
    		where book_code='00001';
 
+   	
+   	create
+or replace
+view `bestsaler` as select
+    left(`i`.`book_code`,
+    8) as `bc`,
+    `b`.`title` as `title`,
+    `b`.`author` as `author`,
+    `p`.`pub_name` as `pub_name`,
+    left(`i`.`rental_date`,
+    7) as `rental_date`,
+    `b`.`cate_b_no` as `cate_b_no`,
+    `b`.`cate_m_no` as `cate_m_no`,
+    `b`.`cate_s_no` as `cate_s_no`,
+    `c`.`cate_b_name` as `cate_b_name`
+from
+    (((`book_rental_info` `i`
+join `book` `b` on
+    ((`i`.`book_code` = `b`.`book_code`)))
+join `publisher` `p` on
+    ((`b`.`pub_no` = `p`.`pub_no`)))
+join `category_b` `c` on
+    ((`b`.`cate_b_no` = `c`.`cate_b_no`)));
+
+
+   
+   create
+or replace
+view `bestmember` as select
+    substr(`m`.`jumin`,
+    8,
+    1) as `sex`,
+    `m`.`member_no` as `member_no`,
+    `m`.`kor_name` as `kor_name`,
+    `m`.`admin` as `admin`,
+    `i`.`rental_date` as `rental_date`,
+    `b`.`cate_b_no` as `cate_b_no`,
+    `b`.`cate_m_no` as `cate_m_no`,
+    `b`.`cate_s_no` as `cate_s_no`
+from
+    ((`book_rental_info` `i`
+join `member` `m` on
+    ((`i`.`member_no` = `m`.`member_no`)))
+join `book` `b` on
+    ((`i`.`book_code` = `b`.`book_code`)));
