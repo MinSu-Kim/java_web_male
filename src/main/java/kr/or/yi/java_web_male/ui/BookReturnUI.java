@@ -143,7 +143,7 @@ public class BookReturnUI extends JFrame {
 				int updateNowTotal = memberUIService.updateMemberRentalInfo2(memberRentalInfo);
 				
 				
-				//대여한 책의 대여가능여부 변경
+				//반납한 책의 대여가능여부 변경
 				 book.setRentalPossible(true);
 				 int updatePossible = service.updateBookPossible(book);
 				
@@ -153,11 +153,11 @@ public class BookReturnUI extends JFrame {
 				//정지일수 계산
 				Date date = new Date();
 				Calendar cal = Calendar.getInstance ( );
-				// 최신날짜
+				// 오늘날짜
 				cal.setTime ( date );
 				
 				Calendar cal2 = Calendar.getInstance ( );
-				// 과거날짜
+				// 반납예정일
 				cal2.setTime ( returnSchedule );  
 				
 				int count = 0;
@@ -183,7 +183,7 @@ public class BookReturnUI extends JFrame {
 				
 				
 
-				//연체 종료일 계산
+				//정지 종료일 계산
 				Date today = new Date();
 				Calendar cal3 = Calendar.getInstance ( );
 				cal3.setTime(today);
@@ -194,15 +194,17 @@ public class BookReturnUI extends JFrame {
 			
 				Date d = new Date(cal3.getTimeInMillis());
 				
-				overdue.setOverdueDate(d);
+				overdue.setStopEndDate(d);
 				
 				int updateCount = memberUIService.updateCount(overdue);
 				int updateDate = memberUIService.updateStopDate(overdue);
-				int updateOverdueDate = memberUIService.updateOverdueDate(overdue);
+				int updateStopEndDate = memberUIService.updateStopEndDate(overdue);
 				
-				//정지일수가 1일이라도 있으면 대여권한 박탈
+				//정지일수가 1일이라도 있거나 연체횟수 100넘으면 대여권한 박탈
 				if(overdue.getStopDate() > 0 || overdue.getOverdueCount() > 100) {
 					overdue.setRentalAuthority(false);
+				}else {
+					overdue.setRentalAuthority(true);
 				}
 				
 				int updateAuthority = memberUIService.updateAuthority(overdue);

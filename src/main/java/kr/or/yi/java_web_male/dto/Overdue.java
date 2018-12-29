@@ -7,7 +7,7 @@ public class Overdue {
 	private int stopDate;
 	private int overdueCount;
 	private boolean rentalAuthority;
-	private Date overdueDate;
+	private Date stopEndDate;
 	public String getMemberNo() {
 		return memberNo;
 	}
@@ -32,19 +32,20 @@ public class Overdue {
 	public void setRentalAuthority(boolean rentalAuthority) {
 		this.rentalAuthority = rentalAuthority;
 	}
-	
-	
-	public Date getOverdueDate() {
-		return overdueDate;
+	public Date getStopEndDate() {
+		return stopEndDate;
 	}
-	public void setOverdueDate(Date overdueDate) {
-		this.overdueDate = overdueDate;
+	public void setStopEndDate(Date stopEndDate) {
+		this.stopEndDate = stopEndDate;
 	}
 	@Override
 	public String toString() {
-		return String.format("Overdue [memberNo=%s, stopDate=%s, overdueCount=%s, rentalAuthority=%s, overdueDate=%s]",
-				memberNo, stopDate, overdueCount, rentalAuthority, overdueDate);
+		return String.format("Overdue [memberNo=%s, stopDate=%s, overdueCount=%s, rentalAuthority=%s, stopEndDate=%s]",
+				memberNo, stopDate, overdueCount, rentalAuthority, stopEndDate);
 	}
+	
+	
+	
 	
 	
 	

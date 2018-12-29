@@ -71,9 +71,17 @@ public class OverdueMapperImpl implements OverdueMapper {
 		}
 	}
 	@Override
-	public int updateOverdueDate(Overdue overdue) {
+	public int updateStopEndDate(Overdue overdue) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
-			int res = sqlSession.update(namespace + ".updateOverdueDate", overdue);
+			int res = sqlSession.update(namespace + ".updateStopEndDate", overdue);
+			sqlSession.commit();
+			return res;
+		}
+	}
+	@Override
+	public int updateDiffAuthority() {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			int res = sqlSession.update(namespace + ".updateDiffAuthority");
 			sqlSession.commit();
 			return res;
 		}

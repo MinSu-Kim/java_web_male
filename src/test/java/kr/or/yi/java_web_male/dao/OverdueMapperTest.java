@@ -41,6 +41,13 @@ public class OverdueMapperTest extends AbstractTest{
 		Assert.assertNotNull(overdue1);
 	}
 	
+	@Test
+	public void test05updateDiffAuthority() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		int res = dao.updateDiffAuthority();
+		Assert.assertNotEquals(0, res);
+	}
+	
 	/*@Test
 	public void test04insertOverdue() {
 		log.debug("test03insertOverdue");

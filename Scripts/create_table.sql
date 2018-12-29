@@ -147,7 +147,7 @@ CREATE TABLE proj_library.overdue (
 	stop_date        INT(11)     NULL     COMMENT '정지일수', -- 정지일수
 	overdue_count    INT(11)     NULL     COMMENT '연체횟수', -- 연체횟수
 	rental_authority TINYINT(1)  NULL     COMMENT '대여권한', -- 대여권한
-	overdue_date     Date		 null     COMMENT '연체날짜'  -- 연체날짜
+	stop_end_date     Date		 null     COMMENT '정지종료일'  -- 정지종료일
 )
 COMMENT '연체정보';
 

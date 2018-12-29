@@ -291,6 +291,7 @@ where left(book_code, 1) != 'D'
 select rental_no FROM proj_library.book_rental_info
    		where book_code='00001';
 
+update overdue set stop_date = 3 ;
    	
    	select rental_no, member_no, return_date, return_schedule, rental_date FROM proj_library.book_rental_info
    		where book_code='00001' and return_date is null;
@@ -307,3 +308,17 @@ select member_no, password, kor_name, eng_name, phone,
              ,substr(replace(regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1),'-'),1,7)||'******') jumin, email, address, photo, admin, uniqueness
 		from member;
 		
+select * from overdue;
+
+select *,Datediff(stop_end_date, now())
+from overdue;
+
+
+update overdue 
+set rental_authority = 1
+where Datediff(stop_end_date, now()) < 1;
+
+update overdue set stop_date = if(Datediff(stop_end_date, now())< 1, 0, Datediff(stop_end_date, now())) , rental_authority = if(Datediff(stop_end_date, now())< 1,   1, 0);
+
+
+
