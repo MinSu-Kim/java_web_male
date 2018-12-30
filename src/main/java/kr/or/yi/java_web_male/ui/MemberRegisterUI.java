@@ -599,8 +599,8 @@ public class MemberRegisterUI extends JFrame {
 	protected void insertRentailInfo() {
 		MemberRentalInfo memberRentalInfo = new MemberRentalInfo();
 		memberRentalInfo.setMemberNo(mn);
-		memberRentalInfo.setGrade(3);
-		memberRentalInfo.setNowTotal(0);
+		memberRentalInfo.setGrade(1);
+		memberRentalInfo.setNowTotal(3);
 		memberRentalInfo.setNowTotal(0);		
 		int res = service.insertMemberRentalInfo(memberRentalInfo);
 			
