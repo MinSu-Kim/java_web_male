@@ -45,7 +45,7 @@ public class InOutUI extends JFrame {
 	 */
 	public InOutUI() {
 		setTitle("출납 관리");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 195);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -63,9 +63,23 @@ public class InOutUI extends JFrame {
 		contentPane.add(btnRent);
 		
 		JButton btnReturn = new JButton("반납");
+		btnReturn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BookReturnUI bru = new BookReturnUI();
+				bru.setInOutUI(InOutUI.this);
+				bru.setVisible(true);
+			}
+		});
 		contentPane.add(btnReturn);
 		
 		JButton btnExtension = new JButton("연장");
+		btnExtension.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BookExtendUI bru = new BookExtendUI();
+				bru.setInOutUI(InOutUI.this);
+				bru.setVisible(true);
+			}
+		});
 		contentPane.add(btnExtension);
 	}
 

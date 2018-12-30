@@ -103,4 +103,13 @@ public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 			return sqlSession.selectOne(namespace + ".selectRentalNoByBookCode_returnDateNull", bookRentalInfo);
 		}
 	}
+
+	@Override
+	public int updateReturnSchedule(BookRentalInfo bookRentalInfo) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			int res = sqlSession.update(namespace + ".updateReturnSchedule", bookRentalInfo);
+			sqlSession.commit();
+			return res;
+		}
+	}
 }
