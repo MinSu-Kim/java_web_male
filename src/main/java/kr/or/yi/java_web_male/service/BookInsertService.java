@@ -78,4 +78,7 @@ public class BookInsertService {
 		return sMapper.selectCategorySByBNoMno(cateM);
 	}
 
+	public int updatetBook(Book book) {
+		return bookMapper.updateBook(book);
+	}
 }

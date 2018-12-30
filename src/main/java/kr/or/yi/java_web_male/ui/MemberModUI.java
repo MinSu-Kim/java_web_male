@@ -57,6 +57,8 @@ public class MemberModUI extends JFrame implements ActionListener {
 	private JTextField textField_1;
 	private JLabel lblNewLabel;
 	private JPanel panel_4;
+	private JLabel label;
+	private JPanel panel_5;
 
 	public MemberModUI() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
@@ -75,56 +77,58 @@ public class MemberModUI extends JFrame implements ActionListener {
 		
 		panel_4 = new JPanel();
 		contentPane.add(panel_4);
-		panel_4.setLayout(null);
-		
-		panel_2 = new JPanel();
-		panel_2.setBounds(91, 5, 242, 83);
-		panel_4.add(panel_2);
-		panel_2.setLayout(new GridLayout(0, 1, 10, 10));
-
-		JPanel pMemberNo = new JPanel();
-		panel_2.add(pMemberNo);
-		pMemberNo.setLayout(new GridLayout(0, 2, 10, 10));
-
-		JLabel lblMemberNo = new JLabel("회원번호(ID)");
-		pMemberNo.add(lblMemberNo);
-
-		tfMemberNo = new JTextField();
-		pMemberNo.add(tfMemberNo);
-		tfMemberNo.setColumns(10);
-		
-				JPanel pKorName = new JPanel();
-				panel_2.add(pKorName);
-				pKorName.setLayout(new GridLayout(0, 2, 10, 10));
+		panel_4.setLayout(new GridLayout(0, 2, 10, 10));
 				
-						JLabel lblKorName = new JLabel("한국명");
-						pKorName.add(lblKorName);
+				panel_2 = new JPanel();
+				panel_4.add(panel_2);
+				panel_2.setLayout(new GridLayout(0, 1, 10, 10));
+				
+						JPanel pMemberNo = new JPanel();
+						panel_2.add(pMemberNo);
+						pMemberNo.setLayout(new GridLayout(0, 2, 10, 10));
 						
-								tfKorName = new JTextField();
-								pKorName.add(tfKorName);
-								tfKorName.setColumns(10);
+								JLabel lblMemberNo = new JLabel("회원번호(ID)");
+								pMemberNo.add(lblMemberNo);
 								
-										JPanel pEngName = new JPanel();
-										panel_2.add(pEngName);
-										pEngName.setLayout(new GridLayout(0, 2, 10, 10));
+										tfMemberNo = new JTextField();
+										pMemberNo.add(tfMemberNo);
+										tfMemberNo.setColumns(10);
 										
-												JLabel lblEngName = new JLabel("영어명");
-												pEngName.add(lblEngName);
+												JPanel pKorName = new JPanel();
+												panel_2.add(pKorName);
+												pKorName.setLayout(new GridLayout(0, 2, 10, 10));
 												
-														tfEngName = new JTextField();
-														pEngName.add(tfEngName);
-														tfEngName.setColumns(10);
-
-		JPanel pPhoto = new JPanel();
-		contentPane.add(pPhoto);
-
-		btnPhoto = new JButton("사진 변경하기");
-		btnPhoto.addActionListener(this);
-		pPhoto.setLayout(new BorderLayout(0, 0));
-
-		lblPhoto = new JLabel("");
-		pPhoto.add(lblPhoto);
-		pPhoto.add(btnPhoto, BorderLayout.SOUTH);
+														JLabel lblKorName = new JLabel("한국명");
+														pKorName.add(lblKorName);
+														
+																tfKorName = new JTextField();
+																pKorName.add(tfKorName);
+																tfKorName.setColumns(10);
+																
+																		JPanel pEngName = new JPanel();
+																		panel_2.add(pEngName);
+																		pEngName.setLayout(new GridLayout(0, 2, 10, 10));
+																		
+																				JLabel lblEngName = new JLabel("영어명");
+																				pEngName.add(lblEngName);
+																				
+																						tfEngName = new JTextField();
+																						pEngName.add(tfEngName);
+																						tfEngName.setColumns(10);
+		
+				JPanel pPhoto = new JPanel();
+				panel_4.add(pPhoto);
+				
+						btnPhoto = new JButton("사진 변경하기");
+						btnPhoto.addActionListener(this);
+						pPhoto.setLayout(new BorderLayout(0, 0));
+						
+								lblPhoto = new JLabel("");
+								pPhoto.add(lblPhoto);
+								pPhoto.add(btnPhoto, BorderLayout.SOUTH);
+		
+		label = new JLabel("");
+		panel_4.add(label);
 
 		JLabel lblPassword = new JLabel("현재 비밀번호 확인");
 		contentPane.add(lblPassword);
@@ -179,12 +183,12 @@ public class MemberModUI extends JFrame implements ActionListener {
 		tfEmail = new JTextField();
 		tfEmail.setColumns(10);
 		contentPane.add(tfEmail);
-
-		JLabel lblAddress = new JLabel("주소");
-		contentPane.add(lblAddress);
+		
+		panel_5 = new JPanel();
+		contentPane.add(panel_5);
 		
 		panel = new JPanel();
-		contentPane.add(panel);
+		panel_5.add(panel);
 		panel.setLayout(new GridLayout(0, 1, 10, 10));
 		
 		panel_1 = new JPanel();
@@ -197,10 +201,13 @@ public class MemberModUI extends JFrame implements ActionListener {
 		
 		btnNewButton = new JButton("검색");
 		panel_1.add(btnNewButton);
+		
+				tfAddress = new JTextField();
+				panel.add(tfAddress);
+				tfAddress.setColumns(10);
 
-		tfAddress = new JTextField();
-		panel.add(tfAddress);
-		tfAddress.setColumns(10);
+		JLabel lblAddress = new JLabel("주소");
+		panel_5.add(lblAddress);
 
 		btnChange = new JButton("변경");
 		btnChange.addActionListener(this);

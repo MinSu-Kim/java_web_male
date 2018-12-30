@@ -162,10 +162,12 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [ bookNo=" + bookNo + ", pubNo=" + pubNo + ", author=" + author+ ", translator=" + translator + ", title=" + title + ", price=" + price + ", rentalPossible="
-				+ rentalPossible + ", image=" + image + ", cateSNo=" + cateSNo + ", cateMNo=" + cateMNo + ", cateBNo="
-				+ cateBNo + "]";
+		return String.format(
+				"Book [bookCode=%s, bookNo=%s, pubNo=%s, author=%s, translator=%s, title=%s, price=%s, rentalPossible=%s, image=%s, cateSNo=%s, cateMNo=%s, cateBNo=%s]",
+				bookCode, bookNo, pubNo, author, translator, title, price, rentalPossible, image, cateSNo, cateMNo,
+				cateBNo);
 	}
+
 
 
 	

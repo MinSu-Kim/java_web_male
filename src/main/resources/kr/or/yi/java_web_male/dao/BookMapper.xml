@@ -53,13 +53,13 @@
 
 	<!-- updateSql -->
 	<sql id="updateSql">
-		update book set book_no=#{bookNo}, author=#{writter},
-		translator=#{translator}, title=#{title}, price=#{priece},
-		rental_possible=#{rentable}, image=#{image},
-		cate_s_no=#{categorynoS.categorynoS},
-		cate_m_no=#{categorynoM.categorynoM},
-		cate_b_no=#{categorynoB.categorynoB},
-		pub_no=#{publisherNo.publisherNo}
+		update book set book_no=#{bookNo}, author=#{author},
+		translator=#{translator}, title=#{title}, price=#{price},
+		rental_possible=#{rentalPossible}, image=#{image},
+		cate_s_no=#{cateBNo.bCode},
+		cate_m_no=#{cateMNo.mCode},
+		cate_b_no=#{cateSNo.sCode},
+		pub_no=#{pubNo.pubNo}
 		WHERE book_code=#{bookCode};
 	</sql>
 

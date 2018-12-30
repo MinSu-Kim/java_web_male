@@ -74,7 +74,7 @@ public class MemberRegisterUI extends JFrame {
 	private String pathName;
 	private String fileName;
 	private JTextField tfpass;
-	private static String adminpassword = "45685";
+	private static String adminpassword = "1234";
 	private JPasswordField tfju2;
 	
 	

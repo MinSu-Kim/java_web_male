@@ -1,15 +1,17 @@
-DELETE FROM category_s;
+-- DELETE FROM proj_library.category_s;
+-- 
+-- DELETE FROM proj_library.category_m;
+-- 
+-- DELETE FROM proj_library.category_b;
 
-DELETE FROM category_m;
-
-DELETE FROM category_b;
-
-SELECT * FROM category_b;
+/*SELECT * FROM category_b;
 select * from category_m;
-select * from category_s;
+select * from category_s;*/
+
+use proj_library;
 
 -- 대분류
-INSERT INTO category_b VALUES
+INSERT INTO proj_library.category_b VALUES
 (0, '총류'),
 (1, '철학'),
 (2, '종교'),
@@ -21,10 +23,10 @@ INSERT INTO category_b VALUES
 (8, '문학'),
 (9, '역사');
 
-SELECT * FROM category_m;
+-- SELECT * FROM category_m;
 
 -- 중분류:총류(0)
-INSERT INTO category_m VALUES
+INSERT INTO proj_library.category_m VALUES
 (0, 0, '총류'),
 (1, 0, '도서학, 서지학'),
 (2, 0, '문헌정보학'),
@@ -37,7 +39,7 @@ INSERT INTO category_m VALUES
 (9, 0, '향토자료');
 
 -- 중분류:철학(1)
-INSERT INTO category_m VALUES
+INSERT INTO proj_library.category_m VALUES
 (0, 1, '철학'),
 (1, 1, '형이상학'),
 (2, 1, '인식론, 인과론, 인간학'),
@@ -50,7 +52,7 @@ INSERT INTO category_m VALUES
 (9, 1, '윤리학, 도덕철학');
 
 -- 중분류:종교(2)
-INSERT INTO category_m VALUES
+INSERT INTO proj_library.category_m VALUES
 (0, 2, '종교'),
 (1, 2, '비교종교'),
 (2, 2, '불교'),
@@ -62,7 +64,7 @@ INSERT INTO category_m VALUES
 (9, 2, '기타 제종교');
 
 -- 중분류:사회과학(3)
-INSERT INTO category_m VALUES
+INSERT INTO proj_library.category_m VALUES
 (0, 3, '사회과학'),
 (1, 3, '통계자료'),
 (2, 3, '경제학'),
@@ -75,7 +77,7 @@ INSERT INTO category_m VALUES
 (9, 3, '국방, 군사학');
 
 -- 중분류:자연과학(4)
-INSERT INTO category_m VALUES
+INSERT INTO proj_library.category_m VALUES
 (0, 4, '자연과학'),
 (1, 4, '수학'),
 (2, 4, '물리학'),
@@ -88,7 +90,7 @@ INSERT INTO category_m VALUES
 (9, 4, '동물학');
 
 -- 중분류:기술과학(5)
-INSERT INTO category_m VALUES
+INSERT INTO proj_library.category_m VALUES
 (0, 5, '기술과학'),
 (1, 5, '의학'),
 (2, 5, '농업, 농학'),
@@ -101,7 +103,7 @@ INSERT INTO category_m VALUES
 (9, 5, '생활과학');
 
 -- 중분류:예술(6)
-INSERT INTO category_m VALUES
+INSERT INTO proj_library.category_m VALUES
 (0, 6, '예술'),
 (2, 6, '조각 및 조형미술'),
 (3, 6, '공예, 장식미술'),
@@ -113,7 +115,7 @@ INSERT INTO category_m VALUES
 (9, 6, '오락, 스포츠');
 
 -- 중분류:언어(7)
-INSERT INTO category_m VALUES
+INSERT INTO proj_library.category_m VALUES
 (0, 7, '언어'),
 (1, 7, '한국어'),
 (2, 7, '중국어'),
@@ -126,7 +128,7 @@ INSERT INTO category_m VALUES
 (9, 7, '기타 제어');
 
 -- 중분류:문학(8)
-INSERT INTO category_m VALUES
+INSERT INTO proj_library.category_m VALUES
 (0, 8, '문학'),
 (1, 8, '한국문학'),
 (2, 8, '중국문학'),
@@ -139,7 +141,7 @@ INSERT INTO category_m VALUES
 (9, 8, '기타 제문학');
 
 -- 중분류:역사(9)
-INSERT INTO category_m VALUES
+INSERT INTO proj_library.category_m VALUES
 (0, 9, '역사'),
 (1, 9, '아시아'),
 (2, 9, '유럽'),
@@ -151,10 +153,10 @@ INSERT INTO category_m VALUES
 (8, 9, '지리'),
 (9, 9, '전기');
 
-select * from category_s;
+-- select * from category_s;
 
 -- 소분류:총류(00)
-INSERT INTO category_s VALUES
+INSERT INTO proj_library.category_s VALUES
 (0, 0, 0, '총류'),
 (1, 0, 0, '지식, 학문 일반'),
 (3, 0, 0, '이론체계 및 시스템'),
@@ -163,7 +165,7 @@ INSERT INTO category_s VALUES
 (7, 0, 0, '연구 일반 및 방법론');
 
 -- 소분류:도서학, 서지학(01)
-INSERT INTO category_s VALUES
+INSERT INTO proj_library.category_s VALUES
 (0, 1, 0, '도서학, 서지학'),
 (1, 1, 0, '저작'),
 (2, 1, 0, '사본, 판본, 제본'),
@@ -176,7 +178,7 @@ INSERT INTO category_s VALUES
 (9, 1, 0, '장서목록');
 
 -- 소분류:문헌정보학(02)
-INSERT INTO category_s VALUES
+INSERT INTO proj_library.category_s VALUES
 (0, 2, 0, '문헌정보학'),
 (1, 2, 0, '도서관 행정 및 재정'),
 (2, 2, 0, '도서관 건물 및 설비'),
@@ -189,7 +191,7 @@ INSERT INTO category_s VALUES
 (9, 2, 0, '독서 및 정보매체의 이용');
 
 -- 소분류:백과사전(03)
-INSERT INTO category_s VALUES
+INSERT INTO proj_library.category_s VALUES
 (0, 3, 0, '백과사전'),
 (1, 3, 0, '한국어'),
 (2, 3, 0, '중국어'),
@@ -202,7 +204,7 @@ INSERT INTO category_s VALUES
 (9, 3, 0, '기타 제언어');
 
 -- 소분류:강연집, 수필집, 연설문집(04)
-INSERT INTO category_s VALUES
+INSERT INTO proj_library.category_s VALUES
 (0, 4, 0, '강연집, 수필집, 연설문집'),
 (1, 4, 0, '한국어'),
 (2, 4, 0, '중국어'),
@@ -215,7 +217,7 @@ INSERT INTO category_s VALUES
 (9, 4, 0, '기타 제언어');
 
 -- 소분류:일반 연속간행물(05)
-INSERT INTO category_s VALUES
+INSERT INTO proj_library.category_s VALUES
 (0, 5, 0, '일반 연속간행물'),
 (1, 5, 0, '한국어'),
 (2, 5, 0, '중국어'),
@@ -228,7 +230,7 @@ INSERT INTO category_s VALUES
 (9, 5, 0, '연감');
 
 -- 소분류:일반 학회, 단체, 협회 기관(06)
-INSERT INTO category_s VALUES
+INSERT INTO proj_library.category_s VALUES
 (0, 6, 0, '일반 학회, 단체, 협회 기관'),
 (1, 6, 0, '아시아 일반 학회, 단체 등'),
 (2, 6, 0, '유럽 일반 학회, 단체 등'),
@@ -241,7 +243,7 @@ INSERT INTO category_s VALUES
 (9, 6, 0, '박물관학');
 
 -- 소분류:신문, 저널리즘(07)
-INSERT INTO category_s VALUES
+INSERT INTO proj_library.category_s VALUES
 (0, 7, 0, '신문, 저널리즘'),
 (1, 7, 0, '아시아 신문, 저널리즘 등'),
 (2, 7, 0, '유럽 신문, 저널리즘 등'),
@@ -253,17 +255,17 @@ INSERT INTO category_s VALUES
 (8, 7, 0, '특정주제의 신문');
 
 -- 소분류:일반전집, 총서(08)
-INSERT INTO category_s VALUES
+INSERT INTO proj_library.category_s VALUES
 (0, 8, 0, '일반전집, 총서'),
 (1, 8, 0, '개인의 일반 전집'),
 (2, 8, 0, '2인 이상의 일반 전집, 총서');
 
 -- 소분류:향토자료(09)
-INSERT INTO category_s VALUES
+INSERT INTO proj_library.category_s VALUES
 (0, 9, 0, '향토자료');
 
 -- 소분류:철학(10)
-INSERT INTO category_s VALUES
+INSERT INTO proj_library.category_s VALUES
 (0, 0, 1, '철학'),
 (1, 0, 1, '이론 및 철학의 효용'),
 (2, 0, 1, '잡저'),
@@ -276,7 +278,7 @@ INSERT INTO category_s VALUES
 (9, 0, 1, '철학사');
 
 -- 소분류:형이상학(11)
-INSERT INTO category_s VALUES
+INSERT INTO proj_library.category_s VALUES
 (0, 1, 1, '형이상학'),
 (1, 1, 1, '방법론'),
 (2, 1, 1, '존재론'),
@@ -289,7 +291,7 @@ INSERT INTO category_s VALUES
 (9, 1, 1, '물량과 질량');
 
 -- 소분류:인식론, 인과론, 인간학(12)
-INSERT INTO category_s VALUES
+INSERT INTO proj_library.category_s VALUES
 (0, 2, 1, '인식론, 인과론, 인간학'),
 (1, 2, 1, '인식론'),
 (2, 2, 1, '인과론'),
@@ -299,7 +301,7 @@ INSERT INTO category_s VALUES
 (6, 2, 1, '철학적 인간학');
 
 -- 소분류:철학의 체계(13)
-INSERT INTO category_s values
+INSERT INTO proj_library.category_s values
 (0, 3, 1, '철학의 체계'),
 (1, 3, 1, '관념론 및 연관철학'),
 (2, 3, 1, '비판철학'),
@@ -312,7 +314,7 @@ INSERT INTO category_s values
 (9, 3, 1, '기타');
 
 -- 소분류:경학(14)
-INSERT INTO category_s values
+INSERT INTO proj_library.category_s values
 (0, 4, 1, '경학'),
 (1, 4, 1, '역류'),
 (2, 4, 1, '서류'),
@@ -324,7 +326,7 @@ INSERT INTO category_s values
 (8, 4, 1, '사서');
 
 -- 소분류:동양철학, 사상(15)
-INSERT INTO category_s values
+INSERT INTO proj_library.category_s values
 (0, 5, 1, '동양철학, 사상'),
 (1, 5, 1, '한국철학, 사상'),
 (2, 5, 1, '중국철학, 사상'),
@@ -337,7 +339,7 @@ INSERT INTO category_s values
 (9, 5, 1, '아라비아반도 철학, 사상');
 
 -- 소분류:서양철학(16)
-INSERT INTO category_s values
+INSERT INTO proj_library.category_s values
 (0, 6, 1, '서양철학'),
 (2, 6, 1, '미국철학'),
 (3, 6, 1, '북구철학'),
@@ -349,7 +351,7 @@ INSERT INTO category_s values
 (9, 6, 1, '러시아철학');
 
 -- 소분류:논리학(17)
-INSERT INTO category_s values
+INSERT INTO proj_library.category_s values
 (0, 7, 1, '논리학'),
 (1, 7, 1, '연역법'),
 (2, 7, 1, '귀납법'),
@@ -362,7 +364,7 @@ INSERT INTO category_s values
 (9, 7, 1, '논증, 설득');
 
 -- 소분류:심리학(18)
-INSERT INTO category_s values
+INSERT INTO proj_library.category_s values
 (0, 8, 1, '심리학'),
 (1, 8, 1, '심리학각론'),
 (2, 8, 1, '차이심리학'),

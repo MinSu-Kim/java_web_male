@@ -193,15 +193,15 @@ public class LoginUI extends JFrame implements ActionListener {
 				if (member.isAdmin() == true) {
 					if (adminMainUI == null) {
 						
-						JOptionPane.showMessageDialog(null, serviceUI.selectDate());
+						/*JOptionPane.showMessageDialog(null, serviceUI.selectDate());
 						if(serviceUI.selectDate() != 0) {
 							overduePopUpUI = new OverduePopUpUI();
-						}
+						}*/
 						adminMainUI = new AdminMainUI();
 
 					}
 					adminMainUI.setVisible(true);
-					overduePopUpUI.setVisible(true);
+					/*overduePopUpUI.setVisible(true);*/
 				} else {
 					if (memberInfoUI == null) {
 						memberInfoUI = new MemberInfoUI();
@@ -221,7 +221,7 @@ public class LoginUI extends JFrame implements ActionListener {
 		/*--------------------------정지일수 업데이트-----------------------------*/
 		
 		
-		Member member1 = new Member();
+	/*	Member member1 = new Member();
 		member1.setMemberNo(tfMemberNo.getText());
 		
 		String mNo = String.valueOf(member1);
@@ -231,12 +231,7 @@ public class LoginUI extends JFrame implements ActionListener {
 		
 		Overdue selectOverdue = memberUIService.selectOverdueByCode(overdue);
 		
-		Date overdueDate = selectOverdue.getOverdueDate();
-		
-		
-		
-		
-		
+		Date overdueDate = selectOverdue.getOverdueDate();*/
 		
 	}
 

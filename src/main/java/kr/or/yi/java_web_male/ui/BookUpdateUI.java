@@ -41,7 +41,7 @@ import kr.or.yi.java_web_male.dto.CategoryS;
 import kr.or.yi.java_web_male.dto.Publisher;
 import kr.or.yi.java_web_male.service.BookInsertService;
 
-public class BookInsertUI extends JFrame implements ActionListener {
+public class BookUpdateUI extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JTextField tfBookCode;
@@ -55,7 +55,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 	private JComboBox comboCateS;
 	private JButton btnImage;
 	private JButton btnCancel;
-	private JButton btnInsert;
+	private JButton btnupdate;
 	private JLabel lblImage;
 	private DefaultComboBoxModel<CategoryB> modelB;
 	private DefaultComboBoxModel<CategoryM> modelM;
@@ -75,14 +75,15 @@ public class BookInsertUI extends JFrame implements ActionListener {
 	private BookSearchUI bookSearchUI;
 	private BookInsertService service;
 
-	public BookInsertUI() {
+	public BookUpdateUI(Book book) {
+		System.out.println(book);
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 		service = new BookInsertService();
-		initComponents();
+		initComponents(book);
 	}
 
-	private void initComponents() {
-		setTitle("도서 추가");
+	private void initComponents(Book book) {
+		setTitle("도서 수정");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 611);
 		contentPane = new JPanel();
@@ -103,6 +104,8 @@ public class BookInsertUI extends JFrame implements ActionListener {
 
 		tfBookCode = new JTextField();
 		tfBookCode.setEditable(false);
+		tfBookCode.setText(book.getBookCode());
+
 		panel_3.add(tfBookCode);
 		tfBookCode.setColumns(10);
 
@@ -110,10 +113,10 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		panel.add(panel_4);
 		panel_4.setLayout(new GridLayout(0, 1, 10, 10));
 
-		btnImage = new JButton("사진 추가");
+		btnImage = new JButton("사진 수정");
 		btnImage.addActionListener(this);
 
-		lblImage = new JLabel("사진 추가");
+		lblImage = new JLabel("사진 수정");
 		panel_4.add(lblImage);
 		panel_4.add(btnImage);
 
@@ -158,6 +161,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 				comboCateS.setEnabled(false);
 			}
 		});
+		comboCateB.setSelectedItem(book.getCateBNo());
 		panel_2.add(comboCateB);
 
 		comboCateM = new JComboBox();
@@ -217,12 +221,14 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		tfTitle = new JTextField();
 		panel_1.add(tfTitle);
 		tfTitle.setColumns(10);
-
+		tfTitle.setText(book.getTitle());
 		JLabel lblPub = new JLabel("출판사");
 		panel_1.add(lblPub);
 
 		tfPub = new JTextField();
 		tfPub.setColumns(10);
+		tfPub.setText(book.getPubNo().getPubName());
+
 		panel_1.add(tfPub);
 
 		JLabel lblAuthor = new JLabel("저자");
@@ -230,12 +236,14 @@ public class BookInsertUI extends JFrame implements ActionListener {
 
 		tfAuthor = new JTextField();
 		panel_1.add(tfAuthor);
+		tfAuthor.setText(book.getAuthor());
 		tfAuthor.setColumns(10);
 
 		JLabel lblTrans = new JLabel("역자");
 		panel_1.add(lblTrans);
 
 		tfTrans = new JTextField();
+		tfTrans.setText(book.getTranslator());
 		tfTrans.setColumns(10);
 		panel_1.add(tfTrans);
 
@@ -244,15 +252,17 @@ public class BookInsertUI extends JFrame implements ActionListener {
 
 		tfPrice = new JTextField();
 		tfPrice.setColumns(10);
+
+		tfPrice.setText(book.getPrice() + "");
 		panel_1.add(tfPrice);
 
 		JPanel panel_5 = new JPanel();
 		contentPane.add(panel_5);
 		panel_5.setLayout(new GridLayout(0, 2, 10, 10));
 
-		btnInsert = new JButton("추가");
-		btnInsert.addActionListener(this);
-		panel_5.add(btnInsert);
+		btnupdate = new JButton("수정");
+		btnupdate.addActionListener(this);
+		panel_5.add(btnupdate);
 
 		btnCancel = new JButton("취소");
 		btnCancel.addActionListener(this);
@@ -260,8 +270,8 @@ public class BookInsertUI extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnInsert) {
-			do_btnInsert_actionPerformed(e);
+		if (e.getSource() == btnupdate) {
+			do_btnUpdate_actionPerformed(e);
 		}
 		if (e.getSource() == btnCancel) {
 			do_btnCancel_actionPerformed(e);
@@ -271,7 +281,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		}
 	}
 
-	protected void do_btnInsert_actionPerformed(ActionEvent e) {
+	private void do_btnUpdate_actionPerformed(ActionEvent e) {
 		Book book = new Book();
 		Publisher publisher = new Publisher();
 		Map<String, Object> map = new HashMap<>();
@@ -287,7 +297,6 @@ public class BookInsertUI extends JFrame implements ActionListener {
 			i = service.selectPublisherByAll().size() + 1;
 			pubNo = String.format("P%04d", i);
 			publisher.setPubNo(pubNo);
-			service.insertPublisher(publisher);
 		}
 
 		book.setPubNo(publisher);
@@ -337,7 +346,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		if (result == JOptionPane.CLOSED_OPTION) {
 
 		} else if (result == JOptionPane.YES_OPTION) {
-			service.insertBook(book);
+			service.updatetBook(book);
 		} else {
 			JOptionPane.showMessageDialog(null, "");
 		}

@@ -151,7 +151,6 @@ CREATE TABLE proj_library.overdue (
 )
 COMMENT '연체정보';
 
-drop table proj_library.overdue;
 -- 연체정보
 ALTER TABLE proj_library.overdue
 	ADD CONSTRAINT
@@ -185,7 +184,7 @@ CREATE TABLE proj_library.post (
 )
 COMMENT '우편번호';
 
-create table day (
+create table proj_library.day (
 	daty date null
 );
 

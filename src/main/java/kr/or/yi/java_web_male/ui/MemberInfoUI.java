@@ -21,6 +21,9 @@ import kr.or.yi.java_web_male.ui.LoginUI;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 @SuppressWarnings("serial")
 public class MemberInfoUI extends JFrame implements ActionListener {
@@ -58,7 +61,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private void initComponent() {
 		setTitle("[사용자] " + LoginUI.getLogin().getKorName() + "님 환영합니다.");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 550, 590);
+		setBounds(100, 100, 500, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -66,17 +69,29 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.NORTH);
-		panel.setLayout(new GridLayout(0, 2, 10, 10));
+		panel.setLayout(new GridLayout(0, 1, 10, 10));
+
+		JPanel panel_3 = new JPanel();
+		panel.add(panel_3);
+		panel_3.setLayout(new GridLayout(0, 1, 10, 10));
+
+		JPanel panel_1 = new JPanel();
+		panel_3.add(panel_1);
+		panel_1.setLayout(new GridLayout(0, 2, 10, 10));
 
 		JPanel pMemberInfo = new JPanel();
-		panel.add(pMemberInfo);
-		pMemberInfo.setLayout(new GridLayout(0, 2, 10, 10));
+		panel_1.add(pMemberInfo);
+		pMemberInfo.setLayout(new GridLayout(0, 1, 10, 10));
+
+		JPanel panel_4 = new JPanel();
+		pMemberInfo.add(panel_4);
+		panel_4.setLayout(new GridLayout(0, 2, 10, 10));
 
 		JLabel lblMemberNo = new JLabel("회원 번호");
-		pMemberInfo.add(lblMemberNo);
+		panel_4.add(lblMemberNo);
 
 		tfMemberNo = new JTextField();
-		pMemberInfo.add(tfMemberNo);
+		panel_4.add(tfMemberNo);
 		tfMemberNo.setColumns(10);
 
 		JPanel pKorName = new JPanel();
@@ -103,40 +118,52 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfEngName.setColumns(10);
 		pEngName.add(tfEngName);
 
-		JLabel lblPhone = new JLabel("전화번호");
-		pMemberInfo.add(lblPhone);
-
-		tfPhone = new JTextField();
-		pMemberInfo.add(tfPhone);
-		tfPhone.setColumns(10);
-
-		JLabel lblEmail = new JLabel("이메일");
-		pMemberInfo.add(lblEmail);
-
-		tfEmail = new JTextField();
-		pMemberInfo.add(tfEmail);
-		tfEmail.setColumns(10);
-
-		JLabel lblJumin = new JLabel("주민등록번호");
-		pMemberInfo.add(lblJumin);
-
-		tfJumin = new JTextField();
-		pMemberInfo.add(tfJumin);
-		tfJumin.setColumns(10);
-
-		JLabel lblAddress = new JLabel("주소");
-		pMemberInfo.add(lblAddress);
-
-		tfAddress = new JTextField();
-		pMemberInfo.add(tfAddress);
-		tfAddress.setColumns(10);
-
 		JPanel pMemberPhoto = new JPanel();
-		panel.add(pMemberPhoto);
+		panel_1.add(pMemberPhoto);
 		pMemberPhoto.setLayout(new GridLayout(0, 1, 10, 10));
 
 		JPanel pPhoto = new JPanel();
 		pMemberPhoto.add(pPhoto);
+
+		JPanel panel_2 = new JPanel();
+		panel_3.add(panel_2);
+		panel_2.setLayout(null);
+
+		JLabel lblPhone = new JLabel("전화번호");
+		lblPhone.setBounds(0, 0, 109, 21);
+		panel_2.add(lblPhone);
+
+		tfPhone = new JTextField();
+		tfPhone.setBounds(121, 0, 342, 21);
+		panel_2.add(tfPhone);
+		tfPhone.setColumns(10);
+
+		JLabel lblEmail = new JLabel("이메일");
+		lblEmail.setBounds(0, 31, 109, 21);
+		panel_2.add(lblEmail);
+
+		tfEmail = new JTextField();
+		tfEmail.setBounds(121, 31, 341, 21);
+		panel_2.add(tfEmail);
+		tfEmail.setColumns(10);
+
+		JLabel lblJumin = new JLabel("주민등록번호");
+		lblJumin.setBounds(0, 62, 109, 21);
+		panel_2.add(lblJumin);
+
+		tfJumin = new JTextField();
+		tfJumin.setBounds(121, 62, 341, 21);
+		panel_2.add(tfJumin);
+		tfJumin.setColumns(10);
+
+		JLabel lblAddress = new JLabel("주소");
+		lblAddress.setBounds(0, 93, 257, 21);
+		panel_2.add(lblAddress);
+
+		tfAddress = new JTextField();
+		tfAddress.setBounds(133, 93, 391, 21);
+		panel_2.add(tfAddress);
+		tfAddress.setColumns(10);
 
 		JPanel pRentList = new JPanel();
 		contentPane.add(pRentList, BorderLayout.CENTER);
@@ -153,7 +180,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		contentPane.add(pButton, BorderLayout.SOUTH);
 		pButton.setLayout(new GridLayout(0, 5, 10, 10));
 
-		btnMod = new JButton("회원정보수정");
+		btnMod = new JButton("정보수정");
 		btnMod.addActionListener(this);
 		pButton.add(btnMod);
 
@@ -165,7 +192,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pButton.add(btnDetail);
 		pButton.add(btnSearch);
 
-		btnBest10 = new JButton("Best 10");
+		btnBest10 = new JButton("Best");
 		btnBest10.addActionListener(this);
 		pButton.add(btnBest10);
 
