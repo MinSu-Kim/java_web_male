@@ -116,4 +116,10 @@ public class MemberUIService {
 	public int deleteMemberNo(Map<String, Object> map){
 		return dao.deleteMemberNo(map);
 	}
+	public int insertMemberRentalInfo(MemberRentalInfo memberRentalInfo) {
+		return dao1.insertMemberRentalInfo(memberRentalInfo);
+	}
+	public int insertoverDue(Overdue overdue) {
+		return dao2.insertOverdue(overdue);
+	}
 }

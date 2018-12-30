@@ -48,7 +48,7 @@ public class OverdueMapperTest extends AbstractTest{
 		Assert.assertNotEquals(0, res);
 	}
 	
-	/*@Test
+	@Test
 	public void test04insertOverdue() {
 		log.debug("test03insertOverdue");
 		Overdue overdue = new Overdue();
@@ -59,6 +59,6 @@ public class OverdueMapperTest extends AbstractTest{
 		overdue.setRentalAuthority(true);
 		int res = dao.insertOverdue(overdue);
 		Assert.assertEquals(1, res);
-	}*/
+	}
 
 }
