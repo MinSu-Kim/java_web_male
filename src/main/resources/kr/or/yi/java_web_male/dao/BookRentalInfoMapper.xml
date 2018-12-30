@@ -127,6 +127,12 @@
 		where member_no = #{memberNo};
 	</select>
 	
+	<update id="updateReturnSchedule" parameterType="BookRentalInfo">
+		update proj_library.book_rental_info
+		SET return_schedule=#{returnSchedule}
+		WHERE rental_no=#{rentalNo}
+	</update>
+	
 	
 	
 	

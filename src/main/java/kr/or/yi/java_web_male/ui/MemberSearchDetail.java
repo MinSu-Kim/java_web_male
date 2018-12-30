@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import javafx.scene.effect.Light.Distant;
 import kr.or.yi.java_web_male.dto.Member;
@@ -23,6 +24,8 @@ import java.awt.Component;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -45,6 +48,8 @@ public class MemberSearchDetail extends JFrame {
 	private List<Member> listMember;
 	private MemberUIService service;
 	private String imgPath;
+	private String pathName;
+	private String fileName;
 	private MemberSearchDetail memberSearchDetail;
 	/**
 	 * Launch the application.
@@ -241,7 +246,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_12.setLayout(null);
 		
 		labelImg = new JLabel("");
-		labelImg.setBounds(39, 10, 250, 208);
+		labelImg.setBounds(0, 10, 250, 208);
 		panel_12.add(labelImg);
 		
 		JPanel panel_1 = new JPanel();
@@ -281,6 +286,28 @@ public class MemberSearchDetail extends JFrame {
 			}
 		});
 		panel_1.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("사진변경");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF", "jpg", "gif");
+				chooser.setFileFilter(filter);
+				int ret = chooser.showOpenDialog(null);
+				
+				if(ret == JFileChooser.APPROVE_OPTION) {
+					pathName = chooser.getSelectedFile().getPath();
+					fileName = chooser.getSelectedFile().getName();
+					
+					System.out.println(pathName);
+					System.out.println(fileName);
+					labelImg.setIcon(new ImageIcon(imgPath + fileName));
+				}
+			
+			}
+		});
+		btnNewButton_1.setBounds(110, 271, 97, 23);
+		panel_2.add(btnNewButton_1);
 	}
 	public void setLists(Member member) {
 		textMemberNo.setText(member.getMemberNo());
@@ -301,12 +328,13 @@ public class MemberSearchDetail extends JFrame {
 		String Kor = textKor.getText().trim();
 		String Eng = textEng.getText().trim();
 		String Phone = textPhone.getText().trim();
-		String jumin = textJumin.getText().trim();
+		String jumin = (textJumin.getText().trim().substring(0,7)+"*******");
 		String Email = textEmail.getText().trim();
 		String Address = textAddress.getText().trim();
 		boolean Admin = textAdmin.getText().trim() != null;
 		String Uni = textUni.getText().trim();
-		return new Member(Mno,Pass,Kor,Eng,Phone,jumin,Email,Address,Admin,Uni);
+		String photo = fileName;
+		return new Member(Mno,Pass,Kor,Eng,Phone,jumin,Email,Address,Admin,photo,Uni);
 	}
 	private void do_btnUpdate_actionPerform(ActionEvent e) {
 		Member editMem = getList();			

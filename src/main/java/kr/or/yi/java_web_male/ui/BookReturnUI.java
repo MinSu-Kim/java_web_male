@@ -38,6 +38,7 @@ public class BookReturnUI extends JFrame {
 	private Book book;
 	private LibraryUIService service;
 	private MemberUIService memberUIService;
+	private InOutUI inOutUI;
 
 	/**
 	 * Launch the application.
@@ -69,8 +70,8 @@ public class BookReturnUI extends JFrame {
 		setTitle("도서 반납");
 		service = new LibraryUIService();
 		memberUIService = new MemberUIService();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 361);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 450, 362);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -216,6 +217,8 @@ public class BookReturnUI extends JFrame {
 		panel_3.add(btnNewButton);
 	}
 	
-	
+	public void setInOutUI(InOutUI inOutUI) {
+		this.inOutUI = inOutUI;
+	}
 
 }
