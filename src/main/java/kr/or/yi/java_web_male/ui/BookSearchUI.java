@@ -545,6 +545,9 @@ public class BookSearchUI extends JFrame implements ActionListener {
 				}
 				lists = new ArrayList<>();
 				lists = service.selectbookbyOther(map);
+				
+				System.out.println(lists.get(0));
+				
 				/* JOptionPane.showMessageDialog(null, lists); */
 				if ((((BookTablePanel) tablePanel2).setLists(lists)) == false) {
 					((BookTablePanel) tablePanel2).loadDatas();
@@ -664,8 +667,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 
 			} else if (result == JOptionPane.YES_OPTION) {
 
-				selectedBook = service.selectbookbybookCodeOne(selectedBook);
-				System.out.println(selectedBook);
+				selectedBook = service.selectBookUpdate(selectedBook);
 				
 				if (bookUpdateUI == null) {
 					bookUpdateUI = new BookUpdateUI(selectedBook);
@@ -674,6 +676,9 @@ public class BookSearchUI extends JFrame implements ActionListener {
 			}
 
 		} catch (Exception e1) {
+			
+			e1.printStackTrace();
+			
 			JOptionPane.showMessageDialog(null, "수정하고자하는 도서를 선택하세요.");
 		}
 		

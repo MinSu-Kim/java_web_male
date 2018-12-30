@@ -44,7 +44,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private JButton btnBest10;
 	private LoginUI loginUI;
 	private MemberInfoUI memberInfoUI;
-	private MemberModUI memberModUI;
+	private MemberUpdateUI memberUpdateUI;
 	private MemberDetailUI memberDetailUI;
 	private BookSearchUI bookSearchUI;
 	private List<BookRentalInfo> lists;
@@ -253,10 +253,10 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	// 회원정보수정 이동
 	protected void do_btnMod_actionPerformed(ActionEvent arg0) {
-		if (memberModUI == null) {
-			memberModUI = new MemberModUI();
+		if (memberUpdateUI == null) {
+			memberUpdateUI = new MemberUpdateUI(LoginUI.getLogin());
 		}
-		memberModUI.setVisible(true);
+		memberUpdateUI.setVisible(true);
 	}
 
 	// 도서검색 이동

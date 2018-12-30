@@ -121,4 +121,8 @@ public class LibraryUIService {
 		return bookRentalInfoMapper.selectRentalNoByBookCode_returnDateNull(bookRentalInfo);
 	}
 	
+	public Book selectBookUpdate(Book book) {
+		return bookMapper.selectBookUpdate(book);
+	}
+	
 }

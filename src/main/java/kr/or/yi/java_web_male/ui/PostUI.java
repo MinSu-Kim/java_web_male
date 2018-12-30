@@ -31,6 +31,7 @@ public class PostUI extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	private MemberUpdateUI memberUpdateUI;
 
 	/**
 	 * Create the frame.
@@ -145,7 +146,7 @@ public class PostUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JOptionPane.showMessageDialog(null,String.format("%s%s,%s",textPostCode.getText(), textAddress.getText(),textDetailAddress.getText()));
 				
-				memberRegisterUI.setAddress(String.format("%s,%s",textPostCode.getText(), textAddress.getText()));
+				/*memberRegisterUI.setAddress(String.format("%s,%s",textPostCode.getText(), textAddress.getText()));*/
 			/*	memberRegisterUI.setAddress(String.format("%s%s,%s",textPostCode.getText(), textAddress.getText(),textDetailAddress.getText()));*/
 				memberRegisterUI.setTfjuso(textDetailAddress.getText());
 				dispose();
@@ -159,6 +160,10 @@ public class PostUI extends JFrame {
 	public void setMemberRegisterUI(MemberRegisterUI memberRegisterUI) {
 		this.memberRegisterUI = memberRegisterUI;
 	}
+	
+	public void setMemberRegisterUI(MemberUpdateUI memberUpdateUI) {
+		this.memberUpdateUI = memberUpdateUI;
+	}
 
 
 
@@ -166,6 +171,12 @@ public class PostUI extends JFrame {
 		textPostCode.setText(post.getZipcode());
 		textAddress.setText(post.toString());
 		textAddress.requestFocus();
+	}
+
+
+
+	public void setMemberUpdateUI(MemberUpdateUI memberUpdateUI) {
+		this.memberUpdateUI = memberUpdateUI;
 	}
 
 }

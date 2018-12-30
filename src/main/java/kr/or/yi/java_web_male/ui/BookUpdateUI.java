@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,8 +76,11 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 	private BookSearchUI bookSearchUI;
 	private BookInsertService service;
 
+	private Book book;
 	public BookUpdateUI(Book book) {
+		this.book = book;
 		System.out.println(book);
+		System.out.println("확인" + book.getPubNo());
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 		service = new BookInsertService();
 		initComponents(book);
@@ -84,6 +88,7 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 
 	private void initComponents(Book book) {
 		setTitle("도서 수정");
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 611);
 		contentPane = new JPanel();
@@ -127,88 +132,34 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		JLabel lblNewLabel_3 = new JLabel("도서 분류");
 		panel_2.add(lblNewLabel_3);
 
-		List<CategoryB> blist = service.selectCategoryBByAll();
+		List<CategoryB> blist = new ArrayList<>();
 		b = new CategoryB();
-		b.setbName("");
+		b.setbName(book.getCateBNo().getbName());
 		blist.add(0, b);
 		modelB = new DefaultComboBoxModel<>(new Vector<>(blist));
 		comboCateB = new JComboBox(modelB);
 		comboCateB.setSelectedItem(b);
-		comboCateB.addItemListener(new ItemListener() {
+		comboCateB.setEnabled(false);
 
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if (comboCateB.getSelectedItem().equals(b)) {
-					cateBview = false;
-					if (m != null) {
-						modelM = new DefaultComboBoxModel<>(new Vector<>());
-						comboCateB.setModel(modelM);
-						comboCateB.setEnabled(false);
-						comboCateB.setEnabled(false);
-					}
-					return;
-				}
-				cateB = (CategoryB) comboCateB.getSelectedItem();
-				cateBview = true;
-				List<CategoryM> mList = service.selectCategoryMByBNo(cateB);
-				m = new CategoryM();
-				m.setmName("");
-				mList.add(0, m);
-				modelM = new DefaultComboBoxModel<>(new Vector<>(mList));
-				comboCateM.setModel(modelM);
-				comboCateM.setSelectedItem(m);
-				comboCateM.setEnabled(true);
-				comboCateS.setEnabled(false);
-			}
-		});
-		comboCateB.setSelectedItem(book.getCateBNo());
-		panel_2.add(comboCateB);
-
-		comboCateM = new JComboBox();
-		comboCateM.addItemListener(new ItemListener() {
-
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if (comboCateM.getSelectedItem().equals(m)) {
-					cateMview = false;
-					if (s != null) {
-						modelS = new DefaultComboBoxModel<>(new Vector<>());
-						comboCateS.setModel(modelS);
-						comboCateS.setEnabled(false);
-					}
-					return;
-				}
-				cateM = (CategoryM) comboCateM.getSelectedItem();
-				List<CategoryS> slist = service.selectCategorySByBNoMno(cateM);
-				s = new CategoryS();
-				s.setsName("");
-				slist.add(0, s);
-				modelS = new DefaultComboBoxModel<>(new Vector<>(slist));
-				comboCateS.setModel(modelS);
-				comboCateM.setSelectedItem(s);
-				comboCateS.setEnabled(true);
-				cateMview = true;
-			}
-		});
+		List<CategoryM> mList = new ArrayList<>();
+		m = new CategoryM();
+		m.setmName(book.getCateMNo().getmName());
+		mList.add(0, m);
+		modelM = new DefaultComboBoxModel<>(new Vector<>(mList));
+		comboCateM = new JComboBox(modelM);
+		comboCateM.setSelectedItem(m);
 		comboCateM.setEnabled(false);
-		panel_2.add(comboCateM);
 
-		List<CategoryS> sList = service.selectCategorySByAll();
-		modelS = new DefaultComboBoxModel<>(new Vector<>(sList));
-		comboCateS = new JComboBox();
-		comboCateS.addItemListener(new ItemListener() {
-
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if (comboCateS.getSelectedItem().equals(s)) {
-					cateSview = false;
-					return;
-				}
-				cateS = (CategoryS) comboCateS.getSelectedItem();
-				cateSview = true;
-			}
-		});
+		List<CategoryS> slist = new ArrayList<>();
+		s = new CategoryS();
+		s.setsName(book.getCateSNo().getsName());
+		slist.add(0, s);
+		modelS = new DefaultComboBoxModel<>(new Vector<>(slist));
+		comboCateS = new JComboBox(modelS);
+		comboCateS.setSelectedItem(s);
 		comboCateS.setEnabled(false);
+		panel_2.add(comboCateB);
+		panel_2.add(comboCateM);
 		panel_2.add(comboCateS);
 
 		JPanel panel_1 = new JPanel();
@@ -282,10 +233,8 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 	}
 
 	private void do_btnUpdate_actionPerformed(ActionEvent e) {
-		Book book = new Book();
 		Publisher publisher = new Publisher();
-		Map<String, Object> map = new HashMap<>();
-		int i = 0, j = 0, max = 0;
+		int i = 0;
 		String pubNo = "";
 
 		publisher.setPubName(tfPub.getText().trim());
@@ -297,62 +246,42 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 			i = service.selectPublisherByAll().size() + 1;
 			pubNo = String.format("P%04d", i);
 			publisher.setPubNo(pubNo);
+			service.insertPublisher(publisher);
 		}
 
 		book.setPubNo(publisher);
 		book.setTitle(tfTitle.getText());
 		book.setAuthor(tfAuthor.getText());
-		book.setAuthor(tfAuthor.getText());
 		book.setTranslator(tfTrans.getText());
 		book.setPrice(Integer.parseInt(tfPrice.getText().trim()));
 		book.setRentalPossible(true);
 		book.setImage(fileName);
-		book.setCateBNo(cateB);
-		book.setCateMNo(cateM);
-		book.setCateSNo(cateS);
+		
 		System.out.println(book);
-
-		map.put("title", book.getTitle());
-		map.put("author", book.getAuthor());
-		map.put("translator", book.getTranslator());
-		map.put("cate_b_no", book.getCateBNo().getbCode());
-		map.put("cate_m_no", book.getCateMNo().getmCode());
-		map.put("cate_s_no", book.getCateSNo().getsCode());
-		map.put("pubNo", book.getPubNo().getPubNo());
-
-		if (service.selectbookbyOther(map) != null) {
-			if (service.selectbookbyOther(map).size() > 0) {
-				i = service.selectbookbyOther(map).get(0).getBookNo();
-				j = service.selectbookbyOther(map).size() + 1;
-			} else {
-				for (int k = 0; k < service.selectBookByAll().size(); k++) {
-					if (max < service.selectBookByAll().get(k).getBookNo()) {
-						max = service.selectBookByAll().get(k).getBookNo();
-					}
-				}
-				i = max + 1;
-				j = 1;
-			}
-		}
-
-		String cn = cateB.getbCode() + "" + cateM.getmCode() + "" + cateS.getsCode() + "";
-		String bc = String.format("%s%05d%02d", cn, i, j);
-
-		tfBookCode.setText(bc);
-		book.setBookCode(bc);
-		book.setBookNo(i);
-
-		int result = JOptionPane.showConfirmDialog(null, bc, "확인", JOptionPane.YES_NO_OPTION);
-		if (result == JOptionPane.CLOSED_OPTION) {
-
-		} else if (result == JOptionPane.YES_OPTION) {
+	
+		
+		
+		
+		try {
 			service.updatetBook(book);
-		} else {
-			JOptionPane.showMessageDialog(null, "");
+			int result = JOptionPane.showConfirmDialog(null, "수정이 완료되었습니다.목록으로 돌아가시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+			if (result == JOptionPane.CLOSED_OPTION) {
+
+			} else if (result == JOptionPane.YES_OPTION) {
+				dispose();
+			}
+
+		} catch (Exception e1) {
+			JOptionPane.showMessageDialog(null, "수정에 실패하였습니다.");
 		}
+		
+		
+		
+	
 	}
 
 	protected void do_btnCancel_actionPerformed(ActionEvent e) {
+		dispose();
 	}
 
 	protected void do_btnImage_actionPerformed(ActionEvent e) {

@@ -25,7 +25,7 @@ public class BookMapperImplTest extends AbstractTest {
 	private PublisherMapper dao2 = PublisherMapperImpl.getInstance();
 	private CategoryBMapper dao1 = CategoryBMapperImpl.getInstance();
 
-	@Test
+	/*@Test
 	public void test01selectBookByAll() {
 		log.debug("test01selectBookByAll");
 		List<Book> stdList = dao.selectBookByAll();
@@ -105,5 +105,15 @@ public class BookMapperImplTest extends AbstractTest {
 		book.setPrice(1000);
 		int res = dao.insertBook(book);
 		Assert.assertEquals(1, res);
+	}*/
+	
+	@Test
+	public void test07selectbookbyOther() {
+		log.debug("test07selectbookbyOther");
+		Book book = new Book();
+		book.setBookCode("0040000201");
+		book = dao.selectBookUpdate(book);
+		System.out.println(book);
+		Assert.assertNotNull(book);
 	}
 }

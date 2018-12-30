@@ -100,8 +100,11 @@ public class BookRentalInfo {
 
 	@Override
 	public String toString() {
-		return "BookRentalInfo [rentalNo=" + rentalNo + ", rentalDate=" + rentalDate + ", returnDate=" + returnDate
-				+ ", returnSchedule=" + returnSchedule + ", memberNo=" + memberNo + ", bookCode=" + bookCode + "]";
+		return String.format(
+				"BookRentalInfo [rentalNo=%s, rentalDate=%s, returnDate=%s, returnSchedule=%s, memberNo=%s, bookCode=%s, publisher=%s]",
+				rentalNo, rentalDate, returnDate, returnSchedule, memberNo, bookCode, publisher);
 	}
+
+
 
 }
