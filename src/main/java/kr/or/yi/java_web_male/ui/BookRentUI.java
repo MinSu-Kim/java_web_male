@@ -77,7 +77,7 @@ public class BookRentUI extends JFrame {
 	public BookRentUI() {
 		setTitle("도서 대여");
 		service = new LibraryUIService();
-		memberUIService = new  MemberUIService();
+		memberUIService = new MemberUIService();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 486, 347);
@@ -149,7 +149,7 @@ public class BookRentUI extends JFrame {
 				MemberSearchUI msu = new MemberSearchUI();
 				msu.setBookRentUI(BookRentUI.this);
 				msu.setVisible(true);
-				
+
 			}
 		});
 		memberSearchPanel.add(btnMemberSearch);
@@ -160,51 +160,47 @@ public class BookRentUI extends JFrame {
 
 		JPanel container2 = new JPanel();
 		contentPane.add(container2, BorderLayout.SOUTH);
-		
+
 		/*-------------------------------------------대여버튼 기능-------------------------------------------*/
 		JButton btnRent = new JButton("대여");
 		btnRent.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
-				//rental_no
+				// rental_no
 				int nextRentalCode = service.nextCode();
-				
-				//rental_Date
+
+				// rental_Date
 				Date rentalsDate = new Date();
 				SimpleDateFormat sdfr = new SimpleDateFormat("yyyy-MM-dd");
 				sdfr.format(rentalsDate);
-				
-				//return_schedule
+
+				// return_schedule
 				Date rentalDate = new Date();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				sdf.format(rentalDate);
-				rentalDate.setDate(rentalDate.getDate()+7);
-				
-				//book_code
+				rentalDate.setDate(rentalDate.getDate() + 7);
+
+				// book_code
 				Book book = new Book();
 				book.setBookCode(textBookCode.getText());
-				
-				//member_no
+
+				// member_no
 				Member member = new Member();
 				member.setMemberNo(textMemberNo.getText());
-				
-				//Member memberNo => memberRentalInfo memberNo로 형변환
-				 String mNo = String.valueOf(member);
-				 
-				 
-				
-				 MemberRentalInfo memberRentalInfo = new MemberRentalInfo();
-				 memberRentalInfo.setMemberNo(mNo);
-				 
-				 //대여가능권수가 0미만일때 대여불가
-				 MemberRentalInfo searchNowTotal = memberUIService.selectMemberNowTotalByCode(memberRentalInfo);
-				 if(searchNowTotal.getNowTotal() < 0 ) {
-					 JOptionPane.showMessageDialog(null, "대여가능한 권수를 초과하였습니다.");
-					 return ;
-				 }
-				 
-				 
-				
+
+				// Member memberNo => memberRentalInfo memberNo로 형변환
+				String mNo = String.valueOf(member);
+
+				MemberRentalInfo memberRentalInfo = new MemberRentalInfo();
+				memberRentalInfo.setMemberNo(mNo);
+
+				// 대여가능권수가 0미만일때 대여불가
+				MemberRentalInfo searchNowTotal = memberUIService.selectMemberNowTotalByCode(memberRentalInfo);
+				if (searchNowTotal.getNowTotal() < 0) {
+					JOptionPane.showMessageDialog(null, "대여가능한 권수를 초과하였습니다.");
+					return;
+				}
+
 				/*------------------insert BookRentalInfo 대여정보 추가-----------------*/
 				BookRentalInfo bookRentalInfo = new BookRentalInfo();
 				bookRentalInfo.setRentalNo(nextRentalCode);
@@ -213,44 +209,44 @@ public class BookRentUI extends JFrame {
 				bookRentalInfo.setReturnSchedule(rentalDate);
 				bookRentalInfo.setBookCode(book);
 				bookRentalInfo.setMemberNo(member);
-				
+
 				int bookRentalInfo1 = service.insertBookRentalInfo(bookRentalInfo);
 				/*-------------------------------------------------------------------*/
-				 
-				 //대여한 책의 대여가능여부 변경
-				 book.setRentalPossible(false);
-				 int updatePossible = service.updateBookPossible(book);
-				 
-				//회원대여정보의 대여가능권수-1, 총대여권수+1 변경
-				 int updateRentalInfo = memberUIService.updateMemberRentalInfo(memberRentalInfo);
-				 
-				 //등급변경
-				 MemberRentalInfo searchTotal = memberUIService.selectMemberTotalByCode(memberRentalInfo);
-				 if(searchTotal.getTotal() == 100) {
-					 memberUIService.updateMemberRentalInfoGrade(memberRentalInfo);
-					 JOptionPane.showMessageDialog(null, "등급이 []로 변경되었습니다.");
-				 }else if(searchTotal.getTotal() == 500) {
-					 memberUIService.updateMemberRentalInfoGrade(memberRentalInfo);
-					 JOptionPane.showMessageDialog(null, "등급이 []로 변경되었습니다.");
-				 }else if(searchTotal.getTotal() == 1000) {
-					 memberUIService.updateMemberRentalInfoGrade(memberRentalInfo);
-					 JOptionPane.showMessageDialog(null, "등급이 []로 변경되었습니다.");
-				 }else if(searchTotal.getTotal() == 5000) {
-					 memberUIService.updateMemberRentalInfoGrade(memberRentalInfo);
-					 JOptionPane.showMessageDialog(null, "등급이 []로 변경되었습니다.");
-				 }
-				
+
+				// 대여한 책의 대여가능여부 변경
+				book.setRentalPossible(false);
+				int updatePossible = service.updateBookPossible(book);
+
+				// 회원대여정보의 대여가능권수-1, 총대여권수+1 변경
+				int updateRentalInfo = memberUIService.updateMemberRentalInfo(memberRentalInfo);
+
+				// 등급변경
+				MemberRentalInfo searchTotal = memberUIService.selectMemberTotalByCode(memberRentalInfo);
+				if (searchTotal.getTotal() == 100) {
+					memberUIService.updateMemberRentalInfoGrade(memberRentalInfo);
+					JOptionPane.showMessageDialog(null, "등급이 []로 변경되었습니다.");
+				} else if (searchTotal.getTotal() == 500) {
+					memberUIService.updateMemberRentalInfoGrade(memberRentalInfo);
+					JOptionPane.showMessageDialog(null, "등급이 []로 변경되었습니다.");
+				} else if (searchTotal.getTotal() == 1000) {
+					memberUIService.updateMemberRentalInfoGrade(memberRentalInfo);
+					JOptionPane.showMessageDialog(null, "등급이 []로 변경되었습니다.");
+				} else if (searchTotal.getTotal() == 5000) {
+					memberUIService.updateMemberRentalInfoGrade(memberRentalInfo);
+					JOptionPane.showMessageDialog(null, "등급이 []로 변경되었습니다.");
+				}
+
 				JOptionPane.showMessageDialog(null, "대여에 성공하셨습니다. 반납일을 잘 지켜주세요.");
-				//텍스트필드 비우기
+				// 텍스트필드 비우기
 				clearTf();
 			}
 		});
-		
+
 		/*------------------------------------------대여버튼 기능 끝---------------------------------------------*/
-		
+
 		container2.add(btnRent);
 	}
-	
+
 	private void clearTf() {
 		textBookCode.setText("");
 		textMemberNo.setText("");
@@ -265,6 +261,7 @@ public class BookRentUI extends JFrame {
 		this.textMemberNo.setText(member.getMemberNo());
 		textMemberNo.requestFocus();
 	}
+
 	public void setInOutUI(InOutUI inOutUI) {
 		this.inOutUI = inOutUI;
 	}

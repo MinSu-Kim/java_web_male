@@ -11,6 +11,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javafx.scene.image.Image;
 import kr.or.yi.java_web_male.dao.MemberMapper;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.dto.MemberRentalInfo;
+import kr.or.yi.java_web_male.dto.Overdue;
 import kr.or.yi.java_web_male.dto.Post;
 import kr.or.yi.java_web_male.service.MemberUIService;
 import kr.or.yi.java_web_male.service.MyDocumentListener;
@@ -76,6 +78,7 @@ public class MemberRegisterUI extends JFrame {
 	private JTextField tfpass;
 	private static String adminpassword = "1234";
 	private JPasswordField tfju2;
+	private String mn;
 	
 	
 	/**
@@ -430,8 +433,10 @@ public class MemberRegisterUI extends JFrame {
 				try {
 					check();
 					getMember();
+					insertRentailInfo();
+					insertOverdue();
 					JOptionPane.showMessageDialog(null, "회원이 되신걸 축하드립니다.");
-				/*	dispose();*/
+					dispose();
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				} catch(Exception e2) {
@@ -498,7 +503,7 @@ public class MemberRegisterUI extends JFrame {
 			tFmemberNo.setText(make);
 		}
 			
-		String mn = String.format("%s%04d",make, i);
+		mn = String.format("%s%04d",make, i);
 		mn = mn.toUpperCase();
 		JOptionPane.showMessageDialog(null, mn);
 		member.setMemberNo(mn);
@@ -591,7 +596,24 @@ public class MemberRegisterUI extends JFrame {
 			tfEmail_2.setEditable(true);
 		}
 	}
-
+	protected void insertRentailInfo() {
+		MemberRentalInfo memberRentalInfo = new MemberRentalInfo();
+		memberRentalInfo.setMemberNo(mn);
+		memberRentalInfo.setGrade(3);
+		memberRentalInfo.setNowTotal(0);
+		memberRentalInfo.setNowTotal(0);		
+		int res = service.insertMemberRentalInfo(memberRentalInfo);
+			
+	}
+	protected void insertOverdue() {
+		Overdue overdue = new Overdue();
+		overdue.setMemberNo(mn);
+		overdue.setRentalAuthority(true);
+		overdue.setOverdueCount(0);
+		overdue.setStopDate(0);
+		overdue.setStopEndDate(null);
+		int res = service.insertoverDue(overdue);
+	}
 	public void setAddress(String addr) {
 		this.tfAdd.setText(addr);
 	}

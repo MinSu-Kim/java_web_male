@@ -217,7 +217,6 @@ public class LoginUI extends JFrame implements ActionListener {
 			e.printStackTrace();
 			failLogin();
 		}
-		
 		/*--------------------------정지일수 업데이트-----------------------------*/
 		
 		
@@ -233,6 +232,9 @@ public class LoginUI extends JFrame implements ActionListener {
 		
 		Date overdueDate = selectOverdue.getOverdueDate();*/
 		
+		/*--------------------------정지일수&대여권한 업데이트-----------------------------*/
+		/*memberUIService.updateDiffAuthority();*/
+		/*--------------------------------------------------------------------------*/
 	}
 
 	private void failLogin() {
