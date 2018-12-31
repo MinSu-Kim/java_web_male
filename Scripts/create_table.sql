@@ -150,7 +150,6 @@ CREATE TABLE proj_library.overdue (
 	stop_end_date     Date		 null     COMMENT '정지종료일'  -- 정지종료일
 )
 COMMENT '연체정보';
-
 -- 연체정보
 ALTER TABLE proj_library.overdue
 	ADD CONSTRAINT
