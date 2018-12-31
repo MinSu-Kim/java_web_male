@@ -75,7 +75,7 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 	private String imgPath;
 	private BookSearchUI bookSearchUI;
 	private BookInsertService service;
-
+	
 	private Book book;
 	public BookUpdateUI(Book book) {
 		this.book = book;
@@ -268,7 +268,9 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 			if (result == JOptionPane.CLOSED_OPTION) {
 
 			} else if (result == JOptionPane.YES_OPTION) {
+
 				dispose();
+				bookSearchUI.getLoadData();
 			}
 
 		} catch (Exception e1) {
@@ -282,6 +284,7 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 
 	protected void do_btnCancel_actionPerformed(ActionEvent e) {
 		dispose();
+		bookSearchUI.getLoadData();
 	}
 
 	protected void do_btnImage_actionPerformed(ActionEvent e) {
@@ -296,5 +299,9 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 			fileName = chooser.getSelectedFile().getName();
 			lblImage.setIcon(new ImageIcon(imgPath + fileName));
 		}
+	}
+
+	public void setBookSearchUI(BookSearchUI bookSearchUI) {
+		this.bookSearchUI = bookSearchUI;
 	}
 }

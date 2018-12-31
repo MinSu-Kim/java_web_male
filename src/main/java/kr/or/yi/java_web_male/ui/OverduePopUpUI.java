@@ -30,12 +30,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class OverduePopUpUI extends JFrame implements ActionListener {
-	
+
 	private NonEditableModel model;
-	private JScrollPane scrollPane;	
+	private JScrollPane scrollPane;
 	private JPanel contentPane;
 	private JTable table;
-	private int rank =0;
+	private int rank = 0;
 	private List<OverduePopup> lists;
 	private OverduePopUpUIService service;
 	private JButton btnClose;
@@ -73,68 +73,63 @@ public class OverduePopUpUI extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+
 		scrollPane = new JScrollPane();
 		contentPane.add(scrollPane, BorderLayout.CENTER);
-		
+
 		lists = service.selectAll();
-		
-		
+
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null, null, null, null},
-					{null, null, null, null, null, null},
-					{null, null, null, null, null, null},
-					{null, null, null, null, null, null},
-					{null, null, null, null, null, null},
-					{null, null, null, null, null, null},
-					{null, null, null, null, null, null},
-					{null, null, null, null, null, null},
-					{null, null, null, null, null, null},
-					{null, null, null, null, null, null},
-				},
-				new String[] {
-					"이름", "도서명", "대여일자", "반납예정일", "연체일수", "전화번호"
-				}
-			));
-			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // 한 row만 선택가능
-			table.setPreferredScrollableViewportSize(table.getPreferredSize());
+				new Object[][] { { null, null, null, null, null, null }, { null, null, null, null, null, null },
+								{ null, null, null, null, null, null }, { null, null, null, null, null, null },
+								{ null, null, null, null, null, null }, { null, null, null, null, null, null },
+								{ null, null, null, null, null, null }, { null, null, null, null, null, null },
+								{ null, null, null, null, null, null }, { null, null, null, null, null, null }, },
+				new String[] { "이름", "도서명", "대여일자", "반납예정일", "연체일수", "전화번호" }));
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // 한 row만 선택가능
+		table.setPreferredScrollableViewportSize(table.getPreferredSize());
 		scrollPane.setViewportView(table);
-		
-		
+
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
+
 		btnClose = new JButton("닫기");
 		btnClose.addActionListener(this);
 		panel.add(btnClose);
-		
+
 		chckbxToday = new JCheckBox("오늘 하루동안 보이지 않게 하기");
 		panel.add(chckbxToday);
 		loadDatas();
 	}
+
 	public void loadDatas() {
 		model = new NonEditableModel(getDatas(), getColumnNames());
 		table.setModel(model);
 	}
+
 	public Object[][] getDatas() {
 		Object[][] datas = new Object[lists.size()][];
 		for (int i = 0; i < lists.size(); i++) {
 			datas[i] = getOverduePopupArray(lists.get(i));
 		}
 		return datas;
-		
-	}
-	public String[] getColumnNames() {
-		return new String[] { "이름", "도서명", "대여일자", "반납예정일", "연체일수", "전화번호"};
-	}
-	private Object[] getOverduePopupArray(OverduePopup overduePopup) {
-			        
-		SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");     
 
-		return new Object[] { overduePopup.korName.getKorName(),overduePopup.title.getTitle(),date.format(overduePopup.rentalDate.getRentalDate()),date.format(overduePopup.returnSchedule.getReturnSchedule()),overduePopup.overday,overduePopup.phone.getPhone() };
+	}
+
+	public String[] getColumnNames() {
+		return new String[] { "이름", "도서명", "대여일자", "반납예정일", "연체일수", "전화번호" };
+	}
+
+	private Object[] getOverduePopupArray(OverduePopup overduePopup) {
+
+		SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
+
+		return new Object[] { overduePopup.korName.getKorName(), overduePopup.title.getTitle(),
+				date.format(overduePopup.rentalDate.getRentalDate()),
+				date.format(overduePopup.returnSchedule.getReturnSchedule()), overduePopup.overday,
+				overduePopup.phone.getPhone() };
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -142,10 +137,11 @@ public class OverduePopUpUI extends JFrame implements ActionListener {
 			do_btnClose_actionPerformed(e);
 		}
 	}
+
 	protected void do_btnClose_actionPerformed(ActionEvent e) {
 		if (chckbxToday.isSelected()) {
 			service.updatedat();
-			
+
 		}
 		dispose();
 	}
