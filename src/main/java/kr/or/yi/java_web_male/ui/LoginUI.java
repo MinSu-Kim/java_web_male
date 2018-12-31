@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,9 +21,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
 import kr.or.yi.java_web_male.dto.Member;
-import kr.or.yi.java_web_male.dto.MemberRentalInfo;
-import kr.or.yi.java_web_male.dto.Overdue;
-import kr.or.yi.java_web_male.service.LibraryUIService;
 import kr.or.yi.java_web_male.service.LoginService;
 
 import kr.or.yi.java_web_male.service.MemberUIService;
@@ -55,7 +51,6 @@ public class LoginUI extends JFrame implements ActionListener {
 	private String imgPath;
 	private LoginService service;
 	private MemberUIService memberUIService;
-	private LibraryUIService libraryUIService;
 	private LoginUIService serviceUI;
 
 	public static final Member getLogin() {
@@ -192,14 +187,6 @@ public class LoginUI extends JFrame implements ActionListener {
 				if (member.isAdmin() == true) {
 					if (adminMainUI == null) {
 
-
-
-						/*  JOptionPane.showMessageDialog(null, serviceUI.selectDate());
-						  if(serviceUI.selectDate() != 0) { overduePopUpUI = new OverduePopUpUI(); }*/
-				 /* JOptionPane.showMessageDialog(null, serviceUI.selectDate());*/
-					/*	  if(serviceUI.selectDate() != 0) { overduePopUpUI = new OverduePopUpUI(); }*/
-						 
-
 						JOptionPane.showMessageDialog(null, serviceUI.selectDate());
 						if (serviceUI.selectDate() != 0) {
 							overduePopUpUI = new OverduePopUpUI();
@@ -214,8 +201,6 @@ public class LoginUI extends JFrame implements ActionListener {
 						}
 
 					}
-					adminMainUI.setVisible(true);
-					 overduePopUpUI.setVisible(true);
 
 				} else {
 					if (memberInfoUI == null) {
@@ -234,9 +219,6 @@ public class LoginUI extends JFrame implements ActionListener {
 		}
 
 		/*--------------------------정지일수&대여권한 업데이트-----------------------------*/
-
-	/*	 memberUIService.updateDiffAuthority(); */
-
 		memberUIService.updateDiffAuthority();
 		/*--------------------------------------------------------------------------*/
 	}

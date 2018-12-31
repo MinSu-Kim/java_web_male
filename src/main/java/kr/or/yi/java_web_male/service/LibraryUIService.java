@@ -109,6 +109,10 @@ public class LibraryUIService {
 	public BookRentalInfo selectRentalNoByBookCode(BookRentalInfo bookRentalInfo) {
 		return bookRentalInfoMapper.selectRentalNoByBookCode(bookRentalInfo);
 	}
+	
+	public BookRentalInfo selectBookRentalInfoByCode(BookRentalInfo bookRentalInfo) {
+		return bookRentalInfoMapper.selectBookRentalInfoByCode(bookRentalInfo);
+	}
 
 	public int nextCode() {
 		return bookRentalInfoMapper.nextCode();
