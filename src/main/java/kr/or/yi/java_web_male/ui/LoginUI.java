@@ -95,7 +95,7 @@ public class LoginUI extends JFrame implements ActionListener {
 	private void initComponent() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 
-//		setContentPane(new JLabel(new ImageIcon(imgPath + "7.jpg")));
+		setContentPane(new JLabel(new ImageIcon(imgPath + "7.jpg")));
 		pack();
 
 		setTitle("로그인");
@@ -184,15 +184,15 @@ public class LoginUI extends JFrame implements ActionListener {
 				if (member.isAdmin() == true) {
 					if (adminMainUI == null) {
 
-						/*
-						 * JOptionPane.showMessageDialog(null, serviceUI.selectDate());
-						 * if(serviceUI.selectDate() != 0) { overduePopUpUI = new OverduePopUpUI(); }
-						 */
+						
+						  JOptionPane.showMessageDialog(null, serviceUI.selectDate());
+						  if(serviceUI.selectDate() != 0) { overduePopUpUI = new OverduePopUpUI(); }
+						
 						adminMainUI = new AdminMainUI();
 
 					}
 					adminMainUI.setVisible(true);
-					/* overduePopUpUI.setVisible(true); */
+					 overduePopUpUI.setVisible(true);
 				} else {
 					if (memberInfoUI == null) {
 						memberInfoUI = new MemberInfoUI();
@@ -208,22 +208,9 @@ public class LoginUI extends JFrame implements ActionListener {
 			e.printStackTrace();
 			failLogin();
 		}
-		/*--------------------------정지일수 업데이트-----------------------------*/
-
-		/*
-		 * Member member1 = new Member(); member1.setMemberNo(tfMemberNo.getText());
-		 * 
-		 * String mNo = String.valueOf(member1);
-		 * 
-		 * Overdue overdue = new Overdue(); overdue.setMemberNo(mNo);
-		 * 
-		 * Overdue selectOverdue = memberUIService.selectOverdueByCode(overdue);
-		 * 
-		 * Date overdueDate = selectOverdue.getOverdueDate();
-		 */
 
 		/*--------------------------정지일수&대여권한 업데이트-----------------------------*/
-		/* memberUIService.updateDiffAuthority(); */
+		 memberUIService.updateDiffAuthority(); 
 		/*--------------------------------------------------------------------------*/
 	}
 

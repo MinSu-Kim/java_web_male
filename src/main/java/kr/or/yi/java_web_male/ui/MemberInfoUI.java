@@ -16,7 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.dto.Overdue;
 import kr.or.yi.java_web_male.service.MemberInfoService;
+import kr.or.yi.java_web_male.service.MemberUIService;
 import kr.or.yi.java_web_male.ui.LoginUI;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -50,32 +52,39 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private List<BookRentalInfo> lists;
 	private String imgPath;
 	private MemberInfoService service;
+	private JTextField tfStopDate;
+	private MemberUIService memberUIService;
+	private Overdue overdue;
 
 	public MemberInfoUI() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 		loginUI = new LoginUI();
 		service = new MemberInfoService();
+		memberUIService = new MemberUIService();
 		initComponent();
 	}
 
 	private void initComponent() {
 		setTitle("[사용자] " + LoginUI.getLogin().getKorName() + "님 환영합니다.");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 500);
+		setBounds(100, 100, 500, 593);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.NORTH);
-		panel.setLayout(new GridLayout(0, 1, 10, 10));
+		panel.setBounds(5, 5, 474, 202);
+		contentPane.add(panel);
+		panel.setLayout(null);
 
 		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(0, 0, 474, 210);
 		panel.add(panel_3);
-		panel_3.setLayout(new GridLayout(0, 1, 10, 10));
+		panel_3.setLayout(null);
 
 		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(0, 0, 474, 83);
 		panel_3.add(panel_1);
 		panel_1.setLayout(new GridLayout(0, 2, 10, 10));
 
@@ -126,58 +135,73 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pMemberPhoto.add(pPhoto);
 
 		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(0, 93, 474, 114);
 		panel_3.add(panel_2);
 		panel_2.setLayout(null);
 
 		JLabel lblPhone = new JLabel("전화번호");
-		lblPhone.setBounds(0, 0, 109, 21);
+		lblPhone.setBounds(0, 0, 122, 21);
 		panel_2.add(lblPhone);
-
-		tfPhone = new JTextField();
-		tfPhone.setBounds(121, 0, 342, 21);
-		panel_2.add(tfPhone);
-		tfPhone.setColumns(10);
-
-		JLabel lblEmail = new JLabel("이메일");
-		lblEmail.setBounds(0, 31, 109, 21);
-		panel_2.add(lblEmail);
-
-		tfEmail = new JTextField();
-		tfEmail.setBounds(121, 31, 341, 21);
-		panel_2.add(tfEmail);
-		tfEmail.setColumns(10);
-
-		JLabel lblJumin = new JLabel("주민등록번호");
-		lblJumin.setBounds(0, 62, 109, 21);
-		panel_2.add(lblJumin);
-
-		tfJumin = new JTextField();
-		tfJumin.setBounds(121, 62, 341, 21);
-		panel_2.add(tfJumin);
-		tfJumin.setColumns(10);
-
-		JLabel lblAddress = new JLabel("주소");
-		lblAddress.setBounds(0, 93, 257, 21);
-		panel_2.add(lblAddress);
-
-		tfAddress = new JTextField();
-		tfAddress.setBounds(133, 93, 391, 21);
-		panel_2.add(tfAddress);
-		tfAddress.setColumns(10);
+		
+				tfPhone = new JTextField();
+				tfPhone.setBounds(121, 0, 237, 21);
+				panel_2.add(tfPhone);
+				tfPhone.setColumns(10);
+		
+				JLabel lblEmail = new JLabel("이메일");
+				lblEmail.setBounds(0, 21, 122, 21);
+				panel_2.add(lblEmail);
+		
+				tfEmail = new JTextField();
+				tfEmail.setBounds(121, 21, 237, 21);
+				panel_2.add(tfEmail);
+				tfEmail.setColumns(10);
+		
+				JLabel lblJumin = new JLabel("주민등록번호");
+				lblJumin.setBounds(0, 42, 122, 21);
+				panel_2.add(lblJumin);
+		
+				tfJumin = new JTextField();
+				tfJumin.setBounds(121, 42, 237, 21);
+				panel_2.add(tfJumin);
+				tfJumin.setColumns(10);
+		
+				JLabel lblAddress = new JLabel("주소");
+				lblAddress.setBounds(0, 63, 122, 21);
+				panel_2.add(lblAddress);
+		
+				tfAddress = new JTextField();
+				tfAddress.setBounds(121, 63, 317, 21);
+				panel_2.add(tfAddress);
+				tfAddress.setColumns(10);
+		
+		JLabel lblStopDate = new JLabel("정지일");
+		lblStopDate.setBounds(0, 84, 122, 21);
+		panel_2.add(lblStopDate);
+		
+		tfStopDate = new JTextField();
+		tfStopDate.setEnabled(false);
+		tfStopDate.setBounds(121, 84, 237, 21);
+		panel_2.add(tfStopDate);
+		tfStopDate.setEditable(false);
+		tfStopDate.setColumns(10);
 
 		JPanel pRentList = new JPanel();
-		contentPane.add(pRentList, BorderLayout.CENTER);
-		pRentList.setLayout(new BorderLayout(0, 0));
+		pRentList.setBounds(5, 207, 474, 319);
+		contentPane.add(pRentList);
+		pRentList.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		pRentList.add(scrollPane, BorderLayout.CENTER);
+		scrollPane.setBounds(0, 10, 474, 335);
+		pRentList.add(scrollPane);
 
 		table = new JTable();
 		loadDatas();
 		scrollPane.setViewportView(table);
 
 		JPanel pButton = new JPanel();
-		contentPane.add(pButton, BorderLayout.SOUTH);
+		pButton.setBounds(5, 526, 474, 23);
+		contentPane.add(pButton);
 		pButton.setLayout(new GridLayout(0, 5, 10, 10));
 
 		btnMod = new JButton("정보수정");
@@ -201,6 +225,8 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pButton.add(btnLogout);
 
 		getMemberInfo(LoginUI.getLogin());
+		getMemberInfo2(overdue);
+		
 	}
 
 	private void loadDatas() {
@@ -293,6 +319,16 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfJumin.setEditable(false);
 		tfAddress.setEditable(false);
 	}
+	public void getMemberInfo2(Overdue overdue1) {
+		Overdue oMno = new Overdue();
+		oMno.setMemberNo(tfMemberNo.getText());
+		Overdue overdueAll = memberUIService.selectOverdueByCode(oMno);
+		int stopDate = overdueAll.getStopDate();
+		String stop = String.valueOf(stopDate);
+		
+		tfStopDate.setText(stop);
+	}
+	
 
 	protected void do_btnLogout_actionPerformed(ActionEvent e) {
 		LoginUI.memberLogOut();

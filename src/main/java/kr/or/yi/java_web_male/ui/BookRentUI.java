@@ -33,6 +33,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import java.awt.Dimension;
+import java.awt.Font;
 
 public class BookRentUI extends JFrame {
 
@@ -80,89 +82,82 @@ public class BookRentUI extends JFrame {
 		memberUIService = new MemberUIService();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 486, 347);
+		setBounds(100, 100, 486, 223);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setLayout(null);
 
 		JPanel container1 = new JPanel();
+		container1.setBounds(5, 5, 470, 107);
 		contentPane.add(container1);
-		container1.setLayout(new GridLayout(0, 1, 0, 0));
+		container1.setLayout(null);
+														
+																JPanel bookCodePanel = new JPanel();
+																bookCodePanel.setBounds(0, 0, 470, 51);
+																container1.add(bookCodePanel);
+																bookCodePanel.setLayout(null);
+																
+																		JLabel lblBookCode = new JLabel("도서번호");
+																		lblBookCode.setFont(new Font("Dialog", Font.BOLD, 16));
+																		lblBookCode.setBounds(0, 0, 157, 50);
+																		bookCodePanel.add(lblBookCode);
+																		lblBookCode.setHorizontalAlignment(SwingConstants.CENTER);
+																		
+																				textBookCode = new JTextField();
+																				textBookCode.setBounds(157, 0, 156, 50);
+																				bookCodePanel.add(textBookCode);
+																				textBookCode.setColumns(10);
+																				
+																						btnBookSearch = new JButton("도서검색");
+																						btnBookSearch.setFont(new Font("Dialog", Font.BOLD, 16));
+																						btnBookSearch.setBounds(313, 0, 156, 50);
+																						bookCodePanel.add(btnBookSearch);
+																																
+																																		JPanel memberNoPanel = new JPanel();
+																																		memberNoPanel.setBounds(0, 53, 470, 51);
+																																		container1.add(memberNoPanel);
+																																		memberNoPanel.setLayout(null);
+																																		
+																																				JLabel lblMemberNo = new JLabel("회원번호");
+																																				lblMemberNo.setFont(new Font("Dialog", Font.BOLD, 16));
+																																				lblMemberNo.setBounds(1, 0, 156, 50);
+																																				lblMemberNo.setHorizontalAlignment(SwingConstants.CENTER);
+																																				memberNoPanel.add(lblMemberNo);
+																																				
+																																						textMemberNo = new JTextField();
+																																						textMemberNo.setBounds(157, 0, 156, 50);
+																																						memberNoPanel.add(textMemberNo);
+																																						textMemberNo.setColumns(10);
+																																						
+																																								JButton btnMemberSearch = new JButton("회원검색");
+																																								btnMemberSearch.setFont(new Font("Dialog", Font.BOLD, 16));
+																																								btnMemberSearch.setBounds(313, 0, 156, 50);
+																																								memberNoPanel.add(btnMemberSearch);
+																																btnMemberSearch.addActionListener(new ActionListener() {
+																																	public void actionPerformed(ActionEvent e) {
+																																		MemberSearchUI msu = new MemberSearchUI();
+																																		msu.setBookRentUI(BookRentUI.this);
+																																		msu.setVisible(true);
 
-		JPanel bookPanel = new JPanel();
-		container1.add(bookPanel);
-		bookPanel.setLayout(new GridLayout(0, 1, 0, 0));
-
-		JPanel bookCodePanel = new JPanel();
-		bookPanel.add(bookCodePanel);
-		bookCodePanel.setLayout(new GridLayout(0, 2, 0, 0));
-
-		JLabel lblBookCode = new JLabel("도서번호");
-		bookCodePanel.add(lblBookCode);
-		lblBookCode.setHorizontalAlignment(SwingConstants.CENTER);
-
-		textBookCode = new JTextField();
-		bookCodePanel.add(textBookCode);
-		textBookCode.setColumns(10);
-
-		JPanel bookSearchPanel = new JPanel();
-		bookPanel.add(bookSearchPanel);
-
-		btnBookSearch = new JButton("도서검색");
-		btnBookSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				BookSearchUI bsu = new BookSearchUI();
-				bsu.setBookRentUI(BookRentUI.this);
-				bsu.setVisible(true);
-			}
-		});
-		bookSearchPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		bookSearchPanel.add(btnBookSearch);
-
-		JLabel lblSpace1 = new JLabel(
-				"                                                                                                                           ");
-		bookSearchPanel.add(lblSpace1);
-
-		JPanel memberPanel = new JPanel();
-		container1.add(memberPanel);
-		memberPanel.setLayout(new GridLayout(0, 1, 0, 0));
-
-		JPanel memberNoPanel = new JPanel();
-		memberPanel.add(memberNoPanel);
-		memberNoPanel.setLayout(new GridLayout(0, 2, 0, 0));
-
-		JLabel lblMemberNo = new JLabel("회원번호");
-		lblMemberNo.setHorizontalAlignment(SwingConstants.CENTER);
-		memberNoPanel.add(lblMemberNo);
-
-		textMemberNo = new JTextField();
-		memberNoPanel.add(textMemberNo);
-		textMemberNo.setColumns(10);
-
-		JPanel memberSearchPanel = new JPanel();
-		memberPanel.add(memberSearchPanel);
-
-		JButton btnMemberSearch = new JButton("회원검색");
-		btnMemberSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MemberSearchUI msu = new MemberSearchUI();
-				msu.setBookRentUI(BookRentUI.this);
-				msu.setVisible(true);
-
-			}
-		});
-		memberSearchPanel.add(btnMemberSearch);
-
-		JLabel lblSpace2 = new JLabel(
-				"                                                                                                                           ");
-		memberSearchPanel.add(lblSpace2);
+																																	}
+																																});
+																						btnBookSearch.addActionListener(new ActionListener() {
+																							public void actionPerformed(ActionEvent e) {
+																								BookSearchUI bsu = new BookSearchUI();
+																								bsu.setBookRentUI(BookRentUI.this);
+																								bsu.setVisible(true);
+																							}
+																						});
 
 		JPanel container2 = new JPanel();
-		contentPane.add(container2, BorderLayout.SOUTH);
+		container2.setBounds(5, 123, 470, 63);
+		contentPane.add(container2);
 
 		/*-------------------------------------------대여버튼 기능-------------------------------------------*/
 		JButton btnRent = new JButton("대여");
+		btnRent.setFont(new Font("Dialog", Font.BOLD, 16));
+		btnRent.setBounds(178, 6, 105, 52);
 		btnRent.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -243,6 +238,7 @@ public class BookRentUI extends JFrame {
 		});
 
 		/*------------------------------------------대여버튼 기능 끝---------------------------------------------*/
+		container2.setLayout(null);
 
 		container2.add(btnRent);
 	}
