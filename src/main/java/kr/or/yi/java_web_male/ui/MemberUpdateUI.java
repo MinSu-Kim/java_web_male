@@ -206,6 +206,7 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		panel_name.add(tfKor);
 		tfKor.setColumns(10);
 		tfKor.setText(member.getKorName());
+		tfKor.setEnabled(false);
 
 		JLabel lblEng = new JLabel("영어이름");
 		lblEng.setBounds(280, 0, 58, 61);
@@ -217,6 +218,7 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		panel_name.add(tfEng);
 		tfEng.setColumns(10);
 		tfEng.setText(member.getEngName());
+		tfEng.setEnabled(false);
 
 		JPanel panel_Tel = new JPanel();
 		panel.add(panel_Tel);
@@ -277,6 +279,7 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		panel_6.add(tfju1);
 		tfju1.setColumns(10);
 		tfju1.setText(member.getJumin().substring(0, 6));
+		tfju1.setEnabled(false);
 
 		JLabel label_2 = new JLabel("-");
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -288,6 +291,7 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		tfju2.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panel_6.add(tfju2);
 		tfju2.setText(member.getJumin().substring(7, 8) + "******");
+		tfju2.setEnabled(false);
 
 		JPanel panel_Email = new JPanel();
 		panel.add(panel_Email);
@@ -314,7 +318,7 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		tfEmail_2 = new JTextField();
 		panel_19.add(tfEmail_2);
 		tfEmail_2.setColumns(10);
-		tfEmail.setText(strArr[1]);
+		tfEmail_2.setText(strArr[1]);
 
 		comboBox = new JComboBox();
 		comboBox.addActionListener(this);
@@ -385,11 +389,11 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		btnImg.addActionListener(this);
 		btnImg.setBounds(25, 248, 155, 23);
 		panel_3.add(btnImg);
-
-		lblImg = new JLabel();
-		lblImg.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImg.setBounds(12, 10, 178, 267);
-		panel_3.add(lblImg);
+		
+				lblImg = new JLabel();
+				lblImg.setHorizontalAlignment(SwingConstants.CENTER);
+				lblImg.setBounds(12, 10, 178, 267);
+				panel_3.add(lblImg);
 
 		btnAdd = new JButton("수정");
 		btnAdd.addActionListener(this);

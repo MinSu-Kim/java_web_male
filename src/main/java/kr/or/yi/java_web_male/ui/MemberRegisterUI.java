@@ -410,9 +410,6 @@ public class MemberRegisterUI extends JFrame {
 				if(ret == JFileChooser.APPROVE_OPTION) {
 					pathName = chooser.getSelectedFile().getPath();
 					fileName = chooser.getSelectedFile().getName();
-					
-					System.out.println(pathName);
-					System.out.println(fileName);
 					lblImg.setIcon(new ImageIcon(imgPath + fileName));
 				}
 			}
