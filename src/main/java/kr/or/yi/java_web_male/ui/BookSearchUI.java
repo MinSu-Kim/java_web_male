@@ -92,7 +92,6 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	private String log;
 	private BookRentUI bookRentUI;
 	private boolean searchwhat = true;
-	private BookUpdateUI bookUpdateUI;
 	private Book selectedBook;
 	private BookDetailUI bookDetailUI;
 	private List<Book> listBook;
@@ -687,10 +686,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 
 				selectedBook = service.selectBookUpdate(selectedBook);
 				
-				if (bookUpdateUI == null) {
-					bookUpdateUI = new BookUpdateUI(selectedBook);
-				}
-				bookUpdateUI.setVisible(true);
+				
 			}
 
 		} catch (Exception e1) {

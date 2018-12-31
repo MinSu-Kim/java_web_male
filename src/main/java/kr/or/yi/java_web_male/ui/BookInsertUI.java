@@ -84,44 +84,53 @@ public class BookInsertUI extends JFrame implements ActionListener {
 	private void initComponents() {
 		setTitle("도서 추가");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 611);
+		setBounds(100, 100, 450, 425);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(0, 1, 10, 10));
+		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBounds(5, 5, 424, 133);
 		contentPane.add(panel);
-		panel.setLayout(new GridLayout(0, 2, 10, 10));
+		panel.setLayout(null);
 
 		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(0, 88, 207, 45);
 		panel.add(panel_3);
-		panel_3.setLayout(new GridLayout(0, 2, 10, 10));
+		panel_3.setLayout(null);
 
 		JLabel lblBookCode = new JLabel("도서 번호");
+		lblBookCode.setBounds(39, 0, 59, 36);
 		panel_3.add(lblBookCode);
 
 		tfBookCode = new JTextField();
+		tfBookCode.setBounds(110, 0, 98, 35);
 		tfBookCode.setEditable(false);
 		panel_3.add(tfBookCode);
 		tfBookCode.setColumns(10);
 
 		JPanel panel_4 = new JPanel();
+		panel_4.setBounds(219, 0, 207, 133);
 		panel.add(panel_4);
-		panel_4.setLayout(new GridLayout(0, 1, 10, 10));
 
 		btnImage = new JButton("사진 추가");
+		btnImage.setBounds(42, 110, 126, 23);
 		btnImage.addActionListener(this);
-
-		lblImage = new JLabel("사진 추가");
-		panel_4.add(lblImage);
 		panel_4.add(btnImage);
+		panel_4.setLayout(null);
+
+		lblImage = new JLabel("");
+		lblImage.setBounds(42, 0, 126, 106);
+		panel_4.add(lblImage);
 
 		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(5, 148, 424, 36);
 		contentPane.add(panel_2);
-		panel_2.setLayout(new GridLayout(0, 4, 10, 10));
+		panel_2.setLayout(null);
 
 		JLabel lblNewLabel_3 = new JLabel("도서 분류");
+		lblNewLabel_3.setBounds(41, 0, 58, 34);
 		panel_2.add(lblNewLabel_3);
 
 		List<CategoryB> blist = service.selectCategoryBByAll();
@@ -130,6 +139,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		blist.add(0, b);
 		modelB = new DefaultComboBoxModel<>(new Vector<>(blist));
 		comboCateB = new JComboBox(modelB);
+		comboCateB.setBounds(109, 0, 98, 34);
 		comboCateB.setSelectedItem(b);
 		comboCateB.addItemListener(new ItemListener() {
 
@@ -161,6 +171,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		panel_2.add(comboCateB);
 
 		comboCateM = new JComboBox();
+		comboCateM.setBounds(217, 0, 98, 34);
 		comboCateM.addItemListener(new ItemListener() {
 
 			@Override
@@ -192,6 +203,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		List<CategoryS> sList = service.selectCategorySByAll();
 		modelS = new DefaultComboBoxModel<>(new Vector<>(sList));
 		comboCateS = new JComboBox();
+		comboCateS.setBounds(325, 0, 98, 34);
 		comboCateS.addItemListener(new ItemListener() {
 
 			@Override
@@ -208,53 +220,67 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		panel_2.add(comboCateS);
 
 		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(5, 194, 424, 133);
 		contentPane.add(panel_1);
-		panel_1.setLayout(new GridLayout(0, 2, 10, 10));
+		panel_1.setLayout(null);
 
 		JLabel lblBookName = new JLabel("도서명");
+		lblBookName.setBounds(41, 1, 164, 18);
 		panel_1.add(lblBookName);
 
 		tfTitle = new JTextField();
+		tfTitle.setBounds(217, 1, 207, 18);
 		panel_1.add(tfTitle);
 		tfTitle.setColumns(10);
 
 		JLabel lblPub = new JLabel("출판사");
+		lblPub.setBounds(41, 29, 164, 18);
 		panel_1.add(lblPub);
 
 		tfPub = new JTextField();
+		tfPub.setBounds(217, 29, 207, 18);
 		tfPub.setColumns(10);
 		panel_1.add(tfPub);
 
 		JLabel lblAuthor = new JLabel("저자");
+		lblAuthor.setBounds(41, 57, 166, 18);
 		panel_1.add(lblAuthor);
 
 		tfAuthor = new JTextField();
+		tfAuthor.setBounds(217, 57, 207, 18);
 		panel_1.add(tfAuthor);
 		tfAuthor.setColumns(10);
 
 		JLabel lblTrans = new JLabel("역자");
+		lblTrans.setBounds(41, 85, 166, 18);
 		panel_1.add(lblTrans);
 
 		tfTrans = new JTextField();
+		tfTrans.setBounds(217, 85, 207, 18);
 		tfTrans.setColumns(10);
 		panel_1.add(tfTrans);
 
 		JLabel lblPrice = new JLabel("가격");
+		lblPrice.setBounds(41, 113, 164, 18);
 		panel_1.add(lblPrice);
 
 		tfPrice = new JTextField();
+		tfPrice.setBounds(217, 113, 207, 18);
 		tfPrice.setColumns(10);
 		panel_1.add(tfPrice);
 
 		JPanel panel_5 = new JPanel();
+		panel_5.setBounds(5, 337, 424, 39);
 		contentPane.add(panel_5);
-		panel_5.setLayout(new GridLayout(0, 2, 10, 10));
 
 		btnInsert = new JButton("추가");
+		btnInsert.setBounds(37, 0, 155, 39);
 		btnInsert.addActionListener(this);
+		panel_5.setLayout(null);
 		panel_5.add(btnInsert);
 
 		btnCancel = new JButton("취소");
+		btnCancel.setBounds(241, 0, 155, 39);
 		btnCancel.addActionListener(this);
 		panel_5.add(btnCancel);
 	}
@@ -301,7 +327,6 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		book.setCateBNo(cateB);
 		book.setCateMNo(cateM);
 		book.setCateSNo(cateS);
-		System.out.println(book);
 
 		map.put("title", book.getTitle());
 		map.put("author", book.getAuthor());
@@ -344,18 +369,19 @@ public class BookInsertUI extends JFrame implements ActionListener {
 	}
 
 	protected void do_btnCancel_actionPerformed(ActionEvent e) {
+		dispose();
 	}
 
 	protected void do_btnImage_actionPerformed(ActionEvent e) {
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF", "jpg", "gif");
 		chooser.setFileFilter(filter);
-
 		int ret = chooser.showOpenDialog(null);
 
 		if (ret == JFileChooser.APPROVE_OPTION) {
 			pathName = chooser.getSelectedFile().getPath();
 			fileName = chooser.getSelectedFile().getName();
+
 			lblImage.setIcon(new ImageIcon(imgPath + fileName));
 		}
 	}

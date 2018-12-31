@@ -410,9 +410,6 @@ public class MemberRegisterUI extends JFrame {
 				if(ret == JFileChooser.APPROVE_OPTION) {
 					pathName = chooser.getSelectedFile().getPath();
 					fileName = chooser.getSelectedFile().getName();
-					
-					System.out.println(pathName);
-					System.out.println(fileName);
 					lblImg.setIcon(new ImageIcon(imgPath + fileName));
 				}
 			}
@@ -437,6 +434,7 @@ public class MemberRegisterUI extends JFrame {
 					insertOverdue();
 					JOptionPane.showMessageDialog(null, "회원이 되신걸 축하드립니다.");
 					dispose();
+					
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				} catch(Exception e2) {
@@ -617,8 +615,6 @@ public class MemberRegisterUI extends JFrame {
 	public void setAddress(String addr) {
 		this.tfAdd.setText(addr);
 	}
-
-
 	public void setTfjuso(String tfjuso) {
 		this.tfjuso.setText(tfjuso);
 	}
