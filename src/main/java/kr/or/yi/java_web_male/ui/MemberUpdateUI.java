@@ -83,10 +83,14 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 	private JButton btnAdd;
 	private Member member;
 
+	private PostUI postUI;
+
 	public MemberUpdateUI(Member member) {
 		this.member = member;
 		service = new MemberUIService();
 		imgPath = System.getProperty("user.dir") + "\\images\\";
+
+		postUI = new PostUI();
 		initComponent(LoginUI.getLogin());
 	}
 
@@ -161,13 +165,13 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		pass2 = new JPasswordField();
 		pass2.setBounds(0, 0, 146, 22);
 		panel_p2.add(pass2);
-		
-				tfConfirm = new JTextField();
-				tfConfirm.setBounds(146, 27, 146, 21);
-				panel_p2.add(tfConfirm);
-				tfConfirm.setFont(new Font("굴림", Font.PLAIN, 10));
-				tfConfirm.setEditable(false);
-				tfConfirm.setColumns(10);
+
+		tfConfirm = new JTextField();
+		tfConfirm.setBounds(146, 27, 146, 21);
+		panel_p2.add(tfConfirm);
+		tfConfirm.setFont(new Font("굴림", Font.PLAIN, 10));
+		tfConfirm.setEditable(false);
+		tfConfirm.setColumns(10);
 		// 비밀번호 중복 메서드
 		pass2.getDocument().addDocumentListener(new MyDocumentListener() {
 
@@ -389,11 +393,11 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		btnImg.addActionListener(this);
 		btnImg.setBounds(25, 248, 155, 23);
 		panel_3.add(btnImg);
-		
-				lblImg = new JLabel();
-				lblImg.setHorizontalAlignment(SwingConstants.CENTER);
-				lblImg.setBounds(12, 10, 178, 267);
-				panel_3.add(lblImg);
+
+		lblImg = new JLabel();
+		lblImg.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImg.setBounds(12, 10, 178, 267);
+		panel_3.add(lblImg);
 
 		btnAdd = new JButton("수정");
 		btnAdd.addActionListener(this);
@@ -466,83 +470,98 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		member.setAddress(tfAdd.getText().trim() + tfjuso.getText().trim());
 		member.setPhoto(fileName);
 
-		System.out.println(member);
 		service.updateMember(member);
 	}
 
 	@SuppressWarnings("unlikely-arg-type")
 	private void check() throws Exception {
-		if(tfKor.getText().trim().equals("")) {
+		if (tfKor.getText().trim().equals("")) {
 			tfKor.requestFocus();
 			throw new Exception("한글 이름을 입력해주세요.");
 		}
-		if(tfEng.getText().trim().equals("")) {
+
+		if (tfEng.getText().trim().equals("")) {
 			tfEng.requestFocus();
 			throw new Exception("영어 이름을 입력해주세요");
 		}
-		if(tftel2.getText().trim().equals("")) {
+
+		if (tftel2.getText().trim().equals("")) {
 			tftel2.requestFocus();
 			throw new Exception("전화번호 중앙자리를!");
 		}
-		if(tftel3.getText().trim().equals("")) {
+
+		if (tftel3.getText().trim().equals("")) {
 			tftel3.requestFocus();
 			throw new Exception("전화번호 뒷자리을 입력해주세요");
 		}
+
 		String pw1 = new String(pass1.getPassword());
 		String pw2 = new String(pass2.getPassword());
 		String ju1 = new String(tfju1.getText());
 		String ju2 = new String(tfju2.getPassword());
 		String pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,}$";
 		Matcher matcher = Pattern.compile(pwPattern).matcher(pw1);
-		if(pw1.equals("")) {
+
+		if (pw1.equals("")) {
 			pass1.requestFocus();
 			throw new Exception("Password를 입력해주세요");
 		}
-		if(pw2.equals("")) {
+
+		if (pw2.equals("")) {
 			pass2.requestFocus();
 			throw new Exception("Password를 입력해주세요");
 		}
-		if(!pw2.equals(pw1)) {
+
+		if (!pw2.equals(pw1)) {
 			pass1.requestFocus();
 			throw new Exception("Password가 일치하지않아 가입할수 없습니다.");
 		}
-		if(!matcher.matches()) {
+
+		if (!matcher.matches()) {
 			pass1.requestFocus();
 			throw new Exception("Password양식에 맞지않아 가입할수 없습니다.");
 		}
-		if(tfju1.getText().trim().equals("")) {
+
+		if (tfju1.getText().trim().equals("")) {
 			tfju1.requestFocus();
 			throw new Exception("주민등록 번호를  앞자리를 입력해주세요");
 		}
-		if(tfju2.getText().trim().equals("")) {
+
+		if (tfju2.getText().trim().equals("")) {
 			tfju2.requestFocus();
 			throw new Exception("주민등록 번호 뒷자리를 입력해주세요");
 		}
-		if(tfEmail.getText().trim().equals("")) {
+
+		if (tfEmail.getText().trim().equals("")) {
 			tfEmail.requestFocus();
 			throw new Exception("이메일을 입력해주세요");
 		}
-		if(tfEmail_2.getText().trim().equals("")) {
+
+		if (tfEmail_2.getText().trim().equals("")) {
 			tfEmail_2.requestFocus();
 			throw new Exception("홈페이지를 입력해주세요");
 		}
-		if(tfAdd.getText().trim().equals("")) {
+
+		if (tfAdd.getText().trim().equals("")) {
 			tfAdd.requestFocus();
 			throw new Exception("주소를 입력해주세요");
 		}
-		if(tfjuso.getText().trim().equals("")) {
+
+		if (tfjuso.getText().trim().equals("")) {
 			tfjuso.requestFocus();
 			throw new Exception("주소를 입력해주세요");
 		}
-			Member member = new Member();
-			member.setJumin(tfju1.getText()+"-"+new String(tfju2.getPassword()));		
-		if(service.selectMemberByNojumin(member).size() == 0) {
-			
-		}else {
+
+		Member member = new Member();
+		member.setJumin(tfju1.getText() + "-" + new String(tfju2.getPassword()));
+
+		if (service.selectMemberByNojumin(member).size() == 0) {
+
+		} else {
 			tfju2.requestFocus();
 			throw new Exception("이미 등록된 회원입니다.");
 		}
-		
+
 	}
 
 	protected void do_btnCancel_actionPerformed(ActionEvent e) {
@@ -561,5 +580,13 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 
 			lblImg.setIcon(new ImageIcon(imgPath + fileName));
 		}
+	}
+
+	public void setAddress(String addr) {
+		this.tfAdd.setText(addr);
+	}
+
+	public void setTfjuso(String tfjuso) {
+		this.tfjuso.setText(tfjuso);
 	}
 }

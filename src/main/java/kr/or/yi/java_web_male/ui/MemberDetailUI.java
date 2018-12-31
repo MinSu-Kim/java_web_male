@@ -17,6 +17,7 @@ import kr.or.yi.java_web_male.dto.Member;
 
 import java.awt.GridLayout;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -97,8 +98,7 @@ public class MemberDetailUI extends JFrame {
 			datas[i] = getMemberRentalInfo(lists.get(i));
 		}
 		return datas;
-		
-		
+
 	}
 
 	private Object[] getMemberRentalInfo(BookRentalInfo bookRentalInfo) {
@@ -108,13 +108,14 @@ public class MemberDetailUI extends JFrame {
 		String publisher = bookRentalInfo.getPublisher().getPubName();
 		String author = bookRentalInfo.getBookCode().getAuthor();
 		Date rentalDate = bookRentalInfo.getRentalDate();
+		Date returnDate = bookRentalInfo.getReturnDate();
 		Date returnSchedule = bookRentalInfo.getReturnSchedule();
-		return new Object[] { bookCode, title, publisher, author, date.format(rentalDate),
+		return new Object[] { bookCode, title, publisher, author, date.format(rentalDate), date.format(returnDate),
 				date.format(returnSchedule) };
 	}
 
 	private String[] getColumnNames() {
-		return new String[] { "도서코드", "도서명", "출판사", "저자", "대여일자", "반납기한", "반납일자", "반납여부" };
+		return new String[] { "도서코드", "도서명", "출판사", "저자", "대여일자", "반납일자", "반납기한", "반납여부" };
 	}
 
 }

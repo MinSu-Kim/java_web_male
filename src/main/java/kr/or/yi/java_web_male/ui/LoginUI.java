@@ -61,6 +61,7 @@ public class LoginUI extends JFrame implements ActionListener {
 	public static final Member getLogin() {
 		return loginMember;
 	}
+
 	public static final void memberLogOut() {
 		loginMember = null;
 	}
@@ -100,7 +101,7 @@ public class LoginUI extends JFrame implements ActionListener {
 
 		setTitle("로그인");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 250);
+		setBounds(100, 100, 536, 180);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -108,33 +109,28 @@ public class LoginUI extends JFrame implements ActionListener {
 
 		panel_2 = new JPanel();
 		contentPane.add(panel_2);
-		panel_2.setLayout(null);
+		panel_2.setLayout(new GridLayout(0, 2, 10, 10));
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 299, 60);
 		panel_2.add(panel);
-		panel.setLayout(null);
+		panel.setBounds(10, 10, 450, 150);
+		panel.setLayout(new GridLayout(0, 2, 10, 10));
 
 		lblMemberNo = new JLabel("회원번호");
-		lblMemberNo.setBounds(24, 0, 120, 25);
 		panel.add(lblMemberNo);
 
 		tfMemberNo = new JTextField();
-		tfMemberNo.setBounds(154, 0, 144, 25);
 		panel.add(tfMemberNo);
 		tfMemberNo.setColumns(10);
 
 		lblPassword = new JLabel("비밀번호");
-		lblPassword.setBounds(0, 35, 144, 25);
 		panel.add(lblPassword);
 
 		tfPassword = new JPasswordField();
-		tfPassword.setBounds(154, 35, 144, 25);
 		panel.add(tfPassword);
 		tfPassword.setColumns(10);
 
 		btnLogin = new JButton("로그인");
-		btnLogin.setBounds(311, 0, 109, 60);
 		panel_2.add(btnLogin);
 		btnLogin.addActionListener(this);
 
@@ -189,16 +185,14 @@ public class LoginUI extends JFrame implements ActionListener {
 				loginMember = member;
 				if (member.isAdmin() == true) {
 					if (adminMainUI == null) {
-
-						
-						  JOptionPane.showMessageDialog(null, serviceUI.selectDate());
-						  if(serviceUI.selectDate() != 0) { overduePopUpUI = new OverduePopUpUI(); }
-						 
+						JOptionPane.showMessageDialog(null, serviceUI.selectDate());
+						if (serviceUI.selectDate() != 0) {
+							overduePopUpUI = new OverduePopUpUI();
+						}
 						adminMainUI = new AdminMainUI();
-
 					}
 					adminMainUI.setVisible(true);
-					 overduePopUpUI.setVisible(true); 
+					overduePopUpUI.setVisible(true);
 				} else {
 					if (memberInfoUI == null) {
 						memberInfoUI = new MemberInfoUI();
@@ -214,10 +208,9 @@ public class LoginUI extends JFrame implements ActionListener {
 			e.printStackTrace();
 			failLogin();
 		}
-		
 
 		/*--------------------------정지일수&대여권한 업데이트-----------------------------*/
-		 memberUIService.updateDiffAuthority(); 
+		memberUIService.updateDiffAuthority();
 		/*--------------------------------------------------------------------------*/
 	}
 

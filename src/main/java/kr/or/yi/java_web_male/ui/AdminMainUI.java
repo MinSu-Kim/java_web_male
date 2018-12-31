@@ -35,16 +35,17 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	}
 
 	private void initComponents() {
-		
+
 		setTitle("[관리자] " + LoginUI.getLogin().getKorName() + "님 환영합니다.");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 200);
+		setBounds(100, 100, 450, 165);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(0, 1, 10, 10));
+		contentPane.setLayout(null);
 
 		panel = new JPanel();
+		panel.setBounds(5, 5, 424, 69);
 		contentPane.add(panel);
 		panel.setLayout(new GridLayout(0, 4, 10, 10));
 
@@ -61,11 +62,13 @@ public class AdminMainUI extends JFrame implements ActionListener {
 		panel.add(btnRentalAdmin);
 
 		panel_1 = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
+		panel_1.setBounds(5, 84, 424, 33);
 		contentPane.add(panel_1);
 
 		btnLogout = new JButton("로그아웃");
+		btnLogout.setBounds(171, 5, 81, 23);
 		btnLogout.addActionListener(this);
+		panel_1.setLayout(null);
 		panel_1.add(btnLogout);
 		btnRentalAdmin.addActionListener(this);
 		btnMemberAdmin.addActionListener(this);

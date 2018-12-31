@@ -24,6 +24,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 @SuppressWarnings("serial")
 public class MemberInfoUI extends JFrame implements ActionListener {
@@ -65,17 +67,20 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.NORTH);
-		panel.setLayout(new GridLayout(0, 1, 10, 10));
+		panel.setBounds(5, 5, 474, 216);
+		contentPane.add(panel);
+		panel.setLayout(null);
 
 		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(0, 0, 474, 214);
 		panel.add(panel_3);
-		panel_3.setLayout(new GridLayout(0, 1, 10, 10));
+		panel_3.setLayout(null);
 
 		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(0, 0, 474, 83);
 		panel_3.add(panel_1);
 		panel_1.setLayout(new GridLayout(0, 2, 10, 10));
 
@@ -126,6 +131,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pMemberPhoto.add(pPhoto);
 
 		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(0, 93, 474, 120);
 		panel_3.add(panel_2);
 		panel_2.setLayout(null);
 
@@ -143,7 +149,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		panel_2.add(lblEmail);
 
 		tfEmail = new JTextField();
-		tfEmail.setBounds(121, 31, 341, 21);
+		tfEmail.setBounds(121, 31, 342, 21);
 		panel_2.add(tfEmail);
 		tfEmail.setColumns(10);
 
@@ -155,29 +161,37 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfJumin.setBounds(121, 62, 341, 21);
 		panel_2.add(tfJumin);
 		tfJumin.setColumns(10);
+		tfJumin.setText(loginUI.getLogin().getJumin().substring(0, 7) + "******");
 
 		JLabel lblAddress = new JLabel("주소");
-		lblAddress.setBounds(0, 93, 257, 21);
+		lblAddress.setBounds(0, 93, 109, 21);
 		panel_2.add(lblAddress);
 
 		tfAddress = new JTextField();
-		tfAddress.setBounds(133, 93, 391, 21);
+		tfAddress.setBounds(121, 93, 341, 21);
 		panel_2.add(tfAddress);
 		tfAddress.setColumns(10);
+		String str = LoginUI.getLogin().getAddress();
+		String[] strArr = str.split(",");
+		tfAddress.setText(strArr[0] + " " + strArr[1]);
 
 		JPanel pRentList = new JPanel();
-		contentPane.add(pRentList, BorderLayout.CENTER);
-		pRentList.setLayout(new BorderLayout(0, 0));
+		pRentList.setBounds(5, 217, 474, 216);
+		contentPane.add(pRentList);
+		pRentList.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		pRentList.add(scrollPane, BorderLayout.CENTER);
+		scrollPane.setBounds(0, 0, 474, 216);
+		pRentList.add(scrollPane);
 
 		table = new JTable();
 		loadDatas();
 		scrollPane.setViewportView(table);
+		pRentList.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { scrollPane, table }));
 
 		JPanel pButton = new JPanel();
-		contentPane.add(pButton, BorderLayout.SOUTH);
+		pButton.setBounds(5, 433, 474, 23);
+		contentPane.add(pButton);
 		pButton.setLayout(new GridLayout(0, 5, 10, 10));
 
 		btnMod = new JButton("정보수정");
@@ -301,5 +315,8 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	protected void do_btnBest10_actionPerformed(ActionEvent e) {
+		BestUI bestUI = new BestUI();
+		bestUI.setVisible(true);
+		bestUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 }

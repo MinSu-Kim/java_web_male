@@ -611,11 +611,11 @@ public class MemberRegisterUI extends JFrame {
 		overdue.setStopEndDate(null);
 		int res = service.insertoverDue(overdue);
 	}
+	
 	public void setAddress(String addr) {
 		this.tfAdd.setText(addr);
 	}
-
-
+	
 	public void setTfjuso(String tfjuso) {
 		this.tfjuso.setText(tfjuso);
 	}
