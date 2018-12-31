@@ -161,7 +161,6 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfJumin.setBounds(121, 62, 341, 21);
 		panel_2.add(tfJumin);
 		tfJumin.setColumns(10);
-		tfJumin.setText(loginUI.getLogin().getJumin().substring(0, 7) + "******");
 
 		JLabel lblAddress = new JLabel("주소");
 		lblAddress.setBounds(0, 93, 109, 21);
@@ -171,9 +170,6 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfAddress.setBounds(121, 93, 341, 21);
 		panel_2.add(tfAddress);
 		tfAddress.setColumns(10);
-		String str = LoginUI.getLogin().getAddress();
-		String[] strArr = str.split(",");
-		tfAddress.setText(strArr[0] + " " + strArr[1]);
 
 		JPanel pRentList = new JPanel();
 		pRentList.setBounds(5, 217, 474, 216);
@@ -291,13 +287,16 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	// 로그인 객체에서 정보 가져오기
 	public void getMemberInfo(Member member) {
+		String str = LoginUI.getLogin().getAddress();
+		String[] strArr = str.split(",");
+		
 		tfMemberNo.setText(member.getMemberNo());
 		tfKorName.setText(member.getKorName());
 		tfEngName.setText(member.getEngName());
 		tfPhone.setText(member.getPhone());
 		tfEmail.setText(member.getEmail());
-		tfJumin.setText(member.getAddress());
-		tfAddress.setText(member.getEngName());
+		tfJumin.setText(LoginUI.getLogin().getJumin().substring(0, 7) + "******");
+		tfAddress.setText(strArr[0] + strArr[1]);
 
 		tfMemberNo.setEditable(false);
 		tfKorName.setEditable(false);

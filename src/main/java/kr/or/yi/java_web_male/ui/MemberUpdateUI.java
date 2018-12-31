@@ -97,6 +97,8 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 	private void initComponent(Member member) {
 		String str = member.getEmail();
 		String[] strArr = str.split("@");
+		String addr = member.getAddress();
+		String[] addrArr = addr.split(",");
 
 		setTitle("회원 정보수정");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -355,6 +357,7 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		tfAdd.setBounds(0, 0, 210, 49);
 		panel_20.add(tfAdd);
 		tfAdd.setColumns(10);
+		tfAdd.setText(addrArr[0]);
 
 		btnSearch = new JButton("검색");
 		btnSearch.addActionListener(this);
@@ -375,6 +378,7 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		panel_4.add(tfjuso);
 		tfjuso.setColumns(10);
 		tfjuso.setText(member.getAddress());
+		tfjuso.setText(addrArr[1]);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(459, 5, 454, 494);
@@ -475,6 +479,13 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 
 	@SuppressWarnings("unlikely-arg-type")
 	private void check() throws Exception {
+		String pw1 = new String(pass1.getPassword());
+		String pw2 = new String(pass2.getPassword());
+		String ju1 = new String(tfju1.getText());
+		String ju2 = new String(tfju2.getPassword());
+		String pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,}$";
+		Matcher matcher = Pattern.compile(pwPattern).matcher(pw1);
+
 		if (tfKor.getText().trim().equals("")) {
 			tfKor.requestFocus();
 			throw new Exception("한글 이름을 입력해주세요.");
@@ -494,13 +505,6 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 			tftel3.requestFocus();
 			throw new Exception("전화번호 뒷자리을 입력해주세요");
 		}
-
-		String pw1 = new String(pass1.getPassword());
-		String pw2 = new String(pass2.getPassword());
-		String ju1 = new String(tfju1.getText());
-		String ju2 = new String(tfju2.getPassword());
-		String pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,}$";
-		Matcher matcher = Pattern.compile(pwPattern).matcher(pw1);
 
 		if (pw1.equals("")) {
 			pass1.requestFocus();
