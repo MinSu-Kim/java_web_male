@@ -182,7 +182,6 @@ public class LoginUI extends JFrame implements ActionListener {
 
 		try {
 			if (member != null) {
-
 				loginMember = member;
 				if (member.isAdmin() == true) {
 					if (adminMainUI == null) {
