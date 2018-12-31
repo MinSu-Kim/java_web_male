@@ -470,19 +470,6 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		service.updateMember(member);
 	}
 	
-	public void setLists(Member member) {
-		tFmemberNo.setText(member.getMemberNo());
-		pass1.setText(member.getPassword());
-		tfKor.setText(member.getKorName());
-		tfEng.setText(member.getEngName());
-		tftel2.setText(member.getPhone());
-		tfju1.setText(member.getJumin());
-		tfEmail.setText(member.getEmail());
-		tfAdd.setText(member.getAddress());
-		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
-	}
-	
-
 	@SuppressWarnings("unlikely-arg-type")
 	private void check() throws Exception {
 		if(tfKor.getText().trim().equals("")) {

@@ -215,7 +215,7 @@ public class LoginUI extends JFrame implements ActionListener {
 
 					}
 					adminMainUI.setVisible(true);
-		/*			 overduePopUpUI.setVisible(true); */
+					 overduePopUpUI.setVisible(true);
 
 				} else {
 					if (memberInfoUI == null) {

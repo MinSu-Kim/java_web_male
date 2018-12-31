@@ -107,7 +107,7 @@ public class AdminMainUI extends JFrame implements ActionListener {
 					System.out.println("mno값은"+mno);
 					Member mem = new Member();
 					mem.setMemberNo(mno.getMemberNo());
-					mem.setPassword(mno.getPassword());
+					mem.setPassword(mno.getPassword().substring(0,0));
 					mem.setKorName(mno.getKorName());
 					mem.setEngName(mno.getPhone());
 					mem.setPhone(mno.getPhone());

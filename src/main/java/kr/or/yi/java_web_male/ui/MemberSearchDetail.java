@@ -120,7 +120,6 @@ public class MemberSearchDetail extends JFrame {
 		
 		textPass = new JTextField();
 		textPass.setBounds(111, 0, 201, 50);
-		textPass.setEditable(false);
 		panel_5.add(textPass);
 		textPass.setColumns(10);
 		
@@ -135,7 +134,6 @@ public class MemberSearchDetail extends JFrame {
 		
 		textKor = new JTextField();
 		textKor.setBounds(111, 0, 201, 50);
-		textKor.setEditable(false);
 		panel_6.add(textKor);
 		textKor.setColumns(10);
 		
@@ -150,7 +148,6 @@ public class MemberSearchDetail extends JFrame {
 		
 		textEng = new JTextField();
 		textEng.setBounds(111, 0, 201, 50);
-		textEng.setEditable(false);
 		panel_7.add(textEng);
 		textEng.setColumns(10);
 		
@@ -179,7 +176,6 @@ public class MemberSearchDetail extends JFrame {
 		
 		textJumin = new JTextField();
 		textJumin.setBounds(111, 0, 201, 50);
-		textJumin.setEditable(false);
 		panel_9.add(textJumin);
 		textJumin.setColumns(10);
 		
@@ -325,6 +321,24 @@ public class MemberSearchDetail extends JFrame {
 		textAdmin.setText(((member.isAdmin())+"").trim());
 		textUni.setText(member.getUniqueness());
 		labelImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
+		
+		if(member.isAdmin() == false) {
+			textPass.setEditable(false);
+			textKor.setEditable(false);
+			textEng.setEditable(false);
+			textPhone.setEditable(false);
+			textJumin.setEditable(false);
+			textEmail.setEditable(false);
+			textAddress.setEditable(false);
+		}else {
+			textPass.setEditable(true);
+			textKor.setEditable(true);
+			textEng.setEditable(true);
+			textPhone.setEditable(true);
+			textJumin.setEditable(true);
+			textEmail.setEditable(true);
+			textAddress.setEditable(true);
+		}
 	}
 	private Member getList() {
 		String Mno = textMemberNo.getText().trim();
@@ -335,10 +349,9 @@ public class MemberSearchDetail extends JFrame {
 		String jumin = (textJumin.getText().trim().substring(0,7)+"*******");
 		String Email = textEmail.getText().trim();
 		String Address = textAddress.getText().trim();
-		boolean Admin = textAdmin.getText().trim() != null;
 		String Uni = textUni.getText().trim();
 		String photo = fileName;
-		return new Member(Mno,Pass,Kor,Eng,Phone,jumin,Email,Address,Admin,photo,Uni);
+		return new Member(Mno,Pass,Kor,Eng,Phone,jumin,Email,Address,photo,Uni);
 	}
 	private void do_btnUpdate_actionPerform(ActionEvent e) {
 		Member editMem = getList();			
