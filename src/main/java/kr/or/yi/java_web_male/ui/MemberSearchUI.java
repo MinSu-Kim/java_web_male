@@ -79,7 +79,7 @@ public class MemberSearchUI extends JFrame {
 		service = new MemberUIService();
 		memberDetailUI = new MemberSearchDetail();
 		memberRent = new MemberRent();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 630, 338);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

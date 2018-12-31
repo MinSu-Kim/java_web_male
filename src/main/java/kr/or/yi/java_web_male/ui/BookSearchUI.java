@@ -185,7 +185,25 @@ public class BookSearchUI extends JFrame implements ActionListener {
 		btnsearchbyBookCode.setFont(new Font("굴림", Font.BOLD, 20));
 
 		tablePanel = new BookTablePanel();
+		/*tablePanel.getTable().addMouseListener(new MouseAdapter() {
 
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					 JOptionPane.showMessageDialog(null, "2번클릭"); 
+					Book book = tablePanel.selectedItem();
+					if (book.isRentalPossible() == true) {
+						JOptionPane.showMessageDialog(null, "대여 가능한 책입니다.");
+						bookRentUI.setBookCode(book);
+						BookSearchUI.this.dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "대여 불가능한 책입니다.");
+					}
+
+				}
+			}
+
+		});*/
 		panel_1.add(tablePanel);
 		tablePanel.setLayout(new GridLayout(1, 0, 0, 0));
 

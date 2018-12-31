@@ -197,10 +197,16 @@ public class BookReturnUI extends JFrame {
 			
 				Date d = new Date(cal3.getTimeInMillis());
 				
-				overdue.setStopEndDate(d);
+				
 				
 				int updateCount = memberUIService.updateCount(overdue);
 				int updateDate = memberUIService.updateStopDate(overdue);
+				if(overdue.getStopDate() > 0) {
+					overdue.setStopEndDate(d);
+				}else {
+					overdue.setStopEndDate(null);
+				}
+				
 				int updateStopEndDate = memberUIService.updateStopEndDate(overdue);
 				
 				//정지일수가 1일이라도 있거나 연체횟수 100넘으면 대여권한 박탈
