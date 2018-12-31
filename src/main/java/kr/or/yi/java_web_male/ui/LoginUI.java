@@ -193,14 +193,14 @@ public class LoginUI extends JFrame implements ActionListener {
 
 						/*  JOptionPane.showMessageDialog(null, serviceUI.selectDate());
 						  if(serviceUI.selectDate() != 0) { overduePopUpUI = new OverduePopUpUI(); }*/
-				  JOptionPane.showMessageDialog(null, serviceUI.selectDate());
-						  if(serviceUI.selectDate() != 0) { overduePopUpUI = new OverduePopUpUI(); }
+				 /* JOptionPane.showMessageDialog(null, serviceUI.selectDate());*/
+					/*	  if(serviceUI.selectDate() != 0) { overduePopUpUI = new OverduePopUpUI(); }*/
 						 
 						adminMainUI = new AdminMainUI();
 
 					}
 					adminMainUI.setVisible(true);
-					 overduePopUpUI.setVisible(true); 
+		/*			 overduePopUpUI.setVisible(true); */
 				} else {
 					if (memberInfoUI == null) {
 						memberInfoUI = new MemberInfoUI();
@@ -219,7 +219,7 @@ public class LoginUI extends JFrame implements ActionListener {
 
 
 		/*--------------------------정지일수&대여권한 업데이트-----------------------------*/
-		 memberUIService.updateDiffAuthority(); 
+	/*	 memberUIService.updateDiffAuthority(); */
 		/*--------------------------------------------------------------------------*/
 	}
 

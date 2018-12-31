@@ -8,12 +8,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.service.MemberInfoService;
@@ -24,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class MemberInfoUI extends JFrame implements ActionListener {
@@ -50,6 +55,9 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private List<BookRentalInfo> lists;
 	private String imgPath;
 	private MemberInfoService service;
+	private JLabel lblImg;
+	private String pathName;
+	private String fileName;
 
 	public MemberInfoUI() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
@@ -59,6 +67,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	private void initComponent() {
+		Member member = new Member();
 		setTitle("[사용자] " + LoginUI.getLogin().getKorName() + "님 환영합니다.");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 500);
@@ -124,6 +133,12 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 		JPanel pPhoto = new JPanel();
 		pMemberPhoto.add(pPhoto);
+		pPhoto.setLayout(null);
+		
+		lblImg = new JLabel("이미지");
+		lblImg.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImg.setBounds(12, 0, 208, 83);
+		pPhoto.add(lblImg);
 
 		JPanel panel_2 = new JPanel();
 		panel_3.add(panel_2);
@@ -284,7 +299,8 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfEmail.setText(member.getEmail());
 		tfJumin.setText(member.getAddress());
 		tfAddress.setText(member.getEngName());
-
+		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
+		
 		tfMemberNo.setEditable(false);
 		tfKorName.setEditable(false);
 		tfEngName.setEditable(false);
@@ -301,5 +317,19 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	protected void do_btnBest10_actionPerformed(ActionEvent e) {
+	}
+	private void images() {
+		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF", "jpg", "gif");
+		chooser.setFileFilter(filter);
+		int ret = chooser.showOpenDialog(null);
+		
+		if(ret == JFileChooser.APPROVE_OPTION) {
+			pathName = chooser.getSelectedFile().getPath();
+			fileName = chooser.getSelectedFile().getName();
+			
+			System.out.println(pathName);
+			System.out.println(fileName);
+		}
 	}
 }
