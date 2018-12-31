@@ -184,15 +184,38 @@ public class LoginUI extends JFrame implements ActionListener {
 				if (member.isAdmin() == true) {
 					if (adminMainUI == null) {
 
+<<<<<<< HEAD
 						
 						  JOptionPane.showMessageDialog(null, serviceUI.selectDate());
 						  if(serviceUI.selectDate() != 0) { overduePopUpUI = new OverduePopUpUI(); }
 						
+=======
+
+
+						/*  JOptionPane.showMessageDialog(null, serviceUI.selectDate());
+						  if(serviceUI.selectDate() != 0) { overduePopUpUI = new OverduePopUpUI(); }*/
+				 /* JOptionPane.showMessageDialog(null, serviceUI.selectDate());*/
+					/*	  if(serviceUI.selectDate() != 0) { overduePopUpUI = new OverduePopUpUI(); }*/
+						 
+
+						JOptionPane.showMessageDialog(null, serviceUI.selectDate());
+						if (serviceUI.selectDate() != 0) {
+							overduePopUpUI = new OverduePopUpUI();
+						}
+
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
 						adminMainUI = new AdminMainUI();
 
+<<<<<<< HEAD
 					}
 					adminMainUI.setVisible(true);
 					 overduePopUpUI.setVisible(true);
+=======
+					}
+					adminMainUI.setVisible(true);
+		/*			 overduePopUpUI.setVisible(true); */
+
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
 				} else {
 					if (memberInfoUI == null) {
 						memberInfoUI = new MemberInfoUI();
@@ -210,7 +233,14 @@ public class LoginUI extends JFrame implements ActionListener {
 		}
 
 		/*--------------------------정지일수&대여권한 업데이트-----------------------------*/
+<<<<<<< HEAD
 		 memberUIService.updateDiffAuthority(); 
+=======
+
+	/*	 memberUIService.updateDiffAuthority(); */
+
+		memberUIService.updateDiffAuthority();
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
 		/*--------------------------------------------------------------------------*/
 	}
 
