@@ -90,13 +90,14 @@ public class LoginUI extends JFrame implements ActionListener {
 	public LoginUI() {
 		service = new LoginService();
 		serviceUI = new LoginUIService();
+		memberUIService = new MemberUIService();
 		initComponent();
 	}
 
 	private void initComponent() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 
-//		setContentPane(new JLabel(new ImageIcon(imgPath + "7.jpg")));
+		setContentPane(new JLabel(new ImageIcon(imgPath + "7.jpg")));
 		pack();
 
 		setTitle("로그인");
@@ -190,6 +191,12 @@ public class LoginUI extends JFrame implements ActionListener {
 							overduePopUpUI = new OverduePopUpUI();
 						}
 						adminMainUI = new AdminMainUI();
+						adminMainUI.setVisible(true);
+						JOptionPane.showMessageDialog(null, serviceUI.selectDate());
+						if (serviceUI.selectDate() != 0) {
+							overduePopUpUI = new OverduePopUpUI();
+							overduePopUpUI.setVisible(true);
+						}
 					}
 					adminMainUI.setVisible(true);
 					overduePopUpUI.setVisible(true);
@@ -231,6 +238,7 @@ public class LoginUI extends JFrame implements ActionListener {
 	protected void do_btnFind_actionPerformed(ActionEvent e) {
 		findIdPasswdUI = new FindIdPasswdUI();
 		findIdPasswdUI.setVisible(true);
+		findIdPasswdUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	protected void do_btnSearch_actionPerformed(ActionEvent e) {

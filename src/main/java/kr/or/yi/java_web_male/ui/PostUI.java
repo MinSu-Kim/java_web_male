@@ -153,14 +153,14 @@ public class PostUI extends JFrame {
 							textDetailAddress.getText()));
 					memberRegisterUI.setTfjuso(textDetailAddress.getText());
 				}
-				
+
 				if (memberUpdateUI != null) {
 					memberUpdateUI.setAddress(String.format("%s,%s", textPostCode.getText(), textAddress.getText()));
 					memberUpdateUI.setAddress(String.format("%s%s,%s", textPostCode.getText(), textAddress.getText(),
 							textDetailAddress.getText()));
 					memberUpdateUI.setTfjuso(textDetailAddress.getText());
 				}
-				
+
 				dispose();
 			}
 		});
