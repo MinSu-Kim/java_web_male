@@ -83,7 +83,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	private JCheckBox chckbxTranslator;
 	private JCheckBox chckbxTitle;
 	private JPanel panel_2;
-	private JPanel tablePanel;
+	private BookTablePanel tablePanel;
 	private JPanel panel_1;
 	private JPanel panelForTable;
 	private BookTablePanel tablePanel2;
@@ -98,6 +98,9 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	private LoginUI loginUI;
 	private JTabbedPane tabbedPane;
 	private final Member member = loginUI.getLogin();
+	/*private String bookCode;*/
+
+	
 
 	/**
 	 * Launch the application.
@@ -183,6 +186,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 		btnsearchbyBookCode.setFont(new Font("굴림", Font.BOLD, 20));
 
 		tablePanel = new BookTablePanel();
+
 
 		panel_1.add(tablePanel);
 		tablePanel.setLayout(new GridLayout(1, 0, 0, 0));
@@ -825,6 +829,14 @@ public class BookSearchUI extends JFrame implements ActionListener {
 			JOptionPane.showMessageDialog(null, "선택하신책정보가 없습니다.");
 
 		}
+	}
+
+	
+
+	public void SetBookCoded(String BookCoded) {
+		/*this.bookCode = BookCoded;*/
+		tfCode.setText(BookCoded);
+		
 	}
 
 }

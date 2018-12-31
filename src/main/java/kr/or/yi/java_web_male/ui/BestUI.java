@@ -161,11 +161,18 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 			year = cal.get(Calendar.YEAR) + "-0" + (cal.get(Calendar.MONTH) + 1);
 		}
 		map.put("rentalDate", year);
-		Best10BookLists = bestService.selectBookBest10ByMap(map);
 		List<String> bookCodes = new ArrayList<>();
-		for (BookBest10 best10 : Best10BookLists) {
-			bookCodes.add(best10.getBookCode().getBookCode());
+		try {
+			Best10BookLists = bestService.selectBookBest10ByMap(map);
+			
+			for (BookBest10 best10 : Best10BookLists) {
+				bookCodes.add(best10.getBookCode().getBookCode());
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
 		}
+		
 
 		DefaultComboBoxModel<String> MDatemodel = new DefaultComboBoxModel<>(KindsDatestrArr);
 
@@ -304,8 +311,13 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 			year = cal.get(Calendar.YEAR) + "-0" + (cal.get(Calendar.MONTH));
 		}
 		map.put("bookCodes", bookCodes);
-		map.put("rentalDate", year);		
-		best10BookListsLast = bestService.selectBookBest10ByMap(map);
+		map.put("rentalDate", year);
+		try {
+			best10BookListsLast = bestService.selectBookBest10ByMap(map);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		
 		Platform.runLater(() -> {pBarChart.setChartDataLast(best10BookListsLast,last);});
 		Platform.runLater(() -> initFX(pBarChart));
@@ -442,7 +454,12 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		}
 
 		MemberMap.put("rentalDate", year);		
-		best10MemberListsLast = bestService.selectMemberBest10ByMap(MemberMap);
+		try {
+			best10MemberListsLast = bestService.selectMemberBest10ByMap(MemberMap);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		
 		
 		
