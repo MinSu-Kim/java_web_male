@@ -185,4 +185,7 @@ public class PostUI extends JFrame {
 		this.memberUpdateUI = memberUpdateUI;
 	}
 
+
+
+
 }

@@ -90,7 +90,6 @@ public class LoginUI extends JFrame implements ActionListener {
 	public LoginUI() {
 		service = new LoginService();
 		serviceUI = new LoginUIService();
-		memberUIService = new MemberUIService();
 		initComponent();
 	}
 
@@ -102,7 +101,7 @@ public class LoginUI extends JFrame implements ActionListener {
 
 		setTitle("로그인");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 536, 180);
+		setBounds(100, 100, 536, 275);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -114,7 +113,6 @@ public class LoginUI extends JFrame implements ActionListener {
 
 		JPanel panel = new JPanel();
 		panel_2.add(panel);
-		panel.setBounds(10, 10, 450, 150);
 		panel.setLayout(new GridLayout(0, 2, 10, 10));
 
 		lblMemberNo = new JLabel("회원번호");
@@ -137,10 +135,10 @@ public class LoginUI extends JFrame implements ActionListener {
 
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1);
+		panel_1.setLayout(new GridLayout(0, 4, 10, 10));
 
 		btnSignUp = new JButton("회원가입");
 		btnSignUp.addActionListener(this);
-		panel_1.setLayout(new GridLayout(0, 4, 10, 10));
 		panel_1.add(btnSignUp);
 
 		btnFind = new JButton("ID / PW 찾기");
@@ -185,16 +183,13 @@ public class LoginUI extends JFrame implements ActionListener {
 				loginMember = member;
 				if (member.isAdmin() == true) {
 					if (adminMainUI == null) {
-						adminMainUI = new AdminMainUI();
-						adminMainUI.setVisible(true);
 						JOptionPane.showMessageDialog(null, serviceUI.selectDate());
 						if (serviceUI.selectDate() != 0) {
 							overduePopUpUI = new OverduePopUpUI();
-							overduePopUpUI.setVisible(true);
 						}
+						adminMainUI = new AdminMainUI();
 					}
 					adminMainUI.setVisible(true);
-					overduePopUpUI.setVisible(true);
 				} else {
 					if (memberInfoUI == null) {
 						memberInfoUI = new MemberInfoUI();
@@ -210,7 +205,6 @@ public class LoginUI extends JFrame implements ActionListener {
 			e.printStackTrace();
 			failLogin();
 		}
-
 		/*--------------------------정지일수&대여권한 업데이트-----------------------------*/
 		memberUIService.updateDiffAuthority();
 		/*--------------------------------------------------------------------------*/
@@ -233,7 +227,6 @@ public class LoginUI extends JFrame implements ActionListener {
 	protected void do_btnFind_actionPerformed(ActionEvent e) {
 		findIdPasswdUI = new FindIdPasswdUI();
 		findIdPasswdUI.setVisible(true);
-		findIdPasswdUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	protected void do_btnSearch_actionPerformed(ActionEvent e) {

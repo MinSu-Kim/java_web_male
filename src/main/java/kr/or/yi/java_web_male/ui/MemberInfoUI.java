@@ -8,24 +8,28 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.dto.Overdue;
 import kr.or.yi.java_web_male.service.MemberInfoService;
+import kr.or.yi.java_web_male.service.MemberUIService;
 import kr.or.yi.java_web_male.ui.LoginUI;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class MemberInfoUI extends JFrame implements ActionListener {
@@ -52,30 +56,38 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private List<BookRentalInfo> lists;
 	private String imgPath;
 	private MemberInfoService service;
+	private JTextField tfStopDate;
+	private MemberUIService memberUIService;
+	private Overdue overdue;
+	private JLabel lblImg;
+	private String pathName;
+	private String fileName;
 
 	public MemberInfoUI() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 		loginUI = new LoginUI();
 		service = new MemberInfoService();
+		memberUIService = new MemberUIService();
 		initComponent();
 	}
 
 	private void initComponent() {
+		Member member = new Member();
 		setTitle("[사용자] " + LoginUI.getLogin().getKorName() + "님 환영합니다.");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 500);
+		setBounds(100, 100, 500, 593);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(5, 5, 474, 216);
+		panel.setBounds(5, 5, 474, 202);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(0, 0, 474, 214);
+		panel_3.setBounds(0, 0, 474, 210);
 		panel.add(panel_3);
 		panel_3.setLayout(null);
 
@@ -129,55 +141,67 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 		JPanel pPhoto = new JPanel();
 		pMemberPhoto.add(pPhoto);
+		pPhoto.setLayout(null);
+
+		lblImg = new JLabel("이미지");
+		lblImg.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImg.setBounds(12, 0, 208, 83);
+		pPhoto.add(lblImg);
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(0, 93, 474, 120);
+		panel_2.setBounds(0, 93, 474, 114);
 		panel_3.add(panel_2);
 		panel_2.setLayout(null);
-
-		JLabel lblPhone = new JLabel("전화번호");
-		lblPhone.setBounds(0, 0, 109, 21);
-		panel_2.add(lblPhone);
-
 		tfPhone = new JTextField();
-		tfPhone.setBounds(121, 0, 342, 21);
+		tfPhone.setBounds(121, 0, 237, 21);
 		panel_2.add(tfPhone);
 		tfPhone.setColumns(10);
 
 		JLabel lblEmail = new JLabel("이메일");
-		lblEmail.setBounds(0, 31, 109, 21);
+		lblEmail.setBounds(0, 21, 122, 21);
 		panel_2.add(lblEmail);
 
 		tfEmail = new JTextField();
-		tfEmail.setBounds(121, 31, 342, 21);
+		tfEmail.setBounds(121, 21, 237, 21);
 		panel_2.add(tfEmail);
 		tfEmail.setColumns(10);
 
 		JLabel lblJumin = new JLabel("주민등록번호");
-		lblJumin.setBounds(0, 62, 109, 21);
+		lblJumin.setBounds(0, 42, 122, 21);
 		panel_2.add(lblJumin);
 
 		tfJumin = new JTextField();
-		tfJumin.setBounds(121, 62, 341, 21);
+		tfJumin.setBounds(121, 42, 237, 21);
 		panel_2.add(tfJumin);
 		tfJumin.setColumns(10);
 
 		JLabel lblAddress = new JLabel("주소");
-		lblAddress.setBounds(0, 93, 109, 21);
+		lblAddress.setBounds(0, 63, 122, 21);
 		panel_2.add(lblAddress);
 
 		tfAddress = new JTextField();
-		tfAddress.setBounds(121, 93, 341, 21);
+		tfAddress.setBounds(121, 63, 317, 21);
 		panel_2.add(tfAddress);
 		tfAddress.setColumns(10);
 
+		JLabel lblStopDate = new JLabel("정지일");
+		lblStopDate.setBounds(0, 84, 122, 21);
+		panel_2.add(lblStopDate);
+
+		tfStopDate = new JTextField();
+		tfStopDate.setEnabled(false);
+		tfStopDate.setBounds(121, 84, 237, 21);
+		panel_2.add(tfStopDate);
+		tfStopDate.setEditable(false);
+		tfStopDate.setColumns(10);
+
 		JPanel pRentList = new JPanel();
-		pRentList.setBounds(5, 217, 474, 216);
+		pRentList.setBounds(5, 207, 474, 319);
 		contentPane.add(pRentList);
 		pRentList.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 474, 216);
+		scrollPane.setBounds(0, 10, 474, 335);
 		pRentList.add(scrollPane);
 
 		table = new JTable();
@@ -186,7 +210,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pRentList.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { scrollPane, table }));
 
 		JPanel pButton = new JPanel();
-		pButton.setBounds(5, 433, 474, 23);
+		pButton.setBounds(5, 526, 474, 23);
 		contentPane.add(pButton);
 		pButton.setLayout(new GridLayout(0, 5, 10, 10));
 
@@ -211,6 +235,8 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pButton.add(btnLogout);
 
 		getMemberInfo(LoginUI.getLogin());
+		getMemberInfo2(overdue);
+
 	}
 
 	private void loadDatas() {
@@ -289,14 +315,15 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	public void getMemberInfo(Member member) {
 		String str = LoginUI.getLogin().getAddress();
 		String[] strArr = str.split(",");
-		
+
 		tfMemberNo.setText(member.getMemberNo());
 		tfKorName.setText(member.getKorName());
 		tfEngName.setText(member.getEngName());
 		tfPhone.setText(member.getPhone());
 		tfEmail.setText(member.getEmail());
-		tfJumin.setText(LoginUI.getLogin().getJumin().substring(0, 7) + "******");
-		tfAddress.setText(strArr[0] + strArr[1]);
+		tfJumin.setText(member.getAddress());
+		tfAddress.setText(member.getEngName());
+		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 
 		tfMemberNo.setEditable(false);
 		tfKorName.setEditable(false);
@@ -305,6 +332,16 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfEmail.setEditable(false);
 		tfJumin.setEditable(false);
 		tfAddress.setEditable(false);
+	}
+
+	public void getMemberInfo2(Overdue overdue1) {
+		Overdue oMno = new Overdue();
+		oMno.setMemberNo(tfMemberNo.getText());
+		Overdue overdueAll = memberUIService.selectOverdueByCode(oMno);
+		int stopDate = overdueAll.getStopDate();
+		String stop = String.valueOf(stopDate);
+
+		tfStopDate.setText(stop);
 	}
 
 	protected void do_btnLogout_actionPerformed(ActionEvent e) {
@@ -317,5 +354,20 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		BestUI bestUI = new BestUI();
 		bestUI.setVisible(true);
 		bestUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
+
+	private void images() {
+		JFileChooser chooser = new JFileChooser();
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF", "jpg", "gif");
+		chooser.setFileFilter(filter);
+		int ret = chooser.showOpenDialog(null);
+
+		if (ret == JFileChooser.APPROVE_OPTION) {
+			pathName = chooser.getSelectedFile().getPath();
+			fileName = chooser.getSelectedFile().getName();
+
+			System.out.println(pathName);
+			System.out.println(fileName);
+		}
 	}
 }

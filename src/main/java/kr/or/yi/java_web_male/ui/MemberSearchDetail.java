@@ -51,6 +51,8 @@ public class MemberSearchDetail extends JFrame {
 	private String pathName;
 	private String fileName;
 	private MemberSearchDetail memberSearchDetail;
+	private Member member;
+	private static Member loginMember;
 	/**
 	 * Launch the application.
 	 */
@@ -70,9 +72,11 @@ public class MemberSearchDetail extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public MemberSearchDetail() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 		service = new MemberUIService();
+		this.member = member;
 		setTitle("회원상세정보");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 554);
@@ -311,11 +315,11 @@ public class MemberSearchDetail extends JFrame {
 	}
 	public void setLists(Member member) {
 		textMemberNo.setText(member.getMemberNo());
-		textPass.setText(member.getPassword().substring(0,0)+"**********");
+		textPass.setText(member.getPassword());
 		textKor.setText(member.getKorName());
 		textEng.setText(member.getEngName());
 		textPhone.setText(member.getPhone());
-		textJumin.setText(member.getJumin().substring(0,7)+"*******");
+		textJumin.setText(member.getJumin());
 		textEmail.setText(member.getEmail());
 		textAddress.setText(member.getAddress());
 		textAdmin.setText(((member.isAdmin())+"").trim());
