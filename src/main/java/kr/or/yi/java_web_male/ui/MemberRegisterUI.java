@@ -437,6 +437,7 @@ public class MemberRegisterUI extends JFrame {
 					insertOverdue();
 					JOptionPane.showMessageDialog(null, "회원이 되신걸 축하드립니다.");
 					dispose();
+					
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				} catch(Exception e2) {
@@ -617,8 +618,6 @@ public class MemberRegisterUI extends JFrame {
 	public void setAddress(String addr) {
 		this.tfAdd.setText(addr);
 	}
-
-
 	public void setTfjuso(String tfjuso) {
 		this.tfjuso.setText(tfjuso);
 	}
