@@ -100,8 +100,22 @@ public class BookDetailTablePanel extends JPanel {
 		Date returnDate =  bookRentalInfo.getReturnDate();
 		member = new Member();
 		member = serviceMember.selectMemberByNo(bookRentalInfo.getMemberNo());	
+		String rentalDateSimple ="";
+		String returnDateSimple = "";
+		try {
+			rentalDateSimple = date.format(rentalDate);
+		} catch (Exception e) {
+			rentalDateSimple = "기록없음";
+		}
+		try {
+			returnDateSimple = date.format(returnDate);
+		} catch (Exception e) {
+			returnDateSimple = "기록없음";
+		}
 		
-		return new Object[] {bookCode,rentalNo,date.format(rentalDate),date.format(returnDate),member.getKorName(),member};
+		
+		
+		return new Object[] {bookCode,rentalNo,rentalDateSimple,returnDateSimple,member.getKorName(),member};
 	}
 
 }
