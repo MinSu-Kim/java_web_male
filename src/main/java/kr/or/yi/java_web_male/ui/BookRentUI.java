@@ -47,6 +47,11 @@ public class BookRentUI extends JFrame {
 	private InOutUI inOutUI;
 	private LibraryUIService service;
 	private MemberUIService memberUIService;
+	private String bookCode;
+
+	public void setBookCode(String bookCode) {
+		this.bookCode = bookCode;
+	}
 
 	/**
 	 * Launch the application.
@@ -113,6 +118,7 @@ public class BookRentUI extends JFrame {
 		btnBookSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BookSearchUI bsu = new BookSearchUI();
+				bsu.SetBookCoded(textBookCode.getText()+"");
 				bsu.setBookRentUI(BookRentUI.this);
 				bsu.setVisible(true);
 			}

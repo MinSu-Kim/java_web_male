@@ -61,6 +61,7 @@ public class LoginUI extends JFrame implements ActionListener {
 	public static final Member getLogin() {
 		return loginMember;
 	}
+
 	public static final void memberLogOut() {
 		loginMember = null;
 	}
@@ -89,6 +90,7 @@ public class LoginUI extends JFrame implements ActionListener {
 	public LoginUI() {
 		service = new LoginService();
 		serviceUI = new LoginUIService();
+		memberUIService = new MemberUIService();
 		initComponent();
 	}
 
@@ -191,16 +193,30 @@ public class LoginUI extends JFrame implements ActionListener {
 					if (adminMainUI == null) {
 
 
+
 						/*  JOptionPane.showMessageDialog(null, serviceUI.selectDate());
 						  if(serviceUI.selectDate() != 0) { overduePopUpUI = new OverduePopUpUI(); }*/
 				 /* JOptionPane.showMessageDialog(null, serviceUI.selectDate());*/
 					/*	  if(serviceUI.selectDate() != 0) { overduePopUpUI = new OverduePopUpUI(); }*/
 						 
+
+						JOptionPane.showMessageDialog(null, serviceUI.selectDate());
+						if (serviceUI.selectDate() != 0) {
+							overduePopUpUI = new OverduePopUpUI();
+						}
+
 						adminMainUI = new AdminMainUI();
+						adminMainUI.setVisible(true);
+						JOptionPane.showMessageDialog(null, serviceUI.selectDate());
+						if (serviceUI.selectDate() != 0) {
+							overduePopUpUI = new OverduePopUpUI();
+							overduePopUpUI.setVisible(true);
+						}
 
 					}
 					adminMainUI.setVisible(true);
 		/*			 overduePopUpUI.setVisible(true); */
+
 				} else {
 					if (memberInfoUI == null) {
 						memberInfoUI = new MemberInfoUI();
@@ -217,9 +233,11 @@ public class LoginUI extends JFrame implements ActionListener {
 			failLogin();
 		}
 
-
 		/*--------------------------정지일수&대여권한 업데이트-----------------------------*/
+
 	/*	 memberUIService.updateDiffAuthority(); */
+
+		memberUIService.updateDiffAuthority();
 		/*--------------------------------------------------------------------------*/
 	}
 
@@ -240,6 +258,7 @@ public class LoginUI extends JFrame implements ActionListener {
 	protected void do_btnFind_actionPerformed(ActionEvent e) {
 		findIdPasswdUI = new FindIdPasswdUI();
 		findIdPasswdUI.setVisible(true);
+		findIdPasswdUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
 	protected void do_btnSearch_actionPerformed(ActionEvent e) {

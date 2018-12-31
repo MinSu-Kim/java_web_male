@@ -25,7 +25,7 @@ public class Publisher {
 
 	@Override
 	public String toString() {
-		return String.format("Publisher [pubNo=%s, pubName=%s]", pubNo, pubName);
+		return pubName;
 	}
 
 

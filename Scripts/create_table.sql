@@ -186,6 +186,10 @@ COMMENT '우편번호';
 create table proj_library.day (
 	daty date null
 );
+INSERT INTO proj_library.`day`
+(daty)
+VALUES('0000-00-00');
+
 
 -- 책
 ALTER TABLE proj_library.book
