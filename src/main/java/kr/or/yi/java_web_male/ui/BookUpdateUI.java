@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import javafx.stage.FileChooser;
 import kr.or.yi.java_web_male.dao.BookMapper;
 import kr.or.yi.java_web_male.dao.BookMapperImpl;
 import kr.or.yi.java_web_male.dao.CategoryBMapper;
@@ -77,10 +78,9 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 	private BookInsertService service;
 
 	private Book book;
+
 	public BookUpdateUI(Book book) {
 		this.book = book;
-		System.out.println(book);
-		System.out.println("확인" + book.getPubNo());
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 		service = new BookInsertService();
 		initComponents(book);
@@ -90,25 +90,29 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		setTitle("도서 수정");
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 611);
+		setBounds(100, 100, 450, 425);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(0, 1, 10, 10));
+		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBounds(5, 5, 424, 133);
 		contentPane.add(panel);
 		panel.setLayout(new GridLayout(0, 2, 10, 10));
 
 		JPanel panel_3 = new JPanel();
 		panel.add(panel_3);
-		panel_3.setLayout(new GridLayout(0, 2, 10, 10));
+		panel_3.setLayout(null);
 
 		JLabel lblBookCode = new JLabel("도서 번호");
+		lblBookCode.setBounds(29, 88, 67, 45);
 		panel_3.add(lblBookCode);
 
 		tfBookCode = new JTextField();
+		tfBookCode.setBounds(97, 93, 98, 35);
 		tfBookCode.setEditable(false);
+		tfBookCode.setColumns(10);
 		tfBookCode.setText(book.getBookCode());
 
 		panel_3.add(tfBookCode);
@@ -120,16 +124,22 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 
 		btnImage = new JButton("사진 수정");
 		btnImage.addActionListener(this);
-
-		lblImage = new JLabel("사진 수정");
-		panel_4.add(lblImage);
+		btnImage.setBounds(42, 110, 126, 23);
 		panel_4.add(btnImage);
 
+		lblImage = new JLabel("");
+		lblImage.setBounds(42, 0, 126, 106);
+		lblImage.setIcon(new ImageIcon(imgPath + book.getImage()));
+		panel_4.add(lblImage);
+		panel_4.setLayout(null);
+
 		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(5, 148, 424, 39);
 		contentPane.add(panel_2);
-		panel_2.setLayout(new GridLayout(0, 4, 10, 10));
+		panel_2.setLayout(null);
 
 		JLabel lblNewLabel_3 = new JLabel("도서 분류");
+		lblNewLabel_3.setBounds(29, 0, 72, 36);
 		panel_2.add(lblNewLabel_3);
 
 		List<CategoryB> blist = new ArrayList<>();
@@ -138,6 +148,7 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		blist.add(0, b);
 		modelB = new DefaultComboBoxModel<>(new Vector<>(blist));
 		comboCateB = new JComboBox(modelB);
+		comboCateB.setBounds(109, 0, 98, 36);
 		comboCateB.setSelectedItem(b);
 		comboCateB.setEnabled(false);
 
@@ -147,6 +158,7 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		mList.add(0, m);
 		modelM = new DefaultComboBoxModel<>(new Vector<>(mList));
 		comboCateM = new JComboBox(modelM);
+		comboCateM.setBounds(217, 0, 98, 36);
 		comboCateM.setSelectedItem(m);
 		comboCateM.setEnabled(false);
 
@@ -156,6 +168,7 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		slist.add(0, s);
 		modelS = new DefaultComboBoxModel<>(new Vector<>(slist));
 		comboCateS = new JComboBox(modelS);
+		comboCateS.setBounds(325, 0, 98, 36);
 		comboCateS.setSelectedItem(s);
 		comboCateS.setEnabled(false);
 		panel_2.add(comboCateB);
@@ -163,6 +176,7 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		panel_2.add(comboCateS);
 
 		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(5, 197, 424, 133);
 		contentPane.add(panel_1);
 		panel_1.setLayout(new GridLayout(0, 2, 10, 10));
 
@@ -208,14 +222,17 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		panel_1.add(tfPrice);
 
 		JPanel panel_5 = new JPanel();
+		panel_5.setBounds(5, 337, 424, 39);
 		contentPane.add(panel_5);
-		panel_5.setLayout(new GridLayout(0, 2, 10, 10));
 
-		btnupdate = new JButton("수정");
+		btnupdate = new JButton("추가");
+		btnupdate.setBounds(37, 0, 155, 39);
 		btnupdate.addActionListener(this);
+		panel_5.setLayout(null);
 		panel_5.add(btnupdate);
 
 		btnCancel = new JButton("취소");
+		btnCancel.setBounds(241, 0, 155, 39);
 		btnCancel.addActionListener(this);
 		panel_5.add(btnCancel);
 	}
@@ -256,15 +273,11 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		book.setPrice(Integer.parseInt(tfPrice.getText().trim()));
 		book.setRentalPossible(true);
 		book.setImage(fileName);
-		
-		System.out.println(book);
-	
-		
-		
-		
+
 		try {
 			service.updatetBook(book);
-			int result = JOptionPane.showConfirmDialog(null, "수정이 완료되었습니다.목록으로 돌아가시겠습니까?", "확인", JOptionPane.YES_NO_OPTION);
+			int result = JOptionPane.showConfirmDialog(null, "수정이 완료되었습니다.목록으로 돌아가시겠습니까?", "확인",
+					JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.CLOSED_OPTION) {
 
 			} else if (result == JOptionPane.YES_OPTION) {
@@ -274,10 +287,6 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(null, "수정에 실패하였습니다.");
 		}
-		
-		
-		
-	
 	}
 
 	protected void do_btnCancel_actionPerformed(ActionEvent e) {
@@ -288,12 +297,14 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		JFileChooser chooser = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF", "jpg", "gif");
 		chooser.setFileFilter(filter);
-
 		int ret = chooser.showOpenDialog(null);
 
 		if (ret == JFileChooser.APPROVE_OPTION) {
 			pathName = chooser.getSelectedFile().getPath();
 			fileName = chooser.getSelectedFile().getName();
+
+			System.out.println(pathName);
+			System.out.println(fileName);
 			lblImage.setIcon(new ImageIcon(imgPath + fileName));
 		}
 	}
