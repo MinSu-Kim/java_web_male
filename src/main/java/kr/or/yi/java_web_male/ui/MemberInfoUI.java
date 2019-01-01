@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.Member;
@@ -63,6 +64,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private JLabel lblImg;
 
 	public MemberInfoUI() {
+		setResizable(false);
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 		loginUI = new LoginUI();
 		service = new MemberInfoService();
@@ -250,15 +252,18 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	private Object[] getMemberRentalInfo(BookRentalInfo bookRentalInfo) {
-		SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
-		String bookCode = bookRentalInfo.getBookCode().getBookCode();
-		String title = bookRentalInfo.getBookCode().getTitle();
-		String publisher = bookRentalInfo.getPublisher().getPubName();
-		String author = bookRentalInfo.getBookCode().getAuthor();
-		Date rentalDate = bookRentalInfo.getRentalDate();
-		Date returnSchedule = bookRentalInfo.getReturnSchedule();
-		return new Object[] { bookCode, title, publisher, author, date.format(rentalDate),
-				date.format(returnSchedule) };
+		if (bookRentalInfo.getReturnDate() == null) {
+			SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
+			String bookCode = bookRentalInfo.getBookCode().getBookCode();
+			String title = bookRentalInfo.getBookCode().getTitle();
+			String publisher = bookRentalInfo.getPublisher().getPubName();
+			String author = bookRentalInfo.getBookCode().getAuthor();
+			Date rentalDate = bookRentalInfo.getRentalDate();
+			Date returnSchedule = bookRentalInfo.getReturnSchedule();
+			return new Object[] { bookCode, title, publisher, author, date.format(rentalDate),
+					date.format(returnSchedule) };
+		}
+		return null;
 	}
 
 	private String[] getColumnNames() {
@@ -317,7 +322,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfEngName.setText(member.getEngName());
 		tfPhone.setText(member.getPhone());
 		tfEmail.setText(member.getEmail());
-		tfJumin.setText(member.getJumin());
+		tfJumin.setText(member.getJumin().substring(0, 8) + "******");
 		tfAddress.setText(strArr[0] + strArr[1]);
 		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 

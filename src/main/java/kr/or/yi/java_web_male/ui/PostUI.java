@@ -42,7 +42,7 @@ public class PostUI extends JFrame {
 
 		pList = new PostListPanel();
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 479, 312);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -148,16 +148,12 @@ public class PostUI extends JFrame {
 						textAddress.getText(), textDetailAddress.getText()));
 
 				if (memberRegisterUI != null) {
-					memberRegisterUI.setAddress(String.format("%s,%s", textPostCode.getText(), textAddress.getText()));
-					memberRegisterUI.setAddress(String.format("%s%s,%s", textPostCode.getText(), textAddress.getText(),
-							textDetailAddress.getText()));
+					memberRegisterUI.setAddress(String.format("%s%s", textPostCode.getText(), textAddress.getText()));
 					memberRegisterUI.setTfjuso(textDetailAddress.getText());
 				}
 
 				if (memberUpdateUI != null) {
 					memberUpdateUI.setAddress(String.format("%s,%s", textPostCode.getText(), textAddress.getText()));
-					memberUpdateUI.setAddress(String.format("%s%s,%s", textPostCode.getText(), textAddress.getText(),
-							textDetailAddress.getText()));
 					memberUpdateUI.setTfjuso(textDetailAddress.getText());
 				}
 
@@ -184,8 +180,5 @@ public class PostUI extends JFrame {
 	public void setMemberUpdateUI(MemberUpdateUI memberUpdateUI) {
 		this.memberUpdateUI = memberUpdateUI;
 	}
-
-
-
 
 }

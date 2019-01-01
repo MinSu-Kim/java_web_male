@@ -48,7 +48,7 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	}
 
 	private void initComponents() {
-
+		setResizable(false);
 		setTitle("[관리자] " + LoginUI.getLogin().getKorName() + "님 환영합니다.");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 165);
