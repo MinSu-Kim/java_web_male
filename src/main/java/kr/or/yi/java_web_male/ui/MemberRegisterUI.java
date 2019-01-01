@@ -630,7 +630,7 @@ public class MemberRegisterUI extends JFrame {
 		overdue.setOverdueCount(0);
 		overdue.setRentalAuthority(true);	
 		overdue.setStopEndDate(null);
-		int res = service.insertoverDue(overdue);
+		service.insertoverDue(overdue);
 	}
 
 	public void setAddress(String addr) {
