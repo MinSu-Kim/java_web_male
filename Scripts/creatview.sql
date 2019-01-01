@@ -28,7 +28,7 @@ begin
 	select kor_name, member_no, phone, jumin
 	from member
 	where kor_name regexp korname;
-end $$
+end
 delimiter ;
 ------ search_membernoRent ------
 DELIMITER $$
@@ -38,7 +38,7 @@ begin
 	from member m join book_rental_info r on m.member_no = r.member_no
 	join book b on b.book_code =  r.book_code
 	where m.member_no regexp memberno;
-END$$
+END
 DELIMITER ;
 --------- search_phone ------------
 delimiter $$
@@ -51,11 +51,10 @@ END
 delimiter ;
 ------- search_memberno--------
 DELIMITER $$
-$$
 CREATE DEFINER=`user_library`@`localhost` PROCEDURE `proj_library`.`search_memberno`(in memberno char(50))
 begin
 	select kor_name, member_no, jumin, phone
 	from `member`
 	where member_no regexp memberno;
-END$$
+END
 DELIMITER ;

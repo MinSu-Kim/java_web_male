@@ -402,6 +402,7 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		lblImg.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImg.setBounds(12, 10, 178, 267);
 		panel_3.add(lblImg);
+		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 
 		btnAdd = new JButton("수정");
 		btnAdd.addActionListener(this);
@@ -471,7 +472,7 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 				(String) TelBox.getSelectedItem() + "-" + tftel2.getText().trim() + "-" + tftel3.getText().trim());
 		member.setJumin(tfju1.getText().trim() + "-" + tfju2.getText().trim());
 		member.setEmail(tfEmail.getText().trim() + "@" + tfEmail_2.getText().trim());
-		member.setAddress(tfAdd.getText().trim() + tfjuso.getText().trim());
+		member.setAddress(tfAdd.getText().trim()+ "," + tfjuso.getText().trim());
 		member.setPhoto(fileName);
 		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 		service.updateMember(member);
