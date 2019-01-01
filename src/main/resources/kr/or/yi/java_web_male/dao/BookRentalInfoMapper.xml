@@ -81,20 +81,74 @@
 		where member_no = #{memberNo};
 	</select>
 	
-	
-	
    <select id="nextCode" resultType="java.lang.Integer">
       select count(*)+1 from book_rental_info;
    </select>
    
    <resultMap type="BookRentalInfo" id="selectRentalNoByBookCodeResult">
-   		<id property="rentalNo" column="retal_no"></id>
+   		<result property="rentalNo" column="rental_no"/>
    		<result property="bookCode.bookCode" column="book_code"/>
+   		<result property="memberNo.memberNo" column="member_no"/>
    </resultMap>
    
    <select id="selectRentalNoByBookCode" parameterType="BookRentalInfo" resultMap="selectRentalNoByBookCodeResult">
-   		select rental_no FROM proj_library.book_rental_info
-   		where book_code=${bookCode}
+   		select rental_no, return_date, member_no, return_schedule, rental_date FROM proj_library.book_rental_info
+   		where book_code=#{bookCode.bookCode}
    </select>
+   
+   <select id="selectRentalNoByBookCode_returnDateNull" parameterType="BookRentalInfo" resultMap="selectRentalNoByBookCodeResult">
+   		select rental_no, member_no, return_date, return_schedule, rental_date FROM proj_library.book_rental_info
+   		where book_code=#{bookCode.bookCode} and return_date is null
+   </select>
+   
+   <update id="updateReturnDate" parameterType="BookRentalInfo">
+   		UPDATE proj_library.book_rental_info
+   		SET return_date=#{returnDate}
+   		WHERE rental_no=#{rentalNo} 		
+   </update>
+
+   <resultMap type="BookRentalInfo" id="BookRentalInfoResultMap">
+   		<id property="rentalNo" column="rental_no" />
+		<result property="rentalDate" column="rental_date" />
+		<result property="returnDate" column="return_date" />
+		<result property="returnSchedule" column="return_schedule" />
+		<result property="memberNo.memberNo" column="member_no" />
+		<result property="bookCode.bookCode" column="book_code" />
+		<result property="bookCode.cateBNo.bName" column="cate_b_name"/>
+   </resultMap>
+	
+	<select id="selectRentalBookInfoByCategoryB" parameterType="Member" resultMap="BookRentalInfoResultMap">
+		select c.cate_b_name
+		from book_rental_info as r
+		join book as b on b.book_code = r.book_code
+		join category_b as c on b.cate_b_no = c.cate_b_no
+		where member_no = #{memberNo};
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>

@@ -11,4 +11,9 @@ public interface OverdueMapper {
 	Overdue selectOverdueByMemberNo(Overdue overdue);
 	
 	int insertOverdue(Overdue overdue);
+	
+	int updateCount(Overdue overdue);
+	int updateStopDate(Overdue overdue);
+	int updateAuthority(Overdue overdue);
+	int updateOverdueDate(Overdue overdue);
 }

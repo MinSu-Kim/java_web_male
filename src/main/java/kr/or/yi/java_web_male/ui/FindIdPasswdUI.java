@@ -320,13 +320,13 @@ public class FindIdPasswdUI extends JFrame implements ActionListener, MouseListe
 				if (res == 1) {
 					
 					String from = "rlawpdud301";
-			        String passWd = "비번";
+			        String passWd = "dnlqh1220";
 			        String[] to = { member.getEmail() }; // 보낼 메일 목록
-			        String subject = "Java send mail example";  // 메일 제목
-			        String body = "고객님의 임시 비밀번호는"+pass+"입니다 로그인하여 비밀번호를 변경해주세요 ";       // 메일 내용
+			        String subject = "○○도서관입니다 비밀번호를 반드시 변경해주세요";  // 메일 제목
+			        String body = "고객님의 임시 비밀번호는 "+pass+" 입니다 로그인하여 비밀번호를 변경해주세요 ";       // 메일 내용
 
 			        sendFromGMail(from, passWd, to, subject, body);
-					JOptionPane.showMessageDialog(null, "임시비밀번호가 가입하실때기입하신 이메일로 발송되었습니다.");
+					JOptionPane.showMessageDialog(null, "임시비밀번호가 이메일로 발송되었습니다.");
 				} else {
 					JOptionPane.showMessageDialog(null, "정상처리도지못하였습니다.관리자문의 바랍니다.");
 				}

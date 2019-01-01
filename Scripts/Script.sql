@@ -11,15 +11,21 @@ insert into category_s values('0','7','1','아시아 신문,저널리즘 등');
 insert into category_s values('1','1','4','공간');
 insert into publisher values('P001','영남인제교육원');
 
-insert into book_rental_info values(5,'2018-12-10','2018-12-17',null,'2','0000000001');
-insert into book_rental_info values(6,'2018-12-11','2018-12-17',null,'3','0000000002');
+INSERT INTO proj_library.book_rental_info
+(rental_date, return_date, return_schedule, member_no, book_code)
+VALUES('', '', '', '', '');
+
+
+
+insert into book_rental_info values(1,'2018-12-10',null,'2018-12-17','J0011','0000000001');
+insert into book_rental_info values(6,'2018-12-11','2018-12-17',null,'J0011','0000000003');
 ---- 프로시저 생성하기 -----
 delimiter $$
 CREATE PROCEDURE `proj_library`.`search_membername`(in korname char(50))
 begin
 	select kor_name, member_no, phone, jumin
 	from member
-	where kor_name= korname;
+	where kor_name regexp korname;
 end $$
 delimiter ;
 ------ search_membernoRent ------
@@ -29,7 +35,7 @@ begin
 	select kor_name, member_no, title, rental_date, return_date, return_schedule
 	from member m join book_rental_info r on m.member_no = r.member_no
 	join book b on b.book_code =  r.book_code
-	where m.member_no= memberno;
+	where m.member_no regexp memberno;
 END	
 delimiter ;
 --------- search_phone ------------
@@ -38,7 +44,7 @@ CREATE PROCEDURE `proj_library`.`search_phone`(in phonenum char(30))
 begin
 	select kor_name, member_no, phone, jumin
 	from member
-	where phone= phonenum;
+	where phone regexp phonenum;
 END
 delimiter ;
 ------- search_memberno--------
@@ -48,9 +54,21 @@ CREATE DEFINER=`user_library`@`localhost` PROCEDURE `proj_library`.`search_membe
 begin
 	select kor_name, member_no, jumin, phone
 	from `member`
-	where member_no= memberno;
+	where member_no regexp memberno;
 END$$
 DELIMITER ;
+
+DELIMITER $$
+$$
+CREATE DEFINER=`user_library`@`localhost` PROCEDURE `proj_library`.`search_test`(in memberno char(50))
+begin
+	select kor_name, member_no, jumin, phone
+	from `member`
+	where member_no regexp memberno;
+END$$
+DELIMITER ;
+
+call search_test("T");
 
 SELECT *
 from book_rental_info;
@@ -67,10 +85,24 @@ values (7,'2018-12-10',null,'2018-12-17' ,'2','1110000005');
 SELECT *
 from member;
 
-insert into `member` values("3","gfkrtkf", "서동준", "kiggay","01022306796","921012","tjehdxo2002@","비밀","하핫",1,"하말없음");
-insert into member values("1","king","노예1","slave1","010-2343-4533","201012","slave@naever.com","비밀","히히",0,"저는 노예입니다.");
+insert into `member` values("3","gfkrtkf", "서동준", "kiggay","01022306796","921012-1647545","tjehdxo2002@","비밀","하핫",1,"하말없음");
+
+insert into member values("10",password("king"),"노예1","slave1","010-2343-4533", concat(left('201012-1685651', 8),password(right('201012-1685651', 6)) ),"slave@naever.com","비밀","히히",0,"저는 노예입니다.");
+
 select kor_name, phone, jumin
 from `member` where kor_name="개동준";
+
+
+select '201012-1685651', left('201012-1685651', 6), password(right('201012-1685651', 7)), concat(left('201012-1685651', 6), '-',password(right('201012-1685651', 7)) );
+
+
+select jumin
+from member
+where member_no = 'S0002';
+
+select jumin, jumin('921012-1685616')
+from `member`
+where member_no = 's0002';
 
 call search_memberno("2");
 call search_membername("김동준");
@@ -87,16 +119,13 @@ from member m join book_rental_info r on m.member_no = r.member_no
 	where kor_name="김동준";
 
 
-select member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, memo
-from member;
-
 INSERT INTO proj_library.book
 (book_code, book_no, pub_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no)
 VALUES('1110000005', 0, 'P001', '김재영', '김재영', '자바의 정석', 40000, true, null, 0, 0, 0);
 
 insert into proj_library.book
 (book_code, book_no, pub_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no)
-values('0000000002', 0, 'P001', '서동준','서동준', 'web개발', 20000,true, null, 0, 0 ,0);
+values('0000000001', 0, 'P001', '서동준','서동준', 'web개발', 20000,true, null, 0, 0 ,0);
 
 SELECT * FROM book;
 select * from book_rental_info;
@@ -218,7 +247,8 @@ select * from `member`;
 select * from member_rental_info;
 select * from overdue;
 delete from overdue where member_no = '123';
-insert into overdue values(123,0,0,0);
+insert into overdue values(123,0,0,0,null);
+insert into overdue values(2,0,0,0,null);
 
 INSERT INTO proj_library.book_rental_info
 (rental_date, return_date, return_schedule, member_no, book_code)
@@ -255,8 +285,12 @@ select * from overdue;
 
 select * from book;
 
+select * from book
+where left(book_code, 1) != 'D'
+
 select rental_no FROM proj_library.book_rental_info
    		where book_code='00001';
+<<<<<<< HEAD
 
    	
    	create
@@ -303,3 +337,22 @@ join `member` `m` on
     ((`i`.`member_no` = `m`.`member_no`)))
 join `book` `b` on
     ((`i`.`book_code` = `b`.`book_code`)));
+=======
+
+   	
+   	select rental_no, member_no, return_date, return_schedule, rental_date FROM proj_library.book_rental_info
+   		where book_code='00001' and return_date is null;
+   	
+select member_no, stop_date, overdue_count, rental_authority, overdue_date from overdue
+where member_no='2';
+
+UPDATE proj_library.book
+		SET book_code='D0000000001'
+		WHERE book_code='0000000001';
+=======
+select member_no, password, kor_name, eng_name, phone,
+		replace(jumin,regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1)
+             ,substr(replace(regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1),'-'),1,7)||'******') jumin, email, address, photo, admin, uniqueness
+		from member;
+		
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git

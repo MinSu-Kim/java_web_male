@@ -17,6 +17,8 @@ public interface MemberRentalInfoMapper {
 	
 	int updateMemberRentalInfoGrade(MemberRentalInfo memberRentalInfo);
 	
+	int updateMemberRentalInfo2(MemberRentalInfo memberRentalInfo);
+	
 	MemberRentalInfo selectMemberNowTotalByCode(MemberRentalInfo memberRentalInfo);
 	
 	MemberRentalInfo selectMemberTotalByCode(MemberRentalInfo memberRentalInfo);

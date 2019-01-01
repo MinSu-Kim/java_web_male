@@ -1,19 +1,21 @@
 package kr.or.yi.java_web_male.ui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
+import java.util.Date;
 
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -21,34 +23,48 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 
-import kr.or.yi.java_web_male.dao.MemberMapper;
-import kr.or.yi.java_web_male.dao.MemberMapperImpl;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.dto.MemberRentalInfo;
+import kr.or.yi.java_web_male.dto.Overdue;
+import kr.or.yi.java_web_male.service.LibraryUIService;
+import kr.or.yi.java_web_male.service.LoginService;
+
+import kr.or.yi.java_web_male.service.MemberUIService;
+
+import kr.or.yi.java_web_male.service.LoginUIService;
+
 
 @SuppressWarnings("serial")
 public class LoginUI extends JFrame implements ActionListener {
 
+	private static Member loginMember;
 	private JPanel contentPane;
 	private JTextField tfMemberNo;
 	private JTextField tfPassword;
 	private JLabel lblMemberNo;
 	private JLabel lblPassword;
-
-	// ui 몽음
-	private AdminMainUI adminMainUI;
-	private MemberInfoUI memberInfoUI;
-	private BookSearchUI bookSearchUI;
-	private static Member loginMember;
-
-	// 서비스 만들기
-	private MemberMapper memberMapper;
-	private JButton btnLogin;
 	private JPanel panel_2;
+	private JButton btnLogin;
 	private JButton btnSignUp;
 	private JButton btnFind;
 	private JButton btnSearch;
-	private JButton btnNewButton;
+	private JButton btnBest;
+	private AdminMainUI adminMainUI;
+	private MemberInfoUI memberInfoUI;
+	private BookSearchUI bookSearchUI;
+
+	private OverduePopUpUI overduePopUpUI;
+
+	private MemberRegisterUI memberRegisterUI;
+	private FindIdPasswdUI findIdPasswdUI;
+
 	private String imgPath;
+	private LoginService service;
+
+	private MemberUIService memberUIService;
+	private LibraryUIService libraryUIService;
+	private LoginUIService serviceUI;
+
 
 	public static final Member getLogin() {
 		return loginMember;
@@ -80,21 +96,20 @@ public class LoginUI extends JFrame implements ActionListener {
 	}
 
 	public LoginUI() {
-		memberMapper = MemberMapperImpl.getInstance();
-		loginMember = null;
+		service = new LoginService();
+		serviceUI = new LoginUIService();
 		initComponent();
 	}
 
 	private void initComponent() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
-		
-		setContentPane(new JLabel(new ImageIcon(imgPath +"7.jpg")));
+
+//		setContentPane(new JLabel(new ImageIcon(imgPath + "7.jpg")));
 		pack();
-        setVisible(true);
-		
+
 		setTitle("로그인");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 259);
+		setBounds(100, 100, 536, 275);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -128,7 +143,7 @@ public class LoginUI extends JFrame implements ActionListener {
 
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1);
-		panel_1.setLayout(new GridLayout(0, 3, 10, 10));
+		panel_1.setLayout(new GridLayout(0, 4, 10, 10));
 
 		btnSignUp = new JButton("회원가입");
 		btnSignUp.addActionListener(this);
@@ -141,15 +156,15 @@ public class LoginUI extends JFrame implements ActionListener {
 		btnSearch = new JButton("도서검색");
 		btnSearch.addActionListener(this);
 		panel_1.add(btnSearch);
-		
-		btnNewButton = new JButton("Best");
-		btnNewButton.addActionListener(this);
-		panel_1.add(btnNewButton);
+
+		btnBest = new JButton("Best");
+		btnBest.addActionListener(this);
+		panel_1.add(btnBest);
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNewButton) {
-			do_btnNewButton_actionPerformed(e);
+		if (e.getSource() == btnBest) {
+			do_btnBest_actionPerformed(e);
 		}
 		if (e.getSource() == btnSearch) {
 			do_btnSearch_actionPerformed(e);
@@ -166,35 +181,63 @@ public class LoginUI extends JFrame implements ActionListener {
 	}
 
 	protected void do_btnLogin_actionPerformed(ActionEvent arg0) {
-		String id = tfMemberNo.getText().trim();
-		String pw = tfPassword.getText().trim();
-		Member member = memberMapper.selectMemberByNo(id);
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberNo", tfMemberNo.getText().trim());
+		map.put("password", tfPassword.getText().trim());
+		Member member = service.loginCheck(map);
 
 		try {
 			if (member != null) {
-				if (member.getPassword().equals(pw)) {
-					loginMember = member;
-					if (member.isAdmin() == true) {
-						if (adminMainUI == null) {
-							adminMainUI = new AdminMainUI();
+
+				loginMember = member;
+				if (member.isAdmin() == true) {
+					if (adminMainUI == null) {
+						
+						JOptionPane.showMessageDialog(null, serviceUI.selectDate());
+						if(serviceUI.selectDate() != 0) {
+							overduePopUpUI = new OverduePopUpUI();
 						}
-						adminMainUI.setVisible(true);
-					} else {
-						if (memberInfoUI == null) {
-							memberInfoUI = new MemberInfoUI();
-						}
-						memberInfoUI.setVisible(true);
+						adminMainUI = new AdminMainUI();
+
 					}
+					adminMainUI.setVisible(true);
+					overduePopUpUI.setVisible(true);
 				} else {
-					failLogin();
+					if (memberInfoUI == null) {
+						memberInfoUI = new MemberInfoUI();
+					}
+					memberInfoUI.setVisible(true);
 				}
+				dispose();
 			} else {
 				failLogin();
+				JOptionPane.showMessageDialog(null, "로그인 실패");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			failLogin();
 		}
+		
+		/*--------------------------정지일수 업데이트-----------------------------*/
+		
+		
+		Member member1 = new Member();
+		member1.setMemberNo(tfMemberNo.getText());
+		
+		String mNo = String.valueOf(member1);
+		
+		Overdue overdue = new Overdue();
+		overdue.setMemberNo(mNo);
+		
+		Overdue selectOverdue = memberUIService.selectOverdueByCode(overdue);
+		
+		Date overdueDate = selectOverdue.getOverdueDate();
+		
+		
+		
+		
+		
+		
 	}
 
 	private void failLogin() {
@@ -207,9 +250,13 @@ public class LoginUI extends JFrame implements ActionListener {
 	}
 
 	protected void do_btnSignUp_actionPerformed(ActionEvent e) {
+		memberRegisterUI = new MemberRegisterUI();
+		memberRegisterUI.setVisible(true);
 	}
 
 	protected void do_btnFind_actionPerformed(ActionEvent e) {
+		findIdPasswdUI = new FindIdPasswdUI();
+		findIdPasswdUI.setVisible(true);
 	}
 
 	protected void do_btnSearch_actionPerformed(ActionEvent e) {
@@ -217,7 +264,8 @@ public class LoginUI extends JFrame implements ActionListener {
 		bookSearchUI.setVisible(true);
 		bookSearchUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
-	protected void do_btnNewButton_actionPerformed(ActionEvent e) {
+
+	protected void do_btnBest_actionPerformed(ActionEvent e) {
 		BestUI bestUI = new BestUI();
 		bestUI.setVisible(true);
 		bestUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -132,7 +132,7 @@ CREATE TABLE proj_library.member_rental_info (
 )
 COMMENT '회원대여정보';
 
-drop table proj_library.member_rental_info;
+
 
 -- 회원대여정보
 ALTER TABLE proj_library.member_rental_info
@@ -146,10 +146,12 @@ CREATE TABLE proj_library.overdue (
 	member_no        VARCHAR(50) NOT NULL COMMENT '회원번호', -- 회원번호
 	stop_date        INT(11)     NULL     COMMENT '정지일수', -- 정지일수
 	overdue_count    INT(11)     NULL     COMMENT '연체횟수', -- 연체횟수
-	rental_authority TINYINT(1)  NULL     COMMENT '대여권한' -- 대여권한
+	rental_authority TINYINT(1)  NULL     COMMENT '대여권한', -- 대여권한
+	overdue_date     Date		 null     COMMENT '연체날짜'  -- 연체날짜
 )
 COMMENT '연체정보';
 
+drop table proj_library.overdue;
 -- 연체정보
 ALTER TABLE proj_library.overdue
 	ADD CONSTRAINT
@@ -182,6 +184,10 @@ CREATE TABLE proj_library.post (
 	building2 INT(5)      NULL COMMENT '건물번호2' -- 건물번호2
 )
 COMMENT '우편번호';
+
+create table day (
+	daty date null
+);
 
 -- 책
 ALTER TABLE proj_library.book
@@ -223,7 +229,8 @@ ALTER TABLE proj_library.book_rental_info
 		)
 		REFERENCES proj_library.book ( -- 책
 			book_code -- 도서번호
-		),
+		)ON UPDATE CASCADE,
+		
 	ADD INDEX FK_Book_TO_book_rent_info (
 		book_code -- 도서번호
 	);
@@ -236,7 +243,7 @@ ALTER TABLE proj_library.book_rental_info
 		)
 		REFERENCES proj_library.member ( -- 회원
 			member_no -- 회원번호
-		),
+		)ON UPDATE CASCADE,
 	ADD INDEX FK_member_TO_book_rent_info (
 		member_no -- 회원번호
 	);
@@ -278,7 +285,7 @@ ALTER TABLE proj_library.member_rental_info
 		)
 		REFERENCES proj_library.member ( -- 회원
 			member_no -- 회원번호
-		);
+		)ON UPDATE CASCADE;
 
 -- 연체정보
 ALTER TABLE proj_library.overdue
@@ -288,7 +295,7 @@ ALTER TABLE proj_library.overdue
 		)
 		REFERENCES proj_library.member ( -- 회원
 			member_no -- 회원번호
-		);
+		)ON UPDATE CASCADE;
 		
 CREATE USER 'user_library'@'%';
 ALTER USER 'user_library'@'%'

@@ -18,27 +18,32 @@ public interface MemberMapper {
 	int deleteMember(int id);
 
 	int deleteMember(String id);
-
+	
+	int deleteMemberNo(Map<String, Object> map);
+	
 	Member selectMemberByNo(String member);
 	
 	List<Member> selectMemberByMemberNo();
 	
 	List<Member> selectMemberByNoList(Member member);
 	
+	
 	//프로시저 해시맵
 //	List<Map<String, String>> searchMemberNo(Map<String, String> map);
-	Member searchMemberNo(Map<String, String> map);
+	List<Member> searchMemberNo(Map<String, String> map);
 
 	/*Member searchMemberName(Map<String, String> map);*/
 	List<Member> searchMemberName(Map<String, String> map);
 	
-	Member searchMemberPhone(Map<String, String>map);
+	List<Member> searchMemberPhone(Map<String, String>map);
 	//대여된 책 확인하기 해쉬맵
 	List<Member> searchMembernoRent(Map<String, String> map);
 	
 	Member searchIdAndPw(Map<String, Object> map);
 	
 	int changePW(Map<String, Object> map);
+
+	List<Member> selectMemberByNojumin(Member member);
 	
-	
+	Member loginCheck(Map<String, Object> map);
 }

@@ -13,7 +13,14 @@
 	<sql id="whereSql">
 		<where>
 			<if test="memberNo != null">
-				member_no = #{memberNo};
+				member_no = #{memberNo}
+			</if>
+		</where>
+	</sql>
+	<sql id="whereSqljumin">
+		<where>
+			<if test="jumin != null">
+				jumin = concat(left(#{jumin},8),password(right(#{jumin},6)))
 			</if>
 		</where>
 	</sql>
@@ -77,15 +84,15 @@
 		insert into
 		Member(member_no, password, kor_name, eng_name, phone, jumin, email,
 		address, photo, admin, uniqueness)
-		values(#{memberNo}, #{password},
-		#{korName}, #{engName}, #{phone}, #{jumin}, #{email}, #{address},
+		values(#{memberNo}, PASSWORD(#{password}),
+		#{korName}, #{engName}, #{phone}, concat(left(#{jumin},8),password(right(#{jumin},6))), #{email}, #{address},
 		#{photo}, #{admin}, #{uniqueness})
 	</select>
 
 	<!-- 수정 구문 -->
 	<select id="updateMember" parameterType="Member">
 		update Member set
-		password=#{password}, kor_name=#{korName}, eng_name=#{engName},
+		PASSWORD(#{password}), kor_name=#{korName}, eng_name=#{engName},
 		phone=#{phone}, jumin=#{jumin}, email=#{email}, address=#{address},
 		photo=#{photo}, admin=#{admin}, uniqueness=#{uniqueness}
 		where
@@ -128,7 +135,13 @@
 		<include refid="selectSql" />
 		<include refid="whereRegEXP"></include>
 	</select>
-
+	
+	<select id="selectMemberByNojumin" parameterType="Member"
+		resultType="Member">
+		<include refid="selectSql" />
+		<include refid="whereSqljumin"></include>
+	</select>
+	
 	<sql id="whereNameAndPhone">
 		<where>
 			<if test="korName != null">
@@ -149,9 +162,22 @@
 	</select>
 	<update id="changePW">
 		UPDATE proj_library.`member`
-		SET password= #{password}
+		SET password=password(#{password})
 		WHERE member_no= #{memberNo}
 	</update>
+
+	<update id="deleteMemberNo" parameterType="Member">
+	 		UPDATE member
+	 		set Member_no = #{newMemberNo}, password = #{password}
+	 		where member_no = #{memberNo}
+	</update>
+
+
+	<select id="loginCheck" resultMap="MemberResult">
+		select member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness
+		from member
+		where member_no = #{memberNo} and password = password(#{password});
+	</select>
 
 
 </mapper>

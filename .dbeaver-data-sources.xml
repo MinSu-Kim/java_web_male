@@ -16,6 +16,11 @@
 							<attribute name="total"/>
 						</constraint>
 					</entity>
+					<entity name="day">
+						<constraint name="PRIMARY" type="VIRTUAL KEY">
+							<attribute name="daty"/>
+						</constraint>
+					</entity>
 				</container>
 			</container>
 		</virtual-meta-data>

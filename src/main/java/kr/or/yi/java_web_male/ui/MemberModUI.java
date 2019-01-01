@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -17,7 +18,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import kr.or.yi.java_web_male.dao.MemberMapper;
 import kr.or.yi.java_web_male.dao.MemberMapperImpl;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.service.MemberModService;
 import kr.or.yi.java_web_male.ui.LoginUI;
+import javax.swing.BoxLayout;
+import javax.swing.SwingConstants;
+import java.awt.BorderLayout;
 
 @SuppressWarnings("serial")
 public class MemberModUI extends JFrame implements ActionListener {
@@ -33,31 +38,52 @@ public class MemberModUI extends JFrame implements ActionListener {
 	private JTextField tfJumin;
 	private JTextField tfEmail;
 	private JTextField tfAddress;
-
-	private Member memberInfo;
-
-	private MemberInfoUI memberInfoUI;
-	// 서비스 만들기
-	private MemberMapper memberMapper;
-	private JButton btnChange;
+	private JLabel lblPhoto;
 	private JButton btnPhoto;
+	private JButton btnChange;
+	private Member memberInfo;
+	private MemberInfoUI memberInfoUI;
+	private String pathName;
+	private String fileName;
+	private String imgPath;
+	private MemberModService service;
+	private JButton btnCancel;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JTextField textField;
+	private JButton btnNewButton;
+	private JPanel panel_2;
+	private JPanel panel_3;
+	private JTextField textField_1;
+	private JLabel lblNewLabel;
+	private JPanel panel_4;
 
 	public MemberModUI() {
-		memberMapper = MemberMapperImpl.getInstance();
+		imgPath = System.getProperty("user.dir") + "\\images\\";
+		service = new MemberModService();
 		initComponents();
 	}
 
 	private void initComponents() {
 		setTitle("회원정보 변경");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 450, 768);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(0, 2, 10, 10));
+		contentPane.setLayout(new GridLayout(0, 1, 10, 10));
+		
+		panel_4 = new JPanel();
+		contentPane.add(panel_4);
+		panel_4.setLayout(null);
+		
+		panel_2 = new JPanel();
+		panel_2.setBounds(91, 5, 242, 83);
+		panel_4.add(panel_2);
+		panel_2.setLayout(new GridLayout(0, 1, 10, 10));
 
 		JPanel pMemberNo = new JPanel();
-		contentPane.add(pMemberNo);
+		panel_2.add(pMemberNo);
 		pMemberNo.setLayout(new GridLayout(0, 2, 10, 10));
 
 		JLabel lblMemberNo = new JLabel("회원번호(ID)");
@@ -66,13 +92,39 @@ public class MemberModUI extends JFrame implements ActionListener {
 		tfMemberNo = new JTextField();
 		pMemberNo.add(tfMemberNo);
 		tfMemberNo.setColumns(10);
+		
+				JPanel pKorName = new JPanel();
+				panel_2.add(pKorName);
+				pKorName.setLayout(new GridLayout(0, 2, 10, 10));
+				
+						JLabel lblKorName = new JLabel("한국명");
+						pKorName.add(lblKorName);
+						
+								tfKorName = new JTextField();
+								pKorName.add(tfKorName);
+								tfKorName.setColumns(10);
+								
+										JPanel pEngName = new JPanel();
+										panel_2.add(pEngName);
+										pEngName.setLayout(new GridLayout(0, 2, 10, 10));
+										
+												JLabel lblEngName = new JLabel("영어명");
+												pEngName.add(lblEngName);
+												
+														tfEngName = new JTextField();
+														pEngName.add(tfEngName);
+														tfEngName.setColumns(10);
 
 		JPanel pPhoto = new JPanel();
 		contentPane.add(pPhoto);
 
 		btnPhoto = new JButton("사진 변경하기");
 		btnPhoto.addActionListener(this);
-		pPhoto.add(btnPhoto);
+		pPhoto.setLayout(new BorderLayout(0, 0));
+
+		lblPhoto = new JLabel("");
+		pPhoto.add(lblPhoto);
+		pPhoto.add(btnPhoto, BorderLayout.SOUTH);
 
 		JLabel lblPassword = new JLabel("현재 비밀번호 확인");
 		contentPane.add(lblPassword);
@@ -95,34 +147,24 @@ public class MemberModUI extends JFrame implements ActionListener {
 		contentPane.add(tfNewPasswordCheck);
 		tfNewPasswordCheck.setColumns(10);
 
-		JPanel pKorName = new JPanel();
-		contentPane.add(pKorName);
-		pKorName.setLayout(new GridLayout(0, 2, 10, 10));
-
-		JLabel lblKorName = new JLabel("한국명");
-		pKorName.add(lblKorName);
-
-		tfKorName = new JTextField();
-		pKorName.add(tfKorName);
-		tfKorName.setColumns(10);
-
-		JPanel pEngName = new JPanel();
-		contentPane.add(pEngName);
-		pEngName.setLayout(new GridLayout(0, 2, 10, 10));
-
-		JLabel lblEngName = new JLabel("영어명");
-		pEngName.add(lblEngName);
-
-		tfEngName = new JTextField();
-		pEngName.add(tfEngName);
-		tfEngName.setColumns(10);
-
 		JLabel lblJumin = new JLabel("주민등록번호");
 		contentPane.add(lblJumin);
+		
+		panel_3 = new JPanel();
+		contentPane.add(panel_3);
+		panel_3.setLayout(new GridLayout(0, 3, 10, 10));
 
 		tfJumin = new JTextField();
-		contentPane.add(tfJumin);
+		panel_3.add(tfJumin);
 		tfJumin.setColumns(10);
+		
+		lblNewLabel = new JLabel("-");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_3.add(lblNewLabel);
+		
+		textField_1 = new JTextField();
+		panel_3.add(textField_1);
+		textField_1.setColumns(10);
 
 		JLabel lblPhone = new JLabel("전화번호");
 		contentPane.add(lblPhone);
@@ -140,16 +182,32 @@ public class MemberModUI extends JFrame implements ActionListener {
 
 		JLabel lblAddress = new JLabel("주소");
 		contentPane.add(lblAddress);
+		
+		panel = new JPanel();
+		contentPane.add(panel);
+		panel.setLayout(new GridLayout(0, 1, 10, 10));
+		
+		panel_1 = new JPanel();
+		panel.add(panel_1);
+		panel_1.setLayout(new GridLayout(0, 2, 10, 10));
+		
+		textField = new JTextField();
+		panel_1.add(textField);
+		textField.setColumns(10);
+		
+		btnNewButton = new JButton("검색");
+		panel_1.add(btnNewButton);
 
 		tfAddress = new JTextField();
+		panel.add(tfAddress);
 		tfAddress.setColumns(10);
-		contentPane.add(tfAddress);
 
 		btnChange = new JButton("변경");
 		btnChange.addActionListener(this);
 		contentPane.add(btnChange);
 
-		JButton btnCancel = new JButton("취소");
+		btnCancel = new JButton("취소");
+		btnCancel.addActionListener(this);
 		contentPane.add(btnCancel);
 
 		getMemberInfo(LoginUI.getLogin());
@@ -157,6 +215,9 @@ public class MemberModUI extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCancel) {
+			do_btnCancel_actionPerformed(e);
+		}
 		if (e.getSource() == btnPhoto) {
 			do_btnPhoto_actionPerformed(e);
 		}
@@ -168,25 +229,30 @@ public class MemberModUI extends JFrame implements ActionListener {
 	protected void do_btnChange_actionPerformed(ActionEvent arg0) {
 		Member editMember = new Member();
 
-		editMember.setMemberNo(LoginUI.getLogin().getMemberNo());
-		editMember.setPassword(LoginUI.getLogin().getPassword());
-		editMember.setKorName(tfKorName.getText());
-		editMember.setEngName(tfEngName.getText());
-		editMember.setPhone(tfPhone.getText());
-		editMember.setEmail(tfEmail.getText());
-		editMember.setAddress(tfAddress.getText());
-		editMember.setUniqueness(LoginUI.getLogin().getUniqueness());
-		editMember.setJumin(LoginUI.getLogin().getJumin());
-
 		if (LoginUI.getLogin().getPassword().equals(tfPassword.getText().trim())) {
+
+			editMember.setMemberNo(LoginUI.getLogin().getMemberNo());
+			editMember.setPassword(LoginUI.getLogin().getPassword());
+			editMember.setKorName(tfKorName.getText());
+			editMember.setEngName(tfEngName.getText());
+			editMember.setPhone(tfPhone.getText());
+			editMember.setEmail(tfEmail.getText());
+			editMember.setAddress(tfAddress.getText());
+			editMember.setUniqueness(LoginUI.getLogin().getUniqueness());
+			editMember.setJumin(LoginUI.getLogin().getJumin());
+
 			if (tfNewPassword.getText().trim().equals(tfNewPasswordCheck.getText().trim())) {
 				editMember.setPassword(tfNewPassword.getText().trim());
+			} else if (!tfNewPassword.getText().trim().equals(tfNewPasswordCheck.getText().trim())) {
+				JOptionPane.showMessageDialog(null, "비밀번호가 일치하지 않습니다.");
 			}
+		} else {
+			JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
 		}
 
-		memberMapper.updateMember(editMember);
+		service.updateMember(editMember);
 
-		Member member = memberMapper.selectMemberByNo(editMember.getMemberNo());
+		Member member = service.selectMemberByNo(editMember.getMemberNo());
 
 		if (memberInfoUI == null) {
 			memberInfoUI = new MemberInfoUI();
@@ -218,11 +284,12 @@ public class MemberModUI extends JFrame implements ActionListener {
 		int ret = chooser.showOpenDialog(null);
 
 		if (ret == JFileChooser.APPROVE_OPTION) {
-			String pathName = chooser.getSelectedFile().getPath();
-			String fileName = chooser.getSelectedFile().getName();
-
-			System.out.println(pathName);
-			System.out.println(fileName);
+			pathName = chooser.getSelectedFile().getPath();
+			fileName = chooser.getSelectedFile().getName();
+			lblPhoto.setIcon(new ImageIcon(imgPath + fileName));
 		}
+	}
+	protected void do_btnCancel_actionPerformed(ActionEvent e) {
+		this.setVisible(false);
 	}
 }

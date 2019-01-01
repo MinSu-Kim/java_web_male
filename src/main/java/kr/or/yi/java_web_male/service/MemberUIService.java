@@ -8,8 +8,11 @@ import kr.or.yi.java_web_male.dao.MemberMapper;
 import kr.or.yi.java_web_male.dao.MemberMapperImpl;
 import kr.or.yi.java_web_male.dao.MemberRentalInfoMapper;
 import kr.or.yi.java_web_male.dao.MemberRentalInfoMapperImpl;
+import kr.or.yi.java_web_male.dao.OverdueMapper;
+import kr.or.yi.java_web_male.dao.OverdueMapperImpl;
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.dto.MemberRentalInfo;
+import kr.or.yi.java_web_male.dto.Overdue;
 
 public class MemberUIService {
 
@@ -17,18 +20,23 @@ public class MemberUIService {
 	
 	private MemberRentalInfoMapper dao1 = MemberRentalInfoMapperImpl.getInstance();
 	
+	private OverdueMapper dao2 = OverdueMapperImpl.getInstance();
+	
 	
 	public List<Member> selectMemberByAll(){
 		return dao.selectMemberByAll();
 	}
 
-	public Member searchMemberNo(Map<String, String> map) {
+	/*public Member searchMemberNo(Map<String, String> map) {
+		return dao.searchMemberNo(map);
+	}*/
+	public List<Member> searchMemberNo(Map<String, String> map) {
 		return dao.searchMemberNo(map);
 	}
 	public List<Member> searchMemberName(Map<String, String> map) {
 		return dao.searchMemberName(map);
 	}
-	public Member searchMemberPhone(Map<String, String> map) {
+	public List<Member> searchMemberPhone(Map<String, String> map) {
 		return dao.searchMemberPhone(map);
 	}
 
@@ -51,9 +59,15 @@ public class MemberUIService {
 	public List<Member> selectMemberByNoList(Member member) {
 		return dao.selectMemberByNoList(member);
 	}
-	
+	public List<Member> selectMemberByNojumin(Member member){
+		return dao.selectMemberByNojumin(member);
+	}
 	public int updateMemberRentalInfo(MemberRentalInfo memberRentalInfo) {
 		return dao1.updateMemberRentalInfo(memberRentalInfo);
+	}
+	
+	public int updateMemberRentalInfo2(MemberRentalInfo memberRentalInfo) {
+		return dao1.updateMemberRentalInfo2(memberRentalInfo);
 	}
 	
 	public int updateMemberRentalInfoGrade(MemberRentalInfo memberRentalInfo) {
@@ -70,5 +84,33 @@ public class MemberUIService {
 	
 	public MemberRentalInfo selectMemberGradeByCode(MemberRentalInfo memberRentalInfo) {
 		return dao1.selectMemberGradeByCode(memberRentalInfo);
+	}
+
+	
+	public Overdue selectOverdueByCode(Overdue overdue) {
+		return dao2.selectOverdueByCode(overdue);
+	}
+	
+	public int updateCount(Overdue overdue) {
+		return dao2.updateCount(overdue);
+	}
+	
+	public int updateStopDate(Overdue overdue) {
+		return dao2.updateStopDate(overdue);
+	}
+	
+	public int updateAuthority(Overdue overdue) {
+		return dao2.updateAuthority(overdue);
+	}
+	
+	public int updateOverdueDate(Overdue overdue) {
+		return dao2.updateOverdueDate(overdue);
+	}
+
+	public List<Member> selectMemberByMemberNo(){
+		return dao.selectMemberByMemberNo();
+	}
+	public int deleteMemberNo(Map<String, Object> map){
+		return dao.deleteMemberNo(map);
 	}
 }

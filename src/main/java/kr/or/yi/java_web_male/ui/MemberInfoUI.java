@@ -14,11 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
-import kr.or.yi.java_web_male.dao.BookRentalInfoMapper;
-import kr.or.yi.java_web_male.dao.BookRentalInfoMapperImpl;
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.service.MemberInfoService;
 import kr.or.yi.java_web_male.ui.LoginUI;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -33,35 +31,34 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private JTextField tfJumin;
 	private JTextField tfKorName;
 	private JTextField tfAddress;
-
-	private BookSearchUI bookSearchUI;
-	private MemberModUI memberModUI;
-	private JButton btnMod;
-	private JButton btnSearch;
-	private JButton btnDetail;
 	private JTextField tfEngName;
 	private JTextField tfEmail;
-	private String imgPath;
 	private JTable table;
-	private List<BookRentalInfo> lists;
-	private BookRentalInfoMapper bookRentalInfoMapper;
+	private JButton btnMod;
+	private JButton btnDetail;
+	private JButton btnSearch;
+	private JButton btnLogout;
+	private JButton btnBest10;
+	private LoginUI loginUI;
+	private MemberInfoUI memberInfoUI;
+	private MemberModUI memberModUI;
 	private MemberDetailUI memberDetailUI;
+	private BookSearchUI bookSearchUI;
+	private List<BookRentalInfo> lists;
+	private String imgPath;
+	private MemberInfoService service;
 
 	public MemberInfoUI() {
-		bookRentalInfoMapper = BookRentalInfoMapperImpl.getInstance();
 		imgPath = System.getProperty("user.dir") + "\\images\\";
+		loginUI = new LoginUI();
+		service = new MemberInfoService();
 		initComponent();
-
-		System.out.println("다른 클래스에서 호출" + LoginUI.getLogin());
-		lists = bookRentalInfoMapper.selectBookRentalMemberInfo(LoginUI.getLogin());
-		System.out.println(lists);
-
 	}
 
 	private void initComponent() {
-		setTitle("내 정보");
+		setTitle("[사용자] " + LoginUI.getLogin().getKorName() + "님 환영합니다.");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 400);
+		setBounds(100, 100, 550, 590);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -154,7 +151,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 		JPanel pButton = new JPanel();
 		contentPane.add(pButton, BorderLayout.SOUTH);
-		pButton.setLayout(new GridLayout(0, 3, 10, 10));
+		pButton.setLayout(new GridLayout(0, 5, 10, 10));
 
 		btnMod = new JButton("회원정보수정");
 		btnMod.addActionListener(this);
@@ -168,6 +165,14 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pButton.add(btnDetail);
 		pButton.add(btnSearch);
 
+		btnBest10 = new JButton("Best 10");
+		btnBest10.addActionListener(this);
+		pButton.add(btnBest10);
+
+		btnLogout = new JButton("로그아웃");
+		btnLogout.addActionListener(this);
+		pButton.add(btnLogout);
+
 		getMemberInfo(LoginUI.getLogin());
 	}
 
@@ -177,7 +182,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	private Object[][] getDatas() {
 		Member member = LoginUI.getLogin();
-		lists = bookRentalInfoMapper.selectBookRentalMemberInfo(member);
+		lists = service.selectBookRentalMemberInfo(member);
 		Object[][] datas = new Object[lists.size()][];
 		for (int i = 0; i < lists.size(); i++) {
 			datas[i] = getMemberRentalInfo(lists.get(i));
@@ -202,6 +207,12 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnBest10) {
+			do_btnBest10_actionPerformed(e);
+		}
+		if (e.getSource() == btnLogout) {
+			do_btnLogout_actionPerformed(e);
+		}
 		if (e.getSource() == btnDetail) {
 			do_btnDetail_actionPerformed(e);
 		}
@@ -256,4 +267,12 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfAddress.setEditable(false);
 	}
 
+	protected void do_btnLogout_actionPerformed(ActionEvent e) {
+		LoginUI.memberLogOut();
+		this.setVisible(false);
+		loginUI.setVisible(true);
+	}
+
+	protected void do_btnBest10_actionPerformed(ActionEvent e) {
+	}
 }

@@ -6,7 +6,10 @@ import kr.or.yi.java_web_male.dao.BookRentalInfoMapperImpl;
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.CategoryB;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -36,7 +39,6 @@ public class PanelPieChart extends JFXPanel implements InitScene {
 		pieChart = new PieChart();
 		pieChart.setPrefSize(500, 250);
 		pieChart.setData(getChartData());
-		pieChart.setTitle("Pie Chart");
 		pieChart.setLegendVisible(true); // 범례 표시 유무
 		pieChart.setLegendSide(Side.BOTTOM);// 범례 위치
 		pieChart.setLabelLineLength(30); // 원의 둘레 가장자리와 라벨간의 거리 지정
@@ -55,17 +57,55 @@ public class PanelPieChart extends JFXPanel implements InitScene {
 
 	private ObservableList<Data> getChartData() {
 		ObservableList<Data> list = FXCollections.observableArrayList();
-		lists = bookRentalInfoMapper.selectBookRentalMemberInfo(LoginUI.getLogin());
-		list.addAll(new PieChart.Data(b.getbName(), 10),
-				new PieChart.Data("1", 31),
-				new PieChart.Data("2", 10),
-				new PieChart.Data("3", 10),
-				new PieChart.Data("4", 10),
-				new PieChart.Data("5", 10),
-				new PieChart.Data("6", 10),
-				new PieChart.Data("7", 10),
-				new PieChart.Data("8", 10),
-				new PieChart.Data("9", 10));
+		lists = bookRentalInfoMapper.selectRentalBookInfoByCategoryB(LoginUI.getLogin());
+
+		int[] cateArr = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		for (int i = 0; i < lists.size(); i++) {
+			switch (lists.get(i).getBookCode().getCateBNo().getbName()) {
+			case "총류":
+				cateArr[0]++;
+				break;
+			case "철학":
+				cateArr[1]++;
+				break;
+			case "종교":
+				cateArr[2]++;
+				break;
+			case "사회과학":
+				cateArr[3]++;
+				break;
+			case "자연과학":
+				cateArr[4]++;
+				break;
+			case "기술과학":
+				cateArr[5]++;
+				break;
+			case "예술":
+				cateArr[6]++;
+				break;
+			case "언어":
+				cateArr[7]++;
+				break;
+			case "문학":
+				cateArr[8]++;
+				break;
+			case "역사":
+				cateArr[9]++;
+				break;
+			}
+		}
+		
+		list.addAll(
+				new PieChart.Data("총류", cateArr[0]),
+				new PieChart.Data("철학", cateArr[1]),
+				new PieChart.Data("종교", cateArr[2]),
+				new PieChart.Data("사회과학", cateArr[3]),
+				new PieChart.Data("자연과학", cateArr[4]),
+				new PieChart.Data("기술과학", cateArr[5]),
+				new PieChart.Data("예술", cateArr[6]),
+				new PieChart.Data("언어", cateArr[7]),
+				new PieChart.Data("문학", cateArr[8]),
+				new PieChart.Data("역사", cateArr[9]));
 		return list;
 	}
 }
