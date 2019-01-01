@@ -322,7 +322,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfEngName.setText(member.getEngName());
 		tfPhone.setText(member.getPhone());
 		tfEmail.setText(member.getEmail());
-		tfJumin.setText(member.getJumin());
+		tfJumin.setText(member.getJumin().substring(0, 8) + "******");
 		tfAddress.setText(strArr[0] + strArr[1]);
 		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 

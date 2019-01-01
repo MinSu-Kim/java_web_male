@@ -196,7 +196,7 @@ public class MemberRegisterUI extends JFrame {
 		tfKor.setBounds(162, 0, 292, 49);
 		panel_kor.add(tfKor);
 		tfKor.setColumns(10);
-		tfKor.setDocument(new BoundDocument(13,tfKor));
+		tfKor.setDocument(new BoundDocument(13, tfKor));
 
 		JPanel panel_Eng = new JPanel();
 		panel.add(panel_Eng);
@@ -239,8 +239,7 @@ public class MemberRegisterUI extends JFrame {
 		tftel2.setBounds(77, 0, 102, 49);
 		panel_5.add(tftel2);
 		tftel2.setColumns(10);
-		tftel2.setDocument(new BoundDocument(4,tftel2));
-		
+		tftel2.setDocument(new BoundDocument(4, tftel2));
 
 		JLabel label_1 = new JLabel("-");
 		label_1.setBounds(182, 17, 6, 15);
@@ -250,7 +249,7 @@ public class MemberRegisterUI extends JFrame {
 		tftel3.setBounds(190, 0, 102, 49);
 		panel_5.add(tftel3);
 		tftel3.setColumns(10);
-		tftel3.setDocument(new BoundDocument(4,tftel3));
+		tftel3.setDocument(new BoundDocument(4, tftel3));
 
 		JPanel panel_Ju = new JPanel();
 		panel.add(panel_Ju);
@@ -270,8 +269,7 @@ public class MemberRegisterUI extends JFrame {
 		tfju1.setBounds(0, 0, 140, 49);
 		panel_6.add(tfju1);
 		tfju1.setColumns(10);
-		tfju1.setDocument(new BoundDocument(6,tfju1));
-		
+		tfju1.setDocument(new BoundDocument(6, tfju1));
 
 		JLabel label_2 = new JLabel("-");
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -282,7 +280,7 @@ public class MemberRegisterUI extends JFrame {
 		tfju2.setBounds(152, 0, 140, 49);
 		tfju2.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panel_6.add(tfju2);
-		tfju2.setDocument(new BoundDocument(7,tfju2));
+		tfju2.setDocument(new BoundDocument(7, tfju2));
 
 		JPanel panel_Email = new JPanel();
 		panel.add(panel_Email);
@@ -499,7 +497,7 @@ public class MemberRegisterUI extends JFrame {
 				(String) TelBox.getSelectedItem() + "-" + tftel2.getText().trim() + "-" + tftel3.getText().trim());
 		member.setJumin(tfju1.getText().trim() + "-" + tfju2.getText().trim());
 		member.setEmail(tfEmail.getText().trim() + "@" + tfEmail_2.getText().trim());
-		member.setAddress(tfAdd.getText().trim() + "," + tfjuso.getText().trim());
+		member.setAddress(tfAdd.getText().trim() + ", " + tfjuso.getText().trim());
 		member.setAdmin(chckadmin.isSelected());
 		member.setPhoto(fileName);
 		int i = 0;
@@ -546,7 +544,7 @@ public class MemberRegisterUI extends JFrame {
 		String tfeng = new String(tfEng.getText());
 		String pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,}$";
 		Matcher matcher = Pattern.compile(pwPattern).matcher(pw1);
-		String EngPatten =  "^[ㄱ-ㅎ가-힣]*$"; 
+		String EngPatten = "^[ㄱ-ㅎ가-힣]*$";
 		Matcher engmatcher = Pattern.compile(EngPatten).matcher(tfeng);
 		if (pw1.equals("")) {
 			pass1.requestFocus();
@@ -588,7 +586,7 @@ public class MemberRegisterUI extends JFrame {
 			tfjuso.requestFocus();
 			throw new Exception("주소를 입력해주세요");
 		}
-		if(engmatcher.matches()) {
+		if (engmatcher.matches()) {
 			tfEng.requestFocus();
 			throw new Exception("영어로 입력해주세요");
 		}
@@ -629,7 +627,7 @@ public class MemberRegisterUI extends JFrame {
 		overdue.setMemberNo(mn);
 		overdue.setStopDate(0);
 		overdue.setOverdueCount(0);
-		overdue.setRentalAuthority(true);	
+		overdue.setRentalAuthority(true);
 		overdue.setStopEndDate(null);
 		service.insertoverDue(overdue);
 	}
