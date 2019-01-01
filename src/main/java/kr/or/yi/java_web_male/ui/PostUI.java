@@ -31,6 +31,7 @@ public class PostUI extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	private MemberUpdateUI memberUpdateUI;
 
 	/**
 	 * Create the frame.
@@ -47,33 +48,33 @@ public class PostUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridLayout(0, 1, 0, 5));
-		
+
 		JPanel PostCodePanel = new JPanel();
 		contentPane.add(PostCodePanel);
 		PostCodePanel.setLayout(new GridLayout(0, 2, 10, 0));
-		
+
 		JPanel PostCodeLblPanel = new JPanel();
 		PostCodePanel.add(PostCodeLblPanel);
 		PostCodeLblPanel.setLayout(new GridLayout(0, 2, 0, 0));
-		
+
 		JLabel space1 = new JLabel("");
 		PostCodeLblPanel.add(space1);
-		
+
 		JLabel LblPostCode = new JLabel("우편번호");
 		PostCodeLblPanel.add(LblPostCode);
 		LblPostCode.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		JPanel PostCodeTextPanel = new JPanel();
 		PostCodePanel.add(PostCodeTextPanel);
 		PostCodeTextPanel.setLayout(new GridLayout(0, 2, 0, 0));
-		
+
 		textPostCode = new JTextField();
 		PostCodeTextPanel.add(textPostCode);
 		textPostCode.setColumns(10);
-		
+
 		JButton BtnPostCodeSearch = new JButton("우편번호 검색");
-		
-		/*버튼기능*/
+
+		/* 버튼기능 */
 		BtnPostCodeSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PostSearchUI psu = new PostSearchUI();
@@ -81,91 +82,110 @@ public class PostUI extends JFrame {
 				psu.setVisible(true);
 			}
 		});
-		
+
 		PostCodeTextPanel.add(BtnPostCodeSearch);
-		
+
 		JPanel AddressPanel = new JPanel();
 		contentPane.add(AddressPanel);
 		AddressPanel.setLayout(new GridLayout(0, 2, 10, 0));
-		
+
 		JPanel AddressLblPanel = new JPanel();
 		AddressPanel.add(AddressLblPanel);
 		AddressLblPanel.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		JLabel LblAddress = new JLabel("주소");
 		AddressLblPanel.add(LblAddress);
 		LblAddress.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		JPanel AddressTextPanel = new JPanel();
 		AddressPanel.add(AddressTextPanel);
 		AddressTextPanel.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		textAddress = new JTextField();
 		AddressTextPanel.add(textAddress);
 		textAddress.setColumns(10);
-		
+
 		JPanel DetailAddressPanel = new JPanel();
 		contentPane.add(DetailAddressPanel);
 		DetailAddressPanel.setLayout(new GridLayout(0, 2, 10, 0));
-		
+
 		JPanel DetailAddressLblPanel = new JPanel();
 		DetailAddressPanel.add(DetailAddressLblPanel);
 		DetailAddressLblPanel.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		JLabel LblDetailAddress = new JLabel("세부주소");
 		DetailAddressLblPanel.add(LblDetailAddress);
 		LblDetailAddress.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		JPanel DetailAddressTextPanel = new JPanel();
 		DetailAddressPanel.add(DetailAddressTextPanel);
 		DetailAddressTextPanel.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		textDetailAddress = new JTextField();
 		DetailAddressTextPanel.add(textDetailAddress);
 		textDetailAddress.setColumns(10);
-		
+
 		JPanel BtnPanel = new JPanel();
 		contentPane.add(BtnPanel);
 		BtnPanel.setLayout(new GridLayout(0, 2, 10, 0));
-		
+
 		JPanel BtnLblPanel = new JPanel();
 		BtnPanel.add(BtnLblPanel);
 		BtnLblPanel.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		JLabel space2 = new JLabel("");
 		BtnLblPanel.add(space2);
 		space2.setHorizontalAlignment(SwingConstants.RIGHT);
-		
+
 		JPanel BtnButtonPanel = new JPanel();
 		BtnPanel.add(BtnButtonPanel);
 		BtnButtonPanel.setLayout(new GridLayout(1, 0, 0, 0));
-		
+
 		JButton BtnOk = new JButton("확인");
 		BtnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null,String.format("%s%s,%s",textPostCode.getText(), textAddress.getText(),textDetailAddress.getText()));
-				
-				memberRegisterUI.setAddress(String.format("%s,%s",textPostCode.getText(), textAddress.getText()));
-			/*	memberRegisterUI.setAddress(String.format("%s%s,%s",textPostCode.getText(), textAddress.getText(),textDetailAddress.getText()));*/
-				memberRegisterUI.setTfjuso(textDetailAddress.getText());
+				JOptionPane.showMessageDialog(null, String.format("%s%s,%s", textPostCode.getText(),
+						textAddress.getText(), textDetailAddress.getText()));
+
+				if (memberRegisterUI != null) {
+					memberRegisterUI.setAddress(String.format("%s,%s", textPostCode.getText(), textAddress.getText()));
+					memberRegisterUI.setAddress(String.format("%s%s,%s", textPostCode.getText(), textAddress.getText(),
+							textDetailAddress.getText()));
+					memberRegisterUI.setTfjuso(textDetailAddress.getText());
+				}
+
+				if (memberUpdateUI != null) {
+					memberUpdateUI.setAddress(String.format("%s,%s", textPostCode.getText(), textAddress.getText()));
+					memberUpdateUI.setAddress(String.format("%s%s,%s", textPostCode.getText(), textAddress.getText(),
+							textDetailAddress.getText()));
+					memberUpdateUI.setTfjuso(textDetailAddress.getText());
+				}
+
 				dispose();
 			}
 		});
 		BtnButtonPanel.add(BtnOk);
 	}
 
-
-
 	public void setMemberRegisterUI(MemberRegisterUI memberRegisterUI) {
 		this.memberRegisterUI = memberRegisterUI;
 	}
 
-
+	public void setMemberRegisterUI(MemberUpdateUI memberUpdateUI) {
+		this.memberUpdateUI = memberUpdateUI;
+	}
 
 	public void setAddress(Post post) {
 		textPostCode.setText(post.getZipcode());
 		textAddress.setText(post.toString());
 		textAddress.requestFocus();
 	}
+
+	public void setMemberUpdateUI(MemberUpdateUI memberUpdateUI) {
+		this.memberUpdateUI = memberUpdateUI;
+	}
+
+
+
 
 }

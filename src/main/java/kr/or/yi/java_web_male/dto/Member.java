@@ -64,7 +64,7 @@ public class Member {
 	}
 
 	public Member(String memberNo, String password, String korName, String engName, String phone, String jumin,
-			String email, String address, boolean admin, String uniqueness) {
+			String email, String address, String photo ,String uniqueness) {
 		super();
 		this.memberNo = memberNo;
 		this.password = password;
@@ -74,7 +74,7 @@ public class Member {
 		this.jumin = jumin;
 		this.email = email;
 		this.address = address;
-		this.admin = admin;
+		this.photo = photo;
 		this.uniqueness = uniqueness;
 	}
 

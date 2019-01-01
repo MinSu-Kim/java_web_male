@@ -10,6 +10,7 @@ import kr.or.yi.java_web_male.dao.MemberRentalInfoMapper;
 import kr.or.yi.java_web_male.dao.MemberRentalInfoMapperImpl;
 import kr.or.yi.java_web_male.dao.OverdueMapper;
 import kr.or.yi.java_web_male.dao.OverdueMapperImpl;
+import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.dto.MemberRentalInfo;
 import kr.or.yi.java_web_male.dto.Overdue;
@@ -103,8 +104,11 @@ public class MemberUIService {
 		return dao2.updateAuthority(overdue);
 	}
 	
-	public int updateOverdueDate(Overdue overdue) {
-		return dao2.updateOverdueDate(overdue);
+	public int updateStopEndDate(Overdue overdue) {
+		return dao2.updateStopEndDate(overdue);
+	}
+	public int updateDiffAuthority() {
+		return dao2.updateDiffAuthority();
 	}
 
 	public List<Member> selectMemberByMemberNo(){
@@ -113,4 +117,12 @@ public class MemberUIService {
 	public int deleteMemberNo(Map<String, Object> map){
 		return dao.deleteMemberNo(map);
 	}
+
+	public int insertMemberRentalInfo(MemberRentalInfo memberRentalInfo) {
+		return dao1.insertMemberRentalInfo(memberRentalInfo);
+	}
+	public int insertoverDue(Overdue overdue) {
+		return dao2.insertOverdue(overdue);
+	}
+
 }

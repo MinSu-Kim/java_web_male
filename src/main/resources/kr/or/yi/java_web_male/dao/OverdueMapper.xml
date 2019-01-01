@@ -3,7 +3,7 @@
 <mapper namespace="kr.or.yi.java_web_male.dao.OverdueMapper">
 
 	<sql id="selectSql">
-		select member_no, stop_date, overdue_count, rental_authority, overdue_date from overdue
+		select member_no, stop_date, overdue_count, rental_authority, stop_end_date from overdue
 	</sql>
 
 	<sql id="whereSql">
@@ -19,7 +19,7 @@
 		<result property="stopDate" column="stop_date"/>
 		<result property="overdueCount" column="overdue_count"/>
 		<result property="rentalAuthority" column="rental_authority"/>
-		<result property="overdueDate" column="overdue_date"/>
+		<result property="stopEndDate" column="stop_end_date"/>
 	</resultMap>
 	
 	<resultMap id="MemberResult" type="Member">
@@ -57,8 +57,8 @@
 	</select>
 	
 	<insert id="insertOverdue" parameterType="Overdue">
-		insert into proj_library.overdue (member_no, stop_date, overdue_count, rental_authority, overdue_date)
-		values (#{memberNo}, #{stopDate}, #{overdueCount}, #{rentalAuthority}, #{overdue_date})
+		insert into proj_library.overdue (member_no, stop_date, overdue_count, rental_authority, stop_end_date)
+		values (#{memberNo}, #{stopDate}, #{overdueCount}, #{rentalAuthority}, #{stopEndDate})
 	</insert>
 	
 	<update id="updateStopDate" parameterType="Overdue">
@@ -79,26 +79,11 @@
 		where member_no=#{memberNo}
 	</update>
 	
-	<update id="updateOverdueDate" parameterType="Overdue">
-		update proj_library.overdue 
-		set overdue_date=#{overdueDate}
+	<update id="updateStopEndDate" parameterType="Overdue">
+		update overdue
+		set stop_end_date=#{stopEndDate}
 		where member_no=#{memberNo}
 	</update>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 </mapper>

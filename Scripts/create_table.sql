@@ -147,11 +147,9 @@ CREATE TABLE proj_library.overdue (
 	stop_date        INT(11)     NULL     COMMENT '정지일수', -- 정지일수
 	overdue_count    INT(11)     NULL     COMMENT '연체횟수', -- 연체횟수
 	rental_authority TINYINT(1)  NULL     COMMENT '대여권한', -- 대여권한
-	overdue_date     Date		 null     COMMENT '연체날짜'  -- 연체날짜
+	stop_end_date     Date		 null     COMMENT '정지종료일'  -- 정지종료일
 )
 COMMENT '연체정보';
-
-drop table proj_library.overdue;
 -- 연체정보
 ALTER TABLE proj_library.overdue
 	ADD CONSTRAINT
@@ -185,9 +183,13 @@ CREATE TABLE proj_library.post (
 )
 COMMENT '우편번호';
 
-create table day (
+create table proj_library.day (
 	daty date null
 );
+INSERT INTO proj_library.`day`
+(daty)
+VALUES('2017-01-01');
+
 
 -- 책
 ALTER TABLE proj_library.book

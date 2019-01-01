@@ -121,11 +121,11 @@ from member m join book_rental_info r on m.member_no = r.member_no
 
 INSERT INTO proj_library.book
 (book_code, book_no, pub_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no)
-VALUES('1110000005', 0, 'P001', '김재영', '김재영', '자바의 정석', 40000, true, null, 0, 0, 0);
+VALUES('2210000005', 0, 'P001', '김재영', '김재영', '자바의 정석', 40000, true, null, 2, 2, 1);
 
 insert into proj_library.book
 (book_code, book_no, pub_no, author, translator, title, price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no)
-values('0000000001', 0, 'P001', '서동준','서동준', 'web개발', 20000,true, null, 0, 0 ,0);
+values('0000000002', 0, 'P001', '서동준','서동준', 'web개발', 20000,true, null, 0, 0 ,0);
 
 SELECT * FROM book;
 select * from book_rental_info;
@@ -146,9 +146,6 @@ select * from `member`;
 insert into `member` values("1","asdf", "이천희", "lch","01022306796","921012","tjehdxo2002@","비밀","하핫",0,"하말없음");
 
 select * from book WHERE book_code REGEXP '00001';
-
-
-
 
 /*post*/
 LOAD data LOCAL INFILE 'D:/workspace_project/java_web_male/DataFiles/대구광역시.txt' INTO table post
@@ -291,6 +288,7 @@ where left(book_code, 1) != 'D'
 select rental_no FROM proj_library.book_rental_info
    		where book_code='00001';
 <<<<<<< HEAD
+<<<<<<< HEAD
 
    	
    	create
@@ -339,6 +337,10 @@ join `book` `b` on
     ((`i`.`book_code` = `b`.`book_code`)));
 =======
 
+=======
+
+update overdue set stop_date = 3 ;
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
    	
    	select rental_no, member_no, return_date, return_schedule, rental_date FROM proj_library.book_rental_info
    		where book_code='00001' and return_date is null;
@@ -355,4 +357,21 @@ select member_no, password, kor_name, eng_name, phone,
              ,substr(replace(regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1),'-'),1,7)||'******') jumin, email, address, photo, admin, uniqueness
 		from member;
 		
+<<<<<<< HEAD
+>>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
+=======
+select * from overdue;
+
+select *,Datediff(stop_end_date, now())
+from overdue;
+
+
+update overdue 
+set rental_authority = 1
+where Datediff(stop_end_date, now()) < 1;
+
+update overdue set stop_date = if(Datediff(stop_end_date, now())< 1, 0, Datediff(stop_end_date, now())) , rental_authority = if(Datediff(stop_end_date, now())< 1,   1, 0);
+
+
+select * from book_rental_info;
 >>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git

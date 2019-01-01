@@ -21,6 +21,14 @@
 							<attribute name="daty"/>
 						</constraint>
 					</entity>
+					<entity name="overdue">
+						<constraint name="PRIMARY" type="VIRTUAL KEY">
+							<attribute name="member_no"/>
+							<attribute name="stop_date"/>
+							<attribute name="overdue_count"/>
+							<attribute name="rental_authority"/>
+						</constraint>
+					</entity>
 				</container>
 			</container>
 		</virtual-meta-data>

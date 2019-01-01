@@ -29,6 +29,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.FlowLayout;
+import java.awt.Font;
 
 public class BookReturnUI extends JFrame {
 
@@ -38,6 +39,7 @@ public class BookReturnUI extends JFrame {
 	private Book book;
 	private LibraryUIService service;
 	private MemberUIService memberUIService;
+	private InOutUI inOutUI;
 
 	/**
 	 * Launch the application.
@@ -69,41 +71,42 @@ public class BookReturnUI extends JFrame {
 		setTitle("도서 반납");
 		service = new LibraryUIService();
 		memberUIService = new MemberUIService();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 361);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 450, 169);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(0, 1, 0, 0));
+		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBounds(5, 5, 424, 51);
 		contentPane.add(panel);
-		panel.setLayout(new GridLayout(0, 1, 0, 0));
+		panel.setLayout(null);
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(0, 0, 424, 50);
 		panel.add(panel_2);
-		panel_2.setLayout(new GridLayout(0, 2, 0, 0));
+		panel_2.setLayout(null);
 		
 		JLabel lblBookCode = new JLabel("도서번호");
+		lblBookCode.setBounds(0, 0, 212, 50);
+		lblBookCode.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblBookCode.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lblBookCode);
 		
 		textBookCode = new JTextField();
+		textBookCode.setBounds(212, 0, 212, 50);
 		panel_2.add(textBookCode);
 		textBookCode.setColumns(10);
 		
-		JPanel panel_1 = new JPanel();
-		panel.add(panel_1);
-		
-		JPanel panel_4 = new JPanel();
-		panel.add(panel_4);
-		
 		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(5, 56, 424, 261);
 		contentPane.add(panel_3);
-		panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 120));
 		
 		/*---------------------------------반납버튼 기능--------------------------------*/
 		JButton btnNewButton = new JButton("반납");
+		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 16));
+		btnNewButton.setBounds(168, 17, 97, 52);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//book_code
@@ -143,7 +146,7 @@ public class BookReturnUI extends JFrame {
 				int updateNowTotal = memberUIService.updateMemberRentalInfo2(memberRentalInfo);
 				
 				
-				//대여한 책의 대여가능여부 변경
+				//반납한 책의 대여가능여부 변경
 				 book.setRentalPossible(true);
 				 int updatePossible = service.updateBookPossible(book);
 				
@@ -153,11 +156,11 @@ public class BookReturnUI extends JFrame {
 				//정지일수 계산
 				Date date = new Date();
 				Calendar cal = Calendar.getInstance ( );
-				// 최신날짜
+				// 오늘날짜
 				cal.setTime ( date );
 				
 				Calendar cal2 = Calendar.getInstance ( );
-				// 과거날짜
+				// 반납예정일
 				cal2.setTime ( returnSchedule );  
 				
 				int count = 0;
@@ -183,7 +186,7 @@ public class BookReturnUI extends JFrame {
 				
 				
 
-				//연체 종료일 계산
+				//정지 종료일 계산
 				Date today = new Date();
 				Calendar cal3 = Calendar.getInstance ( );
 				cal3.setTime(today);
@@ -194,15 +197,23 @@ public class BookReturnUI extends JFrame {
 			
 				Date d = new Date(cal3.getTimeInMillis());
 				
-				overdue.setOverdueDate(d);
+				
 				
 				int updateCount = memberUIService.updateCount(overdue);
 				int updateDate = memberUIService.updateStopDate(overdue);
-				int updateOverdueDate = memberUIService.updateOverdueDate(overdue);
+				if(overdue.getStopDate() > 0) {
+					overdue.setStopEndDate(d);
+				}else {
+					overdue.setStopEndDate(null);
+				}
 				
-				//정지일수가 1일이라도 있으면 대여권한 박탈
+				int updateStopEndDate = memberUIService.updateStopEndDate(overdue);
+				
+				//정지일수가 1일이라도 있거나 연체횟수 100넘으면 대여권한 박탈
 				if(overdue.getStopDate() > 0 || overdue.getOverdueCount() > 100) {
 					overdue.setRentalAuthority(false);
+				}else {
+					overdue.setRentalAuthority(true);
 				}
 				
 				int updateAuthority = memberUIService.updateAuthority(overdue);
@@ -211,9 +222,12 @@ public class BookReturnUI extends JFrame {
 				
 			}
 		});
+		panel_3.setLayout(null);
 		panel_3.add(btnNewButton);
 	}
 	
-	
+	public void setInOutUI(InOutUI inOutUI) {
+		this.inOutUI = inOutUI;
+	}
 
 }

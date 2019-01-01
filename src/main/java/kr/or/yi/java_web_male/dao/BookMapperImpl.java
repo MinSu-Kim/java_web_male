@@ -53,7 +53,7 @@ public class BookMapperImpl implements BookMapper {
 	@Override
 	public int updateBook(Book book) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
-			int res = sqlSession.insert(namespace + ".updateBook", book);
+			int res = sqlSession.update(namespace + ".updateBook", book);
 			sqlSession.commit();
 			return res;
 		}
@@ -93,8 +93,18 @@ public class BookMapperImpl implements BookMapper {
 
 	@Override
 	public int updateBookMap(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			int res = sqlSession.update(namespace + ".updateBook", map);
+			sqlSession.commit();
+			return res;
+		}
+	}
+
+	@Override
+	public Book selectBookUpdate(Book book) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectOne(namespace + ".selectBookUpdate",book);
+		}
 	}
 
 }

@@ -25,14 +25,12 @@ public class BookRentalInfoMapperTest extends AbstractTest {
 
 	private BookRentalInfoMapper dao = BookRentalInfoMapperImpl.getInstance();
 
-	@Test
 	public void test0selectBookRentalInfoByAll() {
 		log.debug("test0selectBookRentalInfoByAll");
 		List<BookRentalInfo> rentList = dao.selectBookRentalInfoByAll();
 		Assert.assertNotNull(rentList);
 	}
 
-	@Test
 	public void test02selectBookRentalInfoByCode() {
 		log.debug("test02selectBookRentalInfoByCode");
 		BookRentalInfo bookRentalInfo1 = new BookRentalInfo();
@@ -42,7 +40,6 @@ public class BookRentalInfoMapperTest extends AbstractTest {
 		Assert.assertNotNull(bookRentalInfo);
 	}
 
-	@Test
 	public void test03insertBookRentalInfo() {
 		log.debug("test03insertBookRentalInfo");
 		BookRentalInfo bookRentalInfo = new BookRentalInfo();
@@ -57,4 +54,21 @@ public class BookRentalInfoMapperTest extends AbstractTest {
 		int res = dao.insertBookRentalInfo(bookRentalInfo1);
 		Assert.assertEquals(1, res);
 	}
+	
+	@Test
+	public void test04() {
+		log.debug("test02selectBookRentalInfoByCode");
+		BookRentalInfo bookRentalInfo1 = new BookRentalInfo();
+		bookRentalInfo1.setRentalNo(3);
+		
+		
+		Member m = new Member();
+		
+		m.setMemberNo("A0002");
+		System.out.println(m);
+		List<BookRentalInfo> bookRentalInfo = dao.selectBookRentalMemberInfo(m);
+		System.out.println(bookRentalInfo.get(0));
+		Assert.assertNotNull(bookRentalInfo);
+	}
+
 }

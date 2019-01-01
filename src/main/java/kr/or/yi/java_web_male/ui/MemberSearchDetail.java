@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import javafx.scene.effect.Light.Distant;
 import kr.or.yi.java_web_male.dto.Member;
@@ -23,6 +24,8 @@ import java.awt.Component;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -45,7 +48,11 @@ public class MemberSearchDetail extends JFrame {
 	private List<Member> listMember;
 	private MemberUIService service;
 	private String imgPath;
+	private String pathName;
+	private String fileName;
 	private MemberSearchDetail memberSearchDetail;
+	private Member member;
+	private static Member loginMember;
 	/**
 	 * Launch the application.
 	 */
@@ -65,9 +72,11 @@ public class MemberSearchDetail extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public MemberSearchDetail() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 		service = new MemberUIService();
+		this.member = member;
 		setTitle("회원상세정보");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 554);
@@ -111,7 +120,6 @@ public class MemberSearchDetail extends JFrame {
 		
 		textPass = new JTextField();
 		textPass.setBounds(111, 0, 201, 50);
-		textPass.setEditable(false);
 		panel_5.add(textPass);
 		textPass.setColumns(10);
 		
@@ -126,7 +134,6 @@ public class MemberSearchDetail extends JFrame {
 		
 		textKor = new JTextField();
 		textKor.setBounds(111, 0, 201, 50);
-		textKor.setEditable(false);
 		panel_6.add(textKor);
 		textKor.setColumns(10);
 		
@@ -141,7 +148,6 @@ public class MemberSearchDetail extends JFrame {
 		
 		textEng = new JTextField();
 		textEng.setBounds(111, 0, 201, 50);
-		textEng.setEditable(false);
 		panel_7.add(textEng);
 		textEng.setColumns(10);
 		
@@ -170,7 +176,6 @@ public class MemberSearchDetail extends JFrame {
 		
 		textJumin = new JTextField();
 		textJumin.setBounds(111, 0, 201, 50);
-		textJumin.setEditable(false);
 		panel_9.add(textJumin);
 		textJumin.setColumns(10);
 		
@@ -241,7 +246,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_12.setLayout(null);
 		
 		labelImg = new JLabel("");
-		labelImg.setBounds(39, 10, 250, 208);
+		labelImg.setBounds(0, 10, 250, 208);
 		panel_12.add(labelImg);
 		
 		JPanel panel_1 = new JPanel();
@@ -281,19 +286,59 @@ public class MemberSearchDetail extends JFrame {
 			}
 		});
 		panel_1.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("사진변경");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF", "jpg", "gif");
+				chooser.setFileFilter(filter);
+				int ret = chooser.showOpenDialog(null);
+				
+				if(ret == JFileChooser.APPROVE_OPTION) {
+					pathName = chooser.getSelectedFile().getPath();
+					fileName = chooser.getSelectedFile().getName();
+					
+					System.out.println(pathName);
+					System.out.println(fileName);
+					labelImg.setIcon(new ImageIcon(imgPath + fileName));
+				}
+			
+			}
+		});
+		btnNewButton_1.setBounds(110, 271, 97, 23);
+		panel_2.add(btnNewButton_1);
 	}
 	public void setLists(Member member) {
 		textMemberNo.setText(member.getMemberNo());
-		textPass.setText(member.getPassword().substring(0,0)+"**********");
+		textPass.setText(member.getPassword());
 		textKor.setText(member.getKorName());
 		textEng.setText(member.getEngName());
 		textPhone.setText(member.getPhone());
-		textJumin.setText(member.getJumin().substring(0,7)+"*******");
+		textJumin.setText(member.getJumin());
 		textEmail.setText(member.getEmail());
 		textAddress.setText(member.getAddress());
 		textAdmin.setText(((member.isAdmin())+"").trim());
 		textUni.setText(member.getUniqueness());
 		labelImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
+		
+		if(member.isAdmin() == false) {
+			textPass.setEditable(false);
+			textKor.setEditable(false);
+			textEng.setEditable(false);
+			textPhone.setEditable(false);
+			textJumin.setEditable(false);
+			textEmail.setEditable(false);
+			textAddress.setEditable(false);
+		}else {
+			textPass.setEditable(true);
+			textKor.setEditable(true);
+			textEng.setEditable(true);
+			textPhone.setEditable(true);
+			textJumin.setEditable(true);
+			textEmail.setEditable(true);
+			textAddress.setEditable(true);
+		}
 	}
 	private Member getList() {
 		String Mno = textMemberNo.getText().trim();
@@ -301,12 +346,12 @@ public class MemberSearchDetail extends JFrame {
 		String Kor = textKor.getText().trim();
 		String Eng = textEng.getText().trim();
 		String Phone = textPhone.getText().trim();
-		String jumin = textJumin.getText().trim();
+		String jumin = (textJumin.getText().trim().substring(0,7)+"*******");
 		String Email = textEmail.getText().trim();
 		String Address = textAddress.getText().trim();
-		boolean Admin = textAdmin.getText().trim() != null;
 		String Uni = textUni.getText().trim();
-		return new Member(Mno,Pass,Kor,Eng,Phone,jumin,Email,Address,Admin,Uni);
+		String photo = fileName;
+		return new Member(Mno,Pass,Kor,Eng,Phone,jumin,Email,Address,photo,Uni);
 	}
 	private void do_btnUpdate_actionPerform(ActionEvent e) {
 		Member editMem = getList();			

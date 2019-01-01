@@ -25,4 +25,6 @@ public interface BookMapper {
 	Book selectBookBybookCodeOne(Book book);
 
 	int updateBookMap(Map<String, Object> map);
+	
+	Book selectBookUpdate(Book book);
 }

@@ -6,7 +6,6 @@
 		SELECT book_code, book_no, author, translator, title,
 		price, rental_possible, image, cate_s_no, cate_m_no, cate_b_no, pub_no
 		FROM proj_library.book
-
 	</sql>
 
 	<sql id="whereSql">
@@ -53,13 +52,10 @@
 
 	<!-- updateSql -->
 	<sql id="updateSql">
-		update book set book_no=#{bookNo}, author=#{writter},
-		translator=#{translator}, title=#{title}, price=#{priece},
-		rental_possible=#{rentable}, image=#{image},
-		cate_s_no=#{categorynoS.categorynoS},
-		cate_m_no=#{categorynoM.categorynoM},
-		cate_b_no=#{categorynoB.categorynoB},
-		pub_no=#{publisherNo.publisherNo}
+		update book set author=#{author},
+		translator=#{translator}, title=#{title}, price=#{price},
+		rental_possible=#{rentalPossible}, image=#{image},
+		pub_no=#{pubNo.pubNo}
 		WHERE book_code=#{bookCode};
 	</sql>
 
@@ -67,6 +63,7 @@
 		<id property="bookCode" column="book_code" />
 		<result property="bookNo" column="book_no" />
 		<result property="pubNo.pubNo" column="pub_no" />
+		<result property="pubNo.pubName" column="pub_name" />
 		<result property="author" column="author" />
 		<result property="translator" column="translator" />
 		<result property="title" column="title" />
@@ -76,8 +73,13 @@
 		<result property="cateBNo.bCode" column="cate_b_no" />
 		<result property="cateMNo.mCode" column="cate_m_no" />
 		<result property="cateSNo.sCode" column="cate_s_no" />
+		<result property="cateBNo.bName" column="cate_b_name" />
+		<result property="cateMNo.mName" column="cate_m_name" />
+		<result property="cateSNo.sName" column="cate_s_name" />
+		
+		
 	</resultMap>
-
+	
 	<select id="selectbookbybookCode" parameterType="Book"
 		resultMap="Booktyepinsert">
 		<include refid="selectSql" />
@@ -132,9 +134,21 @@
 		<include refid="selectSql" />
 		WHERE book_code=#{bookCode};
 	</select>
-
-
-
-
-
+	
+	<select id="selectBookUpdate"  parameterType="Book" resultMap="Booktyepinsert">
+	select b.*, cb.cate_b_name, cm.cate_m_name, cs.cate_s_name, p.pub_name,p.pub_no
+	from book as b
+	join category_b as cb on b.cate_b_no = cb.cate_b_no
+	join category_m as cm on b.cate_m_no = cm.cate_m_no
+	join category_s as cs on b.cate_m_no = cs.cate_m_no
+	join publisher as p on b.pub_no = p.pub_no
+	WHERE b.book_code=#{bookCode}
+	and cb.cate_b_no =b.cate_b_no
+	and cm.cate_m_no = b.cate_m_no
+	and cm.cate_b_no = cb.cate_b_no
+	and cs.cate_s_no = b.cate_s_no
+	and cs.cate_m_no = cm.cate_m_no
+	and cs.cate_b_no = cb.cate_b_no
+	and p.pub_no = b.pub_no;
+	</select>
 </mapper>

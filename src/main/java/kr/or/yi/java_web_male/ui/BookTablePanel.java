@@ -109,7 +109,11 @@ public class BookTablePanel extends JPanel {
 
 	public Book getSelectedBook() {
 		int selectedIndex = table.getSelectedRow();
+		selectedIndex=1;
+		System.out.println(selectedIndex);
 		String bookCode = ((String) table.getValueAt(selectedIndex, 0)).substring(0,9);/*).substring(0,9)).trim();*/ //문자열  start위치 부터 end전까지 문자열 발췌;
+		System.out.println(bookCode);
+		
 		Book book= new Book();
 		book.setBookCode(bookCode);
 		return book;
@@ -121,7 +125,7 @@ public class BookTablePanel extends JPanel {
 		book.setBookCode(bookCode);
 		return book;
 	}
-	
+
 	public Book selectedItem() {
 		int selectedIndex = table.getSelectedRow();
 		if (selectedIndex == -1) {
