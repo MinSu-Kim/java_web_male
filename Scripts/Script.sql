@@ -87,6 +87,9 @@ from member;
 
 select *
 from overdue;
+
+select *
+from member_rental_info;
 insert into `member` values("3","gfkrtkf", "서동준", "kiggay","01022306796","921012-1647545","tjehdxo2002@","비밀","하핫",1,"하말없음");
 
 insert into member values("10",password("king"),"노예1","slave1","010-2343-4533", concat(left('201012-1685651', 8),password(right('201012-1685651', 6)) ),"slave@naever.com","비밀","히히",0,"저는 노예입니다.");
