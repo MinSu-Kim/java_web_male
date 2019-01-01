@@ -33,6 +33,7 @@ public class MemberDetailUI extends JFrame {
 	private JTable table;
 	private List<BookRentalInfo> lists;
 	private PanelPieChart pPieChart;
+	private PanelLineChart pLineChart;
 
 	private BookRentalInfoMapper bookRentalInfoMapper;
 
@@ -64,11 +65,18 @@ public class MemberDetailUI extends JFrame {
 		loadDatas();
 		scrollPane.setViewportView(table);
 
+		pLineChart = new PanelLineChart();
+
+		pLineChart.setBorder(new TitledBorder(null, "\uB098\uC758 \uB3C5\uC11C\uB7C9", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
+		contentPane.add(pLineChart);
+
 		pPieChart = new PanelPieChart();
 		pPieChart.setBorder(new TitledBorder(null, "\uB098\uC758 \uC120\uD638\uC7A5\uB974", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
 		contentPane.add(pPieChart);
 
+		Platform.runLater(() -> initFX(pLineChart));
 		Platform.runLater(() -> initFX(pPieChart));
 	}
 
@@ -94,14 +102,22 @@ public class MemberDetailUI extends JFrame {
 	}
 
 	private Object[] getMemberRentalInfo(BookRentalInfo bookRentalInfo) {
+		System.out.println(bookRentalInfo);
 		SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
 		String bookCode = bookRentalInfo.getBookCode().getBookCode();
+		System.out.println(bookCode);
 		String title = bookRentalInfo.getBookCode().getTitle();
+		System.out.println(title);
 		String publisher = bookRentalInfo.getPublisher().getPubName();
+		System.out.println(publisher);
 		String author = bookRentalInfo.getBookCode().getAuthor();
+		System.out.println(author);
 		Date rentalDate = bookRentalInfo.getRentalDate();
+		System.out.println(rentalDate);
 		Date returnDate = bookRentalInfo.getReturnDate();
+		System.out.println(returnDate);
 		Date returnSchedule = bookRentalInfo.getReturnSchedule();
+		System.out.println(returnSchedule);
 		return new Object[] { bookCode, title, publisher, author, date.format(rentalDate), date.format(returnDate),
 				date.format(returnSchedule) };
 	}
