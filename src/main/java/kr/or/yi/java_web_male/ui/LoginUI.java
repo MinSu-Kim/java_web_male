@@ -108,7 +108,7 @@ public class LoginUI extends JFrame implements ActionListener {
 		panel_2.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 299, 60);
+		panel.setBounds(0, 0, 300, 60);
 		panel_2.add(panel);
 		panel.setLayout(null);
 
@@ -122,7 +122,7 @@ public class LoginUI extends JFrame implements ActionListener {
 		tfMemberNo.setColumns(10);
 
 		lblPassword = new JLabel("비밀번호");
-		lblPassword.setBounds(0, 35, 144, 25);
+		lblPassword.setBounds(24, 35, 144, 25);
 		panel.add(lblPassword);
 
 		tfPassword = new JPasswordField();
@@ -131,7 +131,7 @@ public class LoginUI extends JFrame implements ActionListener {
 		tfPassword.setColumns(10);
 
 		btnLogin = new JButton("로그인");
-		btnLogin.setBounds(311, 0, 109, 60);
+		btnLogin.setBounds(300, 0, 109, 60);
 		panel_2.add(btnLogin);
 		btnLogin.addActionListener(this);
 

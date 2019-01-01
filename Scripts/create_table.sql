@@ -188,7 +188,7 @@ create table proj_library.day (
 );
 INSERT INTO proj_library.`day`
 (daty)
-VALUES('0000-00-00');
+VALUES('2017-01-01');
 
 
 -- 책

@@ -30,6 +30,8 @@ import javax.swing.table.DefaultTableModel;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import javax.swing.SwingConstants;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 
 @SuppressWarnings("serial")
 public class MemberInfoUI extends JFrame implements ActionListener {
@@ -49,7 +51,6 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private JButton btnLogout;
 	private JButton btnBest10;
 	private LoginUI loginUI;
-	private MemberInfoUI memberInfoUI;
 	private MemberUpdateUI memberUpdateUI;
 	private MemberDetailUI memberDetailUI;
 	private BookSearchUI bookSearchUI;
@@ -60,8 +61,6 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private MemberUIService memberUIService;
 	private Overdue overdue;
 	private JLabel lblImg;
-	private String pathName;
-	private String fileName;
 
 	public MemberInfoUI() {
 		imgPath = System.getProperty("user.dir") + "\\images\\";
@@ -72,136 +71,137 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	private void initComponent() {
-		Member member = new Member();
+		String str = LoginUI.getLogin().getAddress();
+		String[] strArr = str.split(",");
+
 		setTitle("[사용자] " + LoginUI.getLogin().getKorName() + "님 환영합니다.");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 593);
+		setBounds(100, 100, 613, 593);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(5, 5, 474, 202);
+		panel.setBounds(5, 5, 580, 202);
 		contentPane.add(panel);
-		panel.setLayout(null);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(0, 0, 474, 210);
 		panel.add(panel_3);
 		panel_3.setLayout(null);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(0, 0, 474, 83);
-		panel_3.add(panel_1);
-		panel_1.setLayout(new GridLayout(0, 2, 10, 10));
-
-		JPanel pMemberInfo = new JPanel();
-		panel_1.add(pMemberInfo);
-		pMemberInfo.setLayout(new GridLayout(0, 1, 10, 10));
-
-		JPanel panel_4 = new JPanel();
-		pMemberInfo.add(panel_4);
-		panel_4.setLayout(new GridLayout(0, 2, 10, 10));
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(0, 0, 360, 202);
+		panel_3.add(panel_2);
+		panel_2.setLayout(null);
 
 		JLabel lblMemberNo = new JLabel("회원 번호");
-		panel_4.add(lblMemberNo);
+		lblMemberNo.setBounds(19, 1, 137, 20);
+		panel_2.add(lblMemberNo);
 
 		tfMemberNo = new JTextField();
-		panel_4.add(tfMemberNo);
+		tfMemberNo.setBounds(102, 1, 232, 20);
+		panel_2.add(tfMemberNo);
 		tfMemberNo.setColumns(10);
 
 		JPanel pKorName = new JPanel();
-		pMemberInfo.add(pKorName);
-		pKorName.setLayout(new GridLayout(0, 2, 10, 10));
+		pKorName.setBounds(29, 31, 147, 20);
+		panel_2.add(pKorName);
+		pKorName.setLayout(null);
 
 		JLabel lblKorName = new JLabel("한글명");
+		lblKorName.setBounds(0, 0, 68, 20);
 		pKorName.add(lblKorName);
 
 		tfKorName = new JTextField();
+		tfKorName.setBounds(72, 0, 74, 20);
 		pKorName.add(tfKorName);
 		tfKorName.setColumns(10);
 
 		JPanel pEngName = new JPanel();
-		pMemberInfo.add(pEngName);
+		pEngName.setBounds(178, 31, 156, 20);
+		panel_2.add(pEngName);
 		pEngName.setLayout(new GridLayout(0, 2, 10, 10));
 
 		JLabel lblEngName = new JLabel("영어명");
 		pEngName.add(lblEngName);
 
 		tfEngName = new JTextField();
+		pEngName.add(tfEngName);
 		tfEngName.setText((String) null);
 		tfEngName.setEditable(false);
 		tfEngName.setColumns(10);
-		pEngName.add(tfEngName);
 
-		JPanel pMemberPhoto = new JPanel();
-		panel_1.add(pMemberPhoto);
-		pMemberPhoto.setLayout(new GridLayout(0, 1, 10, 10));
-
-		JPanel pPhoto = new JPanel();
-		pMemberPhoto.add(pPhoto);
-		pPhoto.setLayout(null);
-
-		lblImg = new JLabel("이미지");
-		lblImg.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImg.setBounds(12, 0, 208, 83);
-		pPhoto.add(lblImg);
-
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(0, 93, 474, 114);
-		panel_3.add(panel_2);
-		panel_2.setLayout(null);
+		JLabel label = new JLabel("전화번호");
+		label.setBounds(19, 61, 78, 20);
+		panel_2.add(label);
 		tfPhone = new JTextField();
-		tfPhone.setBounds(121, 0, 237, 21);
+		tfPhone.setBounds(102, 61, 232, 20);
 		panel_2.add(tfPhone);
 		tfPhone.setColumns(10);
 
 		JLabel lblEmail = new JLabel("이메일");
-		lblEmail.setBounds(0, 21, 122, 21);
+		lblEmail.setBounds(19, 91, 78, 20);
 		panel_2.add(lblEmail);
 
 		tfEmail = new JTextField();
-		tfEmail.setBounds(121, 21, 237, 21);
+		tfEmail.setBounds(102, 91, 232, 20);
 		panel_2.add(tfEmail);
 		tfEmail.setColumns(10);
 
 		JLabel lblJumin = new JLabel("주민등록번호");
-		lblJumin.setBounds(0, 42, 122, 21);
+		lblJumin.setBounds(19, 121, 78, 20);
 		panel_2.add(lblJumin);
 
 		tfJumin = new JTextField();
-		tfJumin.setBounds(121, 42, 237, 21);
+		tfJumin.setBounds(102, 121, 232, 20);
 		panel_2.add(tfJumin);
 		tfJumin.setColumns(10);
 
 		JLabel lblAddress = new JLabel("주소");
-		lblAddress.setBounds(0, 63, 122, 21);
+		lblAddress.setBounds(19, 151, 78, 20);
 		panel_2.add(lblAddress);
 
 		tfAddress = new JTextField();
-		tfAddress.setBounds(121, 63, 317, 21);
+		tfAddress.setBounds(102, 151, 232, 20);
 		panel_2.add(tfAddress);
 		tfAddress.setColumns(10);
+		tfAddress.setText(strArr[0] + strArr[1]);
 
 		JLabel lblStopDate = new JLabel("정지일");
-		lblStopDate.setBounds(0, 84, 122, 21);
+		lblStopDate.setBounds(19, 181, 78, 20);
 		panel_2.add(lblStopDate);
 
 		tfStopDate = new JTextField();
+		tfStopDate.setBounds(102, 181, 232, 20);
 		tfStopDate.setEnabled(false);
-		tfStopDate.setBounds(121, 84, 237, 21);
 		panel_2.add(tfStopDate);
 		tfStopDate.setEditable(false);
 		tfStopDate.setColumns(10);
 
+		JPanel pMemberPhoto = new JPanel();
+		pMemberPhoto.setBounds(372, 0, 208, 202);
+		panel_3.add(pMemberPhoto);
+		pMemberPhoto.setLayout(null);
+
+		JPanel pPhoto = new JPanel();
+		pPhoto.setBounds(0, 0, 285, 202);
+		pMemberPhoto.add(pPhoto);
+		pPhoto.setLayout(null);
+
+		lblImg = new JLabel("");
+		lblImg.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImg.setBounds(0, 10, 208, 192);
+		pPhoto.add(lblImg);
+
 		JPanel pRentList = new JPanel();
-		pRentList.setBounds(5, 207, 474, 319);
+		pRentList.setBounds(5, 207, 580, 319);
 		contentPane.add(pRentList);
 		pRentList.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 10, 474, 335);
+		scrollPane.setBounds(0, 10, 580, 309);
 		pRentList.add(scrollPane);
 
 		table = new JTable();
@@ -210,7 +210,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pRentList.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { scrollPane, table }));
 
 		JPanel pButton = new JPanel();
-		pButton.setBounds(5, 526, 474, 23);
+		pButton.setBounds(5, 526, 580, 23);
 		contentPane.add(pButton);
 		pButton.setLayout(new GridLayout(0, 5, 10, 10));
 
@@ -313,9 +313,6 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	// 로그인 객체에서 정보 가져오기
 	public void getMemberInfo(Member member) {
-		String str = LoginUI.getLogin().getAddress();
-		String[] strArr = str.split(",");
-
 		tfMemberNo.setText(member.getMemberNo());
 		tfKorName.setText(member.getKorName());
 		tfEngName.setText(member.getEngName());
@@ -354,20 +351,5 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		BestUI bestUI = new BestUI();
 		bestUI.setVisible(true);
 		bestUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	}
-
-	private void images() {
-		JFileChooser chooser = new JFileChooser();
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF", "jpg", "gif");
-		chooser.setFileFilter(filter);
-		int ret = chooser.showOpenDialog(null);
-
-		if (ret == JFileChooser.APPROVE_OPTION) {
-			pathName = chooser.getSelectedFile().getPath();
-			fileName = chooser.getSelectedFile().getName();
-
-			System.out.println(pathName);
-			System.out.println(fileName);
-		}
 	}
 }
