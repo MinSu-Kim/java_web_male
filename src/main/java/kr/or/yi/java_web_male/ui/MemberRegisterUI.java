@@ -533,8 +533,11 @@ public class MemberRegisterUI extends JFrame {
 		String pw2 = new String(pass2.getPassword());
 		String ju1 = new String(tfju1.getText());
 		String ju2 = new String(tfju2.getPassword());
+		String tfeng = new String(tfEng.getText());
 		String pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,}$";
 		Matcher matcher = Pattern.compile(pwPattern).matcher(pw1);
+		String EngPatten =  "^[ㄱ-ㅎ가-힣]*$"; 
+		Matcher engmatcher = Pattern.compile(EngPatten).matcher(tfeng);
 		if (pw1.equals("")) {
 			pass1.requestFocus();
 			throw new Exception("Password를 입력해주세요");
@@ -574,6 +577,10 @@ public class MemberRegisterUI extends JFrame {
 		if (tfjuso.getText().trim().equals("")) {
 			tfjuso.requestFocus();
 			throw new Exception("주소를 입력해주세요");
+		}
+		if(engmatcher.matches()) {
+			tfEng.requestFocus();
+			throw new Exception("영어로 입력해주세요");
 		}
 		Member member = new Member();
 		member.setJumin(tfju1.getText() + "-" + new String(tfju2.getPassword()));
