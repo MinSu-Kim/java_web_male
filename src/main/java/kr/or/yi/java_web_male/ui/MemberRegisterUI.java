@@ -23,6 +23,8 @@ import java.awt.List;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -193,6 +195,7 @@ public class MemberRegisterUI extends JFrame {
 		tfKor.setBounds(162, 0, 292, 49);
 		panel_kor.add(tfKor);
 		tfKor.setColumns(10);
+		tfKor.setDocument(new BoundDocument(4,tfKor));
 
 		JPanel panel_Eng = new JPanel();
 		panel.add(panel_Eng);
@@ -235,6 +238,8 @@ public class MemberRegisterUI extends JFrame {
 		tftel2.setBounds(77, 0, 102, 49);
 		panel_5.add(tftel2);
 		tftel2.setColumns(10);
+		tftel2.setDocument(new BoundDocument(4,tftel2));
+		
 
 		JLabel label_1 = new JLabel("-");
 		label_1.setBounds(182, 17, 6, 15);
@@ -244,6 +249,7 @@ public class MemberRegisterUI extends JFrame {
 		tftel3.setBounds(190, 0, 102, 49);
 		panel_5.add(tftel3);
 		tftel3.setColumns(10);
+		tftel3.setDocument(new BoundDocument(4,tftel3));
 
 		JPanel panel_Ju = new JPanel();
 		panel.add(panel_Ju);
@@ -259,20 +265,23 @@ public class MemberRegisterUI extends JFrame {
 		panel_Ju.add(panel_6);
 		panel_6.setLayout(null);
 
-		tfju1 = new JTextField();
+		JTextField tfju1 = new JTextField();
 		tfju1.setBounds(0, 0, 140, 49);
 		panel_6.add(tfju1);
 		tfju1.setColumns(10);
+		tfju1.setDocument(new BoundDocument(6,tfju1));
+		
 
 		JLabel label_2 = new JLabel("-");
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
 		label_2.setBounds(136, 17, 22, 15);
 		panel_6.add(label_2);
 
-		tfju2 = new JPasswordField();
+		JTextField tfju2 = new JPasswordField();
 		tfju2.setBounds(152, 0, 140, 49);
 		tfju2.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panel_6.add(tfju2);
+		tfju2.setDocument(new BoundDocument(7,tfju2));
 
 		JPanel panel_Email = new JPanel();
 		panel.add(panel_Email);
@@ -533,8 +542,11 @@ public class MemberRegisterUI extends JFrame {
 		String pw2 = new String(pass2.getPassword());
 		String ju1 = new String(tfju1.getText());
 		String ju2 = new String(tfju2.getPassword());
+		String tfeng = new String(tfEng.getText());
 		String pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,}$";
 		Matcher matcher = Pattern.compile(pwPattern).matcher(pw1);
+		String EngPatten =  "^[ㄱ-ㅎ가-힣]*$"; 
+		Matcher engmatcher = Pattern.compile(EngPatten).matcher(tfeng);
 		if (pw1.equals("")) {
 			pass1.requestFocus();
 			throw new Exception("Password를 입력해주세요");
@@ -574,6 +586,10 @@ public class MemberRegisterUI extends JFrame {
 		if (tfjuso.getText().trim().equals("")) {
 			tfjuso.requestFocus();
 			throw new Exception("주소를 입력해주세요");
+		}
+		if(engmatcher.matches()) {
+			tfEng.requestFocus();
+			throw new Exception("영어로 입력해주세요");
 		}
 		Member member = new Member();
 		member.setJumin(tfju1.getText() + "-" + new String(tfju2.getPassword()));

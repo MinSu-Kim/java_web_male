@@ -98,6 +98,13 @@
 		where
 		member_no=#{memberNo}
 	</select>
+	
+	<update id="updateDetail" parameterType="Member">
+		update Member set
+		uniqueness = #{uniqueness}
+		where
+		member_no = #{memberNo}
+	</update>
 
 	<!-- 삭제 구문 -->
 	<select id="deleteMember" parameterType="String">

@@ -104,8 +104,8 @@ public class MemberSearchDetail extends JFrame {
 		panel_4.add(lblMemberNo);
 		
 		textMemberNo = new JTextField();
+		textMemberNo.setEnabled(false);
 		textMemberNo.setBounds(111, 0, 201, 50);
-		textMemberNo.setEditable(false);
 		panel_4.add(textMemberNo);
 		textMemberNo.setColumns(10);
 		
@@ -119,6 +119,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_5.add(lblPass);
 		
 		textPass = new JTextField();
+		textPass.setEnabled(false);
 		textPass.setBounds(111, 0, 201, 50);
 		panel_5.add(textPass);
 		textPass.setColumns(10);
@@ -133,6 +134,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_6.add(lblKor);
 		
 		textKor = new JTextField();
+		textKor.setEnabled(false);
 		textKor.setBounds(111, 0, 201, 50);
 		panel_6.add(textKor);
 		textKor.setColumns(10);
@@ -147,6 +149,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_7.add(lblEng);
 		
 		textEng = new JTextField();
+		textEng.setEnabled(false);
 		textEng.setBounds(111, 0, 201, 50);
 		panel_7.add(textEng);
 		textEng.setColumns(10);
@@ -161,6 +164,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_8.add(lblPhone);
 		
 		textPhone = new JTextField();
+		textPhone.setEnabled(false);
 		textPhone.setBounds(111, 0, 201, 50);
 		panel_8.add(textPhone);
 		textPhone.setColumns(10);
@@ -175,6 +179,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_9.add(lblJumin);
 		
 		textJumin = new JTextField();
+		textJumin.setEnabled(false);
 		textJumin.setBounds(111, 0, 201, 50);
 		panel_9.add(textJumin);
 		textJumin.setColumns(10);
@@ -189,6 +194,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_10.add(lblEmail);
 		
 		textEmail = new JTextField();
+		textEmail.setEnabled(false);
 		textEmail.setBounds(111, 0, 201, 50);
 		panel_10.add(textEmail);
 		textEmail.setColumns(10);
@@ -203,6 +209,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_11.add(lblAddress);
 		
 		textAddress = new JTextField();
+		textAddress.setEnabled(false);
 		textAddress.setBounds(111, 0, 201, 50);
 		panel_11.add(textAddress);
 		textAddress.setColumns(10);
@@ -217,6 +224,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_13.add(lblAdmin);
 		
 		textAdmin = new JTextField();
+		textAdmin.setEnabled(false);
 		textAdmin.setBounds(111, 0, 201, 50);
 		textAdmin.setEditable(false);
 		panel_13.add(textAdmin);
@@ -253,7 +261,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_1.setBounds(0, 472, 312, 33);
 		panel_2.add(panel_1);
 		
-		JButton btnUpdate = new JButton("수정");
+		JButton btnUpdate = new JButton("저장");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnUpdate_actionPerform(e);
@@ -312,7 +320,7 @@ public class MemberSearchDetail extends JFrame {
 	//값을 받아옴
 	public void setLists(Member member) {
 		textMemberNo.setText(member.getMemberNo());
-		textPass.setText(member.getPassword());
+		textPass.setText(member.getPassword().substring(0,0)+"########");
 		textKor.setText(member.getKorName());
 		textEng.setText(member.getEngName());
 		textPhone.setText(member.getPhone());
@@ -325,6 +333,7 @@ public class MemberSearchDetail extends JFrame {
 	}
 	private Member getList() {
 		String Mno = textMemberNo.getText().trim();
+		String pass = textPass.getText().trim();
 		String Kor = textKor.getText().trim();
 		String Eng = textEng.getText().trim();
 		String Phone = textPhone.getText().trim();
@@ -334,12 +343,12 @@ public class MemberSearchDetail extends JFrame {
 		String Address = textAddress.getText().trim();
 		String Uni = textUni.getText().trim();
 		String photo = fileName;
-		return new Member(Mno,Kor,Eng,Phone,jumin,Email,Address,photo,Uni);
+		return new Member(Mno,pass,Kor,Eng,Phone,jumin,Email,Address,photo,Uni);
 	}
 	private void do_btnUpdate_actionPerform(ActionEvent e) {
 		Member editMem = getList();			
-		service.updateMember(editMem);
+		service.updateDetail(editMem);
 		System.out.println(editMem);
-		JOptionPane.showMessageDialog(null, "수정되었습니다.");
+		JOptionPane.showMessageDialog(null, "저장되었습니다.");
 	}
 }
