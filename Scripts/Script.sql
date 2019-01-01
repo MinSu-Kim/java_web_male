@@ -87,6 +87,9 @@ from member;
 
 select *
 from overdue;
+
+select *
+from member_rental_info;
 insert into `member` values("3","gfkrtkf", "서동준", "kiggay","01022306796","921012-1647545","tjehdxo2002@","비밀","하핫",1,"하말없음");
 
 insert into member values("10",password("king"),"노예1","slave1","010-2343-4533", concat(left('201012-1685651', 8),password(right('201012-1685651', 6)) ),"slave@naever.com","비밀","히히",0,"저는 노예입니다.");
@@ -289,10 +292,6 @@ where left(book_code, 1) != 'D'
 
 select rental_no FROM proj_library.book_rental_info
    		where book_code='00001';
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-   	
    	create
 or replace
 view `bestsaler` as select
@@ -337,12 +336,7 @@ join `member` `m` on
     ((`i`.`member_no` = `m`.`member_no`)))
 join `book` `b` on
     ((`i`.`book_code` = `b`.`book_code`)));
-=======
-
-=======
-
 update overdue set stop_date = 3 ;
->>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
    	
    	select rental_no, member_no, return_date, return_schedule, rental_date FROM proj_library.book_rental_info
    		where book_code='00001' and return_date is null;
@@ -353,14 +347,10 @@ where member_no='2';
 UPDATE proj_library.book
 		SET book_code='D0000000001'
 		WHERE book_code='0000000001';
-=======
 select member_no, password, kor_name, eng_name, phone,
 		replace(jumin,regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1)
              ,substr(replace(regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1),'-'),1,7)||'******') jumin, email, address, photo, admin, uniqueness
 		from member;
-		
-<<<<<<< HEAD
->>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
 =======
 select * from overdue;
 
@@ -376,4 +366,3 @@ update overdue set stop_date = if(Datediff(stop_end_date, now())< 1, 0, Datediff
 
 
 select * from book_rental_info;
->>>>>>> branch 'master' of https://github.com/MinSu-Kim/java_web_male.git
