@@ -195,7 +195,7 @@ public class MemberRegisterUI extends JFrame {
 		tfKor.setBounds(162, 0, 292, 49);
 		panel_kor.add(tfKor);
 		tfKor.setColumns(10);
-		tfKor.setDocument(new BoundDocument(4,tfKor));
+		tfKor.setDocument(new BoundDocument(13,tfKor));
 
 		JPanel panel_Eng = new JPanel();
 		panel.add(panel_Eng);
@@ -265,7 +265,7 @@ public class MemberRegisterUI extends JFrame {
 		panel_Ju.add(panel_6);
 		panel_6.setLayout(null);
 
-		JTextField tfju1 = new JTextField();
+		tfju1 = new JTextField();
 		tfju1.setBounds(0, 0, 140, 49);
 		panel_6.add(tfju1);
 		tfju1.setColumns(10);
@@ -277,7 +277,7 @@ public class MemberRegisterUI extends JFrame {
 		label_2.setBounds(136, 17, 22, 15);
 		panel_6.add(label_2);
 
-		JTextField tfju2 = new JPasswordField();
+		tfju2 = new JPasswordField();
 		tfju2.setBounds(152, 0, 140, 49);
 		tfju2.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panel_6.add(tfju2);

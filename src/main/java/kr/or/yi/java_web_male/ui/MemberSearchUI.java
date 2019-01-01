@@ -110,6 +110,7 @@ public class MemberSearchUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if ((textField.getText().equals(""))) {
 					JOptionPane.showMessageDialog(null, "입력해주세요");
+					cleartf();
 					return;
 				}
 				try {
@@ -125,6 +126,11 @@ public class MemberSearchUI extends JFrame {
 					JOptionPane.showMessageDialog(null, "검색결과가 없습니다.");
 				}
 
+			}
+
+			private void cleartf() {
+				// TODO Auto-generated method stub
+				
 			}
 		});// end of action
 		Searchpanel.add(button);
