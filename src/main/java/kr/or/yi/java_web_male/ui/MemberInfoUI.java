@@ -321,7 +321,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfEngName.setText(member.getEngName());
 		tfPhone.setText(member.getPhone());
 		tfEmail.setText(member.getEmail());
-		tfJumin.setText(member.getAddress());
+		tfJumin.setText(member.getJumin());
 		tfAddress.setText(member.getEngName());
 		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 
@@ -338,10 +338,10 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		Overdue oMno = new Overdue();
 		oMno.setMemberNo(tfMemberNo.getText());
 		Overdue overdueAll = memberUIService.selectOverdueByCode(oMno);
-		int stopDate = overdueAll.getStopDate();
-		String stop = String.valueOf(stopDate);
+//		int stopDate = overdueAll.getStopDate();
+//		String stop = String.valueOf(stopDate);
 
-		tfStopDate.setText(stop);
+//		tfStopDate.setText(stop);
 	}
 
 	protected void do_btnLogout_actionPerformed(ActionEvent e) {

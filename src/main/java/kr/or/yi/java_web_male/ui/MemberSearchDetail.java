@@ -309,49 +309,32 @@ public class MemberSearchDetail extends JFrame {
 		btnNewButton_1.setBounds(110, 271, 97, 23);
 		panel_2.add(btnNewButton_1);
 	}
+	//값을 받아옴
 	public void setLists(Member member) {
 		textMemberNo.setText(member.getMemberNo());
 		textPass.setText(member.getPassword());
 		textKor.setText(member.getKorName());
 		textEng.setText(member.getEngName());
 		textPhone.setText(member.getPhone());
-		textJumin.setText(member.getJumin());
+		textJumin.setText(member.getJumin().substring(0,7)+"*******");
 		textEmail.setText(member.getEmail());
 		textAddress.setText(member.getAddress());
 		textAdmin.setText(((member.isAdmin())+"").trim());
 		textUni.setText(member.getUniqueness());
 		labelImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
-		
-		if(member.isAdmin() == false) {
-			textPass.setEditable(false);
-			textKor.setEditable(false);
-			textEng.setEditable(false);
-			textPhone.setEditable(false);
-			textJumin.setEditable(false);
-			textEmail.setEditable(false);
-			textAddress.setEditable(false);
-		}else {
-			textPass.setEditable(true);
-			textKor.setEditable(true);
-			textEng.setEditable(true);
-			textPhone.setEditable(true);
-			textJumin.setEditable(true);
-			textEmail.setEditable(true);
-			textAddress.setEditable(true);
-		}
 	}
 	private Member getList() {
 		String Mno = textMemberNo.getText().trim();
-		String Pass = textPass.getText().trim();
 		String Kor = textKor.getText().trim();
 		String Eng = textEng.getText().trim();
 		String Phone = textPhone.getText().trim();
 		String jumin = (textJumin.getText().trim().substring(0,7)+"*******");
 		String Email = textEmail.getText().trim();
+//		boolean admin = textAdmin.getText() != null;
 		String Address = textAddress.getText().trim();
 		String Uni = textUni.getText().trim();
 		String photo = fileName;
-		return new Member(Mno,Pass,Kor,Eng,Phone,jumin,Email,Address,photo,Uni);
+		return new Member(Mno,Kor,Eng,Phone,jumin,Email,Address,photo,Uni);
 	}
 	private void do_btnUpdate_actionPerform(ActionEvent e) {
 		Member editMem = getList();			

@@ -82,14 +82,13 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 	private JButton btnImg;
 	private JButton btnAdd;
 	private Member member;
-
 	private PostUI postUI;
+	private AdminMainUI adminMainUI;
 
 	public MemberUpdateUI(Member member) {
 		this.member = member;
 		service = new MemberUIService();
 		imgPath = System.getProperty("user.dir") + "\\images\\";
-
 		postUI = new PostUI();
 		initComponent(LoginUI.getLogin());
 	}
@@ -281,11 +280,11 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		panel_6.setLayout(null);
 
 		tfju1 = new JTextField();
+		tfju1.setEditable(false);
 		tfju1.setBounds(0, 0, 140, 49);
 		panel_6.add(tfju1);
 		tfju1.setColumns(10);
 		tfju1.setText(member.getJumin().substring(0, 6));
-		tfju1.setEnabled(false);
 
 		JLabel label_2 = new JLabel("-");
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -297,7 +296,6 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		tfju2.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panel_6.add(tfju2);
 		tfju2.setText(member.getJumin().substring(7, 8) + "******");
-		tfju2.setEnabled(false);
 
 		JPanel panel_Email = new JPanel();
 		panel.add(panel_Email);
@@ -378,7 +376,8 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		panel_4.add(tfjuso);
 		tfjuso.setColumns(10);
 		tfjuso.setText(member.getAddress());
-		tfjuso.setText(addrArr[1]);
+//		tfjuso.setText(addrArr[1]);
+
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(459, 5, 454, 494);
@@ -458,6 +457,8 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		try {
 			check();
 			getMember();
+//			Member member = getAdmin();
+//			service.updateMember(member);
 			JOptionPane.showMessageDialog(null, "수정 성공");
 			dispose();
 		} catch (Exception e1) {
@@ -468,28 +469,25 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 	private void getMember() {
 		member.setPassword(new String(pass1.getPassword()).trim());
 		member.setPhone(
-				(String) TelBox.getSelectedItem() + "-" + tftel2.getText().trim() + "-" + tftel3.getText().trim());
+		(String) TelBox.getSelectedItem() + "-" + tftel2.getText().trim() + "-" + tftel3.getText().trim());
 		member.setJumin(tfju1.getText().trim() + "-" + tfju2.getText().trim());
 		member.setEmail(tfEmail.getText().trim() + "@" + tfEmail_2.getText().trim());
 		member.setAddress(tfAdd.getText().trim() + tfjuso.getText().trim());
 		member.setPhoto(fileName);
 		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 		service.updateMember(member);
-	}
-
+	}	
 	public void setLists(Member member) {
 		tFmemberNo.setText(member.getMemberNo());
 		pass1.setText(member.getPassword());
 		tfKor.setText(member.getKorName());
 		tfEng.setText(member.getEngName());
-		tftel2.setText(member.getPhone());
+		tftel2.setText(member.getPhone().trim());
 		tfju1.setText(member.getJumin());
 		tfEmail.setText(member.getEmail());
 		tfAdd.setText(member.getAddress());
 		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 	}
-
-
 	@SuppressWarnings("unlikely-arg-type")
 	private void check() throws Exception {
 		String pw1 = new String(pass1.getPassword());

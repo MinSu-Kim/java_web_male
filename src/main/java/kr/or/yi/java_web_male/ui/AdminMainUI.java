@@ -50,13 +50,15 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	private JTextField tfJumin;
 	private JTextField tfAddress;
 	private JLabel lblImg;
+	private String imgPath;
 	private static Member loginMember;
 	
 	public AdminMainUI() {
 		loginUI = new LoginUI();
 		service = new MemberUIService();
+		imgPath = System.getProperty("user.dir") + "\\images\\";
 		memberSearchUI = new MemberSearchUI();
-		System.out.println("나오는 값음"+LoginUI.getLogin());
+		memberUpdateUI = new MemberUpdateUI(loginMember);
 		initComponents();
 	}
 	public static final Member getLogin() {
@@ -95,35 +97,23 @@ public class AdminMainUI extends JFrame implements ActionListener {
 		contentPane.add(panel_1);
 
 		btnLogout = new JButton("로그아웃");
-		btnLogout.setBounds(171, 5, 81, 23);
+		btnLogout.setBounds(220, 5, 81, 23);
 		btnLogout.addActionListener(this);
 		panel_1.setLayout(null);
 		panel_1.add(btnLogout);
 		
 		btnUpdate = new JButton("정보수정");
+		btnUpdate.setBounds(127, 5, 81, 23);
 		btnUpdate.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
 				if (memberSearchDetail == null) {
 					memberSearchDetail = new MemberSearchDetail();
 				}else {
 					Member mno =  service.selectMemberByNo(LoginUI.getLogin());
-					System.out.println("mno값은"+mno);
-					Member mem = new Member();
-					mem.setMemberNo(mno.getMemberNo());
-					mem.setPassword(mno.getPassword().substring(0,0));
-					mem.setKorName(mno.getKorName());
-					mem.setEngName(mno.getPhone());
-					mem.setPhone(mno.getPhone());
-					mem.setJumin(mno.getJumin());
-					mem.setEmail(mno.getEmail());
-					mem.setAddress(mno.getAddress());
-					mem.setPhoto(mno.getPhoto());
-					mem.setAdmin(true);
-					mem.setUniqueness(mno.getUniqueness());
-					
-				
-					memberSearchDetail.setLists(mem);
-					memberSearchDetail.setVisible(true);
+					System.out.println("mno값은"+mno);				
+					memberUpdateUI.setLists(mno);
+					memberUpdateUI.setVisible(true);
 				}
 			}
 		});
@@ -133,6 +123,7 @@ public class AdminMainUI extends JFrame implements ActionListener {
 		btnBookSearch.addActionListener(this);
 		btnBookInsert.addActionListener(this);
 		
+	
 	}
 
 	public void actionPerformed(ActionEvent e) {
