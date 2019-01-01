@@ -294,28 +294,6 @@ public class MemberSearchDetail extends JFrame {
 			}
 		});
 		panel_1.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("사진변경");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser chooser = new JFileChooser();
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF", "jpg", "gif");
-				chooser.setFileFilter(filter);
-				int ret = chooser.showOpenDialog(null);
-				
-				if(ret == JFileChooser.APPROVE_OPTION) {
-					pathName = chooser.getSelectedFile().getPath();
-					fileName = chooser.getSelectedFile().getName();
-					
-					System.out.println(pathName);
-					System.out.println(fileName);
-					labelImg.setIcon(new ImageIcon(imgPath + fileName));
-				}
-			
-			}
-		});
-		btnNewButton_1.setBounds(110, 271, 97, 23);
-		panel_2.add(btnNewButton_1);
 	}
 	//값을 받아옴
 	public void setLists(Member member) {
