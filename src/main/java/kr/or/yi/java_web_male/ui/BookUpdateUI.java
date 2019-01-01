@@ -88,7 +88,7 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 
 	private void initComponents(Book book) {
 		setTitle("도서 수정");
-
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 425);
 		contentPane = new JPanel();

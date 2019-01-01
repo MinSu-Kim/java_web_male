@@ -89,6 +89,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(5, 5, 424, 133);
@@ -360,11 +361,12 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		tfBookCode.setText(bc);
 		book.setBookCode(bc);
 		book.setBookNo(i);
-		
+
 		if (tfTitle.getText().equals("") || tfAuthor.getText().equals("") || tfTrans.getText().equals("")) {
 			JOptionPane.showMessageDialog(null, "도서 정보가 누락되었습니다.");
 		} else {
-			int result = JOptionPane.showConfirmDialog(null, "해당 정보로 도서를 추가합니다.", "Sysyem Message", JOptionPane.YES_NO_OPTION);
+			int result = JOptionPane.showConfirmDialog(null, "해당 정보로 도서를 추가합니다.", "Sysyem Message",
+					JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.CLOSED_OPTION) {
 
 			} else if (result == JOptionPane.YES_OPTION) {

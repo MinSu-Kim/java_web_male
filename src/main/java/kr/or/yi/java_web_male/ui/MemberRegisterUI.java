@@ -108,6 +108,7 @@ public class MemberRegisterUI extends JFrame {
 	public MemberRegisterUI() {
 		service = new MemberUIService();
 		imgPath = System.getProperty("user.dir") + "\\images\\";
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 672, 586);
 		contentPane = new JPanel();
@@ -498,7 +499,7 @@ public class MemberRegisterUI extends JFrame {
 				(String) TelBox.getSelectedItem() + "-" + tftel2.getText().trim() + "-" + tftel3.getText().trim());
 		member.setJumin(tfju1.getText().trim() + "-" + tfju2.getText().trim());
 		member.setEmail(tfEmail.getText().trim() + "@" + tfEmail_2.getText().trim());
-		member.setAddress(tfAdd.getText().trim() + tfjuso.getText().trim());
+		member.setAddress(tfAdd.getText().trim() + "," + tfjuso.getText().trim());
 		member.setAdmin(chckadmin.isSelected());
 		member.setPhoto(fileName);
 		int i = 0;

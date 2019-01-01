@@ -100,6 +100,7 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		String[] addrArr = addr.split(",");
 
 		setTitle("회원 정보수정");
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 672, 586);
 		contentPane = new JPanel();
