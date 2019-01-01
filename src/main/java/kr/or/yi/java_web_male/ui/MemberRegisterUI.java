@@ -106,6 +106,7 @@ public class MemberRegisterUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MemberRegisterUI() {
+		setTitle("회원가입");
 		service = new MemberUIService();
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -365,7 +366,7 @@ public class MemberRegisterUI extends JFrame {
 		panel_4.add(lbljuso);
 
 		tfjuso = new JTextField();
-		tfjuso.setBounds(161, 0, 293, 49);
+		tfjuso.setBounds(162, 0, 292, 49);
 		panel_4.add(tfjuso);
 		tfjuso.setColumns(10);
 
