@@ -71,9 +71,6 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	private void initComponent() {
-		String str = LoginUI.getLogin().getAddress();
-		String[] strArr = str.split(",");
-
 		setTitle("[사용자] " + LoginUI.getLogin().getKorName() + "님 환영합니다.");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 613, 593);
@@ -167,7 +164,6 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfAddress.setBounds(102, 151, 232, 20);
 		panel_2.add(tfAddress);
 		tfAddress.setColumns(10);
-		tfAddress.setText(strArr[0] + strArr[1]);
 
 		JLabel lblStopDate = new JLabel("정지일");
 		lblStopDate.setBounds(19, 181, 78, 20);
@@ -313,13 +309,16 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	// 로그인 객체에서 정보 가져오기
 	public void getMemberInfo(Member member) {
+		String str = LoginUI.getLogin().getAddress();
+		String[] strArr = str.split(",");
+		
 		tfMemberNo.setText(member.getMemberNo());
 		tfKorName.setText(member.getKorName());
 		tfEngName.setText(member.getEngName());
 		tfPhone.setText(member.getPhone());
 		tfEmail.setText(member.getEmail());
 		tfJumin.setText(member.getJumin());
-		tfAddress.setText(member.getEngName());
+		tfAddress.setText(strArr[0] + strArr[1]);
 		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 
 		tfMemberNo.setEditable(false);

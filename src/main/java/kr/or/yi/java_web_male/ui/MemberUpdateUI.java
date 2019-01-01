@@ -376,8 +376,7 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		panel_4.add(tfjuso);
 		tfjuso.setColumns(10);
 		tfjuso.setText(member.getAddress());
-//		tfjuso.setText(addrArr[1]);
-
+		tfjuso.setText(addrArr[1]);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(459, 5, 454, 494);
@@ -458,8 +457,6 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		try {
 			check();
 			getMember();
-//			Member member = getAdmin();
-//			service.updateMember(member);
 			JOptionPane.showMessageDialog(null, "수정 성공");
 			dispose();
 		} catch (Exception e1) {
@@ -486,7 +483,6 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		tftel2.setText(member.getPhone().trim());
 		tfju1.setText(member.getJumin());
 		tfEmail.setText(member.getEmail());
-		tfAdd.setText(member.getAddress());
 		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 	}
 	@SuppressWarnings("unlikely-arg-type")

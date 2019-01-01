@@ -40,31 +40,13 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	private JPanel panel;
 	private JPanel panel_1;
 	private JButton btnUpdate;
-	private MemberUIService service;
-	private JTextField tfMemberNo;
-	private JTextField tfpass;
-	private JTextField tfKorName;
-	private JTextField tfEngName;
-	private JTextField tfPhone;
-	private JTextField tfEmail;
-	private JTextField tfJumin;
-	private JTextField tfAddress;
-	private JLabel lblImg;
-	private String imgPath;
-	private static Member loginMember;
-	
+
 	public AdminMainUI() {
 		loginUI = new LoginUI();
-		service = new MemberUIService();
-		imgPath = System.getProperty("user.dir") + "\\images\\";
 		memberSearchUI = new MemberSearchUI();
-		memberUpdateUI = new MemberUpdateUI(loginMember);
 		initComponents();
 	}
-	public static final Member getLogin() {
-		return loginMember;
-		
-	}
+
 	private void initComponents() {
 
 		setTitle("[관리자] " + LoginUI.getLogin().getKorName() + "님 환영합니다.");
@@ -81,15 +63,19 @@ public class AdminMainUI extends JFrame implements ActionListener {
 		panel.setLayout(new GridLayout(0, 4, 10, 10));
 
 		btnBookInsert = new JButton("도서 추가");
+		btnBookInsert.addActionListener(this);
 		panel.add(btnBookInsert);
 
 		btnBookSearch = new JButton("도서 검색");
+		btnBookSearch.addActionListener(this);
 		panel.add(btnBookSearch);
 
 		btnMemberAdmin = new JButton("회원 관리");
+		btnMemberAdmin.addActionListener(this);
 		panel.add(btnMemberAdmin);
 
 		btnRentalAdmin = new JButton("출납 관리");
+		btnRentalAdmin.addActionListener(this);
 		panel.add(btnRentalAdmin);
 
 		panel_1 = new JPanel();
@@ -101,32 +87,17 @@ public class AdminMainUI extends JFrame implements ActionListener {
 		btnLogout.addActionListener(this);
 		panel_1.setLayout(null);
 		panel_1.add(btnLogout);
-		
+
 		btnUpdate = new JButton("정보수정");
+		btnUpdate.addActionListener(this);
 		btnUpdate.setBounds(127, 5, 81, 23);
-		btnUpdate.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				if (memberSearchDetail == null) {
-					memberSearchDetail = new MemberSearchDetail();
-				}else {
-					Member mno =  service.selectMemberByNo(LoginUI.getLogin());
-					System.out.println("mno값은"+mno);				
-					memberUpdateUI.setLists(mno);
-					memberUpdateUI.setVisible(true);
-				}
-			}
-		});
 		panel_1.add(btnUpdate);
-		btnRentalAdmin.addActionListener(this);
-		btnMemberAdmin.addActionListener(this);
-		btnBookSearch.addActionListener(this);
-		btnBookInsert.addActionListener(this);
-		
-	
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnUpdate) {
+			do_btnUpdate_actionPerformed(e);
+		}
 		if (e.getSource() == btnLogout) {
 			do_btnLogout_actionPerformed(e);
 		}
@@ -176,5 +147,12 @@ public class AdminMainUI extends JFrame implements ActionListener {
 		LoginUI.memberLogOut();
 		this.setVisible(false);
 		loginUI.setVisible(true);
+	}
+
+	protected void do_btnUpdate_actionPerformed(ActionEvent e) {
+		if (memberUpdateUI == null) {
+			memberUpdateUI = new MemberUpdateUI(LoginUI.getLogin());
+		}
+		memberUpdateUI.setVisible(true);
 	}
 }

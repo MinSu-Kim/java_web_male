@@ -304,16 +304,19 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		int i = 0, j = 0, max = 0;
 		String pubNo = "";
 
-		publisher.setPubName(tfPub.getText().trim());
-
-		if (service.selectPublisherByName(publisher) != null) {
-			pubNo = service.selectPublisherByName(publisher).getPubNo();
-			publisher.setPubNo(pubNo);
+		if (!tfPub.getText().equals("")) {
+			publisher.setPubName(tfPub.getText().trim());
+			if (service.selectPublisherByName(publisher) != null) {
+				pubNo = service.selectPublisherByName(publisher).getPubNo();
+				publisher.setPubNo(pubNo);
+			} else {
+				i = service.selectPublisherByAll().size() + 1;
+				pubNo = String.format("P%04d", i);
+				publisher.setPubNo(pubNo);
+				service.insertPublisher(publisher);
+			}
 		} else {
-			i = service.selectPublisherByAll().size() + 1;
-			pubNo = String.format("P%04d", i);
-			publisher.setPubNo(pubNo);
-			service.insertPublisher(publisher);
+			JOptionPane.showMessageDialog(null, "출판사를 입력해주세요.");
 		}
 
 		book.setPubNo(publisher);
@@ -357,14 +360,17 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		tfBookCode.setText(bc);
 		book.setBookCode(bc);
 		book.setBookNo(i);
-
-		int result = JOptionPane.showConfirmDialog(null, bc, "확인", JOptionPane.YES_NO_OPTION);
-		if (result == JOptionPane.CLOSED_OPTION) {
-
-		} else if (result == JOptionPane.YES_OPTION) {
-			service.insertBook(book);
+		
+		if (tfTitle.getText().equals("") || tfAuthor.getText().equals("") || tfTrans.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "도서 정보가 누락되었습니다.");
 		} else {
-			JOptionPane.showMessageDialog(null, "");
+			int result = JOptionPane.showConfirmDialog(null, "도서를 추가했습니다.", "Sysyem Message", JOptionPane.YES_NO_OPTION);
+			if (result == JOptionPane.CLOSED_OPTION) {
+
+			} else if (result == JOptionPane.YES_OPTION) {
+				service.insertBook(book);
+			} else {
+			}
 		}
 	}
 
@@ -381,7 +387,6 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		if (ret == JFileChooser.APPROVE_OPTION) {
 			pathName = chooser.getSelectedFile().getPath();
 			fileName = chooser.getSelectedFile().getName();
-
 			lblImage.setIcon(new ImageIcon(imgPath + fileName));
 		}
 	}
