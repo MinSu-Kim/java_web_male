@@ -254,7 +254,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_12.setLayout(null);
 		
 		labelImg = new JLabel("");
-		labelImg.setBounds(0, 10, 250, 208);
+		labelImg.setBounds(12, 10, 250, 208);
 		panel_12.add(labelImg);
 		
 		JPanel panel_1 = new JPanel();
