@@ -279,13 +279,10 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 			int result = JOptionPane.showConfirmDialog(null, "수정이 완료되었습니다.목록으로 돌아가시겠습니까?", "확인",
 					JOptionPane.YES_NO_OPTION);
 			if (result == JOptionPane.CLOSED_OPTION) {
-
 			} else if (result == JOptionPane.YES_OPTION) {
-
 				dispose();
 				bookSearchUI.getLoadData();
 			}
-
 		} catch (Exception e1) {
 			JOptionPane.showMessageDialog(null, "수정에 실패하였습니다.");
 		}
