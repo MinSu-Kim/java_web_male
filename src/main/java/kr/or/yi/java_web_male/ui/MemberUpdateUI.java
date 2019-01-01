@@ -285,6 +285,7 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		panel_6.add(tfju1);
 		tfju1.setColumns(10);
 		tfju1.setText(member.getJumin().substring(0, 6));
+		tfju1.setEnabled(false);
 
 		JLabel label_2 = new JLabel("-");
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -296,6 +297,7 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		tfju2.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panel_6.add(tfju2);
 		tfju2.setText(member.getJumin().substring(7, 8) + "******");
+		tfju2.setEnabled(false);
 
 		JPanel panel_Email = new JPanel();
 		panel.add(panel_Email);
