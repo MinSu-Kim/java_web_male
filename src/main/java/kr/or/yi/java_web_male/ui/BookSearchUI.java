@@ -786,7 +786,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	}
 
 	private void do_Showmore_actionPerformed(ActionEvent e) {
-		try {
+		/*try {*/
 			if (tabbedPane.getSelectedIndex() == 0) {
 				selectedBook = ((BookTablePanel) tablePanel).getSelectedBook();
 			} else {
@@ -822,10 +822,11 @@ public class BookSearchUI extends JFrame implements ActionListener {
 			bookDetailUI.setVisible(true);
 			bookDetailUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		} catch (Exception e1) {
+		/*} catch (Exception e1) {
+			
 			JOptionPane.showMessageDialog(null, "선택하신책정보가 없습니다.");
 
-		}
+		}*/
 	}
 
 	public void SetBookCoded(String BookCoded) {
