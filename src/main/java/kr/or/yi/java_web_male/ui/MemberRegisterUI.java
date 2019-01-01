@@ -498,7 +498,7 @@ public class MemberRegisterUI extends JFrame {
 				(String) TelBox.getSelectedItem() + "-" + tftel2.getText().trim() + "-" + tftel3.getText().trim());
 		member.setJumin(tfju1.getText().trim() + "-" + tfju2.getText().trim());
 		member.setEmail(tfEmail.getText().trim() + "@" + tfEmail_2.getText().trim());
-		member.setAddress(tfAdd.getText().trim() + tfjuso.getText().trim());
+		member.setAddress(tfAdd.getText().trim() +","+ tfjuso.getText().trim());
 		member.setAdmin(chckadmin.isSelected());
 		member.setPhoto(fileName);
 		int i = 0;
