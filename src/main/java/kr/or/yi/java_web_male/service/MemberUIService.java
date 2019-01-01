@@ -50,6 +50,10 @@ public class MemberUIService {
 	public int updateMember(Member member) {
 		return dao.updateMember(member);
 	}
+	public int updateDetail(Member member) {
+		return dao.updateDetail(member);
+	}
+	
 	public List<Member>  searchMembernoRent(Map<String, String> map) {
 		return dao.searchMembernoRent(map);
 	}

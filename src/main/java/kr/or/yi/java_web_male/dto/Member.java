@@ -63,10 +63,11 @@ public class Member {
 		this.publisher = publisher;
 	}
 
-	public Member(String memberNo, String korName, String engName, String phone, String jumin,
+	public Member(String memberNo, String password, String korName, String engName, String phone, String jumin,
 			String email, String address, String photo ,String uniqueness) {
 		super();
 		this.memberNo = memberNo;
+		this.password = password;
 		this.korName = korName;
 		this.engName = engName;
 		this.phone = phone;
