@@ -26,8 +26,8 @@ public class LoginUIService {
 	public int changePW(Map<String, Object> map) {
 		return memberMapper.changePW(map);
 	}
-//	public int selectDate() {
-//		return overduePopupMapper.selectDate();
-//	}
-//	
+	public int selectDate() {
+		return overduePopupMapper.selectDate();
+	}
+	
 }
