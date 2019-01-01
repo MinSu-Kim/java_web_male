@@ -33,7 +33,6 @@ public class MemberDetailUI extends JFrame {
 	private JTable table;
 	private List<BookRentalInfo> lists;
 	private PanelPieChart pPieChart;
-	private PanelLineChart pLineChart;
 
 	private BookRentalInfoMapper bookRentalInfoMapper;
 
@@ -65,18 +64,11 @@ public class MemberDetailUI extends JFrame {
 		loadDatas();
 		scrollPane.setViewportView(table);
 
-		pLineChart = new PanelLineChart();
-
-		pLineChart.setBorder(new TitledBorder(null, "\uB098\uC758 \uB3C5\uC11C\uB7C9", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
-		contentPane.add(pLineChart);
-
 		pPieChart = new PanelPieChart();
 		pPieChart.setBorder(new TitledBorder(null, "\uB098\uC758 \uC120\uD638\uC7A5\uB974", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
 		contentPane.add(pPieChart);
 
-		Platform.runLater(() -> initFX(pLineChart));
 		Platform.runLater(() -> initFX(pPieChart));
 	}
 
