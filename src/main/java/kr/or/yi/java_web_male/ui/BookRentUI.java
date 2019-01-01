@@ -136,7 +136,8 @@ public class BookRentUI extends JFrame {
 		btnMemberSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MemberSearchUI msu = new MemberSearchUI();
-				msu.setBookRentUI(BookRentUI.this);
+				msu.setBookRentUI(BookRentUI.this);			
+				msu.setMemberCode(textMemberNo.getText());
 				msu.setVisible(true);
 
 			}
@@ -145,6 +146,7 @@ public class BookRentUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				BookSearchUI bsu = new BookSearchUI();
 				bsu.setBookRentUI(BookRentUI.this);
+				bsu.SetBookCoded(textBookCode.getText());
 				bsu.setVisible(true);
 			}
 		});

@@ -257,4 +257,9 @@ public class MemberSearchUI extends JFrame {
 		this.bookRentUI = bookRentUI;
 	}
 
+	public void setMemberCode(String MemCoded) {
+		// TODO Auto-generated method stub
+		textField.setText(MemCoded);
+	}
+
 }// end of class;
