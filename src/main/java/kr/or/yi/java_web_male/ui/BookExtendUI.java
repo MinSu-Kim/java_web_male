@@ -103,7 +103,10 @@ public class BookExtendUI extends JFrame {
 		JButton btnNewButton = new JButton("도서검색");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				BookSearchUI bsu = new BookSearchUI();
+				bsu.setBookExtendUI(BookExtendUI.this);
+				bsu.SetBookCoded(textBookCode.getText());
+				bsu.setVisible(true);
 			}
 		});
 		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -132,7 +135,12 @@ public class BookExtendUI extends JFrame {
 		btnReturnSchedule.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnReturnSchedule.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				getBookRentalInfo(bookRentalInfo);
+				try {
+					getBookRentalInfo(bookRentalInfo);
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(null, "대여중인 책이 아닙니다.");
+				}
+				
 			}
 		});
 		panel_2.add(btnReturnSchedule);
@@ -158,29 +166,56 @@ public class BookExtendUI extends JFrame {
 					BookRentalInfo.setBookCode(book);
 					System.out.println(BookRentalInfo.getBookCode());
 					
-					BookRentalInfo BookRentalNo = service.selectRentalNoByBookCode_returnDateNull(BookRentalInfo);
+					try {
+						BookRentalInfo BookRentalNo = service.selectRentalNoByBookCode_returnDateNull(BookRentalInfo);
+						
+						
+						
+						int no = BookRentalNo.getRentalNo();
+						
+						BookRentalInfo bookRentalInfo = new BookRentalInfo();
+						bookRentalInfo.setRentalNo(no);
+						
+						Date returnSchedule = BookRentalNo.getReturnSchedule();
+						
+						Calendar cal = Calendar.getInstance ( );
+						cal.setTime(returnSchedule);
+						cal.add ( Calendar.DATE, 7); 
+						System.out.println( cal.get ( Calendar.YEAR ) + "년 " + ( cal.get ( Calendar.MONTH ) + 1 ) + "월 " + cal.get ( Calendar.DATE ) + "일" );
 					
 					
+						Date d = new Date(cal.getTimeInMillis());
+						
+						bookRentalInfo.setReturnSchedule(d);
+						
+						Date rentalDate = BookRentalNo.getRentalDate();
+						Calendar cal2 = Calendar.getInstance ( );
+						// 오늘날짜
+						cal2.setTime ( returnSchedule );
+						
+						Calendar cal3 = Calendar.getInstance ( );
+						// 반납예정일
+						cal3.setTime ( rentalDate );  
+						
+						int count = 0;
+						while ( !cal3.after ( cal2 ) ) {
+						count++;
+						//다음날로 바뀜
+						cal3.add ( Calendar.DATE, 1 );   
+						System.out.println ( cal3.get ( Calendar.YEAR ) + "년 " + ( cal3.get ( Calendar.MONTH ) + 1 ) + "월 " + cal3.get ( Calendar.DATE ) + "일" );
+						}
+						System.out.println ( "반납 예정일은 " + count + "일 입니다." );
+						
+						if(count > 21) {
+							JOptionPane.showMessageDialog(null, "더 이상 연장이 불가능합니다.");
+						}else {
+							service.updateReturnSchedule(bookRentalInfo);
+						}
+						
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "대여중인 책이 아닙니다.");
+					}
 					
-					int no = BookRentalNo.getRentalNo();
-					
-					BookRentalInfo bookRentalInfo = new BookRentalInfo();
-					bookRentalInfo.setRentalNo(no);
-					
-					Date returnSchedule = BookRentalNo.getReturnSchedule();
-					
-					Calendar cal = Calendar.getInstance ( );
-					cal.setTime(returnSchedule);
-					cal.add ( Calendar.DATE, 7); 
-					JOptionPane.showMessageDialog(null, cal);
-					System.out.println( cal.get ( Calendar.YEAR ) + "년 " + ( cal.get ( Calendar.MONTH ) + 1 ) + "월 " + cal.get ( Calendar.DATE ) + "일" );
-				
-				
-					Date d = new Date(cal.getTimeInMillis());
-					
-					bookRentalInfo.setReturnSchedule(d);
-					
-					service.updateReturnSchedule(bookRentalInfo);
 				
 				
 			}

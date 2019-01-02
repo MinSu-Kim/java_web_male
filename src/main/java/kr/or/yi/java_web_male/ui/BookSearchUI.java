@@ -41,6 +41,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import kr.or.yi.java_web_male.dto.Book;
+import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
 import kr.or.yi.java_web_male.dto.CategoryS;
@@ -199,7 +200,16 @@ public class BookSearchUI extends JFrame implements ActionListener {
 						BookSearchUI.this.dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "대여중인 책입니다.");
-						bookReturnUI.setBookCode(book);
+						try {
+							bookReturnUI.setBookCode(book);
+						} catch (Exception e2) {
+							// TODO: handle exception
+						}
+						try {
+							bookExtendUI.setBookCode(book);
+						} catch (Exception e2) {
+							// TODO: handle exception
+						}
 						BookSearchUI.this.dispose();
 					}
 
@@ -513,7 +523,17 @@ public class BookSearchUI extends JFrame implements ActionListener {
 						BookSearchUI.this.dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "대여중인 책입니다.");
-						bookReturnUI.setBookCode(book);
+						try {
+							bookReturnUI.setBookCode(book);
+						} catch (Exception e2) {
+							// TODO: handle exception
+						}
+						try {
+							bookExtendUI.setBookCode(book);
+						} catch (Exception e2) {
+							// TODO: handle exception
+						}
+						
 						BookSearchUI.this.dispose();
 					}
 
@@ -811,6 +831,11 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	
 	public void setBookReturnUI(BookReturnUI bookReturnUI) {
 		this.bookReturnUI = bookReturnUI;
+
+	}
+	
+	public void setBookExtendUI(BookExtendUI bookExtendUI) {
+		this.bookExtendUI = bookExtendUI;
 
 	}
 
