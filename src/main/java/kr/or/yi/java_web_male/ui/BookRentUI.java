@@ -192,7 +192,7 @@ public class BookRentUI extends JFrame {
 
 				// 대여가능권수가 0미만일때 대여불가
 				MemberRentalInfo searchNowTotal = memberUIService.selectMemberNowTotalByCode(memberRentalInfo);
-				if (searchNowTotal.getNowTotal() < 0) {
+				if (searchNowTotal.getNowTotal() < 1) {
 					JOptionPane.showMessageDialog(null, "대여가능한 권수를 초과하였습니다.");
 					return;
 				}
