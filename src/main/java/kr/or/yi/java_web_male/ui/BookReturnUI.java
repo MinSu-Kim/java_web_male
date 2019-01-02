@@ -204,7 +204,7 @@ public class BookReturnUI extends JFrame {
 				if(overdue.getStopDate() > 0) {
 					overdue.setStopEndDate(d);
 				}else {
-					overdue.setStopEndDate(null);
+					overdue.setStopEndDate(new Date());
 				}
 				
 				int updateStopEndDate = memberUIService.updateStopEndDate(overdue);
