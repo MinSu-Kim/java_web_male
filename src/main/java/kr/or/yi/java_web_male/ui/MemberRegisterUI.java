@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -629,7 +630,7 @@ public class MemberRegisterUI extends JFrame {
 		overdue.setStopDate(0);
 		overdue.setOverdueCount(0);
 		overdue.setRentalAuthority(true);
-		overdue.setStopEndDate(null);
+		overdue.setStopEndDate(new Date());
 		service.insertoverDue(overdue);
 	}
 
