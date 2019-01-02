@@ -144,16 +144,16 @@ public class PostUI extends JFrame {
 		JButton BtnOk = new JButton("확인");
 		BtnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, String.format("%s%s,%s", textPostCode.getText(),
+				JOptionPane.showMessageDialog(null, String.format("%s %s,%s", textPostCode.getText(),
 						textAddress.getText(), textDetailAddress.getText()));
 
 				if (memberRegisterUI != null) {
-					memberRegisterUI.setAddress(String.format("%s%s", textPostCode.getText(), textAddress.getText()));
+					memberRegisterUI.setAddress(String.format("%s %s", textPostCode.getText(), textAddress.getText()));
 					memberRegisterUI.setTfjuso(textDetailAddress.getText());
 				}
 
 				if (memberUpdateUI != null) {
-					memberUpdateUI.setAddress(String.format("%s,%s", textPostCode.getText(), textAddress.getText()));
+					memberUpdateUI.setAddress(String.format("%s %s", textPostCode.getText(), textAddress.getText()));
 					memberUpdateUI.setTfjuso(textDetailAddress.getText());
 				}
 

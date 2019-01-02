@@ -84,7 +84,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 	private void initComponents() {
 		setTitle("도서 추가");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 425);
+		setBounds(100, 100, 450, 564);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -92,12 +92,12 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		setResizable(false);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(5, 5, 424, 133);
+		panel.setBounds(12, 10, 424, 277);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JPanel panel_3 = new JPanel();
-		panel_3.setBounds(0, 88, 207, 45);
+		panel_3.setBounds(0, 222, 207, 45);
 		panel.add(panel_3);
 		panel_3.setLayout(null);
 
@@ -112,21 +112,21 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		tfBookCode.setColumns(10);
 
 		JPanel panel_4 = new JPanel();
-		panel_4.setBounds(219, 0, 207, 133);
+		panel_4.setBounds(219, 0, 207, 267);
 		panel.add(panel_4);
 
 		btnImage = new JButton("사진 추가");
-		btnImage.setBounds(42, 110, 126, 23);
+		btnImage.setBounds(42, 234, 126, 23);
 		btnImage.addActionListener(this);
 		panel_4.add(btnImage);
 		panel_4.setLayout(null);
 
 		lblImage = new JLabel("");
-		lblImage.setBounds(42, 0, 126, 106);
+		lblImage.setBounds(12, 0, 183, 224);
 		panel_4.add(lblImage);
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(5, 148, 424, 36);
+		panel_2.setBounds(12, 297, 424, 36);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 
@@ -221,7 +221,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		panel_2.add(comboCateS);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(5, 194, 424, 133);
+		panel_1.setBounds(12, 343, 424, 133);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 
@@ -271,7 +271,7 @@ public class BookInsertUI extends JFrame implements ActionListener {
 		panel_1.add(tfPrice);
 
 		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(5, 337, 424, 39);
+		panel_5.setBounds(12, 486, 424, 39);
 		contentPane.add(panel_5);
 
 		btnInsert = new JButton("추가");
