@@ -298,7 +298,7 @@ public class MemberSearchDetail extends JFrame {
 	//값을 받아옴
 	public void setLists(Member member) {
 		textMemberNo.setText(member.getMemberNo());
-		textPass.setText(member.getPassword().substring(0,0)+"########");
+		textPass.setText(member.getPassword().substring(0,0));
 		textKor.setText(member.getKorName());
 		textEng.setText(member.getEngName());
 		textPhone.setText(member.getPhone());

@@ -282,6 +282,8 @@ public class BookDetailUI extends JFrame {
 		panel_3.remove(btnbookRentalInfo);
 		revalidate();
 //		btnbookRentalInfo.remove(this);
+		
+		
 	}
 
 
