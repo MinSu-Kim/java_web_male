@@ -143,38 +143,40 @@ public class BookExtendUI extends JFrame {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				//book_code
-				Book book = new Book();
-				book.setBookCode(textBookCode.getText());
+					//book_code
+					Book book = new Book();
+					book.setBookCode(textBookCode.getText());
+					
+					//book_code로 rental_no찾기
+					BookRentalInfo BookRentalInfo = new BookRentalInfo();
+					BookRentalInfo.setBookCode(book);
+					System.out.println(BookRentalInfo.getBookCode());
+					
+					BookRentalInfo BookRentalNo = service.selectRentalNoByBookCode_returnDateNull(BookRentalInfo);
+					
+					
+					
+					int no = BookRentalNo.getRentalNo();
+					
+					BookRentalInfo bookRentalInfo = new BookRentalInfo();
+					bookRentalInfo.setRentalNo(no);
+					
+					Date returnSchedule = BookRentalNo.getReturnSchedule();
+					
+					Calendar cal = Calendar.getInstance ( );
+					cal.setTime(returnSchedule);
+					cal.add ( Calendar.DATE, 7); 
+					JOptionPane.showMessageDialog(null, cal);
+					System.out.println( cal.get ( Calendar.YEAR ) + "년 " + ( cal.get ( Calendar.MONTH ) + 1 ) + "월 " + cal.get ( Calendar.DATE ) + "일" );
 				
-				//book_code로 rental_no찾기
-				BookRentalInfo BookRentalInfo = new BookRentalInfo();
-				BookRentalInfo.setBookCode(book);
-				System.out.println(BookRentalInfo.getBookCode());
 				
-				BookRentalInfo BookRentalNo = service.selectRentalNoByBookCode_returnDateNull(BookRentalInfo);
+					Date d = new Date(cal.getTimeInMillis());
+					
+					bookRentalInfo.setReturnSchedule(d);
+					
+					service.updateReturnSchedule(bookRentalInfo);
 				
 				
-				
-				int no = BookRentalNo.getRentalNo();
-				
-				BookRentalInfo bookRentalInfo = new BookRentalInfo();
-				bookRentalInfo.setRentalNo(no);
-				
-				Date returnSchedule = BookRentalNo.getReturnSchedule();
-				
-				Calendar cal = Calendar.getInstance ( );
-				cal.setTime(returnSchedule);
-				cal.add ( Calendar.DATE, 7); 
-				JOptionPane.showMessageDialog(null, cal);
-				System.out.println( cal.get ( Calendar.YEAR ) + "년 " + ( cal.get ( Calendar.MONTH ) + 1 ) + "월 " + cal.get ( Calendar.DATE ) + "일" );
-			
-			
-				Date d = new Date(cal.getTimeInMillis());
-				
-				bookRentalInfo.setReturnSchedule(d);
-				
-				service.updateReturnSchedule(bookRentalInfo);
 			}
 		});
 		panel_4.setLayout(null);

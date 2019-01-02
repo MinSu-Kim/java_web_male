@@ -471,13 +471,13 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		member.setPassword(new String(pass1.getPassword()).trim());
 		member.setPhone(
 		(String) TelBox.getSelectedItem() + "-" + tftel2.getText().trim() + "-" + tftel3.getText().trim());
-		member.setJumin(tfju1.getText().trim() + "-" + tfju2.getText().trim());
 		member.setEmail(tfEmail.getText().trim() + "@" + tfEmail_2.getText().trim());
 		member.setAddress(tfAdd.getText().trim()+ "," + tfjuso.getText().trim());
 		member.setPhoto(fileName);
 		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 		service.updateMember(member);
-	}	
+	}
+	
 	public void setLists(Member member) {
 		tFmemberNo.setText(member.getMemberNo());
 		pass1.setText(member.getPassword());
@@ -488,6 +488,7 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		tfEmail.setText(member.getEmail());
 		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 	}
+	
 	@SuppressWarnings("unlikely-arg-type")
 	private void check() throws Exception {
 		String pw1 = new String(pass1.getPassword());
@@ -571,12 +572,10 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		member.setJumin(tfju1.getText() + "-" + new String(tfju2.getPassword()));
 
 		if (service.selectMemberByNojumin(member).size() == 0) {
-
 		} else {
 			tfju2.requestFocus();
 			throw new Exception("이미 등록된 회원입니다.");
 		}
-
 	}
 
 	protected void do_btnCancel_actionPerformed(ActionEvent e) {
@@ -592,7 +591,6 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		if (ret == JFileChooser.APPROVE_OPTION) {
 			pathName = chooser.getSelectedFile().getPath();
 			fileName = chooser.getSelectedFile().getName();
-
 			lblImg.setIcon(new ImageIcon(imgPath + fileName));
 		}
 	}

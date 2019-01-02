@@ -614,9 +614,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 			delete.addActionListener(this);
 			popupMenu.add(delete);
 
-			JMenuItem add = new JMenuItem("추가");
-			add.addActionListener(this);
-			popupMenu.add(add);
+			
 		}
 		return popupMenu;
 	}
@@ -637,10 +635,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 		if (e.getActionCommand().equals("삭제")) {
 			do_mntmDel_actionPerformed(e);
 		}
-		if (e.getActionCommand().equals("추가")) {
-			do_mntmAdd_actionPerformed(e);
-
-		}
+		
 
 	}
 

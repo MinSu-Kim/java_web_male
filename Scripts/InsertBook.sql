@@ -153,7 +153,7 @@ insert into `member` values("1","asdf", "이천희", "lch","01022306796","921012
 select * from book WHERE book_code REGEXP '00001';
 
 /*post*/
-LOAD data LOCAL INFILE 'C:/Users/lenovo/git/java_web_male/DataFiles/대구광역시.txt' INTO table post
+LOAD data LOCAL INFILE 'D:/workspace_project/java_web_male/DataFiles/대구광역시.txt' INTO table post
 character set 'euckr'
 fields TERMINATED by '|'
 IGNORE 1 lines
@@ -343,7 +343,7 @@ select member_no, password, kor_name, eng_name, phone,
 		replace(jumin,regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1)
              ,substr(replace(regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1),'-'),1,7)||'******') jumin, email, address, photo, admin, uniqueness
 		from member;
-
+=======
 select * from overdue;
 
 select *,Datediff(stop_end_date, now())
