@@ -195,7 +195,6 @@ public class LoginUI extends JFrame implements ActionListener {
 
 						adminMainUI = new AdminMainUI();
 						adminMainUI.setVisible(true);
-						JOptionPane.showMessageDialog(null, serviceUI.selectDate());
 						if (serviceUI.selectDate() != 0) {
 							overduePopUpUI = new OverduePopUpUI();
 							overduePopUpUI.setVisible(true);
