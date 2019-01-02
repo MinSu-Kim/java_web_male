@@ -343,7 +343,7 @@ select member_no, password, kor_name, eng_name, phone,
 		replace(jumin,regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1)
              ,substr(replace(regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1),'-'),1,7)||'******') jumin, email, address, photo, admin, uniqueness
 		from member;
-=======
+
 select * from overdue;
 
 select *,Datediff(stop_end_date, now())
