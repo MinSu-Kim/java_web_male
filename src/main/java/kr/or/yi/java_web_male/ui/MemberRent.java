@@ -56,9 +56,9 @@ public class MemberRent extends JPanel {
 	}
 	private Object[] getRow(Member member) {
 		SimpleDateFormat date= new SimpleDateFormat("yyyy/MM/dd");
-		
+		System.out.println("값은"+member.getBookRentallInfo().getBookCode());
 		return new Object[] {
-				 member.getBook().getBookNo(),
+				 member.getBook().getBookCode(),
 				 member.getBook().getTitle(),
 				 date.format(member.getBookRentallInfo().getRentalDate()),
 				 date.format( member.getBookRentallInfo().getReturnSchedule())

@@ -278,17 +278,17 @@ public class MemberSearchDetail extends JFrame {
 		});
 		panel_1.add(btnCancel);
 		
-		JButton btnNewButton = new JButton("삭제");
+		JButton btnNewButton = new JButton("탈퇴");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("newMemberNo", ("D("+textMemberNo.getText()+")").trim());
 				map.put("memberNo", textMemberNo.getText());
 				map.put("password", textPass.getText().substring(0, 0));
-				int select = JOptionPane.showConfirmDialog(null, "정말로 삭제 하시겟습니까?");
+				int select = JOptionPane.showConfirmDialog(null, "정말로 탈퇴 하시겟습니까?");
 				if(select==0) {
 					service.deleteMemberNo(map);
-					JOptionPane.showMessageDialog(null, "삭제 되었습니다.");
+					JOptionPane.showMessageDialog(null, "탈퇴 되었습니다.");
 				}
 				
 			}
