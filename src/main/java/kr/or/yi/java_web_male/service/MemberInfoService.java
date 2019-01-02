@@ -17,4 +17,8 @@ public class MemberInfoService {
 	public List<BookRentalInfo> selectBookRentalMemberInfo(Member member) {
 		return bookRentalInfoMapper.selectBookRentalMemberInfo(member);
 	}
+
+	public List<BookRentalInfo> selectBookByMemberNoReturnDateNull(Member member) {
+		return bookRentalInfoMapper.selectBookByMemberNoReturnDateNull(member);
+	}
 }

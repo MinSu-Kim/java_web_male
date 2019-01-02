@@ -105,7 +105,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfMemberNo.setColumns(10);
 
 		JPanel pKorName = new JPanel();
-		pKorName.setBounds(29, 31, 147, 20);
+		pKorName.setBounds(19, 31, 157, 20);
 		panel_2.add(pKorName);
 		pKorName.setLayout(null);
 
@@ -114,19 +114,21 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pKorName.add(lblKorName);
 
 		tfKorName = new JTextField();
-		tfKorName.setBounds(72, 0, 74, 20);
+		tfKorName.setBounds(80, 0, 77, 20);
 		pKorName.add(tfKorName);
 		tfKorName.setColumns(10);
 
 		JPanel pEngName = new JPanel();
 		pEngName.setBounds(178, 31, 156, 20);
 		panel_2.add(pEngName);
-		pEngName.setLayout(new GridLayout(0, 2, 10, 10));
+		pEngName.setLayout(null);
 
 		JLabel lblEngName = new JLabel("영어명");
+		lblEngName.setBounds(12, 0, 56, 20);
 		pEngName.add(lblEngName);
 
 		tfEngName = new JTextField();
+		tfEngName.setBounds(80, 0, 76, 20);
 		pEngName.add(tfEngName);
 		tfEngName.setText((String) null);
 		tfEngName.setEditable(false);
@@ -203,6 +205,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pRentList.add(scrollPane);
 
 		table = new JTable();
+		table.setEnabled(false);
 		loadDatas();
 		scrollPane.setViewportView(table);
 		pRentList.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { scrollPane, table }));
@@ -243,7 +246,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	private Object[][] getDatas() {
 		Member member = LoginUI.getLogin();
-		lists = service.selectBookRentalMemberInfo(member);
+		lists = service.selectBookByMemberNoReturnDateNull(member);
 		Object[][] datas = new Object[lists.size()][];
 		for (int i = 0; i < lists.size(); i++) {
 			datas[i] = getMemberRentalInfo(lists.get(i));
@@ -252,18 +255,15 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	private Object[] getMemberRentalInfo(BookRentalInfo bookRentalInfo) {
-		if (bookRentalInfo.getReturnDate() == null) {
-			SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
-			String bookCode = bookRentalInfo.getBookCode().getBookCode();
-			String title = bookRentalInfo.getBookCode().getTitle();
-			String publisher = bookRentalInfo.getPublisher().getPubName();
-			String author = bookRentalInfo.getBookCode().getAuthor();
-			Date rentalDate = bookRentalInfo.getRentalDate();
-			Date returnSchedule = bookRentalInfo.getReturnSchedule();
-			return new Object[] { bookCode, title, publisher, author, date.format(rentalDate),
-					date.format(returnSchedule) };
-		}
-		return null;
+		SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
+		String bookCode = bookRentalInfo.getBookCode().getBookCode();
+		String title = bookRentalInfo.getBookCode().getTitle();
+		String publisher = bookRentalInfo.getPublisher().getPubName();
+		String author = bookRentalInfo.getBookCode().getAuthor();
+		Date rentalDate = bookRentalInfo.getRentalDate();
+		Date returnSchedule = bookRentalInfo.getReturnSchedule();
+		return new Object[] { bookCode, title, publisher, author, date.format(rentalDate),
+				date.format(returnSchedule) };
 	}
 
 	private String[] getColumnNames() {
@@ -316,7 +316,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	public void getMemberInfo(Member member) {
 		String str = LoginUI.getLogin().getAddress();
 		String[] strArr = str.split(",");
-		
+
 		tfMemberNo.setText(member.getMemberNo());
 		tfKorName.setText(member.getKorName());
 		tfEngName.setText(member.getEngName());

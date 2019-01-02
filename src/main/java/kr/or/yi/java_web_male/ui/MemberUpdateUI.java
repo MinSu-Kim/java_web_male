@@ -473,7 +473,11 @@ public class MemberUpdateUI extends JFrame implements ActionListener {
 		(String) TelBox.getSelectedItem() + "-" + tftel2.getText().trim() + "-" + tftel3.getText().trim());
 		member.setEmail(tfEmail.getText().trim() + "@" + tfEmail_2.getText().trim());
 		member.setAddress(tfAdd.getText().trim()+ "," + tfjuso.getText().trim());
-		member.setPhoto(fileName);
+		
+		if (fileName != null) {
+			member.setPhoto(fileName);
+		}
+		
 		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 		service.updateMember(member);
 	}

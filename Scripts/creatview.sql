@@ -68,3 +68,6 @@ fields TERMINATED by '|'
 IGNORE 1 lines
 (@zipcode,@sido,@d,@sigungu,@d,@eupmyeon,@d,@d,@doro,@d,@d,@building1,@building2,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d)
 set zipcode=@zipcode, sido=@sido, sigungu=@sigungu, eupmyeon=@eupmyeon, doro=@doro, building1=@building1, building2=@building2
+
+CREATE INDEX idx_post_sido On post(sido);
+CREATE INDEX idx_post_doro ON post(doro);
