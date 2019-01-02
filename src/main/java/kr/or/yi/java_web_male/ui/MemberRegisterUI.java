@@ -421,13 +421,14 @@ public class MemberRegisterUI extends JFrame {
 					pathName = chooser.getSelectedFile().getPath();
 					fileName = chooser.getSelectedFile().getName();
 					lblImg.setIcon(new ImageIcon(imgPath + fileName));
+					lblImg.setText("");
 				}
 			}
 		});
 		btnImg.setBounds(25, 248, 155, 23);
 		panel_3.add(btnImg);
 
-		lblImg = new JLabel("사진을추가해주세요");
+		lblImg = new JLabel("사진을 추가해주세요");
 		lblImg.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImg.setBounds(12, 10, 178, 267);
 		panel_3.add(lblImg);
@@ -501,7 +502,11 @@ public class MemberRegisterUI extends JFrame {
 		member.setEmail(tfEmail.getText().trim() + "@" + tfEmail_2.getText().trim());
 		member.setAddress(tfAdd.getText().trim() + ", " + tfjuso.getText().trim());
 		member.setAdmin(chckadmin.isSelected());
-		member.setPhoto(fileName);
+		if(lblImg.getText().equals("")) {		
+			member.setPhoto(fileName);
+		}else {
+		member.setPhoto("noman.jpg");
+		}
 		int i = 0;
 
 		String make = tfEng.getText().substring(0, 1);
