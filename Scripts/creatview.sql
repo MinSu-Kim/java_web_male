@@ -61,9 +61,16 @@ begin
 END
 DELIMITER ;
 
-
 /*post 서동준꺼*/
 LOAD data LOCAL INFILE 'D:/workspace-project/java_web_male/DataFiles/대구광역시.txt' INTO table post
+character set 'euckr'
+fields TERMINATED by '|'
+IGNORE 1 lines
+(@zipcode,@sido,@d,@sigungu,@d,@eupmyeon,@d,@d,@doro,@d,@d,@building1,@building2,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d)
+set zipcode=@zipcode, sido=@sido, sigungu=@sigungu, eupmyeon=@eupmyeon, doro=@doro, building1=@building1, building2=@building2
+
+/*post 재영이꺼*/
+LOAD data LOCAL INFILE 'C:/Users/lenovo/git/java_web_male/DataFiles/대구광역시.txt' INTO table post
 character set 'euckr'
 fields TERMINATED by '|'
 IGNORE 1 lines

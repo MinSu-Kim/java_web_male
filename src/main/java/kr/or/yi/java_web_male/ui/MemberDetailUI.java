@@ -97,6 +97,7 @@ public class MemberDetailUI extends JFrame {
 	}
 
 	private Object[] getMemberRentalInfo(BookRentalInfo bookRentalInfo) {
+		System.out.println(bookRentalInfo.getRentalDate());
 		SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
 		String str1 = "";
 		String str2 = "";

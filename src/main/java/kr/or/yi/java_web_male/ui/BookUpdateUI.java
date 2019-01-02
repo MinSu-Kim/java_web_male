@@ -90,14 +90,14 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		setTitle("도서 수정");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 425);
+		setBounds(100, 100, 450, 538);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBounds(5, 5, 424, 133);
+		panel.setBounds(5, 10, 424, 249);
 		contentPane.add(panel);
 		panel.setLayout(new GridLayout(0, 2, 10, 10));
 
@@ -106,11 +106,11 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		panel_3.setLayout(null);
 
 		JLabel lblBookCode = new JLabel("도서 번호");
-		lblBookCode.setBounds(29, 88, 67, 45);
+		lblBookCode.setBounds(30, 194, 67, 45);
 		panel_3.add(lblBookCode);
 
 		tfBookCode = new JTextField();
-		tfBookCode.setBounds(97, 93, 98, 35);
+		tfBookCode.setBounds(109, 199, 98, 35);
 		tfBookCode.setEditable(false);
 		tfBookCode.setColumns(10);
 		tfBookCode.setText(book.getBookCode());
@@ -120,21 +120,21 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 
 		JPanel panel_4 = new JPanel();
 		panel.add(panel_4);
-		panel_4.setLayout(new GridLayout(0, 1, 10, 10));
 
 		btnImage = new JButton("사진 수정");
 		btnImage.addActionListener(this);
-		btnImage.setBounds(42, 110, 126, 23);
+		panel_4.setLayout(null);
+		btnImage.setBounds(42, 216, 126, 23);
 		panel_4.add(btnImage);
 
 		lblImage = new JLabel("");
-		lblImage.setBounds(42, 0, 126, 106);
+		lblImage.setBounds(12, 10, 183, 196);
 		lblImage.setIcon(new ImageIcon(imgPath + book.getImage()));
 		panel_4.add(lblImage);
 		panel_4.setLayout(null);
 
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(5, 148, 424, 39);
+		panel_2.setBounds(5, 269, 424, 39);
 		contentPane.add(panel_2);
 		panel_2.setLayout(null);
 
@@ -176,7 +176,7 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		panel_2.add(comboCateS);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(5, 197, 424, 133);
+		panel_1.setBounds(5, 318, 424, 133);
 		contentPane.add(panel_1);
 		panel_1.setLayout(new GridLayout(0, 2, 10, 10));
 
@@ -222,7 +222,7 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		panel_1.add(tfPrice);
 
 		JPanel panel_5 = new JPanel();
-		panel_5.setBounds(5, 337, 424, 39);
+		panel_5.setBounds(5, 461, 424, 39);
 		contentPane.add(panel_5);
 
 		btnupdate = new JButton("수정");
@@ -273,7 +273,7 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		book.setPrice(Integer.parseInt(tfPrice.getText().trim()));
 		book.setRentalPossible(true);
 		book.setImage(fileName);
-
+		
 		try {
 			service.updatetBook(book);
 			int result = JOptionPane.showConfirmDialog(null, "수정이 완료되었습니다.목록으로 돌아가시겠습니까?", "확인",
