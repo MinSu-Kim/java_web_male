@@ -52,7 +52,7 @@ public class MemberSearchUI extends JFrame {
 	private MemberRent memberRent;
 	private JPanel pContent;
 	private JPanel p_rent;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -74,6 +74,7 @@ public class MemberSearchUI extends JFrame {
 	 */
 
 	public MemberSearchUI() {
+		setTitle("회원검색");
 		overdueMapper = OverdueMapperImpl.getInstance();
 		service = new MemberUIService();
 		memberDetailUI = new MemberSearchDetail();
