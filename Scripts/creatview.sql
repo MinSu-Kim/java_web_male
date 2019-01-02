@@ -61,7 +61,6 @@ begin
 END
 DELIMITER ;
 
-
 /*post 서동준꺼*/
 LOAD data LOCAL INFILE 'D:/workspace-project/java_web_male/DataFiles/대구광역시.txt' INTO table post
 character set 'euckr'
