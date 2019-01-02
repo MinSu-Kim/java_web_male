@@ -191,7 +191,6 @@ public class BookReturnUI extends JFrame {
 					Calendar cal3 = Calendar.getInstance ( );
 					cal3.setTime(today);
 					cal3.add ( Calendar.DATE, stopdate.getStopDate()+count ); 
-					JOptionPane.showMessageDialog(null, cal3);
 					System.out.println( cal3.get ( Calendar.YEAR ) + "년 " + ( cal3.get ( Calendar.MONTH ) + 1 ) + "월 " + cal3.get ( Calendar.DATE ) + "일" );
 				
 				
@@ -217,7 +216,7 @@ public class BookReturnUI extends JFrame {
 					}
 					
 					int updateAuthority = memberUIService.updateAuthority(overdue);
-					JOptionPane.showMessageDialog(null, "반납완료"+count+"일 연체되셨습니다.");
+					JOptionPane.showMessageDialog(null, "반납완료. ["+count+"]일 연체되셨습니다.");
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, "대여중인 책이 아닙니다.");
 				}
