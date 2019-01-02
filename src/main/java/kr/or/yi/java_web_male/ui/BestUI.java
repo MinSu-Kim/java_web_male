@@ -224,7 +224,7 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		panel_17.add(bspinnerYear);
 
 		bspinnerMonth = new JSpinner();
-		bspinnerMonth.setModel(new SpinnerDateModel(new Date(1545107289098L), null, null, Calendar.DAY_OF_MONTH));
+		bspinnerMonth.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH));
 		bspinnerMonth.setEditor(new JSpinner.DateEditor(bspinnerMonth, "MM"));
 		bspinnerMonth.setEnabled(true);
 		panel_17.add(bspinnerMonth);
