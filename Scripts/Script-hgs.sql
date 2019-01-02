@@ -10,7 +10,7 @@ update member_rental_info set now_total=now_total-1, total=total+1 where member_
 
 /*반납 sdj*/
 update book_rental_info set return_date='2019-01-10' where member_no='S0001';
-update member_rental_info set now_total=now_total+1;
+update member_rental_info set now_total=now_total+1 where member_no='S0001';
 update proj_library.book set rental_possible=1 where  book_code='6900000401';
 
 
@@ -82,7 +82,7 @@ where member_no='H0001';
 
 
 /*대여 ljm*/
-insert into book_rental_info values(4,'2019-01-01',null,'2019-01-08' ,'L0002','6900000405');
+insert into book_rental_info values(10,'2019-01-01',null,'2019-01-08' ,'L0002','6900000405');
 select * from book_rental_info;
 
 update book set rental_possible=0 where book_code='6900000405';

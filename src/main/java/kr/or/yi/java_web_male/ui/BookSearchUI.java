@@ -90,6 +90,8 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	private DefaultComboBoxModel<CategoryB> modelB;
 	private String log;
 	private BookRentUI bookRentUI;
+	private BookReturnUI bookReturnUI;
+	private BookExtendUI bookExtendUI;
 	private boolean searchwhat = true;
 	private BookUpdateUI bookUpdateUI;
 	private Book selectedBook;
@@ -196,7 +198,9 @@ public class BookSearchUI extends JFrame implements ActionListener {
 						bookRentUI.setBookCode(book);
 						BookSearchUI.this.dispose();
 					} else {
-						JOptionPane.showMessageDialog(null, "대여 불가능한 책입니다.");
+						JOptionPane.showMessageDialog(null, "대여중인 책입니다.");
+						bookReturnUI.setBookCode(book);
+						BookSearchUI.this.dispose();
 					}
 
 				}
@@ -508,7 +512,9 @@ public class BookSearchUI extends JFrame implements ActionListener {
 						bookRentUI.setBookCode(book);
 						BookSearchUI.this.dispose();
 					} else {
-						JOptionPane.showMessageDialog(null, "대여 불가능한 책입니다.");
+						JOptionPane.showMessageDialog(null, "대여중인 책입니다.");
+						bookReturnUI.setBookCode(book);
+						BookSearchUI.this.dispose();
 					}
 
 				}
@@ -796,6 +802,11 @@ public class BookSearchUI extends JFrame implements ActionListener {
 
 	public void setBookRentUI(BookRentUI bookRentUI) {
 		this.bookRentUI = bookRentUI;
+
+	}
+	
+	public void setBookReturnUI(BookReturnUI bookReturnUI) {
+		this.bookReturnUI = bookReturnUI;
 
 	}
 

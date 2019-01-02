@@ -89,15 +89,28 @@ public class BookReturnUI extends JFrame {
 		panel_2.setLayout(null);
 		
 		JLabel lblBookCode = new JLabel("도서번호");
-		lblBookCode.setBounds(0, 0, 212, 50);
+		lblBookCode.setBounds(0, 0, 141, 50);
 		lblBookCode.setFont(new Font("Dialog", Font.BOLD, 16));
 		lblBookCode.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lblBookCode);
 		
 		textBookCode = new JTextField();
-		textBookCode.setBounds(212, 0, 212, 50);
+		textBookCode.setBounds(141, 0, 141, 50);
 		panel_2.add(textBookCode);
 		textBookCode.setColumns(10);
+		
+		JButton btnBookCode = new JButton("도서검색");
+		btnBookCode.setFont(new Font("Dialog", Font.BOLD, 16));
+		btnBookCode.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BookSearchUI bsu = new BookSearchUI();
+				bsu.setBookReturnUI(BookReturnUI.this);
+				bsu.SetBookCoded(textBookCode.getText());
+				bsu.setVisible(true);
+			}
+		});
+		btnBookCode.setBounds(282, 0, 141, 50);
+		panel_2.add(btnBookCode);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBounds(5, 56, 424, 261);
@@ -217,6 +230,7 @@ public class BookReturnUI extends JFrame {
 					
 					int updateAuthority = memberUIService.updateAuthority(overdue);
 					JOptionPane.showMessageDialog(null, "반납완료. ["+count+"]일 연체되셨습니다.");
+					clearTf();
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, "대여중인 책이 아닙니다.");
 				}
@@ -229,8 +243,16 @@ public class BookReturnUI extends JFrame {
 		panel_3.add(btnNewButton);
 	}
 	
+	private void clearTf() {
+		textBookCode.setText("");
+	}
+	
+	public void setBookCode(Book book) {
+		this.textBookCode.setText(book.getBookCode());
+		textBookCode.requestFocus();
+	}
+	
 	public void setInOutUI(InOutUI inOutUI) {
 		this.inOutUI = inOutUI;
 	}
-
 }

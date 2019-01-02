@@ -100,9 +100,15 @@ public class BookExtendUI extends JFrame {
 		textBookCode.setColumns(10);
 		panel_1.add(textBookCode);
 		
-		JLabel label = new JLabel("");
-		label.setBounds(282, 0, 141, 50);
-		panel_1.add(label);
+		JButton btnNewButton = new JButton("도서검색");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnNewButton.setFont(new Font("Dialog", Font.BOLD, 16));
+		btnNewButton.setBounds(282, 0, 141, 50);
+		panel_1.add(btnNewButton);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(0, 62, 424, 50);
@@ -199,10 +205,15 @@ public class BookExtendUI extends JFrame {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		sdf.format(scheduleDate);
 		textReturnSchedule.setText(sdf.format(scheduleDate));
-		
-		
-		
-		
+	}
+	
+	private void clearTf() {
+		textBookCode.setText("");
+	}
+
+	public void setBookCode(Book book) {
+		this.textBookCode.setText(book.getBookCode());
+		textBookCode.requestFocus();
 	}
 	
 	public void setInOutUI(InOutUI inOutUI) {
