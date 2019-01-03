@@ -308,6 +308,7 @@ insert into book_rental_info values (149,'2018-11-02',null, '2018-11-02','K0001'
 
 
 
+
 update book set rental_possible=0 where book_code='6900000402';
 
 update member_rental_info set now_total=now_total-1, total=total+1 where member_no='K0001';

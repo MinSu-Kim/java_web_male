@@ -363,4 +363,6 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		bestUI.setVisible(true);
 		bestUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
+
+	
 }

@@ -44,4 +44,11 @@ public class OverduePopupMapperImpl implements OverduePopupMapper {
 		}
 	}
 
+	@Override
+	public List<OverduePopup> selectAllRentInfo() {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectList(namespace + ".selectAllRentInfo");
+		}
+	}
+
 }

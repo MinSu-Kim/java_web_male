@@ -8,6 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
 
 @SuppressWarnings("serial")
 public class AdminMainUI extends JFrame implements ActionListener {
@@ -31,6 +34,7 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	private JButton btnUpdate;
 	private JButton btnExtendAdmin;
 	private JButton btnReturnAdmin;
+	private JPanel panel_2;
 
 	public AdminMainUI() {
 		loginUI = new LoginUI();
@@ -51,31 +55,40 @@ public class AdminMainUI extends JFrame implements ActionListener {
 		panel = new JPanel();
 		panel.setBounds(5, 5, 424, 156);
 		contentPane.add(panel);
-		panel.setLayout(new GridLayout(0, 3, 10, 10));
-
-		btnBookInsert = new JButton("도서 추가");
-		btnBookInsert.addActionListener(this);
-		panel.add(btnBookInsert);
-
-		btnBookSearch = new JButton("도서 검색");
-		btnBookSearch.addActionListener(this);
-		panel.add(btnBookSearch);
-
-		btnMemberAdmin = new JButton("회원 관리");
-		btnMemberAdmin.addActionListener(this);
-		panel.add(btnMemberAdmin);
-
-		btnRentAdmin = new JButton("도서 대여");
-		btnRentAdmin.addActionListener(this);
-		panel.add(btnRentAdmin);
-
-		btnReturnAdmin = new JButton("도서 반납");
-		btnReturnAdmin.addActionListener(this);
-		panel.add(btnReturnAdmin);
-
-		btnExtendAdmin = new JButton("도서 연장");
-		btnExtendAdmin.addActionListener(this);
-		panel.add(btnExtendAdmin);
+		panel.setLayout(new GridLayout(0, 1, 0, 0));
+								
+								JPanel panel_3 = new JPanel();
+								panel.add(panel_3);
+										panel_3.setLayout(new GridLayout(0, 3, 10, 10));
+								
+										btnBookInsert = new JButton("도서 추가");
+										panel_3.add(btnBookInsert);
+										
+												btnBookSearch = new JButton("도서 검색");
+												panel_3.add(btnBookSearch);
+												
+														btnMemberAdmin = new JButton("회원 관리");
+														panel_3.add(btnMemberAdmin);
+														
+														panel_2 = new JPanel();
+														panel_2.setBorder(new TitledBorder(null, "\uB300\uC5EC\uAD00\uB9AC", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+														panel.add(panel_2);
+																panel_2.setLayout(new GridLayout(0, 3, 10, 0));
+														
+																btnRentAdmin = new JButton("도서 대여");
+																panel_2.add(btnRentAdmin);
+																
+																		btnReturnAdmin = new JButton("도서 반납");
+																		panel_2.add(btnReturnAdmin);
+																		
+																				btnExtendAdmin = new JButton("도서 연장");
+																				panel_2.add(btnExtendAdmin);
+																				btnExtendAdmin.addActionListener(this);
+																				btnReturnAdmin.addActionListener(this);
+																				btnRentAdmin.addActionListener(this);
+														btnMemberAdmin.addActionListener(this);
+														btnBookSearch.addActionListener(this);
+														btnBookInsert.addActionListener(this);
 
 		panel_1 = new JPanel();
 		panel_1.setBounds(5, 171, 424, 33);
