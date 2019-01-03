@@ -56,7 +56,7 @@ public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 	@Override
 	public List<BookRentalInfo> selectBookRentalMemberInfo(Member member) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
-			return sqlSession.selectList(namespace + ".selectBookByMemberNo", member);
+			return sqlSession.selectList(namespace + ".selectBookRentalMemberInfo", member);
 		}
 	}
 
@@ -75,6 +75,13 @@ public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 	}
 
 	@Override
+	public List<BookRentalInfo> selectBookByMemberNoReturnDateNull(Member member) {
+		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
+			return sqlSession.selectList(namespace + ".selectBookByMemberNoReturnDateNull", member);
+		}
+	}
+
+	@Override
 	public BookRentalInfo selectRentalNoByBookCode(BookRentalInfo bookRentalInfo) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {
 			return sqlSession.selectOne(namespace + ".selectRentalNoByBookCode", bookRentalInfo);
@@ -89,6 +96,7 @@ public class BookRentalInfoMapperImpl implements BookRentalInfoMapper {
 			return res;
 		}
 	}
+
 	@Override
 	public List<BookRentalInfo> selectRentalBookInfoByCategoryB(Member member) {
 		try (SqlSession sqlSession = MyBatisSqlSessionFactory.openSession();) {

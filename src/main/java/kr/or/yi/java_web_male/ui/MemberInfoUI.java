@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.Member;
@@ -53,6 +55,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private LoginUI loginUI;
 	private MemberUpdateUI memberUpdateUI;
 	private MemberDetailUI memberDetailUI;
+	private AdminMainUI adminMainUI;
 	private BookSearchUI bookSearchUI;
 	private List<BookRentalInfo> lists;
 	private String imgPath;
@@ -61,8 +64,10 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private MemberUIService memberUIService;
 	private Overdue overdue;
 	private JLabel lblImg;
+	private Map<String, JFrame> uiMaps;
 
 	public MemberInfoUI() {
+		setResizable(false);
 		imgPath = System.getProperty("user.dir") + "\\images\\";
 		loginUI = new LoginUI();
 		service = new MemberInfoService();
@@ -71,9 +76,16 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	private void initComponent() {
-		setTitle("[사용자] " + LoginUI.getLogin().getKorName() + "님 환영합니다.");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 613, 593);
+		String admin = "";
+		if (LoginUI.getLogin().isAdmin() == true) {
+			admin = "[관리자] ";
+		} else {
+			admin = "[사용자] ";
+		}
+
+		setTitle(admin + LoginUI.getLogin().getKorName() + "님 환영합니다.");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 613, 391);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -103,7 +115,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfMemberNo.setColumns(10);
 
 		JPanel pKorName = new JPanel();
-		pKorName.setBounds(29, 31, 147, 20);
+		pKorName.setBounds(19, 31, 157, 20);
 		panel_2.add(pKorName);
 		pKorName.setLayout(null);
 
@@ -112,19 +124,21 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pKorName.add(lblKorName);
 
 		tfKorName = new JTextField();
-		tfKorName.setBounds(72, 0, 74, 20);
+		tfKorName.setBounds(80, 0, 77, 20);
 		pKorName.add(tfKorName);
 		tfKorName.setColumns(10);
 
 		JPanel pEngName = new JPanel();
 		pEngName.setBounds(178, 31, 156, 20);
 		panel_2.add(pEngName);
-		pEngName.setLayout(new GridLayout(0, 2, 10, 10));
+		pEngName.setLayout(null);
 
 		JLabel lblEngName = new JLabel("영어명");
+		lblEngName.setBounds(12, 0, 56, 20);
 		pEngName.add(lblEngName);
 
 		tfEngName = new JTextField();
+		tfEngName.setBounds(80, 0, 76, 20);
 		pEngName.add(tfEngName);
 		tfEngName.setText((String) null);
 		tfEngName.setEditable(false);
@@ -192,21 +206,22 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pPhoto.add(lblImg);
 
 		JPanel pRentList = new JPanel();
-		pRentList.setBounds(5, 207, 580, 319);
+		pRentList.setBounds(5, 207, 580, 113);
 		contentPane.add(pRentList);
 		pRentList.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 10, 580, 309);
+		scrollPane.setBounds(0, 10, 580, 103);
 		pRentList.add(scrollPane);
 
 		table = new JTable();
+		table.setEnabled(false);
 		loadDatas();
 		scrollPane.setViewportView(table);
 		pRentList.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { scrollPane, table }));
 
 		JPanel pButton = new JPanel();
-		pButton.setBounds(5, 526, 580, 23);
+		pButton.setBounds(5, 330, 580, 23);
 		contentPane.add(pButton);
 		pButton.setLayout(new GridLayout(0, 5, 10, 10));
 
@@ -226,9 +241,11 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		btnBest10.addActionListener(this);
 		pButton.add(btnBest10);
 
-		btnLogout = new JButton("로그아웃");
-		btnLogout.addActionListener(this);
-		pButton.add(btnLogout);
+		if (LoginUI.getLogin().isAdmin() != true) {
+			btnLogout = new JButton("로그아웃");
+			btnLogout.addActionListener(this);
+			pButton.add(btnLogout);
+		}
 
 		getMemberInfo(LoginUI.getLogin());
 		getMemberInfo2(overdue);
@@ -241,7 +258,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	private Object[][] getDatas() {
 		Member member = LoginUI.getLogin();
-		lists = service.selectBookRentalMemberInfo(member);
+		lists = service.selectBookByMemberNoReturnDateNull(member);
 		Object[][] datas = new Object[lists.size()][];
 		for (int i = 0; i < lists.size(); i++) {
 			datas[i] = getMemberRentalInfo(lists.get(i));
@@ -309,16 +326,18 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	// 로그인 객체에서 정보 가져오기
 	public void getMemberInfo(Member member) {
-		String str = LoginUI.getLogin().getAddress();
-		String[] strArr = str.split(",");
-		
+		String str = LoginUI.getLogin().getEmail();
+		String str2 = LoginUI.getLogin().getAddress();
+		String[] strArr = str.split("@");
+		String[] strArr2 = str2.split(",");
+
 		tfMemberNo.setText(member.getMemberNo());
 		tfKorName.setText(member.getKorName());
 		tfEngName.setText(member.getEngName());
-		tfPhone.setText(member.getPhone());
-		tfEmail.setText(member.getEmail());
-		tfJumin.setText(member.getJumin());
-		tfAddress.setText(strArr[0] + strArr[1]);
+		tfPhone.setText(member.getPhone().substring(0, 3) + "-****-****");
+		tfEmail.setText(strArr[0].substring(0, 4) + "****@" + strArr[1]);
+		tfJumin.setText(member.getJumin().substring(0, 8) + "******");
+		tfAddress.setText(strArr2[0] + " ***********");
 		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 
 		tfMemberNo.setEditable(false);
@@ -336,7 +355,6 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		Overdue overdueAll = memberUIService.selectOverdueByCode(oMno);
 		int stopDate = overdueAll.getStopDate();
 		String stop = String.valueOf(stopDate);
-
 		tfStopDate.setText(stop);
 	}
 
@@ -351,4 +369,6 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		bestUI.setVisible(true);
 		bestUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
+
+	
 }

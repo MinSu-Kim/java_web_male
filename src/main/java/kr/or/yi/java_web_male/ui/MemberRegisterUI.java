@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.apache.ibatis.annotations.Options;
+
+import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
 import kr.or.yi.java_web_male.dao.MemberMapper;
 import kr.or.yi.java_web_male.dto.Member;
@@ -26,6 +29,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -47,6 +51,7 @@ import java.awt.Component;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
+import javax.print.DocFlavor.STRING;
 import javax.swing.BoxLayout;
 import java.awt.Font;
 import java.awt.Dimension;
@@ -85,7 +90,7 @@ public class MemberRegisterUI extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -96,7 +101,7 @@ public class MemberRegisterUI extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	public static void setAdminpassword(String adminpassword1) {
 		adminpassword = adminpassword1;
@@ -106,8 +111,10 @@ public class MemberRegisterUI extends JFrame {
 	 * Create the frame.
 	 */
 	public MemberRegisterUI() {
+		setTitle("회원가입");
 		service = new MemberUIService();
 		imgPath = System.getProperty("user.dir") + "\\images\\";
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 672, 586);
 		contentPane = new JPanel();
@@ -195,7 +202,7 @@ public class MemberRegisterUI extends JFrame {
 		tfKor.setBounds(162, 0, 292, 49);
 		panel_kor.add(tfKor);
 		tfKor.setColumns(10);
-		tfKor.setDocument(new BoundDocument(13,tfKor));
+		tfKor.setDocument(new BoundDocument(13, tfKor));
 
 		JPanel panel_Eng = new JPanel();
 		panel.add(panel_Eng);
@@ -238,8 +245,7 @@ public class MemberRegisterUI extends JFrame {
 		tftel2.setBounds(77, 0, 102, 49);
 		panel_5.add(tftel2);
 		tftel2.setColumns(10);
-		tftel2.setDocument(new BoundDocument(4,tftel2));
-		
+		tftel2.setDocument(new BoundDocument(4, tftel2));
 
 		JLabel label_1 = new JLabel("-");
 		label_1.setBounds(182, 17, 6, 15);
@@ -249,7 +255,7 @@ public class MemberRegisterUI extends JFrame {
 		tftel3.setBounds(190, 0, 102, 49);
 		panel_5.add(tftel3);
 		tftel3.setColumns(10);
-		tftel3.setDocument(new BoundDocument(4,tftel3));
+		tftel3.setDocument(new BoundDocument(4, tftel3));
 
 		JPanel panel_Ju = new JPanel();
 		panel.add(panel_Ju);
@@ -269,8 +275,7 @@ public class MemberRegisterUI extends JFrame {
 		tfju1.setBounds(0, 0, 140, 49);
 		panel_6.add(tfju1);
 		tfju1.setColumns(10);
-		tfju1.setDocument(new BoundDocument(6,tfju1));
-		
+		tfju1.setDocument(new BoundDocument(6, tfju1));
 
 		JLabel label_2 = new JLabel("-");
 		label_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -281,7 +286,7 @@ public class MemberRegisterUI extends JFrame {
 		tfju2.setBounds(152, 0, 140, 49);
 		tfju2.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panel_6.add(tfju2);
-		tfju2.setDocument(new BoundDocument(7,tfju2));
+		tfju2.setDocument(new BoundDocument(7, tfju2));
 
 		JPanel panel_Email = new JPanel();
 		panel.add(panel_Email);
@@ -365,7 +370,7 @@ public class MemberRegisterUI extends JFrame {
 		panel_4.add(lbljuso);
 
 		tfjuso = new JTextField();
-		tfjuso.setBounds(161, 0, 293, 49);
+		tfjuso.setBounds(162, 0, 292, 49);
 		panel_4.add(tfjuso);
 		tfjuso.setColumns(10);
 
@@ -382,13 +387,27 @@ public class MemberRegisterUI extends JFrame {
 		chckadmin.setBounds(161, 0, 293, 49);
 		chckadmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String admin = JOptionPane.showInputDialog("관리번호를 입력해주세요");
-				if (admin.equals(adminpassword)) {
-					chckadmin.setSelected(true);
-					return;
-				} else
-					JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
-				chckadmin.setSelected(false);
+				
+				JPanel panel = new JPanel(); 
+				JLabel label = new JLabel("관리번호를 입력해주세요"); 
+				JPasswordField pass = new JPasswordField(10); 
+				panel.add(label); 
+				panel.add(pass); 
+				String[] options = new String[]{"확인", "취소"}; 
+				String option = String.valueOf(JOptionPane.showOptionDialog(null, panel, "관리자확인", 
+				         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, 
+				         null, options, options[1])); 
+				if(!option.equals(null)) // pressing OK button 
+				{ 
+				    String password = String.valueOf(pass.getPassword()); 
+				    System.out.println("Your password is: " + new String(password)); 
+				    if (password.equals(adminpassword)) {
+						chckadmin.setSelected(true);
+						return;
+					} else
+						JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
+						chckadmin.setSelected(false);
+					} 				
 			}
 		});
 		chckadmin.setHorizontalAlignment(SwingConstants.CENTER);
@@ -420,13 +439,14 @@ public class MemberRegisterUI extends JFrame {
 					pathName = chooser.getSelectedFile().getPath();
 					fileName = chooser.getSelectedFile().getName();
 					lblImg.setIcon(new ImageIcon(imgPath + fileName));
+					lblImg.setText("");
 				}
 			}
 		});
 		btnImg.setBounds(25, 248, 155, 23);
 		panel_3.add(btnImg);
 
-		lblImg = new JLabel("사진을추가해주세요");
+		lblImg = new JLabel("사진을 추가해주세요");
 		lblImg.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImg.setBounds(12, 10, 178, 267);
 		panel_3.add(lblImg);
@@ -443,15 +463,12 @@ public class MemberRegisterUI extends JFrame {
 					insertOverdue();
 					JOptionPane.showMessageDialog(null, "회원이 되신걸 축하드립니다.");
 					dispose();
-
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, e2.getMessage());
 					e2.printStackTrace();
-
 				}
-
 			}
 		});
 		btnAdd_1.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -469,7 +486,6 @@ public class MemberRegisterUI extends JFrame {
 
 			@Override
 			public void msg() {
-
 				String pw1 = new String(pass1.getPassword());
 				String pw2 = new String(pass2.getPassword());
 				String pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,}$";
@@ -498,9 +514,13 @@ public class MemberRegisterUI extends JFrame {
 				(String) TelBox.getSelectedItem() + "-" + tftel2.getText().trim() + "-" + tftel3.getText().trim());
 		member.setJumin(tfju1.getText().trim() + "-" + tfju2.getText().trim());
 		member.setEmail(tfEmail.getText().trim() + "@" + tfEmail_2.getText().trim());
-		member.setAddress(tfAdd.getText().trim() +","+ tfjuso.getText().trim());
+		member.setAddress(tfAdd.getText().trim() + ", " + tfjuso.getText().trim());
 		member.setAdmin(chckadmin.isSelected());
-		member.setPhoto(fileName);
+		if(lblImg.getText().equals("")) {		
+			member.setPhoto(fileName);
+		}else {
+		member.setPhoto("noman.jpg");
+		}
 		int i = 0;
 
 		String make = tfEng.getText().substring(0, 1);
@@ -516,6 +536,7 @@ public class MemberRegisterUI extends JFrame {
 		mn = mn.toUpperCase();
 		JOptionPane.showMessageDialog(null, mn);
 		member.setMemberNo(mn);
+		tFmemberNo.setText(mn);
 		service.insertMember(member);
 
 	}
@@ -545,7 +566,7 @@ public class MemberRegisterUI extends JFrame {
 		String tfeng = new String(tfEng.getText());
 		String pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,}$";
 		Matcher matcher = Pattern.compile(pwPattern).matcher(pw1);
-		String EngPatten =  "^[ㄱ-ㅎ가-힣]*$"; 
+		String EngPatten = "^[ㄱ-ㅎ가-힣]*$";
 		Matcher engmatcher = Pattern.compile(EngPatten).matcher(tfeng);
 		if (pw1.equals("")) {
 			pass1.requestFocus();
@@ -587,7 +608,7 @@ public class MemberRegisterUI extends JFrame {
 			tfjuso.requestFocus();
 			throw new Exception("주소를 입력해주세요");
 		}
-		if(engmatcher.matches()) {
+		if (engmatcher.matches()) {
 			tfEng.requestFocus();
 			throw new Exception("영어로 입력해주세요");
 		}
@@ -617,8 +638,8 @@ public class MemberRegisterUI extends JFrame {
 		MemberRentalInfo memberRentalInfo = new MemberRentalInfo();
 		memberRentalInfo.setMemberNo(mn);
 		memberRentalInfo.setGrade(1);
-		memberRentalInfo.setNowTotal(0);
-		memberRentalInfo.setTotal(3);
+		memberRentalInfo.setNowTotal(3);
+		memberRentalInfo.setTotal(0);
 		int res = service.insertMemberRentalInfo(memberRentalInfo);
 
 	}
@@ -628,8 +649,8 @@ public class MemberRegisterUI extends JFrame {
 		overdue.setMemberNo(mn);
 		overdue.setStopDate(0);
 		overdue.setOverdueCount(0);
-		overdue.setRentalAuthority(true);	
-		overdue.setStopEndDate(null);
+		overdue.setRentalAuthority(true);
+		overdue.setStopEndDate(new Date());
 		service.insertoverDue(overdue);
 	}
 

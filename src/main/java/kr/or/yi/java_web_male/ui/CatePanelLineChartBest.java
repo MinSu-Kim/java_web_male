@@ -42,7 +42,7 @@ public class CatePanelLineChartBest extends JFXPanel implements InitScene{
 		lineChart = new LineChart<>(xAxis, yAxis);
 		lineChart.setPrefSize(600, 350);
 		lineChart.setData(getChartData());
-		lineChart.setTitle("카태고리별 대여량(6개월단위)");
+		lineChart.setTitle("카태고리별 대여량(전달기준)");
 		lineChart.setLegendVisible(true);	// 범례 표시 유무
 		lineChart.setLegendSide(Side.BOTTOM);// 범례 위치
 
@@ -71,10 +71,7 @@ public class CatePanelLineChartBest extends JFXPanel implements InitScene{
 		return dataSeries;
 	}
 	
-	/*public void addChartData(Student std) {
-		lineChart.getData().add(getChartData(std));
-	}
-*/
+	
 	public void addAllChartData() {
 		lineChart.setData(getChartData());
 	}

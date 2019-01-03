@@ -24,6 +24,10 @@ public class OverduePopUpUIService {
 	public void updatedat(){
 		overduePopupMapper.updatedat();
 	}
+
+	public List<OverduePopup> selectAllRentInfo() {
+		return overduePopupMapper.selectAllRentInfo();
+	}
 		
 	
 }

@@ -15,6 +15,9 @@
 			<if test="memberNo != null">
 				member_no = #{memberNo}
 			</if>
+			<if test="memberNo != null">
+				and member_no = #{memberNo}
+			</if>
 		</where>
 	</sql>
 	<sql id="whereSqljumin">
@@ -64,6 +67,7 @@
 			column="return_date" />
 		<result property="bookRentallInfo.returnSchedule"
 			column="return_schedule" />
+		<result property="book.bookCode" column="book_code"/>	
 	</resultMap>
 	<select id="selectMemberByNoToString" parameterType="String"
 		resultMap="MemberResult">
@@ -90,14 +94,17 @@
 	</select>
 
 	<!-- 수정 구문 -->
-	<select id="updateMember" parameterType="Member">
+	<update id="updateMember" parameterType="Member">
 		update Member set
-		password =PASSWORD(#{password}), kor_name=#{korName}, eng_name=#{engName},
-		phone=#{phone}, jumin=#{jumin}, email=#{email}, address=#{address},
-		photo=#{photo}, admin=#{admin}, uniqueness=#{uniqueness}
-		where
-		member_no=#{memberNo}
-	</select>
+		password =PASSWORD(#{password}), phone=#{phone}, email=#{email}, address=#{address}, photo=#{photo}
+		where member_no = #{memberNo}
+	</update>
+	
+	<update id="updateMember2" parameterType="Member">
+		update Member set
+		phone=#{phone}, email=#{email}, address=#{address}, photo=#{photo}
+		where member_no = #{memberNo}
+	</update>
 	
 	<update id="updateDetail" parameterType="Member">
 		update Member set

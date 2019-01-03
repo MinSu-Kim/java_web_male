@@ -96,6 +96,7 @@ public class LoginUI extends JFrame implements ActionListener {
 		pack();
 
 		setTitle("로그인");
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 250);
 		contentPane = new JPanel();
@@ -187,14 +188,12 @@ public class LoginUI extends JFrame implements ActionListener {
 				if (member.isAdmin() == true) {
 					if (adminMainUI == null) {
 
-						JOptionPane.showMessageDialog(null, serviceUI.selectDate());
 						if (serviceUI.selectDate() != 0) {
 							overduePopUpUI = new OverduePopUpUI();
 						}
 
 						adminMainUI = new AdminMainUI();
 						adminMainUI.setVisible(true);
-						JOptionPane.showMessageDialog(null, serviceUI.selectDate());
 						if (serviceUI.selectDate() != 0) {
 							overduePopUpUI = new OverduePopUpUI();
 							overduePopUpUI.setVisible(true);

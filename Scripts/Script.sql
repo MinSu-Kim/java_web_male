@@ -88,8 +88,11 @@ from member;
 select *
 from overdue;
 
+
 select *
 from member_rental_info;
+
+
 insert into `member` values("3","gfkrtkf", "서동준", "kiggay","01022306796","921012-1647545","tjehdxo2002@","비밀","하핫",1,"하말없음");
 
 insert into member values("10",password("king"),"노예1","slave1","010-2343-4533", concat(left('201012-1685651', 8),password(right('201012-1685651', 6)) ),"slave@naever.com","비밀","히히",0,"저는 노예입니다.");
@@ -140,6 +143,7 @@ SELECT cate_m_no, cate_b_no, cate_m_name
 		FROM proj_library.category_m
 		WHERE cate_b_no=1;
 	
+	
 insert into publisher values('P001', '오라클');
 		
 
@@ -153,15 +157,7 @@ insert into `member` values("1","asdf", "이천희", "lch","01022306796","921012
 select * from book WHERE book_code REGEXP '00001';
 
 /*post*/
-LOAD data LOCAL INFILE 'D:/workspace_project/java_web_male/DataFiles/대구광역시.txt' INTO table post
-character set 'euckr'
-fields TERMINATED by '|'
-IGNORE 1 lines
-(@zipcode,@sido,@d,@sigungu,@d,@eupmyeon,@d,@d,@doro,@d,@d,@building1,@building2,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d,@d)
-set zipcode=@zipcode, sido=@sido, sigungu=@sigungu, eupmyeon=@eupmyeon, doro=@doro, building1=@building1, building2=@building2
-
-/*post 서동준꺼*/
-LOAD data LOCAL INFILE 'D:/workspace-project/java_web_male/DataFiles/대구광역시.txt' INTO table post
+LOAD data LOCAL INFILE 'D:/worksapce_project/java_web_male/DataFiles/대구광역시.txt' INTO table post
 character set 'euckr'
 fields TERMINATED by '|'
 IGNORE 1 lines
@@ -287,6 +283,10 @@ select * from overdue;
 
 select * from book;
 
+select * from publisher;
+
+select * from category_s;
+
 select * from book
 where left(book_code, 1) != 'D'
 
@@ -351,7 +351,7 @@ select member_no, password, kor_name, eng_name, phone,
 		replace(jumin,regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1)
              ,substr(replace(regexp_substr(jumin,'[[:digit:]]{6}-*[[:digit:]]{7}',1,1),'-'),1,7)||'******') jumin, email, address, photo, admin, uniqueness
 		from member;
-=======
+
 select * from overdue;
 
 select *,Datediff(stop_end_date, now())

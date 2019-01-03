@@ -161,5 +161,13 @@ public class MemberMapperImpl implements MemberMapper {
 			return res;
 		}
 	}
+	@Override
+	public int updateMember2(Member member) {
+		try (SqlSession sqlSesion = MyBatisSqlSessionFactory.openSession();) {
+			int res = sqlSesion.update(namespace + ".updateMember2", member);
+			sqlSesion.commit();
+			return res;
+		}
+	}
 	
 }

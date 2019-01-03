@@ -14,12 +14,14 @@ import javax.swing.table.DefaultTableModel;
 
 import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.Member;
+import kr.or.yi.java_web_male.service.MemberUIService;
 
 public class MemberSearchResult extends JPanel {
 	private JTable table;
 	private List<Member> list;
 	private Member members;
 	private JScrollPane scrollPane;
+	private MemberUIService service;
 	
 	public void setLists(List<Member> list) {
 		this.list = list;
@@ -70,8 +72,7 @@ public class MemberSearchResult extends JPanel {
 	private Object[][] getdatas() {
 		Object[][] datas = new Object[list.size()][];
 		for(int i=0; i<list.size(); i++) {
-			datas[i]=getRow(list.get(i));
-			
+			datas[i]=getRow(list.get(i));			
 		}
 		return datas;
 	}
@@ -80,7 +81,7 @@ public class MemberSearchResult extends JPanel {
 		return new Object[] {member.getMemberNo(),
 							 member.getKorName(),
 							 member.getJumin().substring(0, 7)+"*******",
-							 member.getPhone()};
+							 member.getPhone().substring(0, 9)+"****"};
 	}
 	public Member selectedItem() {
 		int selectedIndex = table.getSelectedRow();
@@ -105,9 +106,7 @@ public class MemberSearchResult extends JPanel {
 	public void setLists(Member selectMemberByNo) {
 		this.members = selectMemberByNo;
 		
-	}
-
-	
+	}	
 	public JTable getTable() {
 		return table;
 

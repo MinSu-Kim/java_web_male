@@ -224,7 +224,7 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		panel_17.add(bspinnerYear);
 
 		bspinnerMonth = new JSpinner();
-		bspinnerMonth.setModel(new SpinnerDateModel(new Date(1545107289098L), null, null, Calendar.DAY_OF_MONTH));
+		bspinnerMonth.setModel(new SpinnerDateModel(new Date(), null, null, Calendar.DAY_OF_MONTH));
 		bspinnerMonth.setEditor(new JSpinner.DateEditor(bspinnerMonth, "MM"));
 		bspinnerMonth.setEnabled(true);
 		panel_17.add(bspinnerMonth);
@@ -481,8 +481,9 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 		Date whennow = new Date();
 		cal2.setTime(whennow);
 		for (int i = 0; i < 6; i++) {
-			
-			if(((cal2.get(Calendar.MONTH)-i+"").trim()).length()==1) {
+			whennow.setDate(whennow.getMonth()-i);
+			cal2.setTime(whennow);
+			if(((cal2.get(Calendar.MONTH)-i+1+"").trim()).length()==1) {
 				days.add( (cal2.get(Calendar.YEAR) + "-0" + (cal2.get(Calendar.MONTH) + 1 - i)));
 				/*rentalDate = (cal2.get(Calendar.YEAR) + "-0" + (cal2.get(Calendar.MONTH) + 1 - i));*/
 			}else {
@@ -493,6 +494,7 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 			mapForCateChart.put("cateBNo",i);
 			mapForCateChart.put("days", days);
 			best10s = bestService.selectBookByMap(mapForCateChart);
+			
 			listlists.add(best10s);
 		}
 		

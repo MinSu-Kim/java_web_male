@@ -21,17 +21,17 @@ public interface BookRentalInfoMapper {
 	int nextCode();
 
 	List<BookRentalInfo> selectBookRentalMemberInfo(Member member);
+	
+	List<BookRentalInfo> selectBookByMemberNoReturnDateNull(Member member);
 
 	int updateReturnDate(BookRentalInfo bookRentalInfo);
-	
+
 	BookRentalInfo selectRentalNoByBookCode(BookRentalInfo bookRentalInfo);
 
 	List<BookRentalInfo> selectRentalBookInfoByCategoryB(Member member);
-	
 
 	BookRentalInfo selectRentalNoByBookCode_returnDateNull(BookRentalInfo bookRentalInfo);
 
 	int updateReturnSchedule(BookRentalInfo bookRentalInfo);
-	
 
 }

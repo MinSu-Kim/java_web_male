@@ -33,50 +33,46 @@ public class MemberDetailUI extends JFrame {
 	private JTable table;
 	private List<BookRentalInfo> lists;
 	private PanelPieChart pPieChart;
-	private PanelLineChart pLineChart;
 
 	private BookRentalInfoMapper bookRentalInfoMapper;
 
 	public MemberDetailUI() {
-		LoginUI.getLogin();
 		bookRentalInfoMapper = BookRentalInfoMapperImpl.getInstance();
 		lists = bookRentalInfoMapper.selectBookRentalMemberInfo(LoginUI.getLogin());
 		initComponents();
 	}
 
 	private void initComponents() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 652);
+		setBounds(100, 100, 644, 652);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(0, 1, 10, 10));
+		contentPane.setLayout(null);
 
 		JPanel pList = new JPanel();
+		pList.setBounds(5, 5, 618, 242);
 		pList.setBorder(new TitledBorder(null, "\uB098\uC758 \uB300\uC5EC\uC774\uB825", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
 		contentPane.add(pList);
-		pList.setLayout(new BorderLayout(0, 0));
+		pList.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		pList.add(scrollPane, BorderLayout.CENTER);
+		scrollPane.setBounds(6, 17, 606, 225);
+		pList.add(scrollPane);
 
 		table = new JTable();
+		table.setEnabled(false);
 		loadDatas();
 		scrollPane.setViewportView(table);
 
-		pLineChart = new PanelLineChart();
-
-		pLineChart.setBorder(new TitledBorder(null, "\uB098\uC758 \uB3C5\uC11C\uB7C9", TitledBorder.LEADING,
-				TitledBorder.TOP, null, null));
-		contentPane.add(pLineChart);
-
 		pPieChart = new PanelPieChart();
+		pPieChart.setBounds(5, 257, 618, 350);
 		pPieChart.setBorder(new TitledBorder(null, "\uB098\uC758 \uC120\uD638\uC7A5\uB974", TitledBorder.LEADING,
 				TitledBorder.TOP, null, null));
 		contentPane.add(pPieChart);
 
-		Platform.runLater(() -> initFX(pLineChart));
 		Platform.runLater(() -> initFX(pPieChart));
 	}
 
@@ -102,28 +98,33 @@ public class MemberDetailUI extends JFrame {
 	}
 
 	private Object[] getMemberRentalInfo(BookRentalInfo bookRentalInfo) {
-		System.out.println(bookRentalInfo);
 		SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
+		String str1 = "";
+		String str2 = "";
 		String bookCode = bookRentalInfo.getBookCode().getBookCode();
-		System.out.println(bookCode);
 		String title = bookRentalInfo.getBookCode().getTitle();
-		System.out.println(title);
 		String publisher = bookRentalInfo.getPublisher().getPubName();
-		System.out.println(publisher);
 		String author = bookRentalInfo.getBookCode().getAuthor();
-		System.out.println(author);
 		Date rentalDate = bookRentalInfo.getRentalDate();
-		System.out.println(rentalDate);
 		Date returnDate = bookRentalInfo.getReturnDate();
-		System.out.println(returnDate);
+
+		if (returnDate == null) {
+			str1 = "미반납";
+			str2 = "미반납";
+		} else {
+			str1 = date.format(returnDate);
+			str2 = "반납";
+		}
 		Date returnSchedule = bookRentalInfo.getReturnSchedule();
-		System.out.println(returnSchedule);
-		return new Object[] { bookCode, title, publisher, author, date.format(rentalDate), date.format(returnDate),
-				date.format(returnSchedule) };
+		return new Object[] { bookCode, title, publisher, author, date.format(rentalDate), str1,
+				date.format(returnSchedule), str2 };
 	}
 
 	private String[] getColumnNames() {
 		return new String[] { "도서코드", "도서명", "출판사", "저자", "대여일자", "반납일자", "반납기한", "반납여부" };
 	}
+
+
+
 
 }

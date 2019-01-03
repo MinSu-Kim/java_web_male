@@ -91,7 +91,7 @@ public class BookDetailUI extends JFrame {
 		service = new LibraryUIService();
 		setTitle("도서 상세정보");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 587, 661);
+		setBounds(100, 100, 977, 656);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -282,6 +282,8 @@ public class BookDetailUI extends JFrame {
 		panel_3.remove(btnbookRentalInfo);
 		revalidate();
 //		btnbookRentalInfo.remove(this);
+		
+		
 	}
 
 

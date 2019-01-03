@@ -9,14 +9,19 @@
 			column="return_schedule" />
 		<result property="phone.phone" column="phone" />
 		<result property="returnDate" column="return_date" />
-		<result property="overday" column="overday" />
+		<result property="overday" column="overday" />		
+		<result property="bookCode.bookCode" column="book_code" />
+		<result property="memberNo.memberNo" column="member_no" />
+		
 	</resultMap>
 
 	<select id="selectAll" resultMap="OverduePopup">
 		SELECT kor_name, title,
-		rental_date, return_schedule,phone, return_date, overday
+		rental_date, return_schedule,phone, return_date,
+  		(to_days(now()) - to_days(return_schedule)) as overday
 		FROM
 		proj_library.overduepopup
+		where (now() > return_schedule)
 	</select>
 	<update id="updatedat">
 		UPDATE proj_library.`day`
@@ -25,6 +30,12 @@
 	<select id="selectDate" resultType="int">
 		select datediff(daty, now())
 		from day
+	</select>
+	<select id="selectAllRentInfo" resultMap="OverduePopup">
+		SELECT kor_name, title,
+		rental_date, return_schedule,phone, return_date,book_code,member_no,(to_days(now()) - to_days(return_schedule)) as overday
+		FROM
+		proj_library.overduepopup
 	</select>
 
 </mapper>
