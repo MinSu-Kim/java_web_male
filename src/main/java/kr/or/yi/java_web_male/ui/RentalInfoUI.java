@@ -1,6 +1,8 @@
 package kr.or.yi.java_web_male.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -11,6 +13,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,12 +23,14 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import kr.or.yi.java_web_male.dto.Book;
 import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.dto.OverduePopup;
 import kr.or.yi.java_web_male.service.LibraryUIService;
 import kr.or.yi.java_web_male.service.OverduePopUpUIService;
+import kr.or.yi.java_web_male.ui.CustomerList.ReturnTableCellRenderer;
 
 public class RentalInfoUI extends JFrame implements ActionListener {
 
@@ -109,6 +114,7 @@ public class RentalInfoUI extends JFrame implements ActionListener {
 	}
 	public void loadDatas() {
 		model = new NonEditableModel(getDatas(), getColumnNames());
+		setAlignWidth();
 		table.setModel(model);
 	}
 
@@ -120,6 +126,12 @@ public class RentalInfoUI extends JFrame implements ActionListener {
 		return datas;
 
 	}
+	protected void setAlignWidth() {
+      for (int i = 0; i < getColumnNames().length; i++) {
+         table.getColumnModel().getColumn(i).setCellRenderer(new ReturnTableCellRenderer());
+      }
+
+   }
 
 	public String[] getColumnNames() {
 		return new String[] { "이름","회원번호", "도서명","도서코드", "대여일자", "반납예정일", "전화번호","연체일수" };
@@ -128,11 +140,13 @@ public class RentalInfoUI extends JFrame implements ActionListener {
 	private Object[] getOverduePopupArray(OverduePopup overduePopup) {
 
 		SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
-
+		
+		int overday = overduePopup.overday;
+		
 		return new Object[] { overduePopup.korName.getKorName(),overduePopup.memberNo.getMemberNo() ,overduePopup.title.getTitle(),overduePopup.bookCode.getBookCode(),
 				date.format(overduePopup.rentalDate.getRentalDate()),
 				date.format(overduePopup.returnSchedule.getReturnSchedule()),
-				overduePopup.phone.getPhone(), overduePopup.overday };
+				overduePopup.phone.getPhone(), overday};
 	}
 
 	public Member getSelectedMember() throws Exception{
@@ -220,5 +234,24 @@ public class RentalInfoUI extends JFrame implements ActionListener {
 		
 	}
 	
+	public class ReturnTableCellRenderer extends JLabel implements TableCellRenderer {
+	      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,int row, int column) {
+	         setText(value.toString());
+	        /* if(column==4||column==7||column==11) {
+	            setHorizontalAlignment(JLabel.LEFT);
+	         }else {
+	            setHorizontalAlignment(JLabel.CENTER);
+	         }*/
+    
+	        
+
+	         if (table.getValueAt(row, 9).toString().equals("블랙리스트")) {
+	            setBackground(new Color(255, 0, 0, 40));
+	         } else {
+	            setBackground(Color.WHITE);
+	         }
+	         return this;
+	      }
+	   }
 
 }
