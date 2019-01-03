@@ -73,9 +73,16 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	}
 
 	private void initComponent() {
-		setTitle("[사용자] " + LoginUI.getLogin().getKorName() + "님 환영합니다.");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 613, 593);
+		String admin = "";
+		if (LoginUI.getLogin().isAdmin() == true) {
+			admin = "[관리자] ";
+		} else {
+			admin = "[사용자] ";
+		}
+
+		setTitle(admin + LoginUI.getLogin().getKorName() + "님 환영합니다.");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 613, 391);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -196,12 +203,12 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pPhoto.add(lblImg);
 
 		JPanel pRentList = new JPanel();
-		pRentList.setBounds(5, 207, 580, 319);
+		pRentList.setBounds(5, 207, 580, 113);
 		contentPane.add(pRentList);
 		pRentList.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 10, 580, 309);
+		scrollPane.setBounds(0, 10, 580, 103);
 		pRentList.add(scrollPane);
 
 		table = new JTable();
@@ -211,7 +218,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		pRentList.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { scrollPane, table }));
 
 		JPanel pButton = new JPanel();
-		pButton.setBounds(5, 526, 580, 23);
+		pButton.setBounds(5, 330, 580, 23);
 		contentPane.add(pButton);
 		pButton.setLayout(new GridLayout(0, 5, 10, 10));
 
@@ -314,16 +321,16 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	// 로그인 객체에서 정보 가져오기
 	public void getMemberInfo(Member member) {
-		String str = LoginUI.getLogin().getAddress();
-		String[] strArr = str.split(",");
+		String str = LoginUI.getLogin().getEmail();
+		String[] strArr = str.split("@");
 
 		tfMemberNo.setText(member.getMemberNo());
 		tfKorName.setText(member.getKorName());
 		tfEngName.setText(member.getEngName());
-		tfPhone.setText(member.getPhone());
-		tfEmail.setText(member.getEmail());
+		tfPhone.setText(member.getPhone().substring(0, 3) + "-****-****");
+		tfEmail.setText(strArr[0].substring(0, 4) + "****@" + strArr[1]);
 		tfJumin.setText(member.getJumin().substring(0, 8) + "******");
-		tfAddress.setText(strArr[0] + strArr[1]);
+		tfAddress.setText("****************************************");
 		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 
 		tfMemberNo.setEditable(false);

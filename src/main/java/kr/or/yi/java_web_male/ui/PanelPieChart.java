@@ -94,18 +94,36 @@ public class PanelPieChart extends JFXPanel implements InitScene {
 				break;
 			}
 		}
-		
-		list.addAll(
-				new PieChart.Data("총류", cateArr[0]),
-				new PieChart.Data("철학", cateArr[1]),
-				new PieChart.Data("종교", cateArr[2]),
-				new PieChart.Data("사회과학", cateArr[3]),
-				new PieChart.Data("자연과학", cateArr[4]),
-				new PieChart.Data("기술과학", cateArr[5]),
-				new PieChart.Data("예술", cateArr[6]),
-				new PieChart.Data("언어", cateArr[7]),
-				new PieChart.Data("문학", cateArr[8]),
-				new PieChart.Data("역사", cateArr[9]));
+			if (cateArr[0] != 0) {
+				list.add(new PieChart.Data("총류", cateArr[0]));
+			}
+			if (cateArr[1] != 0) {
+				list.add(new PieChart.Data("철학", cateArr[1]));
+			}
+			if (cateArr[2] != 0) {
+				list.add(new PieChart.Data("종교", cateArr[2]));
+			}
+			if (cateArr[3] != 0) {
+				list.add(new PieChart.Data("사회과학", cateArr[3]));
+			}
+			if (cateArr[4] != 0) {
+				list.add(new PieChart.Data("자연과학", cateArr[4]));
+			}
+			if (cateArr[5] != 0) {
+				list.add(new PieChart.Data("기술과학", cateArr[5]));
+			}
+			if (cateArr[6] != 0) {
+				list.add(new PieChart.Data("예술", cateArr[6]));
+			}
+			if (cateArr[7] != 0) {
+				list.add(new PieChart.Data("언어", cateArr[7]));
+			}
+			if (cateArr[8] != 0) {
+				list.add(new PieChart.Data("문학", cateArr[8]));
+			}
+			if (cateArr[9] != 0) {
+				list.add(new PieChart.Data("역사", cateArr[9]));
+			}
 		return list;
 	}
 }

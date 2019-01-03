@@ -188,7 +188,6 @@ public class LoginUI extends JFrame implements ActionListener {
 				if (member.isAdmin() == true) {
 					if (adminMainUI == null) {
 
-						
 						if (serviceUI.selectDate() != 0) {
 							overduePopUpUI = new OverduePopUpUI();
 						}

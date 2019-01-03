@@ -3,23 +3,11 @@ package kr.or.yi.java_web_male.ui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.security.Provider.Service;
-import java.util.List;
 
-import javax.swing.AbstractButton;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
-import kr.or.yi.java_web_male.dto.Member;
-import kr.or.yi.java_web_male.service.MemberUIService;
-
-import java.awt.FlowLayout;
 
 @SuppressWarnings("serial")
 public class AdminMainUI extends JFrame implements ActionListener {
@@ -33,8 +21,7 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	private BookInsertUI bookInsertUI;
 	private BookSearchUI bookSearchUI;
 	private MemberSearchUI memberSearchUI;
-	private MemberSearchDetail memberSearchDetail;
-	private MemberUpdateUI memberUpdateUI;
+	private MemberInfoUI memberInfoUI;
 	private BookRentUI bookRentUI;
 	private BookReturnUI bookReturnUI;
 	private BookExtendUI bookExtendUI;
@@ -81,11 +68,11 @@ public class AdminMainUI extends JFrame implements ActionListener {
 		btnRentAdmin = new JButton("도서 대여");
 		btnRentAdmin.addActionListener(this);
 		panel.add(btnRentAdmin);
-		
+
 		btnReturnAdmin = new JButton("도서 반납");
 		btnReturnAdmin.addActionListener(this);
 		panel.add(btnReturnAdmin);
-		
+
 		btnExtendAdmin = new JButton("도서 연장");
 		btnExtendAdmin.addActionListener(this);
 		panel.add(btnExtendAdmin);
@@ -134,21 +121,21 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	}
 
 	protected void do_btnBookInsert_actionPerformed(ActionEvent e) {
-		
+
 		if (bookInsertUI == null) {
-			
+
 			bookInsertUI = new BookInsertUI();
 		}
-		
+
 		bookInsertUI.setVisible(true);
 	}
 
 	protected void do_btnBookSearch_actionPerformed(ActionEvent e) {
-		
+
 		if (bookSearchUI == null) {
 			bookSearchUI = new BookSearchUI();
-		}else {
-			if(bookSearchUI.isVisible()==false) {
+		} else {
+			if (bookSearchUI.isVisible() == false) {
 				bookSearchUI = new BookSearchUI();
 			}
 		}
@@ -168,22 +155,20 @@ public class AdminMainUI extends JFrame implements ActionListener {
 		}
 		bookRentUI.setVisible(true);
 	}
-	
-	
+
 	protected void do_btnRenturnAdmin_actionPerformed(ActionEvent e) {
 		if (bookReturnUI == null) {
 			bookReturnUI = new BookReturnUI();
 		}
 		bookReturnUI.setVisible(true);
 	}
-	
+
 	protected void do_btnExtendAdmin_actionPerformed(ActionEvent e) {
 		if (bookExtendUI == null) {
 			bookExtendUI = new BookExtendUI();
 		}
 		bookExtendUI.setVisible(true);
 	}
-	
 
 	protected void do_btnLogout_actionPerformed(ActionEvent e) {
 		LoginUI.memberLogOut();
@@ -192,9 +177,9 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	}
 
 	protected void do_btnUpdate_actionPerformed(ActionEvent e) {
-		if (memberUpdateUI == null) {
-			memberUpdateUI = new MemberUpdateUI(LoginUI.getLogin());
+		if (memberInfoUI == null) {
+			memberInfoUI = new MemberInfoUI();
 		}
-		memberUpdateUI.setVisible(true);
+		memberInfoUI.setVisible(true);
 	}
 }
