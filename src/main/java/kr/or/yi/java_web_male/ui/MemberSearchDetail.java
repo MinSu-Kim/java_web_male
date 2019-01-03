@@ -78,7 +78,7 @@ public class MemberSearchDetail extends JFrame {
 		service = new MemberUIService();
 		this.member = member;
 		setTitle("회원상세정보");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 650, 554);
 		contentPane = new JPanel();
 		contentPane.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -302,7 +302,7 @@ public class MemberSearchDetail extends JFrame {
 		textPass.setText(member.getPassword().substring(0,0));
 		textKor.setText(member.getKorName());
 		textEng.setText(member.getEngName());
-		textPhone.setText(member.getPhone());
+		textPhone.setText(member.getPhone().substring(0,9)+"****");
 		textJumin.setText(member.getJumin().substring(0,7)+"*******");
 		textEmail.setText(member.getEmail());
 		textAddress.setText(member.getAddress());
