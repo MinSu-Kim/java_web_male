@@ -36,7 +36,7 @@ public class PostSearchUI extends JFrame {
 		setResizable(false);
 		service = new PostUIService();
 		setTitle("우편번호 검색");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 454, 618);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

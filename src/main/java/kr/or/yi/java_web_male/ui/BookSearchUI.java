@@ -101,6 +101,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	private LoginUI loginUI;
 	private JTabbedPane tabbedPane;
 	private final Member member = loginUI.getLogin();
+	private int whatClick;
 	/* private String bookCode; */
 
 	/**
@@ -519,7 +520,15 @@ public class BookSearchUI extends JFrame implements ActionListener {
 					Book book = tablePanel2.selectedItem();
 					if (book.isRentalPossible() == true) {
 						JOptionPane.showMessageDialog(null, "대여 가능한 책입니다.");
-						bookRentUI.setBookCode(book);
+						if(whatClick==1) {
+							bookRentUI.setBookCode(book);
+						}
+						if(whatClick==2) {
+							bookRentUI.setBookCod2(book);
+						}
+						if(whatClick==3) {
+							bookRentUI.setBookCod3(book);
+						}
 						BookSearchUI.this.dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "대여중인 책입니다.");
@@ -886,6 +895,11 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	public void SetBookCoded(String BookCoded) {
 		tfCode.setText(BookCoded);
 
+	}
+
+	public void whatClick(int i) {
+		whatClick = i;
+		
 	}
 
 	
