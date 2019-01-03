@@ -63,6 +63,7 @@ public class MemberDetailUI extends JFrame {
 		pList.add(scrollPane);
 
 		table = new JTable();
+		table.setEnabled(false);
 		loadDatas();
 		scrollPane.setViewportView(table);
 
@@ -97,7 +98,6 @@ public class MemberDetailUI extends JFrame {
 	}
 
 	private Object[] getMemberRentalInfo(BookRentalInfo bookRentalInfo) {
-		System.out.println(bookRentalInfo.getRentalDate());
 		SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
 		String str1 = "";
 		String str2 = "";

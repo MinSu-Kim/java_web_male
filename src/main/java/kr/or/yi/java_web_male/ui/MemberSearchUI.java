@@ -52,7 +52,7 @@ public class MemberSearchUI extends JFrame {
 	private MemberRent memberRent;
 	private JPanel pContent;
 	private JPanel p_rent;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -74,6 +74,7 @@ public class MemberSearchUI extends JFrame {
 	 */
 
 	public MemberSearchUI() {
+		setTitle("회원검색");
 		overdueMapper = OverdueMapperImpl.getInstance();
 		service = new MemberUIService();
 		memberDetailUI = new MemberSearchDetail();
@@ -102,8 +103,9 @@ public class MemberSearchUI extends JFrame {
 		Slist = new MemberSearchResult();
 
 		contentPane.add(Slist, BorderLayout.CENTER);
+		Slist.setLists(service.selectMemberByAll());
+		Slist.loadData();
 		Slist.setPopupMenu(getPopupMenu());
-
 		JButton button = new JButton("검색");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -133,6 +135,15 @@ public class MemberSearchUI extends JFrame {
 			}
 		});// end of action
 		Searchpanel.add(button);
+		
+		btnNewButton = new JButton("초기화");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Slist.setLists(service.selectMemberByAll());
+				Slist.loadData();
+			}
+		});
+		Searchpanel.add(btnNewButton);
 		Slist.getTable().addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -202,7 +213,6 @@ public class MemberSearchUI extends JFrame {
 		Slist.setLists(list);
 		Slist.loadData();
 	}
-
 	private JPopupMenu getPopupMenu() {
 		JPopupMenu popupMenu = new JPopupMenu();
 
@@ -252,6 +262,7 @@ public class MemberSearchUI extends JFrame {
 		}
 
 	};
+	private JButton btnNewButton;
 
 	public void setBookRentUI(BookRentUI bookRentUI) {
 		this.bookRentUI = bookRentUI;

@@ -41,6 +41,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import kr.or.yi.java_web_male.dto.Book;
+import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
 import kr.or.yi.java_web_male.dto.CategoryS;
@@ -90,6 +91,8 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	private DefaultComboBoxModel<CategoryB> modelB;
 	private String log;
 	private BookRentUI bookRentUI;
+	private BookReturnUI bookReturnUI;
+	private BookExtendUI bookExtendUI;
 	private boolean searchwhat = true;
 	private BookUpdateUI bookUpdateUI;
 	private Book selectedBook;
@@ -196,7 +199,18 @@ public class BookSearchUI extends JFrame implements ActionListener {
 						bookRentUI.setBookCode(book);
 						BookSearchUI.this.dispose();
 					} else {
-						JOptionPane.showMessageDialog(null, "대여 불가능한 책입니다.");
+						JOptionPane.showMessageDialog(null, "대여중인 책입니다.");
+						try {
+							bookReturnUI.setBookCode(book);
+						} catch (Exception e2) {
+							// TODO: handle exception
+						}
+						try {
+							bookExtendUI.setBookCode(book);
+						} catch (Exception e2) {
+							// TODO: handle exception
+						}
+						BookSearchUI.this.dispose();
 					}
 
 				}
@@ -508,7 +522,19 @@ public class BookSearchUI extends JFrame implements ActionListener {
 						bookRentUI.setBookCode(book);
 						BookSearchUI.this.dispose();
 					} else {
-						JOptionPane.showMessageDialog(null, "대여 불가능한 책입니다.");
+						JOptionPane.showMessageDialog(null, "대여중인 책입니다.");
+						try {
+							bookReturnUI.setBookCode(book);
+						} catch (Exception e2) {
+							// TODO: handle exception
+						}
+						try {
+							bookExtendUI.setBookCode(book);
+						} catch (Exception e2) {
+							// TODO: handle exception
+						}
+						
+						BookSearchUI.this.dispose();
 					}
 
 				}
@@ -713,29 +739,33 @@ public class BookSearchUI extends JFrame implements ActionListener {
 			if (result == JOptionPane.CLOSED_OPTION) {
 
 			} else if (result == JOptionPane.YES_OPTION) {
-				service.deleteBook(deleteMap);
+				if (selectedBook.isRentalPossible() == true) {
+					service.deleteBook(deleteMap);
 
-				if (tabbedPane.getSelectedIndex() == 0) {
-					book = new Book();
-					book.setBookCode(tfCode.getText().trim());
-					lists = service.selectbookbybookCode(book);
-					if ((((BookTablePanel) tablePanel).setLists(lists)) == false) {
+					if (tabbedPane.getSelectedIndex() == 0) {
+						book = new Book();
+						book.setBookCode(tfCode.getText().trim());
+						lists = service.selectbookbybookCode(book);
+						if ((((BookTablePanel) tablePanel).setLists(lists)) == false) {
+							((BookTablePanel) tablePanel).loadDatas();
+							((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
+							JOptionPane.showMessageDialog(null, "검색결과없음");
+							return;
+						}
 						((BookTablePanel) tablePanel).loadDatas();
-						((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
-						JOptionPane.showMessageDialog(null, "검색결과없음");
-						return;
-					}
-					((BookTablePanel) tablePanel).loadDatas();
-				} else {
-					MakeMap();
-					if ((((BookTablePanel) tablePanel2).setLists(lists)) == false) {
-						((BookTablePanel) tablePanel2).loadDatas();
-						((BookTablePanel) tablePanel2).setPopMenu(getPopupMenu());
-						JOptionPane.showMessageDialog(null, "검색결과없음");
-						return;
-					}
+					} else {
+						MakeMap();
+						if ((((BookTablePanel) tablePanel2).setLists(lists)) == false) {
+							((BookTablePanel) tablePanel2).loadDatas();
+							((BookTablePanel) tablePanel2).setPopMenu(getPopupMenu());
+							JOptionPane.showMessageDialog(null, "검색결과없음");
+							return;
+						}
 
-					((BookTablePanel) tablePanel2).loadDatas();
+						((BookTablePanel) tablePanel2).loadDatas();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "현재 대여 중인 도서입니다.");
 				}
 
 			}
@@ -796,6 +826,16 @@ public class BookSearchUI extends JFrame implements ActionListener {
 
 	public void setBookRentUI(BookRentUI bookRentUI) {
 		this.bookRentUI = bookRentUI;
+
+	}
+	
+	public void setBookReturnUI(BookReturnUI bookReturnUI) {
+		this.bookReturnUI = bookReturnUI;
+
+	}
+	
+	public void setBookExtendUI(BookExtendUI bookExtendUI) {
+		this.bookExtendUI = bookExtendUI;
 
 	}
 

@@ -272,7 +272,10 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		book.setTranslator(tfTrans.getText());
 		book.setPrice(Integer.parseInt(tfPrice.getText().trim()));
 		book.setRentalPossible(true);
-		book.setImage(fileName);
+		
+		if (fileName != null) {
+			book.setImage(fileName);
+		}
 		
 		try {
 			service.updatetBook(book);
@@ -302,9 +305,7 @@ public class BookUpdateUI extends JFrame implements ActionListener {
 		if (ret == JFileChooser.APPROVE_OPTION) {
 			pathName = chooser.getSelectedFile().getPath();
 			fileName = chooser.getSelectedFile().getName();
-
-			System.out.println(pathName);
-			System.out.println(fileName);
+			
 			lblImage.setIcon(new ImageIcon(imgPath + fileName));
 		}
 	}

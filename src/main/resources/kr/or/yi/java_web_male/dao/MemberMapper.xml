@@ -64,6 +64,7 @@
 			column="return_date" />
 		<result property="bookRentallInfo.returnSchedule"
 			column="return_schedule" />
+		<result property="book.bookCode" column="book_code"/>	
 	</resultMap>
 	<select id="selectMemberByNoToString" parameterType="String"
 		resultMap="MemberResult">
