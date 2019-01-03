@@ -53,7 +53,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.BoxLayout;
 
 @SuppressWarnings("serial")
-public class BookSearchUI extends JFrame implements ActionListener,WindowListener{
+public class BookSearchUI extends JFrame implements ActionListener, WindowListener {
 	private JPanel contentPane;
 	private JTextField tfCode;
 	private JTextField tfAuthor;
@@ -177,14 +177,14 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 				findeBookCode(book);
 			}
 
-			
 		});
 		btnsearchbyBookCode.setFont(new Font("굴림", Font.BOLD, 20));
-		
+
 		button_1 = new JButton("모든책보기");
 		button_1.addActionListener(this);
-		
-		JLabel lblNewLabel_10 = new JLabel("                                                                                                                                                                 ");
+
+		JLabel lblNewLabel_10 = new JLabel(
+				"                                                                                                                                                                 ");
 		panel_5.add(lblNewLabel_10);
 		button_1.setFont(new Font("굴림", Font.BOLD, 20));
 		panel_5.add(button_1);
@@ -200,13 +200,13 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 					if (book.isRentalPossible() == true) {
 						JOptionPane.showMessageDialog(null, "대여 가능한 책입니다.");
 
-						if(whatClick==1) {
+						if (whatClick == 1) {
 							bookRentUI.setBookCode(book);
 						}
-						if(whatClick==2) {
+						if (whatClick == 2) {
 							bookRentUI.setBookCod2(book);
 						}
-						if(whatClick==3) {
+						if (whatClick == 3) {
 							bookRentUI.setBookCod3(book);
 						}
 						BookSearchUI.this.dispose();
@@ -222,7 +222,7 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 						} catch (Exception e2) {
 							// TODO: handle exception
 						}
-						
+
 						BookSearchUI.this.dispose();
 					}
 
@@ -533,13 +533,13 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 					if (book.isRentalPossible() == true) {
 						JOptionPane.showMessageDialog(null, "대여 가능한 책입니다.");
 
-						if(whatClick==1) {
+						if (whatClick == 1) {
 							bookRentUI.setBookCode(book);
 						}
-						if(whatClick==2) {
+						if (whatClick == 2) {
 							bookRentUI.setBookCod2(book);
 						}
-						if(whatClick==3) {
+						if (whatClick == 3) {
 							bookRentUI.setBookCod3(book);
 						}
 						BookSearchUI.this.dispose();
@@ -555,7 +555,7 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 						} catch (Exception e2) {
 							// TODO: handle exception
 						}
-						
+
 						BookSearchUI.this.dispose();
 					}
 
@@ -651,20 +651,17 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 		JMenuItem bookRentInfo = new JMenuItem("도서대여 정보");
 		bookRentInfo.addActionListener(this);
 		popupMenu.add(bookRentInfo);
-		
-		JMenuItem upDate = new JMenuItem("수정");
-		upDate.addActionListener(this);
-		popupMenu.add(upDate);
 
-		JMenuItem delete = new JMenuItem("삭제");
-		delete.addActionListener(this);
-		popupMenu.add(delete);
 		if (member == null) {
 
 		} else if (member.isAdmin()) {
-			
+			JMenuItem upDate = new JMenuItem("수정");
+			upDate.addActionListener(this);
+			popupMenu.add(upDate);
 
-			
+			JMenuItem delete = new JMenuItem("삭제");
+			delete.addActionListener(this);
+			popupMenu.add(delete);
 		}
 		return popupMenu;
 	}
@@ -688,7 +685,6 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 		if (e.getActionCommand().equals("삭제")) {
 			do_mntmDel_actionPerformed(e);
 		}
-		
 
 	}
 
@@ -728,13 +724,13 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 		if (tabbedPane.getSelectedIndex() == 0) {
 			book = new Book();
 			book.setBookCode(tfCode.getText().trim());
-			if(tfCode.getText().trim().equals("")) {
+			if (tfCode.getText().trim().equals("")) {
 				book.setBookCode("0");
 				lists = service.selectbookbybookCode(book);
-			}else {
+			} else {
 				lists = service.selectbookbybookCode(book);
 			}
-			
+
 			if ((((BookTablePanel) tablePanel).setLists(lists)) == false) {
 				((BookTablePanel) tablePanel).loadDatas();
 				((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
@@ -762,7 +758,7 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 			} else {
 				selectedBook = tablePanel2.getSelectedBookCodeAll();
 			}
-			
+
 			Map<String, Object> deleteMap = new HashMap<>();
 			deleteMap.put("bookCode", selectedBook.getBookCode());
 			deleteMap.put("newBookCode", "D" + selectedBook.getBookCode());
@@ -775,14 +771,13 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 				if (tabbedPane.getSelectedIndex() == 0) {
 					book = new Book();
 					book.setBookCode(tfCode.getText().trim());
-					if(tfCode.getText().trim().equals("")) {
+					if (tfCode.getText().trim().equals("")) {
 						book.setBookCode("0");
 						lists = service.selectbookbybookCode(book);
-					}else {
+					} else {
 						lists = service.selectbookbybookCode(book);
 					}
-					
-					
+
 					if ((((BookTablePanel) tablePanel).setLists(lists)) == false) {
 						((BookTablePanel) tablePanel).loadDatas();
 						((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
@@ -861,59 +856,61 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 		this.bookRentUI = bookRentUI;
 
 	}
-	
+
 	public void setBookReturnUI(BookReturnUI bookReturnUI) {
 		this.bookReturnUI = bookReturnUI;
 
 	}
-	
+
 	public void setBookExtendUI(BookExtendUI bookExtendUI) {
 		this.bookExtendUI = bookExtendUI;
 
 	}
 
 	private void do_Showmore_actionPerformed(ActionEvent e) {
-		/*try {*/
-			if (tabbedPane.getSelectedIndex() == 0) {
-				selectedBook = ((BookTablePanel) tablePanel).getSelectedBook();
-			} else {
-				selectedBook = tablePanel2.getSelectedBook();
-			}
-			String bookCode = "";
-			boolean RentalPossible = false;
-			Book book = new Book();
-			lists = service.selectbookbybookCode(selectedBook);
-			int totalBook = lists.size();
-			if (lists.size() > 1) {
-				for (Book books : lists) {
-					if (books.isRentalPossible()) {
-						RentalPossible = true;
-					}
-					bookCode = bookCode + books.getBookCode() + ",";
-					book = books;
+		/* try { */
+		if (tabbedPane.getSelectedIndex() == 0) {
+			selectedBook = ((BookTablePanel) tablePanel).getSelectedBook();
+		} else {
+			selectedBook = tablePanel2.getSelectedBook();
+		}
+		String bookCode = "";
+		boolean RentalPossible = false;
+		Book book = new Book();
+		lists = service.selectbookbybookCode(selectedBook);
+		int totalBook = lists.size();
+		if (lists.size() > 1) {
+			for (Book books : lists) {
+				if (books.isRentalPossible()) {
+					RentalPossible = true;
 				}
-			} else {
-				for (Book books : lists) {
-					if (books.isRentalPossible()) {
-						RentalPossible = true;
-					}
-					bookCode = bookCode + books.getBookCode();
-					book = books;
-				}
+				bookCode = bookCode + books.getBookCode() + ",";
+				book = books;
 			}
-			book.setBookCode(bookCode);
-			book.setRentalPossible(RentalPossible);
+		} else {
+			for (Book books : lists) {
+				if (books.isRentalPossible()) {
+					RentalPossible = true;
+				}
+				bookCode = bookCode + books.getBookCode();
+				book = books;
+			}
+		}
+		book.setBookCode(bookCode);
+		book.setRentalPossible(RentalPossible);
 
-			bookDetailUI = new BookDetailUI();
-			bookDetailUI.setBookInfo(book, totalBook, lists);
-			bookDetailUI.setVisible(true);
-			bookDetailUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		bookDetailUI = new BookDetailUI();
+		bookDetailUI.setBookInfo(book, totalBook, lists);
+		bookDetailUI.setVisible(true);
+		bookDetailUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		/*} catch (Exception e1) {
-			
-			JOptionPane.showMessageDialog(null, "선택하신책정보가 없습니다.");
-
-		}*/
+		/*
+		 * } catch (Exception e1) {
+		 * 
+		 * JOptionPane.showMessageDialog(null, "선택하신책정보가 없습니다.");
+		 * 
+		 * }
+		 */
 	}
 
 	public void SetBookCoded(String BookCoded) {
@@ -923,18 +920,17 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 
 	public void whatClick(int i) {
 		whatClick = i;
-		
-	}
 
-	
+	}
 
 	protected void do_button_1_actionPerformed(ActionEvent e) {
 		Book book = new Book();
 		book.setBookCode("0");
 		findeBookCode(book);
 	}
+
 	public void findeBookCode(Book book) {
-		
+
 		lists = service.selectbookbybookCode(book);
 		if ((((BookTablePanel) tablePanel).setLists(lists)) == false) {
 			((BookTablePanel) tablePanel).loadDatas();
@@ -952,51 +948,51 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 	public void windowOpened(WindowEvent e) {
 		// TODO Auto-generated method stub
 		Book book = new Book();
-		if(tfCode.getText().trim().equals("")) {
+		if (tfCode.getText().trim().equals("")) {
 			book.setBookCode("0");
-		}else {
-			
+		} else {
+
 			book.setBookCode(tfCode.getText().trim());
-			
+
 		}
 		findeBookCode(book);
-		
+
 	}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowIconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 }
