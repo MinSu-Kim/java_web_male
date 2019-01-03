@@ -15,6 +15,8 @@ public interface MemberMapper {
 
 	int updateMember(Member member);
 	
+	int updateMember2(Member member);
+	
 	int updateDetail(Member member);
 	
 	int deleteMember(int id);

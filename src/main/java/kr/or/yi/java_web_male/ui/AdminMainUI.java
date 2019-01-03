@@ -34,7 +34,7 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	private BookSearchUI bookSearchUI;
 	private MemberSearchUI memberSearchUI;
 	private MemberSearchDetail memberSearchDetail;
-	private MemberUpdateUI memberUpdateUI;
+	private MemberInfoUI memberInfoUI;
 	private InOutUI inOutUI;
 	private LoginUI loginUI;
 	private JPanel panel;
@@ -150,9 +150,9 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	}
 
 	protected void do_btnUpdate_actionPerformed(ActionEvent e) {
-		if (memberUpdateUI == null) {
-			memberUpdateUI = new MemberUpdateUI(LoginUI.getLogin());
+		if (memberInfoUI == null) {
+			memberInfoUI = new MemberInfoUI();
 		}
-		memberUpdateUI.setVisible(true);
+		memberInfoUI.setVisible(true);
 	}
 }
