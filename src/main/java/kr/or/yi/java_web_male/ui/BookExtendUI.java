@@ -244,6 +244,7 @@ public class BookExtendUI extends JFrame {
 	
 	private void clearTf() {
 		textBookCode.setText("");
+		textReturnSchedule.setText("");
 	}
 
 	public void setBookCode(Book book) {
