@@ -28,15 +28,14 @@ join `member` `m` on
 join `book` `b` on
     ((`r`.`book_code` = `b`.`book_code`)))
 where
-    ((now() > `r`.`return_schedule`)
-    and isnull(`r`.`return_date`))
+    return_date is null
 group by
     `m`.`kor_name`;
 
 
 /*drop view OverduePopup;*/
 
-SELECT kor_name, title, rental_date, return_schedule, phone, return_date, overday
+SELECT kor_name, title, rental_date, return_schedule, phone, return_date
 FROM proj_library.overduepopup;
 
 

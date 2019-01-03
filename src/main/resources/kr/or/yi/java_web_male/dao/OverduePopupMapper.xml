@@ -21,6 +21,7 @@
   		(to_days(now()) - to_days(return_schedule)) as overday
 		FROM
 		proj_library.overduepopup
+		where (now() > return_schedule)
 	</select>
 	<update id="updatedat">
 		UPDATE proj_library.`day`

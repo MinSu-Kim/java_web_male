@@ -87,7 +87,8 @@ public class BookRentUI extends JFrame {
 		memberUIService = new MemberUIService();
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 486, 342);
+
+		setBounds(100, 100, 502, 223);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
