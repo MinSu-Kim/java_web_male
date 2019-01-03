@@ -116,15 +116,23 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	}
 
 	protected void do_btnBookInsert_actionPerformed(ActionEvent e) {
+		
 		if (bookInsertUI == null) {
+			
 			bookInsertUI = new BookInsertUI();
 		}
+		
 		bookInsertUI.setVisible(true);
 	}
 
 	protected void do_btnBookSearch_actionPerformed(ActionEvent e) {
+		
 		if (bookSearchUI == null) {
 			bookSearchUI = new BookSearchUI();
+		}else {
+			if(bookSearchUI.isVisible()==false) {
+				bookSearchUI = new BookSearchUI();
+			}
 		}
 		bookSearchUI.setVisible(true);
 	}
