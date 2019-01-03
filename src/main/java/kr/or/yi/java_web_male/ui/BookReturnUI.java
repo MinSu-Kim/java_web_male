@@ -39,7 +39,7 @@ public class BookReturnUI extends JFrame {
 	private Book book;
 	private LibraryUIService service;
 	private MemberUIService memberUIService;
-	private InOutUI inOutUI;
+	private AdminMainUI adminMainUI;
 
 	/**
 	 * Launch the application.
@@ -252,7 +252,7 @@ public class BookReturnUI extends JFrame {
 		textBookCode.requestFocus();
 	}
 	
-	public void setInOutUI(InOutUI inOutUI) {
-		this.inOutUI = inOutUI;
+	public void setAdminMainUI(AdminMainUI adminMainUI) {
+		this.adminMainUI = adminMainUI;
 	}
 }

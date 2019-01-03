@@ -33,7 +33,7 @@ import java.awt.Font;
 public class BookExtendUI extends JFrame {
 
 	private JPanel contentPane;
-	private InOutUI inOutUI;
+	private AdminMainUI adminMainUI;
 	private JTextField textBookCode;
 	private BookRentalInfo bookRentalInfo;
 	private Book book;
@@ -251,7 +251,7 @@ public class BookExtendUI extends JFrame {
 		textBookCode.requestFocus();
 	}
 	
-	public void setInOutUI(InOutUI inOutUI) {
-		this.inOutUI = inOutUI;
+	public void setAdminMainUI(AdminMainUI adminMainUI) {
+		this.adminMainUI = adminMainUI;
 	}
 }
