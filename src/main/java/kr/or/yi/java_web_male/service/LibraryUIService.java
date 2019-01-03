@@ -13,6 +13,8 @@ import kr.or.yi.java_web_male.dao.CategoryMMapper;
 import kr.or.yi.java_web_male.dao.CategoryMMapperImpl;
 import kr.or.yi.java_web_male.dao.CategorySMapper;
 import kr.or.yi.java_web_male.dao.CategorySMapperImpl;
+import kr.or.yi.java_web_male.dao.MemberMapper;
+import kr.or.yi.java_web_male.dao.MemberMapperImpl;
 import kr.or.yi.java_web_male.dao.PublisherMapper;
 import kr.or.yi.java_web_male.dao.PublisherMapperImpl;
 import kr.or.yi.java_web_male.dto.Book;
@@ -20,6 +22,7 @@ import kr.or.yi.java_web_male.dto.BookRentalInfo;
 import kr.or.yi.java_web_male.dto.CategoryB;
 import kr.or.yi.java_web_male.dto.CategoryM;
 import kr.or.yi.java_web_male.dto.CategoryS;
+import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.dto.Publisher;
 
 public class LibraryUIService {
@@ -29,6 +32,7 @@ public class LibraryUIService {
 	private PublisherMapper publisher;
 	private BookMapper bookMapper;
 	private BookRentalInfoMapper bookRentalInfoMapper;
+	private MemberMapper memberMapper;
 
 	public LibraryUIService() {
 
@@ -39,7 +43,7 @@ public class LibraryUIService {
 		cateSMapper = CategorySMapperImpl.getInstance();
 		publisher = PublisherMapperImpl.getInstance();
 		bookMapper = BookMapperImpl.getInstance();
-
+		memberMapper = MemberMapperImpl.getInstance();
 	}
 
 	public List<CategoryB> selectCategoryBByAll() {
@@ -136,5 +140,8 @@ public class LibraryUIService {
 
 	public int updateReturnSchedule(BookRentalInfo bookRentalInfo) {
 		return bookRentalInfoMapper.updateReturnSchedule(bookRentalInfo);
+	}
+	public Member selectMemberbyNo(String member) {
+		return memberMapper.selectMemberByNo(member);
 	}
 }

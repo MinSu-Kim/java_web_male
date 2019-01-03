@@ -812,7 +812,6 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 			} else {
 				selectedBook = tablePanel2.getSelectedBookCodeAll();
 			}
-			System.out.println(selectedBook);
 			String bookCode = "";
 			boolean RentalPossible = false;
 			Book book = new Book();

@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.apache.ibatis.annotations.Options;
+
+import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
 import kr.or.yi.java_web_male.dao.MemberMapper;
 import kr.or.yi.java_web_male.dto.Member;
@@ -48,6 +51,7 @@ import java.awt.Component;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
+import javax.print.DocFlavor.STRING;
 import javax.swing.BoxLayout;
 import java.awt.Font;
 import java.awt.Dimension;
@@ -383,13 +387,27 @@ public class MemberRegisterUI extends JFrame {
 		chckadmin.setBounds(161, 0, 293, 49);
 		chckadmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String admin = JOptionPane.showInputDialog("관리번호를 입력해주세요");
-				if (admin.equals(adminpassword)) {
-					chckadmin.setSelected(true);
-					return;
-				} else
-					JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
-				chckadmin.setSelected(false);
+				
+				JPanel panel = new JPanel(); 
+				JLabel label = new JLabel("관리번호를 입력해주세요"); 
+				JPasswordField pass = new JPasswordField(10); 
+				panel.add(label); 
+				panel.add(pass); 
+				String[] options = new String[]{"확인", "취소"}; 
+				String option = String.valueOf(JOptionPane.showOptionDialog(null, panel, "관리자확인", 
+				         JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, 
+				         null, options, options[1])); 
+				if(!option.equals(null)) // pressing OK button 
+				{ 
+				    String password = String.valueOf(pass.getPassword()); 
+				    System.out.println("Your password is: " + new String(password)); 
+				    if (password.equals(adminpassword)) {
+						chckadmin.setSelected(true);
+						return;
+					} else
+						JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.");
+						chckadmin.setSelected(false);
+					} 				
 			}
 		});
 		chckadmin.setHorizontalAlignment(SwingConstants.CENTER);
