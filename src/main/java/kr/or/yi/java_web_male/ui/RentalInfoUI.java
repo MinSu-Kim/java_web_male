@@ -30,7 +30,7 @@ import kr.or.yi.java_web_male.dto.Member;
 import kr.or.yi.java_web_male.dto.OverduePopup;
 import kr.or.yi.java_web_male.service.LibraryUIService;
 import kr.or.yi.java_web_male.service.OverduePopUpUIService;
-import kr.or.yi.java_web_male.ui.CustomerList.ReturnTableCellRenderer;
+
 
 public class RentalInfoUI extends JFrame implements ActionListener {
 
@@ -114,8 +114,9 @@ public class RentalInfoUI extends JFrame implements ActionListener {
 	}
 	public void loadDatas() {
 		model = new NonEditableModel(getDatas(), getColumnNames());
-		setAlignWidth();
+		/**/
 		table.setModel(model);
+		setAlignWidth();
 	}
 
 	public Object[][] getDatas() {
@@ -127,7 +128,8 @@ public class RentalInfoUI extends JFrame implements ActionListener {
 
 	}
 	protected void setAlignWidth() {
-      for (int i = 0; i < getColumnNames().length; i++) {
+		
+     for (int i = 0; i < getColumnNames().length; i++) {
          table.getColumnModel().getColumn(i).setCellRenderer(new ReturnTableCellRenderer());
       }
 
@@ -237,18 +239,14 @@ public class RentalInfoUI extends JFrame implements ActionListener {
 	public class ReturnTableCellRenderer extends JLabel implements TableCellRenderer {
 	      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,int row, int column) {
 	         setText(value.toString());
-	        /* if(column==4||column==7||column==11) {
-	            setHorizontalAlignment(JLabel.LEFT);
-	         }else {
-	            setHorizontalAlignment(JLabel.CENTER);
-	         }*/
-    
-	        
-
-	         if (table.getValueAt(row, 9).toString().equals("블랙리스트")) {
-	            setBackground(new Color(255, 0, 0, 40));
+	         setOpaque(true);
+	         int a = (int) table.getValueAt(row, 7);
+	         if (a>0) {
+	        	 setBackground(new Color(255, 0, 0, 40));
+	        	 
 	         } else {
-	            setBackground(Color.WHITE);
+	        	 setBackground(Color.WHITE);
+	           
 	         }
 	         return this;
 	      }
