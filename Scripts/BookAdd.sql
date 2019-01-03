@@ -109,6 +109,7 @@ insert into proj_library.book values
 ('5500001307', 13, '재런 러니어', '노승영', '가상 현실의 탄생', 25000, 1, 'book_ai.jpg', 0, 5, 5, 'P0003');
 
 
+
 insert into proj_library.book values
 ('4500001401', 14, '재런 러니어', '노승영', '가상 현실의 탄생', 25000, 1, 'book_ai.jpg', 0, 5, 4, 'P0003'),
 ('4500001402', 14, '재런 러니어', '노승영', '가상 현실의 탄생', 25000, 1, 'book_ai.jpg', 0, 5, 4, 'P0003');
@@ -124,3 +125,4 @@ insert into proj_library.book values
 insert into proj_library.book values
 ('4500001701', 17, '재런 러니어', '노승영', '가상 현실의 탄생', 25000, 1, 'book_ai.jpg', 0, 0, 9, 'P0003'),
 ('4500001702', 17, '재런 러니어', '노승영', '가상 현실의 탄생', 25000, 1, 'book_ai.jpg', 0, 0, 9, 'P0003');
+

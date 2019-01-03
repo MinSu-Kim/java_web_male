@@ -651,16 +651,18 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 		JMenuItem bookRentInfo = new JMenuItem("도서대여 정보");
 		bookRentInfo.addActionListener(this);
 		popupMenu.add(bookRentInfo);
+		
+		JMenuItem upDate = new JMenuItem("수정");
+		upDate.addActionListener(this);
+		popupMenu.add(upDate);
+
+		JMenuItem delete = new JMenuItem("삭제");
+		delete.addActionListener(this);
+		popupMenu.add(delete);
 		if (member == null) {
 
 		} else if (member.isAdmin()) {
-			JMenuItem upDate = new JMenuItem("수정");
-			upDate.addActionListener(this);
-			popupMenu.add(upDate);
-
-			JMenuItem delete = new JMenuItem("삭제");
-			delete.addActionListener(this);
-			popupMenu.add(delete);
+			
 
 			
 		}
@@ -702,12 +704,10 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 			if (result == JOptionPane.CLOSED_OPTION) {
 
 			} else if (result == JOptionPane.YES_OPTION) {
-
 				selectedBook = service.selectBookUpdate(selectedBook);
 				if (bookUpdateUI == null) {
 					bookUpdateUI = new BookUpdateUI(selectedBook);
 				}
-
 				bookUpdateUI.setVisible(true);
 				bookUpdateUI.setBookSearchUI(this);
 			}
@@ -728,7 +728,13 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 		if (tabbedPane.getSelectedIndex() == 0) {
 			book = new Book();
 			book.setBookCode(tfCode.getText().trim());
-			lists = service.selectbookbybookCode(book);
+			if(tfCode.getText().trim().equals("")) {
+				book.setBookCode("0");
+				lists = service.selectbookbybookCode(book);
+			}else {
+				lists = service.selectbookbybookCode(book);
+			}
+			
 			if ((((BookTablePanel) tablePanel).setLists(lists)) == false) {
 				((BookTablePanel) tablePanel).loadDatas();
 				((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
@@ -756,7 +762,7 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 			} else {
 				selectedBook = tablePanel2.getSelectedBookCodeAll();
 			}
-
+			
 			Map<String, Object> deleteMap = new HashMap<>();
 			deleteMap.put("bookCode", selectedBook.getBookCode());
 			deleteMap.put("newBookCode", "D" + selectedBook.getBookCode());
@@ -764,33 +770,36 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 			if (result == JOptionPane.CLOSED_OPTION) {
 
 			} else if (result == JOptionPane.YES_OPTION) {
-				if (selectedBook.isRentalPossible() == true) {
-					service.deleteBook(deleteMap);
+				service.deleteBook(deleteMap);
 
-					if (tabbedPane.getSelectedIndex() == 0) {
-						book = new Book();
-						book.setBookCode(tfCode.getText().trim());
+				if (tabbedPane.getSelectedIndex() == 0) {
+					book = new Book();
+					book.setBookCode(tfCode.getText().trim());
+					if(tfCode.getText().trim().equals("")) {
+						book.setBookCode("0");
 						lists = service.selectbookbybookCode(book);
-						if ((((BookTablePanel) tablePanel).setLists(lists)) == false) {
-							((BookTablePanel) tablePanel).loadDatas();
-							((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
-							JOptionPane.showMessageDialog(null, "검색결과없음");
-							return;
-						}
-						((BookTablePanel) tablePanel).loadDatas();
-					} else {
-						MakeMap();
-						if ((((BookTablePanel) tablePanel2).setLists(lists)) == false) {
-							((BookTablePanel) tablePanel2).loadDatas();
-							((BookTablePanel) tablePanel2).setPopMenu(getPopupMenu());
-							JOptionPane.showMessageDialog(null, "검색결과없음");
-							return;
-						}
-
-						((BookTablePanel) tablePanel2).loadDatas();
+					}else {
+						lists = service.selectbookbybookCode(book);
 					}
+					
+					
+					if ((((BookTablePanel) tablePanel).setLists(lists)) == false) {
+						((BookTablePanel) tablePanel).loadDatas();
+						((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
+						JOptionPane.showMessageDialog(null, "검색결과없음");
+						return;
+					}
+					((BookTablePanel) tablePanel).loadDatas();
 				} else {
-					JOptionPane.showMessageDialog(null, "현재 대여 중인 도서입니다.");
+					MakeMap();
+					if ((((BookTablePanel) tablePanel2).setLists(lists)) == false) {
+						((BookTablePanel) tablePanel2).loadDatas();
+						((BookTablePanel) tablePanel2).setPopMenu(getPopupMenu());
+						JOptionPane.showMessageDialog(null, "검색결과없음");
+						return;
+					}
+
+					((BookTablePanel) tablePanel2).loadDatas();
 				}
 
 			}
@@ -812,7 +821,6 @@ public class BookSearchUI extends JFrame implements ActionListener,WindowListene
 			} else {
 				selectedBook = tablePanel2.getSelectedBookCodeAll();
 			}
-			System.out.println(selectedBook);
 			String bookCode = "";
 			boolean RentalPossible = false;
 			Book book = new Book();

@@ -9,5 +9,6 @@ public interface OverduePopupMapper {
 	List<OverduePopup> selectAll();
 	void updatedat();
 	int selectDate();
+	List<OverduePopup> selectAllRentInfo();
 	
 }

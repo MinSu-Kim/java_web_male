@@ -10,11 +10,28 @@ FROM book_rental_info i join book b on i.book_code=b.book_code join publisher p 
 show create view bestsaler;
 /*drop view bestsaler;*/
 
-create view OverduePopup as select m.kor_name,b.title, r.rental_date,r.return_schedule,m.phone,r.return_date,DATEDIFF(NOW(),return_schedule) as overday
-from book_rental_info r join `member` m on r.member_no=m.member_no join book b on r.book_code=b.book_code
-where NOW()>return_schedule
-and return_date is null 
-group by kor_name;
+create
+or replace
+view `overduepopup` as select
+    `m`.`kor_name` as `kor_name`,
+    `b`.`title` as `title`,
+    `r`.`rental_date` as `rental_date`,
+    `r`.`return_schedule` as `return_schedule`,
+    `m`.`phone` as `phone`,
+    `r`.`return_date` as `return_date`,
+    `b`.`book_code` as `book_code`,
+    `r`.`member_no` as `member_no`
+from
+    ((`book_rental_info` `r`
+join `member` `m` on
+    ((`r`.`member_no` = `m`.`member_no`)))
+join `book` `b` on
+    ((`r`.`book_code` = `b`.`book_code`)))
+where
+    ((now() > `r`.`return_schedule`)
+    and isnull(`r`.`return_date`))
+group by
+    `m`.`kor_name`;
 
 
 /*drop view OverduePopup;*/
