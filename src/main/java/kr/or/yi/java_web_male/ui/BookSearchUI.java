@@ -105,7 +105,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	 */
 	public static void main(String[] args) {
 		// 룩앤필 변경
-		try {
+		/*try {
 			UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 				| UnsupportedLookAndFeelException e1) {
@@ -120,7 +120,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 					e.printStackTrace();
 				}
 			}
-		});
+		});*/
 	}
 
 	/**
