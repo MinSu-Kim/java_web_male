@@ -18,7 +18,8 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Vector;
 
 import javax.swing.ButtonGroup;
@@ -52,7 +53,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.BoxLayout;
 
 @SuppressWarnings("serial")
-public class BookSearchUI extends JFrame implements ActionListener {
+public class BookSearchUI extends JFrame implements ActionListener,WindowListener{
 	private JPanel contentPane;
 	private JTextField tfCode;
 	private JTextField tfAuthor;
@@ -102,6 +103,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	private JTabbedPane tabbedPane;
 	private final Member member = loginUI.getLogin();
 	private int whatClick;
+	private JButton button_1;
 	/* private String bookCode; */
 
 	/**
@@ -131,6 +133,7 @@ public class BookSearchUI extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public BookSearchUI() {
+		addWindowListener(this);
 
 		setTitle("도서검색");
 		setResizable(false);
@@ -169,23 +172,22 @@ public class BookSearchUI extends JFrame implements ActionListener {
 					JOptionPane.showMessageDialog(null, "코드를입력해주세요");
 					return;
 				}
-				/* lists = new ArrayList<>(); */
 				book = new Book();
 				book.setBookCode(tfCode.getText().trim());
-				lists = service.selectbookbybookCode(book);
-				if ((((BookTablePanel) tablePanel).setLists(lists)) == false) {
-					((BookTablePanel) tablePanel).loadDatas();
-					((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
-					JOptionPane.showMessageDialog(null, "검색결과없음");
-					return;
-				}
-				;
-				((BookTablePanel) tablePanel).loadDatas();
-				((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
-				searchwhat = true;
+				findeBookCode(book);
 			}
+
+			
 		});
 		btnsearchbyBookCode.setFont(new Font("굴림", Font.BOLD, 20));
+		
+		button_1 = new JButton("모든책보기");
+		button_1.addActionListener(this);
+		
+		JLabel lblNewLabel_10 = new JLabel("                                                                                                                                                                 ");
+		panel_5.add(lblNewLabel_10);
+		button_1.setFont(new Font("굴림", Font.BOLD, 20));
+		panel_5.add(button_1);
 
 		tablePanel = new BookTablePanel();
 		tablePanel.getTable().addMouseListener(new MouseAdapter() {
@@ -656,6 +658,9 @@ public class BookSearchUI extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == button_1) {
+			do_button_1_actionPerformed(e);
+		}
 		if (e.getActionCommand().equals("상세정보")) {
 			do_Showmore_actionPerformed(e);
 
@@ -904,4 +909,75 @@ public class BookSearchUI extends JFrame implements ActionListener {
 
 	
 
+	protected void do_button_1_actionPerformed(ActionEvent e) {
+		Book book = new Book();
+		book.setBookCode("0");
+		findeBookCode(book);
+	}
+	public void findeBookCode(Book book) {
+		
+		lists = service.selectbookbybookCode(book);
+		if ((((BookTablePanel) tablePanel).setLists(lists)) == false) {
+			((BookTablePanel) tablePanel).loadDatas();
+			((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
+			JOptionPane.showMessageDialog(null, "검색결과없음");
+			return;
+		}
+		;
+		((BookTablePanel) tablePanel).loadDatas();
+		((BookTablePanel) tablePanel).setPopMenu(getPopupMenu());
+		searchwhat = true;
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		Book book = new Book();
+		if(tfCode.getText().trim().equals("")) {
+			book.setBookCode("0");
+		}else {
+			
+			book.setBookCode(tfCode.getText().trim());
+			
+		}
+		findeBookCode(book);
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

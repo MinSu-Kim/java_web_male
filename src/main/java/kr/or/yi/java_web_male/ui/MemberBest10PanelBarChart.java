@@ -1,3 +1,4 @@
+
 package kr.or.yi.java_web_male.ui;
 
 import java.util.Iterator;
@@ -96,7 +97,7 @@ public class MemberBest10PanelBarChart extends JFXPanel implements InitScene{
 		XYChart.Series<String, Number> dataSeries = new Series<String, Number>();
 		dataSeries.setName(day);
 		for (MemberBest10 best10 : list) {
-			dataSeries.getData().add(new XYChart.Data<>(best10.getName().getKorName()+"("+best10.getMemberNo().getMemberNo()+")", best10.getRanking()));
+			dataSeries.getData().add(new XYChart.Data<>("("+best10.getMemberNo().getMemberNo()+")", best10.getRanking()));
 		}
 				
 		return dataSeries;

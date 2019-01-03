@@ -34,13 +34,13 @@
 				AND cate_s_no=#{cateSNo}
 			</if>
 			<if test="author != null">
-				AND author=#{author}
+				AND author REGEXP#{author}
 			</if>
 			<if test="translator != null">
-				AND translator=#{translator}
+				AND translator REGEXP#{translator}
 			</if>
 			<if test="title != null">
-				AND title=#{title}
+				AND title REGEXP#{title}
 			</if>
 		</where>
 	</sql>
