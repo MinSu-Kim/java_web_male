@@ -86,7 +86,7 @@ public class MemberRegisterUI extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -97,7 +97,7 @@ public class MemberRegisterUI extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	public static void setAdminpassword(String adminpassword1) {
 		adminpassword = adminpassword1;
@@ -518,6 +518,7 @@ public class MemberRegisterUI extends JFrame {
 		mn = mn.toUpperCase();
 		JOptionPane.showMessageDialog(null, mn);
 		member.setMemberNo(mn);
+		tFmemberNo.setText(mn);
 		service.insertMember(member);
 
 	}
