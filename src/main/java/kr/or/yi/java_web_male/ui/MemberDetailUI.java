@@ -124,4 +124,7 @@ public class MemberDetailUI extends JFrame {
 		return new String[] { "도서코드", "도서명", "출판사", "저자", "대여일자", "반납일자", "반납기한", "반납여부" };
 	}
 
+
+
+
 }

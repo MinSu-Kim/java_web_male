@@ -53,6 +53,9 @@ public class MemberSearchDetail extends JFrame {
 	private MemberSearchDetail memberSearchDetail;
 	private Member member;
 	private static Member loginMember;
+	private JButton btnNewButton;
+	private JButton btnCancel;
+	private JButton btnUpdate;
 	/**
 	 * Launch the application.
 	 */
@@ -78,7 +81,7 @@ public class MemberSearchDetail extends JFrame {
 		service = new MemberUIService();
 		this.member = member;
 		setTitle("회원상세정보");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 650, 554);
 		contentPane = new JPanel();
 		contentPane.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -262,7 +265,7 @@ public class MemberSearchDetail extends JFrame {
 		panel_1.setBounds(0, 472, 312, 33);
 		panel_2.add(panel_1);
 		
-		JButton btnUpdate = new JButton("저장");
+		btnUpdate = new JButton("저장");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnUpdate_actionPerform(e);
@@ -271,7 +274,7 @@ public class MemberSearchDetail extends JFrame {
 		});
 		panel_1.add(btnUpdate);
 		
-		JButton btnCancel = new JButton("취소");
+		btnCancel = new JButton("취소");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
@@ -279,7 +282,7 @@ public class MemberSearchDetail extends JFrame {
 		});
 		panel_1.add(btnCancel);
 		
-		JButton btnNewButton = new JButton("탈퇴");
+		btnNewButton = new JButton("탈퇴");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Map<String, Object> map = new HashMap<String, Object>();
@@ -302,7 +305,7 @@ public class MemberSearchDetail extends JFrame {
 		textPass.setText(member.getPassword().substring(0,0));
 		textKor.setText(member.getKorName());
 		textEng.setText(member.getEngName());
-		textPhone.setText(member.getPhone());
+		textPhone.setText(member.getPhone().substring(0,9)+"****");
 		textJumin.setText(member.getJumin().substring(0,7)+"*******");
 		textEmail.setText(member.getEmail());
 		textAddress.setText(member.getAddress());
@@ -329,5 +332,13 @@ public class MemberSearchDetail extends JFrame {
 		service.updateDetail(editMem);
 		System.out.println(editMem);
 		JOptionPane.showMessageDialog(null, "저장되었습니다.");
+	}
+
+	public void setInfo(Member member2) {
+		textUni.setEditable(false);
+		btnUpdate.setVisible(false);
+		btnCancel.setVisible(false);
+		btnNewButton.setVisible(false);
+		setLists(member2);
 	}
 }

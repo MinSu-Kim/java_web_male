@@ -10,6 +10,9 @@ public class OverduePopup {
 	public Member phone;
 	public Date returnDate;
 	public int overday;
+	public Book bookCode;
+	public Member memberNo;
+	
 	public Member getKorName() {
 		return korName;
 	}

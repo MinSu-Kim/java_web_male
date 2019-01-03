@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -54,6 +55,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private LoginUI loginUI;
 	private MemberUpdateUI memberUpdateUI;
 	private MemberDetailUI memberDetailUI;
+	private AdminMainUI adminMainUI;
 	private BookSearchUI bookSearchUI;
 	private List<BookRentalInfo> lists;
 	private String imgPath;
@@ -62,6 +64,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private MemberUIService memberUIService;
 	private Overdue overdue;
 	private JLabel lblImg;
+	private Map<String, JFrame> uiMaps;
 
 	public MemberInfoUI() {
 		setResizable(false);
@@ -238,9 +241,11 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		btnBest10.addActionListener(this);
 		pButton.add(btnBest10);
 
-		btnLogout = new JButton("로그아웃");
-		btnLogout.addActionListener(this);
-		pButton.add(btnLogout);
+		if (LoginUI.getLogin().isAdmin() != true) {
+			btnLogout = new JButton("로그아웃");
+			btnLogout.addActionListener(this);
+			pButton.add(btnLogout);
+		}
 
 		getMemberInfo(LoginUI.getLogin());
 		getMemberInfo2(overdue);
@@ -322,7 +327,9 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	// 로그인 객체에서 정보 가져오기
 	public void getMemberInfo(Member member) {
 		String str = LoginUI.getLogin().getEmail();
+		String str2 = LoginUI.getLogin().getAddress();
 		String[] strArr = str.split("@");
+		String[] strArr2 = str2.split(",");
 
 		tfMemberNo.setText(member.getMemberNo());
 		tfKorName.setText(member.getKorName());
@@ -330,7 +337,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		tfPhone.setText(member.getPhone().substring(0, 3) + "-****-****");
 		tfEmail.setText(strArr[0].substring(0, 4) + "****@" + strArr[1]);
 		tfJumin.setText(member.getJumin().substring(0, 8) + "******");
-		tfAddress.setText("****************************************");
+		tfAddress.setText(strArr2[0] + " ***********");
 		lblImg.setIcon(new ImageIcon(imgPath + member.getPhoto()));
 
 		tfMemberNo.setEditable(false);
@@ -348,7 +355,6 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		Overdue overdueAll = memberUIService.selectOverdueByCode(oMno);
 		int stopDate = overdueAll.getStopDate();
 		String stop = String.valueOf(stopDate);
-
 		tfStopDate.setText(stop);
 	}
 
@@ -363,4 +369,6 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		bestUI.setVisible(true);
 		bestUI.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
+
+	
 }
