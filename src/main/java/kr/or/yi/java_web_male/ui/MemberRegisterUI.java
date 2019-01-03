@@ -445,15 +445,12 @@ public class MemberRegisterUI extends JFrame {
 					insertOverdue();
 					JOptionPane.showMessageDialog(null, "회원이 되신걸 축하드립니다.");
 					dispose();
-
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(null, e2.getMessage());
 					e2.printStackTrace();
-
 				}
-
 			}
 		});
 		btnAdd_1.setVerticalAlignment(SwingConstants.BOTTOM);
@@ -471,7 +468,6 @@ public class MemberRegisterUI extends JFrame {
 
 			@Override
 			public void msg() {
-
 				String pw1 = new String(pass1.getPassword());
 				String pw2 = new String(pass2.getPassword());
 				String pwPattern = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,}$";

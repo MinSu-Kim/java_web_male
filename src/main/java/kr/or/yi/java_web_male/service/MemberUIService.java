@@ -128,5 +128,9 @@ public class MemberUIService {
 	public int insertoverDue(Overdue overdue) {
 		return dao2.insertOverdue(overdue);
 	}
+	
+	public int updateMember2(Member member) {
+		return dao.updateMember2(member);
+	}
 
 }

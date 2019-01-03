@@ -167,6 +167,7 @@ public class MemberSearchUI extends JFrame {
 					if (overdue1.isRentalAuthority() == true) {
 						JOptionPane.showMessageDialog(null, "대여 가능한 회원입니다.");
 						bookRentUI.setMemberNo(member);
+						bookRentUI.setText();
 						MemberSearchUI.this.dispose();
 					} else {
 						JOptionPane.showMessageDialog(null, "대여 불가능한 회원입니다.");
