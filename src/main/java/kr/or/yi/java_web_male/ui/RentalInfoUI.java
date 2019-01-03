@@ -128,8 +128,10 @@ public class RentalInfoUI extends JFrame implements ActionListener {
 
 	}
 	protected void setAlignWidth() {
+
 		
      for (int i = 0; i < getColumnNames().length; i++) {
+
          table.getColumnModel().getColumn(i).setCellRenderer(new ReturnTableCellRenderer());
       }
 

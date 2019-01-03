@@ -34,6 +34,7 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	private JButton btnOverdue;
 	private Map<String, JFrame> uiMaps;
 	private JPanel panel_2;
+	private JButton btnNewButton;
 
 	public AdminMainUI() {
 		uiMaps = new HashMap<>();
@@ -46,6 +47,7 @@ public class AdminMainUI extends JFrame implements ActionListener {
 		uiMaps.put("loginUI", new LoginUI());
 		uiMaps.put("overduePopUpUI", new OverduePopUpUI());
 		uiMaps.put("memberSearchUI", new MemberSearchUI());
+		uiMaps.put("rentalInfoUI", new RentalInfoUI());
 
 		initComponents();
 	}
@@ -104,23 +106,31 @@ public class AdminMainUI extends JFrame implements ActionListener {
 		contentPane.add(panel_1);
 
 		btnLogout = new JButton("로그아웃");
-		btnLogout.setBounds(276, 5, 97, 23);
+		btnLogout.setBounds(331, 5, 81, 23);
 		btnLogout.addActionListener(this);
 		panel_1.setLayout(null);
 
 		btnOverdue = new JButton("연체자 명단");
 		btnOverdue.addActionListener(this);
-		btnOverdue.setBounds(58, 5, 97, 23);
+		btnOverdue.setBounds(129, 5, 97, 23);
 		panel_1.add(btnOverdue);
 		panel_1.add(btnLogout);
 
 		btnUpdate = new JButton("정보수정");
 		btnUpdate.addActionListener(this);
-		btnUpdate.setBounds(167, 5, 97, 23);
+		btnUpdate.setBounds(238, 5, 81, 23);
 		panel_1.add(btnUpdate);
+
+		btnNewButton = new JButton("대여 정보");
+		btnNewButton.addActionListener(this);
+		btnNewButton.setBounds(27, 5, 90, 23);
+		panel_1.add(btnNewButton);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton) {
+			do_btnNewButton_actionPerformed(e);
+		}
 		if (e.getSource() == btnOverdue) {
 			do_btnOverdue_actionPerformed(e);
 		}
@@ -193,5 +203,9 @@ public class AdminMainUI extends JFrame implements ActionListener {
 
 	protected void do_btnOverdue_actionPerformed(ActionEvent e) {
 		uiMaps.get("overduePopUpUI").setVisible(true);
+	}
+
+	protected void do_btnNewButton_actionPerformed(ActionEvent e) {
+		uiMaps.get("rentalInfoUI").setVisible(true);
 	}
 }
