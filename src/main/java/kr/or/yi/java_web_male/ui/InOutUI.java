@@ -55,9 +55,7 @@ public class InOutUI extends JFrame {
 		JButton btnRent = new JButton("대여");
 		btnRent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BookRentUI bru = new BookRentUI();
-				bru.setInOutUI(InOutUI.this);
-				bru.setVisible(true);
+				
 			}
 		});
 		contentPane.add(btnRent);
@@ -65,9 +63,7 @@ public class InOutUI extends JFrame {
 		JButton btnReturn = new JButton("반납");
 		btnReturn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BookReturnUI bru = new BookReturnUI();
-				bru.setInOutUI(InOutUI.this);
-				bru.setVisible(true);
+				
 			}
 		});
 		contentPane.add(btnReturn);
@@ -75,9 +71,7 @@ public class InOutUI extends JFrame {
 		JButton btnExtension = new JButton("연장");
 		btnExtension.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				BookExtendUI bru = new BookExtendUI();
-				bru.setInOutUI(InOutUI.this);
-				bru.setVisible(true);
+				
 			}
 		});
 		contentPane.add(btnExtension);

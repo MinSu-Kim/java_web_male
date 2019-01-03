@@ -18,5 +18,4 @@ public class MemberModService {
 	public Member selectMemberByNo(String member) {
 		return memberMapper.selectMemberByNo(member);
 	}
-
 }
