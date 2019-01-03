@@ -47,4 +47,4 @@ insert into proj_library.book_rental_info
 values (109, '2018-12-31', null, '2018-1-7', 'L0011', '8000001602');
 
 insert into proj_library.book_rental_info
-values (110, '2018-12-31', null, '2018-1-7', 'L0011', '9000001302');
+values (110, '2018-12-31', null, '2018-1-7', 'L0011', '9000001702');
