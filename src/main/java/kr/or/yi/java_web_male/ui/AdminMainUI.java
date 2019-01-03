@@ -3,11 +3,16 @@ package kr.or.yi.java_web_male.ui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.Book;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.omg.CORBA.UnionMember;
 
 @SuppressWarnings("serial")
 public class AdminMainUI extends JFrame implements ActionListener {
@@ -18,23 +23,26 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	private JButton btnMemberAdmin;
 	private JButton btnRentAdmin;
 	private JButton btnLogout;
-	private BookInsertUI bookInsertUI;
-	private BookSearchUI bookSearchUI;
-	private MemberSearchUI memberSearchUI;
-	private MemberInfoUI memberInfoUI;
-	private BookRentUI bookRentUI;
-	private BookReturnUI bookReturnUI;
-	private BookExtendUI bookExtendUI;
-	private LoginUI loginUI;
 	private JPanel panel;
 	private JPanel panel_1;
 	private JButton btnUpdate;
 	private JButton btnExtendAdmin;
 	private JButton btnReturnAdmin;
+	private JButton btnOverdue;
+	private Map<String, JFrame> uiMaps;
 
 	public AdminMainUI() {
-		loginUI = new LoginUI();
-		memberSearchUI = new MemberSearchUI();
+		uiMaps = new HashMap<>();
+		uiMaps.put("bookInsertUI", new BookInsertUI());
+		uiMaps.put("bookSearchUI", new BookSearchUI());
+		uiMaps.put("memberInfoUI", new MemberInfoUI());
+		uiMaps.put("bookRentUI", new BookRentUI());
+		uiMaps.put("bookReturnUI", new BookReturnUI());
+		uiMaps.put("bookExtendUI", new BookExtendUI());
+		uiMaps.put("loginUI", new LoginUI());
+		uiMaps.put("overduePopUpUI", new OverduePopUpUI());
+		uiMaps.put("memberSearchUI", new MemberSearchUI());
+
 		initComponents();
 	}
 
@@ -82,18 +90,26 @@ public class AdminMainUI extends JFrame implements ActionListener {
 		contentPane.add(panel_1);
 
 		btnLogout = new JButton("로그아웃");
-		btnLogout.setBounds(220, 5, 81, 23);
+		btnLogout.setBounds(276, 5, 97, 23);
 		btnLogout.addActionListener(this);
 		panel_1.setLayout(null);
+
+		btnOverdue = new JButton("연체자 명단");
+		btnOverdue.addActionListener(this);
+		btnOverdue.setBounds(58, 5, 97, 23);
+		panel_1.add(btnOverdue);
 		panel_1.add(btnLogout);
 
 		btnUpdate = new JButton("정보수정");
 		btnUpdate.addActionListener(this);
-		btnUpdate.setBounds(127, 5, 81, 23);
+		btnUpdate.setBounds(167, 5, 97, 23);
 		panel_1.add(btnUpdate);
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnOverdue) {
+			do_btnOverdue_actionPerformed(e);
+		}
 		if (e.getSource() == btnUpdate) {
 			do_btnUpdate_actionPerformed(e);
 		}
@@ -121,65 +137,47 @@ public class AdminMainUI extends JFrame implements ActionListener {
 	}
 
 	protected void do_btnBookInsert_actionPerformed(ActionEvent e) {
-
-		if (bookInsertUI == null) {
-
-			bookInsertUI = new BookInsertUI();
-		}
-
-		bookInsertUI.setVisible(true);
+		uiMaps.get("bookInsertUI").setVisible(true);
 	}
 
 	protected void do_btnBookSearch_actionPerformed(ActionEvent e) {
-
-		if (bookSearchUI == null) {
-			bookSearchUI = new BookSearchUI();
-		} else {
-			if (bookSearchUI.isVisible() == false) {
-				bookSearchUI = new BookSearchUI();
-			}
-		}
-		bookSearchUI.setVisible(true);
+		uiMaps.get("bookSearchUI").setVisible(true);
 	}
 
 	protected void do_btnMemberAdmin_actionPerformed(ActionEvent e) {
-		if (memberSearchUI == null) {
-			memberSearchUI = new MemberSearchUI();
-		}
-		memberSearchUI.setVisible(true);
+		uiMaps.get("memberSearchUI").setVisible(true);
 	}
 
 	protected void do_btnRentAdmin_actionPerformed(ActionEvent e) {
-		if (bookRentUI == null) {
-			bookRentUI = new BookRentUI();
-		}
-		bookRentUI.setVisible(true);
+		uiMaps.get("bookRentUI").setVisible(true);
 	}
 
 	protected void do_btnRenturnAdmin_actionPerformed(ActionEvent e) {
-		if (bookReturnUI == null) {
-			bookReturnUI = new BookReturnUI();
-		}
-		bookReturnUI.setVisible(true);
+		uiMaps.get("bookReturnUI").setVisible(true);
 	}
 
 	protected void do_btnExtendAdmin_actionPerformed(ActionEvent e) {
-		if (bookExtendUI == null) {
-			bookExtendUI = new BookExtendUI();
-		}
-		bookExtendUI.setVisible(true);
+		uiMaps.get("bookExtendUI").setVisible(true);
 	}
 
 	protected void do_btnLogout_actionPerformed(ActionEvent e) {
 		LoginUI.memberLogOut();
 		this.setVisible(false);
-		loginUI.setVisible(true);
+		setInvisibles();
+		uiMaps.get("loginUI").setVisible(true);
+	}
+
+	private void setInvisibles() {
+		for (String s : uiMaps.keySet()) {
+			uiMaps.get(s).setVisible(false);
+		}
 	}
 
 	protected void do_btnUpdate_actionPerformed(ActionEvent e) {
-		if (memberInfoUI == null) {
-			memberInfoUI = new MemberInfoUI();
-		}
-		memberInfoUI.setVisible(true);
+		uiMaps.get("memberInfoUI").setVisible(true);
+	}
+
+	protected void do_btnOverdue_actionPerformed(ActionEvent e) {
+		uiMaps.get("overduePopUpUI").setVisible(true);
 	}
 }
