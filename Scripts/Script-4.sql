@@ -230,7 +230,9 @@ insert into book_rental_info values(111,'2019-01-02',null, '2019-01-02','K0001',
 insert into book_rental_info values(112,'2018-12-02',null, '2018-12-02','K0001','1370000602');
 insert into book_rental_info values(113,'2018-12-02',null, '2018-12-02','K0001','1370000602');
 insert into book_rental_info values(114,'2018-12-02',null, '2018-12-02','K0001','1370000602');
-insert into book_rental_info values(115,'2018-12-02',null, '2018-12-02','K0001','1370000602');
+insert into book_rental_info values(115,'2018-12-02',null, '2018-12-02','K0001','1370000602')
+									
+;
 
 
 

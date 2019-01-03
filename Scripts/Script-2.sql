@@ -104,8 +104,7 @@ insert into proj_library.member_rental_info (member_no, grade, now_total, total)
 	
 INSERT INTO proj_library.`member`
 (member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness)
-VALUES('K0002', PASSWORD('dnlqh1220!'), '김나
-영', 'KNY', '010-0000-0000', concat(left('920101-2111111',8),password(right('920101-2111111',6))), ',rlawpdud301@naver.com', '41863대구광역시 서구 통학로 17 1, 1층','박지나.jpg', false, null);
+VALUES('K0002', PASSWORD('dnlqh1220!'), '김나영', 'KNY', '010-0000-0000', concat(left('920101-2111111',8),password(right('920101-2111111',6))), ',rlawpdud301@naver.com', '41863대구광역시 서구 통학로 17 1, 1층','박지나.jpg', false, null);
 
 insert into proj_library.overdue (member_no, stop_date, overdue_count, rental_authority, stop_end_date)
 		values ('K0002', 0, 0, 1, now());
