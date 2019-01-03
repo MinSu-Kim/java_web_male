@@ -494,6 +494,7 @@ public class BestUI extends JFrame implements ItemListener, ActionListener {
 			mapForCateChart.put("cateBNo",i);
 			mapForCateChart.put("days", days);
 			best10s = bestService.selectBookByMap(mapForCateChart);
+			
 			listlists.add(best10s);
 		}
 		
