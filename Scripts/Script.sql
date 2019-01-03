@@ -282,6 +282,10 @@ select * from overdue;
 
 select * from book;
 
+select * from publisher;
+
+select * from category_s;
+
 select * from book
 where left(book_code, 1) != 'D'
 

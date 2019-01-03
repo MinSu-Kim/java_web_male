@@ -205,3 +205,96 @@ SET stop_date=0, overdue_count=0, rental_authority=1, stop_end_date='2018-12-21'
 where member_no='I0002';
 
 
+
+
+
+
+
+
+
+
+/*----------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+/*1번 대여한 사람*/
+insert into book_rental_info values(11,'2019-01-02',null,'2019-01-09' ,'S0001','1180001801');
+select * from book_rental_info;
+
+update book set rental_possible=0 where book_code='1180001801';
+
+update member_rental_info set now_total=now_total-1, total=total+1 where member_no='S0001';
+
+
+/*3번 대여한 사람(더 이상 대여 불가)*/
+insert into book_rental_info values(12,'2019-01-02',null,'2019-01-09' ,'I0001','1180001802');
+select * from book_rental_info;
+
+update book set rental_possible=0 where book_code='1180001802';
+
+update member_rental_info set now_total=now_total-1, total=total+1 where member_no='I0001';
+
+
+
+insert into book_rental_info values(13,'2019-01-02',null,'2019-01-09' ,'I0001','1180001803');
+select * from book_rental_info;
+
+update book set rental_possible=0 where book_code='1180001803';
+
+update member_rental_info set now_total=now_total-1, total=total+1 where member_no='I0001';
+
+
+
+insert into book_rental_info values(14,'2019-01-02',null,'2019-01-09' ,'I0001','1180001804');
+select * from book_rental_info;
+
+update book set rental_possible=0 where book_code='1180001804';
+
+update member_rental_info set now_total=now_total-1, total=total+1 where member_no='I0001';
+
+
+
+/*연체한 사람*/
+insert into book_rental_info values(15,'2018-12-25',null,'2018-01-01' ,'U0001','1180001805');
+select * from book_rental_info;
+
+update book set rental_possible=0 where book_code='1180001805';
+
+update member_rental_info set now_total=now_total-1, total=total+1 where member_no= 'U0001';
+
+
+
+update book_rental_info set return_date='2018-01-04' where member_no='U0001';
+update member_rental_info set now_total=now_total+1 where member_no='U0001';
+update book set rental_possible=1 where  book_code='1180001805';
+
+UPDATE proj_library.overdue
+SET stop_date=3, overdue_count=3, rental_authority=0, stop_end_date='2018-01-07'
+where member_no='U0001';
+
+
+
+
+
+/*반납한 사람*/
+
+insert into book_rental_info values(16,'2018-12-23',null,'2018-12-30' ,'W0001','1180001901');
+select * from book_rental_info;
+
+update book set rental_possible=0 where book_code='1180001901';
+
+update member_rental_info set now_total=now_total-1, total=total+1 where  member_no='W0001';
+
+
+
+update book_rental_info set return_date='2018-12-24' where member_no='W0001';
+update member_rental_info set now_total=now_total+1  where member_no='W0001';
+update book set rental_possible=1 where  book_code='1180001901';
+
+UPDATE proj_library.overdue
+SET stop_date=0, overdue_count=0, rental_authority=1, stop_end_date='2018-12-24'
+where member_no='W0001';
+
+
+
