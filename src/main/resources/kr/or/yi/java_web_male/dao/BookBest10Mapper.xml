@@ -52,7 +52,10 @@
 		parameterType="BookBest10">
 		<include refid="selectSql" />
 		<include refid="where" />
-		group by bc limit 0,10
+		group by bc 
+		order by ranking desc
+		limit 0,10
+		
 	</select>
 	
 	<sql id="selectSqlForeline">

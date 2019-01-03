@@ -354,6 +354,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 
 	protected void do_btnLogout_actionPerformed(ActionEvent e) {
 		LoginUI.memberLogOut();
+		this.setVisible(false);
 		loginUI.setVisible(true);
 	}
 
