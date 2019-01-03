@@ -239,6 +239,7 @@ public class MemberSearchDetail extends JFrame {
 		lblUni.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_14.add(lblUni);
 		
+
 		textUni = new JTextField();
 		textUni.setBounds(111, 0, 201, 50);
 		panel_14.add(textUni);

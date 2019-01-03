@@ -141,6 +141,10 @@ public class MemberSearchUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Slist.setLists(service.selectMemberByAll());
 				Slist.loadData();
+				
+				if (p_rent.getComponents().length == 1) {
+					p_rent.remove(0);
+				}
 			}
 		});
 		Searchpanel.add(btnNewButton);
@@ -251,13 +255,13 @@ public class MemberSearchUI extends JFrame {
 			Member mem = Slist.getSelectedMember();
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("memberNo", String.valueOf(mem));
-			List<Member> list = service.searchMembernoRent(map);
+			List<Member> Rlist = service.searchMembernoRent(map);
 			MemberRent p = new MemberRent();
 			if (p_rent.getComponents().length == 1) {
 				p_rent.remove(0);
 			}
 			p_rent.add(p);
-			p.setLists(list);
+			p.setLists(Rlist);
 			p.loadData();
 		}
 
