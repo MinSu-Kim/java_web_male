@@ -88,7 +88,7 @@ public class BookRentUI extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		setBounds(100, 100, 502, 223);
+		setBounds(100, 100, 502, 338);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -237,7 +237,7 @@ public class BookRentUI extends JFrame {
 		/*-------------------------------------------대여버튼 기능-------------------------------------------*/
 		JButton btnRent = new JButton("대여");
 		btnRent.setFont(new Font("Dialog", Font.BOLD, 16));
-		btnRent.setBounds(178, 6, 105, 52);
+		btnRent.setBounds(187, 6, 105, 52);
 		btnRent.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
