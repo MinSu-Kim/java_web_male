@@ -182,9 +182,9 @@ public class RentalInfoUI extends JFrame implements ActionListener {
 	private void do_Memberdtail_actionPerformed(ActionEvent e) {
 		try {
 			Member member  = getSelectedMember();
-			JOptionPane.showMessageDialog(null, member.getMemberNo());
+		
 			member = serviceBook.selectMemberbyNo(member.getMemberNo());
-			JOptionPane.showMessageDialog(null, member.getKorName());
+			
 			memberDetailUI = new MemberSearchDetail();
 			memberDetailUI.setInfo(member);
 			memberDetailUI.setVisible(true);
@@ -202,7 +202,7 @@ public class RentalInfoUI extends JFrame implements ActionListener {
 			Book book = getSelectedBook();
 			
 			List<Book> listBook = serviceBook.selectbookbybookCode(book);
-			JOptionPane.showMessageDialog(null,listBook);
+		
 			String bookCode = "";
 			boolean RentalPossible = false;
 			int totalBook = lists.size();

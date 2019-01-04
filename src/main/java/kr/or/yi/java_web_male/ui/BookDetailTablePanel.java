@@ -81,7 +81,7 @@ public class BookDetailTablePanel extends JPanel {
 
 
 	private Object[] getColumnNames() {
-		return new String[] {"책번호", "대여 번호","대여일", "반납일", "대여한 회원 이름","대여한 회원번호"};
+		return new String[] {"책번호", "대여 번호","대여일", "반납일","대여한 회원번호"};
 	}
 
 	private Object[][] getDatas() {
@@ -115,7 +115,7 @@ public class BookDetailTablePanel extends JPanel {
 		
 		
 		
-		return new Object[] {bookCode,rentalNo,rentalDateSimple,returnDateSimple,member.getKorName(),member};
+		return new Object[] {bookCode,rentalNo,rentalDateSimple,returnDateSimple,member};
 	}
 
 }
