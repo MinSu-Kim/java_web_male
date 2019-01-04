@@ -52,6 +52,7 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 	private JButton btnSearch;
 	private JButton btnLogout;
 	private JButton btnBest10;
+	private JButton btnBack;
 	private LoginUI loginUI;
 	private MemberUpdateUI memberUpdateUI;
 	private MemberDetailUI memberDetailUI;
@@ -245,6 +246,10 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 			btnLogout = new JButton("로그아웃");
 			btnLogout.addActionListener(this);
 			pButton.add(btnLogout);
+		} else {
+			btnBack = new JButton("뒤로가기");
+			btnBack.addActionListener(this);
+			pButton.add(btnBack);
 		}
 
 		getMemberInfo(LoginUI.getLogin());
@@ -298,6 +303,13 @@ public class MemberInfoUI extends JFrame implements ActionListener {
 		if (e.getSource() == btnMod) {
 			do_btnMod_actionPerformed(e);
 		}
+		if (e.getSource() == btnBack) {
+			do_btnBack_actionPerformed(e);
+		}
+	}
+
+	private void do_btnBack_actionPerformed(ActionEvent e) {
+		this.setVisible(false);
 	}
 
 	// 회원정보수정 이동
