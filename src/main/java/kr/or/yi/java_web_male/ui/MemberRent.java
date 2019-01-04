@@ -45,7 +45,7 @@ public class MemberRent extends JPanel {
 				));
 	}
 	private Object[] getCoulum() {
-		return new String[] {"책번호","책제목","대여날짜","반납예정일"};
+		return new String[] {"책번호","책제목","대여날짜","반납예정일","반납일"};
 	}
 	private Object[][] getdatas() {
 		Object[][] datas = new Object[list.size()][];
@@ -55,6 +55,27 @@ public class MemberRent extends JPanel {
 		return datas;
 	}
 	private Object[] getRow(Member member) {
+	      SimpleDateFormat date= new SimpleDateFormat("yyyy/MM/dd");
+	      System.out.println("값은"+member.getBookRentallInfo().getBookCode());
+	      try {
+	         return new Object[] {
+	             member.getBook().getBookCode(),
+	             member.getBook().getTitle(),
+	             date.format(member.getBookRentallInfo().getRentalDate()),
+	             date.format(member.getBookRentallInfo().getReturnSchedule()),
+	             date.format(member.getBookRentallInfo().getReturnDate())
+	         };    
+	      } catch (NullPointerException e) {
+	         e.printStackTrace();
+	         return new Object[] {
+	                member.getBook().getBookCode(),
+	                member.getBook().getTitle(),
+	                date.format(member.getBookRentallInfo().getRentalDate()),
+	                date.format(member.getBookRentallInfo().getReturnSchedule())
+	         };
+	      }
+	   }	
+	/*private Object[] getRow(Member member) {
 		SimpleDateFormat date= new SimpleDateFormat("yyyy/MM/dd");
 		System.out.println("값은"+member.getBookRentallInfo().getBookCode());
 		return new Object[] {
@@ -63,5 +84,5 @@ public class MemberRent extends JPanel {
 				 date.format(member.getBookRentallInfo().getRentalDate()),
 				 date.format( member.getBookRentallInfo().getReturnSchedule())
 				 };
-	}
+	}*/
 }
