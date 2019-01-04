@@ -110,7 +110,7 @@ public class AdminMainUI extends JFrame implements ActionListener {
 		panel_1.setLayout(null);
 		panel_1.add(btnLogout);
 
-		btnUpdate = new JButton("정보수정");
+		btnUpdate = new JButton("내 정보보기");
 		btnUpdate.addActionListener(this);
 		btnUpdate.setBounds(166, 5, 97, 23);
 		panel_1.add(btnUpdate);
