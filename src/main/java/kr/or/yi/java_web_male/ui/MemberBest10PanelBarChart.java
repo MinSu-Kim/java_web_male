@@ -43,7 +43,7 @@ public class MemberBest10PanelBarChart extends JFXPanel implements InitScene{
 		
 		//막 대형 차트의 X 축과 Y 축을 정의하고 레이블을 설정
 		CategoryAxis xAxis = new CategoryAxis();
-		xAxis.setLabel("이름");
+		xAxis.setLabel("회원번호");
 
 		NumberAxis yAxis = new NumberAxis();
 		yAxis.setLabel("대여 횟수");

@@ -57,39 +57,6 @@ public class BookBest10PanelBarChart extends JFXPanel implements InitScene{
 		return scene;
 	}
 	
-	/*public void deleteAllData() {
-		barChart.getData().clear();
-	}
-	
-	public void delChartData(Student std) {
-		ObservableList<Series<String, Number>> list = barChart.getData();
-		Iterator<Series<String, Number>>  it = list.iterator();
-		while(it.hasNext()) {
-			Series<String, Number> s = it.next();
-			if (s.getName().equals(std.getStdName())) {
-				barChart.getData().remove(s);
-				break;
-			}
-		}
-	}
-	
-	public void updateChartData(Student std) {
-		ObservableList<Series<String, Number>> list = barChart.getData();
-		
-		for(int i = 0; i<list.size(); i++) {
-			Series<String, Number> s = list.get(i);
-			if (s.getName().equals(std.getStdName())) {
-				s.getData().set(0, new XYChart.Data<>("국어", std.getKorScore()));
-				s.getData().set(1, new XYChart.Data<>("영어", std.getEngScore()));
-				s.getData().set(2, new XYChart.Data<>("수학", std.getMathScore()));	
-				break;
-			}
-		}
-	}
-		
-	public void addAllChartData() {
-		barChart.setData(getChartData());
-	}*/
 	
 	public XYChart.Series<String, Number> getChartDataNow(List<BookBest10> list, String day) {
 		XYChart.Series<String, Number> dataSeries = new Series<String, Number>();
