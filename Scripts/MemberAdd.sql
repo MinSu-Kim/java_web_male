@@ -111,4 +111,57 @@ insert into proj_library.overdue (member_no, stop_date, overdue_count, rental_au
 		
 insert into proj_library.member_rental_info (member_no, grade, now_total, total)
 		values ('K0002', 1, 3, 0);
+	
+	
+	
+	
+	/*출관관리 전용 회원*/
+	INSERT INTO proj_library.`member`
+(member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness)
+VALUES('P0002', PASSWORD('rudtn0607!'), '박지나', 'PJN', '010-2222-2222', concat(left('950316-2111111',8),password(right('950316-2111111',6))), 'krilln@naver.com', '41863대구광역시 서구 통학로 17 1, 1층','박지나.jpg', true, null);
+
+insert into proj_library.overdue (member_no, stop_date, overdue_count, rental_authority, stop_end_date)
+		values ('P0002', 0, 0, 1, now());
+		
+insert into proj_library.member_rental_info (member_no, grade, now_total, total)
+		values ('P0002', 1, 3, 0);
+	
+	
+	
+INSERT INTO proj_library.`member`
+(member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness)
+VALUES('P0003', PASSWORD('rudtn0607!'), '박지나', 'PJN', '010-2222-2222', concat(left('950316-2111111',8),password(right('950316-2111111',6))), 'krilln@naver.com', '41863대구광역시 서구 통학로 17 1, 1층','박지나.jpg', true, null);
+
+insert into proj_library.overdue (member_no, stop_date, overdue_count, rental_authority, stop_end_date)
+		values ('P0003', 0, 0, 1, now());
+		
+insert into proj_library.member_rental_info (member_no, grade, now_total, total)
+		values ('P0003', 1, 3, 0);
+	
+	
+	
+INSERT INTO proj_library.`member`
+(member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness)
+VALUES('P0004', PASSWORD('rudtn0607!'), '박지나', 'PJN', '010-2222-2222', concat(left('950316-2111111',8),password(right('950316-2111111',6))), 'krilln@naver.com', '41863대구광역시 서구 통학로 17 1, 1층','박지나.jpg', true, null);
+
+insert into proj_library.overdue (member_no, stop_date, overdue_count, rental_authority, stop_end_date)
+		values ('P0004', 0, 0, 1, now());
+		
+insert into proj_library.member_rental_info (member_no, grade, now_total, total)
+		values ('P0004', 1, 3, 0);
+	
+	
+	
+	
+INSERT INTO proj_library.`member`
+(member_no, password, kor_name, eng_name, phone, jumin, email, address, photo, admin, uniqueness)
+VALUES('P0005', PASSWORD('rudtn0607!'), '박지나', 'PJN', '010-2222-2222', concat(left('950316-2111111',8),password(right('950316-2111111',6))), 'krilln@naver.com', '41863대구광역시 서구 통학로 17 1, 1층','박지나.jpg', true, null);
+
+insert into proj_library.overdue (member_no, stop_date, overdue_count, rental_authority, stop_end_date)
+		values ('P0005', 0, 0, 1, now());
+		
+insert into proj_library.member_rental_info (member_no, grade, now_total, total)
+		values ('P0005', 1, 3, 0);	
+	
+	
 		
